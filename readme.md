@@ -1,3 +1,11 @@
+*Fresh install setup*
+`git clone https://github.com/jeremyocampo/cvj.git`
+- Go inside the project directory and type.
+`composer install`
+`php artisan key:generate`
+Make sure that there is an .env file.
+
+------------------------------------------------------------------------------------------------------------------------
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
 <p align="center">
