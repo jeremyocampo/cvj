@@ -70,5 +70,5 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-//Rosette's Routes
+//Rosette's Routes.
 Route::resource('bookevent', 'BookEventController');
