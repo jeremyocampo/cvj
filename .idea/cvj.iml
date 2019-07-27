@@ -82,7 +82,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/spatie/laravel-google-calendar" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/swiftmailer/swiftmailer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/console" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/contracts" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/css-selector" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/debug" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/event-dispatcher" />
@@ -185,7 +184,6 @@
           <root url="file://$MODULE_DIR$/vendor/spatie/laravel-google-calendar" />
           <root url="file://$MODULE_DIR$/vendor/swiftmailer/swiftmailer" />
           <root url="file://$MODULE_DIR$/vendor/symfony/console" />
-          <root url="file://$MODULE_DIR$/vendor/symfony/contracts" />
           <root url="file://$MODULE_DIR$/vendor/symfony/css-selector" />
           <root url="file://$MODULE_DIR$/vendor/symfony/debug" />
           <root url="file://$MODULE_DIR$/vendor/symfony/event-dispatcher" />
@@ -284,7 +282,6 @@
           <root url="file://$MODULE_DIR$/vendor/spatie/laravel-google-calendar" />
           <root url="file://$MODULE_DIR$/vendor/swiftmailer/swiftmailer" />
           <root url="file://$MODULE_DIR$/vendor/symfony/console" />
-          <root url="file://$MODULE_DIR$/vendor/symfony/contracts" />
           <root url="file://$MODULE_DIR$/vendor/symfony/css-selector" />
           <root url="file://$MODULE_DIR$/vendor/symfony/debug" />
           <root url="file://$MODULE_DIR$/vendor/symfony/event-dispatcher" />

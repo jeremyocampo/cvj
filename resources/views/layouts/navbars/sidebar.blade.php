@@ -86,7 +86,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('events') }}">
+                    <a class="nav-link" href="{{ url('bookevent') }}">
                         <i class="ni ni-calendar-grid-58 text-yellow"></i> {{ __('Events') }}
                     </a>
                 </li>

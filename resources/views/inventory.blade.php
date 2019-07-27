@@ -52,6 +52,13 @@
                                         {{ session()->get('success') }}<br>
                                     </div>
                                 @endif
+                                @if(session()->has('delete'))
+                                    <br>
+                                    <div class="alert alert-danger" role="alert">
+                                        <button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">x</span></button>
+                                        {{ session()->get('delete') }}<br>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                         {{-- {!! Form::open(['action' => 'InventoryController@selectType', 'method' => 'POST']) !!}

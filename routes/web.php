@@ -46,6 +46,7 @@ Auth::routes();
 // Route::get('/inventory', 'InventoryController@index')->name('inventory');
 
 //Jeremy's Routess
+Route::get('', 'InventoryHomeController@index')->name('home');
 Route::get('/', 'InventoryHomeController@index')->name('home');
 Route::get('/home', 'InventoryHomeController@index')->name('home');
 
@@ -83,3 +84,6 @@ Route::get('send_mail','MailController@index');
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
+
+//Rosette's Routes
+Route::resource('bookevent', 'BookEventController');
