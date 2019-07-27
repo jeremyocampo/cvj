@@ -21,8 +21,6 @@
                         </div>
                     </div>
                     <div class="col-12" style="padding-bottom: 5vh;padding-right: 2vw">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add Template</button>
-                        <hr>
                         <table class="table">
                             <thead>
                             <tr>
@@ -30,6 +28,7 @@
                                 <th>Event Start</th>
                                 <th>Event End</th>
                                 <th>Client Name</th>
+                                <th>Total Budget</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -37,13 +36,14 @@
                             <tbody>
                             @foreach($events as $event)
                                 <tr>
-                                    <td>{{$event->event_name}}</td>
+                                    <td>{{$event->event_desc}}</td>
                                     <td>{{$event->event_start}}</td>
                                     <td>{{$event->event_end}}</td>
                                     <td>{{$event->client_name}}</td>
+                                    <td>{{$event->budget->total_budget}}</td>
                                     <td>{{$event->status}}</td>
                                     <td>
-                                        [<a href="/event_budgets/view/{{$event->event_name}}">
+                                        [<a href="/event_budgets/view/{{$event->event_id}}">
                                         @if($event->budget_id == null)
                                             Create New Event Budget
                                         @else

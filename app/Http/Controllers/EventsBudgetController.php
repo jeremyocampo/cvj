@@ -33,6 +33,7 @@ class EventsBudgetController extends Controller
             $budget_check = EventBudget::where('event_name', '=',$event->event_name)->first();
             $client = Client::where('client_id','=',$event->client_id)->first();
             $event->client_name = $client->client_FN ." ".$client->client_LN;
+            $event->budget = $budget_check == null? null : $budget_check;
             if($budget_check != null){
                 $event->budget_id=$budget_check->id;
             }else{
@@ -49,20 +50,53 @@ class EventsBudgetController extends Controller
      */
     public function create(Request $request)
     {
-        $event_budget = new EventBudget();
-        $event_budget->event_name = $request->input('event');
-        $event_budget->total_budget = 0;
-        $event_budget->save();
-        for($i=0; $i<count($request->input("names"));$i++){
-            $event_budget_item = new EventBudgetItem();
-            $event_budget_item->event_budget_id = $event_budget->id;
-            $event_budget_item->item_name = $request->get("names")[$i];
-            $event_budget_item->budget_amount = $request->get("vals")[$i];
-            $event_budget_item->save();
-            $event_budget->total_budget +=$event_budget_item->budget_amount;
+
+        if($request->input('action') == "add"){
+
+            $event_budget = new EventBudget();
+            $event_budget->event_name = $request->input('event');
+            $event_budget->total_budget = 0;
+            $event_budget->save();
+            for($i=0; $i<count($request->input("names"));$i++){
+                $event_budget_item = new EventBudgetItem();
+                $event_budget_item->event_budget_id = $event_budget->id;
+                $event_budget_item->item_name = $request->get("names")[$i];
+                $event_budget_item->budget_amount = $request->get("vals")[$i];
+                $event_budget_item->save();
+                $event_budget->total_budget +=$event_budget_item->budget_amount;
+            }
+            $event_budget->save();
+        }
+        else{
+            $event_budget = EventBudget::where('id','=',$request->get("budget_id"))->first();
+            $event_budget->total_budget = 0;
+
+            $to_delete = explode(",",$request->input('to_delete'));
+            array_shift($to_delete);
+            //delete first
+            foreach ($to_delete as $delete){
+                EventBudgetItem::where('id','=',$delete)->first()->delete();
+            }
+            $update_budget_items = EventBudgetItem::where('event_budget_id','=',$request->get("budget_id"))->get();
+            for($i=0; $i<count($request->input("old_names"));$i++){
+                $update_budget_items[$i]->item_name = $request->input("old_names")[$i];
+                $update_budget_items[$i]->budget_amount = $request->input("old_vals")[$i];
+                $update_budget_items[$i]->item_desc = $request->input("old_descs")[$i];
+                $update_budget_items[$i]->save();
+                $event_budget->total_budget += $update_budget_items[$i]->budget_amount;
+            }
+            for($i=0; $i<count($request->input("names"));$i++){
+                $event_budget_item = new EventBudgetItem();
+                $event_budget_item->event_budget_id = $event_budget->id;
+                $event_budget_item->item_name = $request->get("names")[$i];
+                $event_budget_item->budget_amount = $request->get("vals")[$i];
+                $event_budget_item->save();
+                $event_budget->total_budget +=$event_budget_item->budget_amount;
+            }
+
+            $event_budget->save();
         }
 
-        $event_budget->save();
         return redirect('event_budgets');
     }
 
@@ -82,7 +116,8 @@ class EventsBudgetController extends Controller
      */
     public function show($event_id)
     {
-        $check_budget = EventBudget::where('event_name','=',$event_id)->first();
+        $event = Event::where('event_id','=',$event_id)->first();
+        $check_budget = EventBudget::where('event_name','=',$event->event_name)->first();
         $budget_templates = EventBudgetTemplate::all();
         foreach($budget_templates as $budget_template){
             $budget_template->items = EventBudgetTemplateItem::where('event_budget_template_id','=',$budget_template->id)->get();
@@ -90,7 +125,6 @@ class EventsBudgetController extends Controller
         if($check_budget != null){
             $check_budget->budget_items = EventBudgetItem::where('event_budget_id','=',$check_budget->id)->get();
         }
-        $event = Event::where('event_name','=',$event_id)->first();
         return view('viewEventBudget',['event'=>$event,'event_id'=>$event_id,'budget'=>$check_budget,'budget_templates'=>$budget_templates]);
 
     }

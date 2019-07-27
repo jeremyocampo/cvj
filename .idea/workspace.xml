@@ -4,6 +4,9 @@
     <list default="true" id="acb9a2cb-0c91-4cfe-98e9-5d7151ab0887" name="Default Changelist" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/EventsBudgetController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/EventsBudgetController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/EventsBudgetTemplateController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/EventsBudgetTemplateController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/eventBudget.blade.php" afterPath="$PROJECT_DIR$/resources/views/eventBudget.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/eventBudgetTemplates.blade.php" afterPath="$PROJECT_DIR$/resources/views/eventBudgetTemplates.blade.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/viewEventBudget.blade.php" afterPath="$PROJECT_DIR$/resources/views/viewEventBudget.blade.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -80,6 +83,42 @@
         <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
       </PATH_ELEMENT>
       <PATH_ELEMENT>
+        <option name="myItemId" value="event_budget_template_item" />
+        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
+      </PATH_ELEMENT>
+    </PATH>
+    <PATH>
+      <PATH_ELEMENT>
+        <option name="myItemId" />
+        <option name="myItemType" value="com.intellij.database.view.DatabaseStructure$Root" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="cvjdb@localhost" />
+        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="cvjdb" />
+        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="event_budget_template" />
+        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
+      </PATH_ELEMENT>
+    </PATH>
+    <PATH>
+      <PATH_ELEMENT>
+        <option name="myItemId" />
+        <option name="myItemType" value="com.intellij.database.view.DatabaseStructure$Root" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="cvjdb@localhost" />
+        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="cvjdb" />
+        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
         <option name="myItemId" value="event_budget_item" />
         <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
       </PATH_ELEMENT>
@@ -98,7 +137,7 @@
         <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
       </PATH_ELEMENT>
       <PATH_ELEMENT>
-        <option name="myItemId" value="event_budget" />
+        <option name="myItemId" value="event" />
         <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
       </PATH_ELEMENT>
     </PATH>
@@ -124,7 +163,7 @@
         <entry file="file://$PROJECT_DIR$/routes/web.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="203">
-              <caret line="70" column="12" lean-forward="true" selection-start-line="70" selection-start-column="12" selection-end-line="70" selection-end-column="36" />
+              <caret line="70" column="12" lean-forward="false" selection-start-line="70" selection-start-column="12" selection-end-line="70" selection-end-column="36" />
               <folding />
             </state>
           </provider>
@@ -145,69 +184,75 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MailController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/MailController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="34" column="48" lean-forward="false" selection-start-line="34" selection-start-column="48" selection-end-line="34" selection-end-column="48" />
-              <folding>
-                <element signature="e#40#68#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="viewEventBudget.blade.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="viewEventBudget.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/viewEventBudget.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="484">
-              <caret line="108" column="273" lean-forward="false" selection-start-line="108" selection-start-column="273" selection-end-line="108" selection-end-column="273" />
+            <state relative-caret-position="-2566">
+              <caret line="51" column="131" lean-forward="false" selection-start-line="51" selection-start-column="127" selection-end-line="51" selection-end-column="131" />
               <folding>
-                <element signature="e#1197#1261#0#HTML" expanded="true" />
-                <element signature="e#1393#1413#0#HTML" expanded="true" />
-                <element signature="e#1330#3891#0#HTML" expanded="false" />
-                <element signature="e#1777#1826#0#HTML" expanded="true" />
-                <element signature="e#2824#3133#0#HTML" expanded="false" />
-                <element signature="e#3261#3284#0#HTML" expanded="true" />
-                <element signature="e#4009#4029#0#HTML" expanded="true" />
-                <element signature="e#4673#4722#0#HTML" expanded="true" />
-                <element signature="e#5334#5355#0#HTML" expanded="true" />
-                <element signature="e#5380#5420#0#HTML" expanded="true" />
-                <element signature="e#6038#6059#0#HTML" expanded="true" />
-                <element signature="e#6084#6124#0#HTML" expanded="true" />
-                <element signature="e#6723#6744#0#HTML" expanded="true" />
-                <element signature="e#6786#6826#0#HTML" expanded="true" />
-                <element signature="e#7174#7211#0#HTML" expanded="true" />
-                <element signature="e#7561#7582#0#HTML" expanded="true" />
-                <element signature="e#8089#8108#0#HTML" expanded="true" />
-                <element signature="e#8591#8598#1#HTML" expanded="true" />
-                <marker date="1564126939000" expanded="true" signature="10217:11623" ph="..." />
-                <marker date="1564126939000" expanded="true" signature="10754:11570" ph="..." />
-                <marker date="1564126939000" expanded="true" signature="10839:11556" ph="..." />
-                <marker date="1564126939000" expanded="true" signature="11655:12201" ph="..." />
-                <marker date="1564126939000" expanded="true" signature="12233:12909" ph="..." />
-                <marker date="1564126939000" expanded="true" signature="12281:12583" ph="..." />
-                <marker date="1564126939000" expanded="true" signature="12602:12899" ph="..." />
+                <element signature="e#1234#1298#0#HTML" expanded="true" />
+                <element signature="e#1430#1450#0#HTML" expanded="true" />
+                <element signature="e#1889#1938#0#HTML" expanded="true" />
+                <element signature="e#3384#3407#0#HTML" expanded="true" />
+                <element signature="e#4132#4152#0#HTML" expanded="true" />
+                <element signature="e#4815#4864#0#HTML" expanded="true" />
+                <element signature="e#5812#5833#0#HTML" expanded="true" />
+                <element signature="e#5934#5974#0#HTML" expanded="true" />
+                <element signature="e#6537#6567#0#HTML" expanded="true" />
+                <element signature="e#7169#7199#0#HTML" expanded="true" />
+                <element signature="e#7557#7594#0#HTML" expanded="true" />
+                <element signature="e#7944#7965#0#HTML" expanded="true" />
+                <element signature="e#8472#8491#0#HTML" expanded="true" />
+                <element signature="e#8974#8981#1#HTML" expanded="true" />
+                <marker date="1564202157000" expanded="true" signature="11332:11353" ph="..." />
+                <marker date="1564202157000" expanded="true" signature="11487:11519" ph="..." />
+                <marker date="1564202157000" expanded="true" signature="12925:12946" ph="..." />
+                <marker date="1564202157000" expanded="true" signature="13133:13165" ph="..." />
+                <marker date="1564202157000" expanded="true" signature="14305:14343" ph="..." />
+                <marker date="1564202157000" expanded="true" signature="14305:14353" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EventsBudgetController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/EventsBudgetController.php">
+      <file leaf-file-name="eventBudget.blade.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/eventBudget.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="237">
-              <caret line="88" column="9" lean-forward="true" selection-start-line="88" selection-start-column="9" selection-end-line="88" selection-end-column="9" />
-              <folding>
-                <element signature="e#40#60#0#PHP" expanded="true" />
-              </folding>
+            <state relative-caret-position="140">
+              <caret line="13" column="54" lean-forward="true" selection-start-line="13" selection-start-column="54" selection-end-line="13" selection-end-column="54" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name=".gitattributes" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.gitattributes">
+      <file leaf-file-name="eventBudgetTemplates.blade.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/resources/views/eventBudgetTemplates.blade.php">
           <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="219">
+              <caret line="41" column="47" lean-forward="false" selection-start-line="41" selection-start-column="47" selection-end-line="41" selection-end-column="47" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EventsBudgetTemplateController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/EventsBudgetTemplateController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="300">
+              <caret line="33" column="46" lean-forward="false" selection-start-line="33" selection-start-column="34" selection-end-line="33" selection-end-column="46" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="cvjdb.event_budget_item" pinned="false" current-in-tab="false">
+        <entry file="dbDummy://dbtable:/11b9e3/5cbb29b8-6af1-4c84-9557-6e7cf1a9e9d0/cvjdb.event_budget_item">
+          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+            <state>
+              <filtering enabled="true" />
+            </state>
+          </provider>
+          <provider editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
@@ -215,22 +260,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name=".env" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.env">
+      <file leaf-file-name="EventsBudgetController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/EventsBudgetController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="435">
-              <caret line="29" column="26" lean-forward="false" selection-start-line="29" selection-start-column="26" selection-end-line="29" selection-end-column="26" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="send_mail.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/send_mail.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="0" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="253">
+              <caret line="35" column="73" lean-forward="false" selection-start-line="35" selection-start-column="73" selection-end-line="35" selection-end-column="73" />
+              <folding>
+                <element signature="e#40#60#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -253,13 +290,16 @@
       <find>modal</find>
       <find>form</find>
       <find>number</find>
+      <find>item_descs</find>
       <find>de</find>
+      <find>desc</find>
     </findStrings>
     <replaceStrings>
       <replace>event_budget_template</replace>
       <replace>event_budget_template_item</replace>
       <replace>budget_subtotal</replace>
       <replace>budget</replace>
+      <replace>item_acts</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -293,18 +333,18 @@
         <option value="$PROJECT_DIR$/app/EventBudgetTemplate.php" />
         <option value="$PROJECT_DIR$/app/EventBudgetTemplateItem.php" />
         <option value="$PROJECT_DIR$/resources/views/layouts/inventoryApp.blade.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/EventsBudgetTemplateController.php" />
         <option value="$PROJECT_DIR$/app/Client.php" />
         <option value="$PROJECT_DIR$/resources/views/createEventBudget.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/alreadyexists.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/eventBudgetTemplates.blade.php" />
         <option value="$PROJECT_DIR$/app/EventBudget.php" />
         <option value="$PROJECT_DIR$/routes/web.php" />
-        <option value="$PROJECT_DIR$/resources/views/eventBudget.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/MailController.php" />
         <option value="$PROJECT_DIR$/resources/views/send_mail.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/EventsBudgetController.php" />
         <option value="$PROJECT_DIR$/resources/views/viewEventBudget.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/EventsBudgetController.php" />
+        <option value="$PROJECT_DIR$/resources/views/eventBudget.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/EventsBudgetTemplateController.php" />
+        <option value="$PROJECT_DIR$/resources/views/eventBudgetTemplates.blade.php" />
       </list>
     </option>
   </component>
@@ -948,27 +988,27 @@
       <option name="presentableId" value="Default" />
       <updated>1551689203595</updated>
       <workItem from="1551689204767" duration="707000" />
-      <workItem from="1562400158984" duration="50564000" />
+      <workItem from="1562400158984" duration="59949000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="51271000" />
+    <option name="totallyTimeSpent" value="60656000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329602" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0" sideWeight="0.49166667" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3297568" sideWeight="0.49166667" order="3" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20243205" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1137339" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24964234" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40298507" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.40298507" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24105866" sideWeight="0.5083333" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1335,14 +1375,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/eventBudgetTemplates.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
-          <caret line="99" column="36" lean-forward="false" selection-start-line="99" selection-start-column="36" selection-end-line="100" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="dbDummy://dbtable:/11b9e3/5cbb29b8-6af1-4c84-9557-6e7cf1a9e9d0/cvjdb.event_budget_template_item">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
@@ -1393,27 +1425,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="dbDummy://dbtable:/11b9e3/5cbb29b8-6af1-4c84-9557-6e7cf1a9e9d0/cvjdb.event_budget_item">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/EventsBudgetTemplateController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="446">
-          <caret line="62" column="36" lean-forward="false" selection-start-line="62" selection-start-column="36" selection-end-line="62" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitattributes">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1430,49 +1441,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/MailController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="34" column="48" lean-forward="false" selection-start-line="34" selection-start-column="48" selection-end-line="34" selection-end-column="48" />
-          <folding>
-            <element signature="e#40#68#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/eventBudget.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="402">
-          <caret line="40" column="68" lean-forward="true" selection-start-line="40" selection-start-column="68" selection-end-line="40" selection-end-column="68" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/send_mail.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
-          <caret line="4" column="0" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/web.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="70" column="12" lean-forward="true" selection-start-line="70" selection-start-column="12" selection-end-line="70" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="dbDummy://dbtable:/11b9e3/5cbb29b8-6af1-4c84-9557-6e7cf1a9e9d0/cvjdb.event">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1490,10 +1462,54 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/MailController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="34" column="48" lean-forward="false" selection-start-line="34" selection-start-column="48" selection-end-line="34" selection-end-column="48" />
+          <folding>
+            <element signature="e#40#68#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbtable:/11b9e3/5cbb29b8-6af1-4c84-9557-6e7cf1a9e9d0/cvjdb.event_budget_item">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/web.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="203">
+          <caret line="70" column="12" lean-forward="false" selection-start-line="70" selection-start-column="12" selection-end-line="70" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbtable:/11b9e3/5cbb29b8-6af1-4c84-9557-6e7cf1a9e9d0/cvjdb.event">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/EventsBudgetController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="237">
-          <caret line="88" column="9" lean-forward="true" selection-start-line="88" selection-start-column="9" selection-end-line="88" selection-end-column="9" />
+        <state relative-caret-position="253">
+          <caret line="35" column="73" lean-forward="false" selection-start-line="35" selection-start-column="73" selection-end-line="35" selection-end-column="73" />
           <folding>
             <element signature="e#40#60#0#PHP" expanded="true" />
           </folding>
@@ -1502,35 +1518,54 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/viewEventBudget.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="484">
-          <caret line="108" column="273" lean-forward="false" selection-start-line="108" selection-start-column="273" selection-end-line="108" selection-end-column="273" />
+        <state relative-caret-position="-2566">
+          <caret line="51" column="131" lean-forward="false" selection-start-line="51" selection-start-column="127" selection-end-line="51" selection-end-column="131" />
           <folding>
-            <element signature="e#1197#1261#0#HTML" expanded="true" />
-            <element signature="e#1393#1413#0#HTML" expanded="true" />
-            <element signature="e#1330#3891#0#HTML" expanded="false" />
-            <element signature="e#1777#1826#0#HTML" expanded="true" />
-            <element signature="e#2824#3133#0#HTML" expanded="false" />
-            <element signature="e#3261#3284#0#HTML" expanded="true" />
-            <element signature="e#4009#4029#0#HTML" expanded="true" />
-            <element signature="e#4673#4722#0#HTML" expanded="true" />
-            <element signature="e#5334#5355#0#HTML" expanded="true" />
-            <element signature="e#5380#5420#0#HTML" expanded="true" />
-            <element signature="e#6038#6059#0#HTML" expanded="true" />
-            <element signature="e#6084#6124#0#HTML" expanded="true" />
-            <element signature="e#6723#6744#0#HTML" expanded="true" />
-            <element signature="e#6786#6826#0#HTML" expanded="true" />
-            <element signature="e#7174#7211#0#HTML" expanded="true" />
-            <element signature="e#7561#7582#0#HTML" expanded="true" />
-            <element signature="e#8089#8108#0#HTML" expanded="true" />
-            <element signature="e#8591#8598#1#HTML" expanded="true" />
-            <marker date="1564126939000" expanded="true" signature="10217:11623" ph="..." />
-            <marker date="1564126939000" expanded="true" signature="10754:11570" ph="..." />
-            <marker date="1564126939000" expanded="true" signature="10839:11556" ph="..." />
-            <marker date="1564126939000" expanded="true" signature="11655:12201" ph="..." />
-            <marker date="1564126939000" expanded="true" signature="12233:12909" ph="..." />
-            <marker date="1564126939000" expanded="true" signature="12281:12583" ph="..." />
-            <marker date="1564126939000" expanded="true" signature="12602:12899" ph="..." />
+            <element signature="e#1234#1298#0#HTML" expanded="true" />
+            <element signature="e#1430#1450#0#HTML" expanded="true" />
+            <element signature="e#1889#1938#0#HTML" expanded="true" />
+            <element signature="e#3384#3407#0#HTML" expanded="true" />
+            <element signature="e#4132#4152#0#HTML" expanded="true" />
+            <element signature="e#4815#4864#0#HTML" expanded="true" />
+            <element signature="e#5812#5833#0#HTML" expanded="true" />
+            <element signature="e#5934#5974#0#HTML" expanded="true" />
+            <element signature="e#6537#6567#0#HTML" expanded="true" />
+            <element signature="e#7169#7199#0#HTML" expanded="true" />
+            <element signature="e#7557#7594#0#HTML" expanded="true" />
+            <element signature="e#7944#7965#0#HTML" expanded="true" />
+            <element signature="e#8472#8491#0#HTML" expanded="true" />
+            <element signature="e#8974#8981#1#HTML" expanded="true" />
+            <marker date="1564202157000" expanded="true" signature="11332:11353" ph="..." />
+            <marker date="1564202157000" expanded="true" signature="11487:11519" ph="..." />
+            <marker date="1564202157000" expanded="true" signature="12925:12946" ph="..." />
+            <marker date="1564202157000" expanded="true" signature="13133:13165" ph="..." />
+            <marker date="1564202157000" expanded="true" signature="14305:14343" ph="..." />
+            <marker date="1564202157000" expanded="true" signature="14305:14353" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/eventBudget.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="13" column="54" lean-forward="true" selection-start-line="13" selection-start-column="54" selection-end-line="13" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/EventsBudgetTemplateController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="33" column="46" lean-forward="false" selection-start-line="33" selection-start-column="34" selection-end-line="33" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/eventBudgetTemplates.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="219">
+          <caret line="41" column="47" lean-forward="false" selection-start-line="41" selection-start-column="47" selection-end-line="41" selection-end-column="47" />
+          <folding />
         </state>
       </provider>
     </entry>

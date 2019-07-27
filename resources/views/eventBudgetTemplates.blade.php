@@ -28,6 +28,7 @@
                             <tr>
                                 <th>Template Name</th>
                                 <th>Number Of Items</th>
+                                <th>Total Budget</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -36,6 +37,7 @@
                                 <tr>
                                     <td>{{$budget_template->template_name}}</td>
                                     <td>{{count($budget_template->event_budget_template_item)}}</td>
+                                    <td>{{$budget_template->total_budget}}</td>
                                     <td>
                                         <button class="btn btn-icon btn-3 btn-primary" type="button">
                                             <i class="fa fa-edit fa-lg"></i>

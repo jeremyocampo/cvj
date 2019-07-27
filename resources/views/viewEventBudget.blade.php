@@ -21,9 +21,9 @@
                             <div class="col-12">
                                 <center>
                                     @if($budget ==null)
-                                    <h3 class="mb-0">Create Event Budget for </h3>
+                                    <h3 class="mb-0">Create Event Budget for {{$event->event_desc}} </h3>
                                     @else
-                                    <h3 class="mb-0">Event Budget for Event for</h3>
+                                    <h3 class="mb-0">Event Budget for {{$event->event_desc}} </h3>
                                     @endif
                                 </center>
                             </div>
@@ -32,7 +32,7 @@
                     <div class="col-12" style="padding-bottom: 5vh;padding-right: 2vw;min-height: 75vh;">
                         @if($budget==null)
                         <form action="{{ route('post.event_budgets') }}" method="POST" style="padding:10px">
-
+                            <input type="hidden" name="action" value="add">
                             {{csrf_field()}}
                             <button class="btn btn-icon btn-3 btn-secondary" data-toggle="modal" data-target="#exampleModal" type="button">
                                 Choose From Budget Template
@@ -54,7 +54,7 @@
                                         </div>
                                         <div id="budget_amt_col" class="col-md-4 marg_top">
                                             <label>Budget Amount</label>
-                                            <input type="number" name="vals[]" class="form-control budg_item" placeholder="0.0" value="">
+                                            <input type="number" name="vals[]" step="any" class="form-control budg_item" placeholder="0.0" value="">
                                         </div>
                                     </div>
                                     <button class="btn btn-icon btn-sm btn-primary" style="margin-top: 4vh" onclick="duplicate()" type="button">
@@ -80,33 +80,37 @@
                             </button>
 
                             -->
-                            <button class="btn btn-icon btn-3 btn-secondary" onclick="edit_items()" type="button">
+                            <button class="btn btn-icon btn-3 btn-secondary" id="edit_item_btn" onclick="edit_items()" type="button">
                                 <i class="fa fa-edit fa-lg"></i>  Edit Budget
                             </button>
                             <hr>
                             <div class="row" style="background-color: #f4f5f7;padding: 1.0vw;">
                                 <input type="hidden" name="event" value="{{$event_id}}">
+                                <input type="hidden" name="action" value="update">
+
+                                <input type="hidden" name="budget_id" value="{{$budget->id}}">
+                                <input type="hidden" name="to_delete" id="to_delete" value="">
+
                                 <div class="col-md-12" >
                                     <div class="row budget_item_rows">
                                         <div id="budget_name_col" class="col-md-4 marg_top">
                                             <label>Budget Item</label>
                                             @foreach($budget->budget_items as $budget_item)
-                                                <br>
-                                                <i class="fa fa-plus fa-lg rm_item" style="display: none"></i> <input type="text" style="display: inline-block;width: 90%" name="names[]" class="form-control budg_item" placeholder="Item Name" value="{{$budget_item->item_name}}" disabled>
+                                                <br class="brs">
+                                                <i class="fa fa-remove fa-lg rm_item old_item" budget_item_id="{{$budget_item->id}}" style="display: none" onclick="remove_item(this)"></i>
+                                                <input type="text" style="display: inline-block;width: 90%" name="old_names[]" class="form-control item_names budg_item" placeholder="Item Name" value="{{$budget_item->item_name}}" disabled>
                                             @endforeach
                                         </div>
                                         <div id="budget_desc_col" class="col-md-4 marg_top">
                                             <label>Item Description</label>
                                             @foreach($budget->budget_items as $budget_item)
-                                                <br>
-                                                <i class="fa fa-plus fa-lg rm_item" style="display: none"></i> <input type="text" style="display: inline-block;width: 90%" name="descs[]" class="form-control budg_item" placeholder="Item Description here" value="" disabled>
+                                                <input type="text" style="display: inline-block;" name="old_descs[]" class="item_descs form-control budg_item" placeholder="Item Description here" value="{{$budget_item->item_desc}}" disabled>
                                             @endforeach
                                         </div>
                                         <div id="budget_amt_col" class="col-md-4 marg_top">
                                             <label>Budget Amount</label>
                                             @foreach($budget->budget_items as $budget_item)
-                                                <br>
-                                                <i class="fa fa-plus fa-lg rm_item" style="display: none"></i> <input type="number" name="vals[]"  style="display: inline-block;width: 90%" class="form-control budg_item" placeholder="0.0" value="{{$budget_item->budget_amount}}" disabled>
+                                                <input type="number" name="old_vals[]" step="any" style="display: inline-block;" class="item_amts form-control budg_item" placeholder="0.0" value="{{$budget_item->budget_amount}}" disabled>
                                             @endforeach
                                         </div>
                                     </div>
@@ -152,8 +156,7 @@
                             <tr>
                                 <td><a href="#" onclick="choose_template(this)" id="budget_template_{{$budget_template->id}}"
                                        item_names='@foreach($budget_template->items as $items){{$items->item_name}}, @endforeach'
-                                       item_vals='@foreach($budget_template->items as $items){{$items->default_value}}, @endforeach'
-                                    >
+                                       item_vals='@foreach($budget_template->items as $items){{$items->default_value}}, @endforeach'>
                                     {{$budget_template->template_name}}</a></td>
                                 <td>{{count($budget_template->items)}}</td>
                             </tr>
@@ -183,7 +186,8 @@
                 console.log("henl");
                 if(i !== item_names.length-1){
                     console.log("pumazuc"+item_names[i]+item_vals[i]);
-                    add_str='<input type="text" name="names[]" class="form-control budg_item" placeholder="Item Name" value="'+item_names[i]+'">';
+                    rm_str = '<i class="fa fa-remove fa-lg rm_item" style="display: inline-block" onclick="remove_item()"></i>';
+                    add_str='<input type="text" name="names[]" class="form-control budg_item" style="display: inline-block;width: 90%" placeholder="Item Name" value="'+item_names[i]+'">';
                     $("#budget_name_col").append(add_str);
                     add_str='<input type="text" name="descs[]" class="form-control budg_item" placeholder="Item Description here" value="">';
                     $("#budget_desc_col").append(add_str);
@@ -193,14 +197,30 @@
             }
             $("#modal_close_btn").click();
         }
+        function remove_item(obj){
+            if($(obj).hasClass("old_item")){
+                $("#to_delete").val($("#to_delete").val()+","+$(obj).attr("budget_item_id"));
+            }
+            let item_index = $(".rm_item").index(obj);
+            if($(".rm_item").length -1 > 0){
+                $(".rm_item").get(item_index).remove();
+                $(".brs").get(item_index).remove();
+                $(".item_names").get(item_index).remove();
+                $(".item_descs").get(item_index).remove();
+                $(".item_amts").get(item_index).remove();
+            }else{
+                alert("must atleast have one item!");
+            }
+        }
         function duplicate() {
-            add_str='<input type="text" name="names[]" class="form-control budg_item" placeholder="Item Name" value="">';
+            rm_str = '<br class="brs"> <i class="fa fa-remove fa-lg rm_item" style="display: inline-block" onclick="remove_item()"></i>';
+            $("#budget_name_col").append(rm_str);
+            add_str='<input type="text" name="names[]" class="form-control budg_item item_names" style="display: inline-block;width: 90%" placeholder="Item Name" value="">';
             $("#budget_name_col").append(add_str);
-            add_str='<input type="text" name="descs[]" class="form-control budg_item" placeholder="Item Description here" value="">';
+            add_str='<input type="text" name="descs[]" class="form-control budg_item item_descs" placeholder="Item Description here" value="">';
             $("#budget_desc_col").append(add_str);
-            add_str='<input type="number" name="vals[]" step="any" class="form-control budg_item" placeholder="0.0" value="">';
+            add_str='<input type="number" name="vals[]" step="any" class="form-control budg_item item_amts" placeholder="0.0" value="">';
             $("#budget_amt_col").append(add_str);
-
         }
         function edit_items(){
             edit = !edit;
@@ -217,7 +237,6 @@
                 $(".remove_item").css("display","none");
                 $(".rm_item").css("display","none");
                 $(".budg_item").attr("disabled",true);
-
             }
         }
     </script>
