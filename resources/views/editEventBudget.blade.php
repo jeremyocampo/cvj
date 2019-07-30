@@ -50,10 +50,14 @@
         <br>
 
         <div style="margin-top: 2vh">
-            <small>Spent Buffer: </small><span class="badge badge-primary" id="buffer_amount">{{$budget->spent_buffer}}</span><br>
+            <br>
+            <small>Spent Buffer Amount</small><br>
+            <input type="number" name="spent_buffer_amount" step="any" style="font-size:14px;display: inline-block;width: 75%;height:20%" class="" placeholder="0.0" value="">
 
-            <small>Total Buffer   : </small><span class="badge badge-success" id="buffer_amount">{{$budget->total_buffer}}</span>
-        </div>
+            <br>
+            <small>Total Buffer Amount</small><br>
+            <input type="number" name="total_buffer_amount" step="any" style="font-size: 14px;display: inline-block;width: 75%;height:20%" class="" placeholder="0.0" value="">
+   </div>
 
     </div>
 
