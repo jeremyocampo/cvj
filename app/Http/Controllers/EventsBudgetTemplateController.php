@@ -66,7 +66,7 @@ class EventsBudgetTemplateController extends Controller
             $event_budget_template_item->default_value = $request->get("default_value")[$i];
             $event_budget_template_item->save();
         }
-        redirect('event_budget_template');
+        return redirect('event_budget_template');
     }
 
     /**

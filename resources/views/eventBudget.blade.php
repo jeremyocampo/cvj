@@ -25,31 +25,27 @@
                             <thead>
                             <tr>
                                 <th>Event Name</th>
-                                <th>Event Start</th>
-                                <th>Event End</th>
-                                <th>Client Name</th>
-                                <th>Total Budget</th>
-                                <th>Status</th>
+                                <th>Event Start/End</th>
+                                <th>Spent Budget/Total Budget</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($events as $event)
                                 <tr>
-                                    <td>{{$event->event_desc}}</td>
-                                    <td>{{$event->event_start}}</td>
-                                    <td>{{$event->event_end}}</td>
-                                    <td>{{$event->client_name}}</td>
-                                    <td>{{$event->budget->total_budget}}</td>
-                                    <td>{{$event->status}}</td>
+                                    <td>{{$event->event_name}}<br><small><b>Client:</b> {{$event->client_name}}</small></td>
+                                    <td>{{$event->event_start}} to {{$event->event_end}} </td>
+                                    <td>@if($event->budget_id == null) N/A @else {{$event->total_spent}}  / {{$event->total_budget}} @endif</td>
                                     <td>
-                                        [<a href="/event_budgets/view/{{$event->event_id}}">
+                                        <a href="/event_budgets/view/{{$event->event_id}}">
                                         @if($event->budget_id == null)
-                                            Create New Event Budget
+                                            <i class="fa fa-plus fa-lg"></i>
+                                            Create Event Budget
                                         @else
+                                            <i class="fa fa-eye fa-lg"></i>
                                             View Event Budget
                                         @endif
-                                        </a>]
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach

@@ -48,13 +48,6 @@
       0 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
     ),
   ),
-  'laravel-frontend-presets/argon' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'LaravelFrontendPresets\\ArgonPreset\\ArgonPresetServiceProvider',
-    ),
-  ),
   'laravelcollective/html' => 
   array (
     'providers' => 
@@ -65,6 +58,13 @@
     array (
       'Form' => 'Collective\\Html\\FormFacade',
       'Html' => 'Collective\\Html\\HtmlFacade',
+    ),
+  ),
+  'laravel-frontend-presets/argon' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'LaravelFrontendPresets\\ArgonPreset\\ArgonPresetServiceProvider',
     ),
   ),
   'spatie/laravel-google-calendar' => 
