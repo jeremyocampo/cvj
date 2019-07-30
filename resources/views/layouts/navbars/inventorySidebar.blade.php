@@ -2,14 +2,17 @@
 
 <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
     <div class="container-fluid">
+
         <!-- Toggler -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidenav-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <!-- Brand -->
         <a class="navbar-brand pt-0" href="{{ url('home') }}">
             <img src="{{ asset('argon') }}/img/brand/cvj.png" class="navbar-brand-img" alt="...">
         </a>
+
         <!-- User -->
         <ul class="nav align-items-center d-md-none">
             <li class="nav-item dropdown">
@@ -20,6 +23,7 @@
                         </span>
                     </div>
                 </a>
+
                 {{-- <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
                     <div class=" dropdown-header noti-title">
                         <h6 class="text-overflow m-0">{{ __('Welcome!') }}</h6>
@@ -56,7 +60,7 @@
                 <div class="row">
                     <div class="col-6 collapse-brand">
                         <a href="{{ url('home') }}">
-                            <img src="{{ asset('argon') }}/img/brand/blue.png">
+                            <img src="{{ asset('argon') }}/img/brand/cvj.png">
                         </a>
                     </div>
                     <div class="col-6 collapse-close">
@@ -111,7 +115,7 @@
                                     <i class="ni ni-delivery-fast text-green"></i> Deploy Inventory</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ url('inventory/return') }}" class="nav-link">
+                                <a href="{{ url('inventoryReturn') }}" class="nav-link">
                                     <i class="ni ni-archive-2 text-purple"></i>Inventory Return</a>
                             </li>
                             {{-- <li class="nav-item">

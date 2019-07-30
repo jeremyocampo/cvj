@@ -78,10 +78,21 @@ Route::resource('food', 'FoodController');
 Route::resource('users', 'ManageUsersController');
 Route::resource('employee', 'EmployeeController');
 Route::resource('eventreport', 'EventLogisticsReportController');
-Route::resource('returnInventory', 'ReturnInventoryContoller');
+Route::resource('returnInventory', 'ReturnInventoryController');
 Route::resource('manageuser', 'ManageUsersController');
 
 Route::get('admin/routes', 'AdminController@admin')->middleware('admin');
 
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
+
+// Route::get('/google-calendar/connect', 'GoogleCalendarController@connect');
+// Route::post('/google-calendar/connect', 'GoogleCalendarController@store');
+// Route::get('get-resource', 'GoogleCalendarController@getResources');
+
+
+Route::resource('cal','gCalendarController');
+Route::get('oauth', 'gCalendarController@oauth');
+
+
+
