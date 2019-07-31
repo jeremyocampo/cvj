@@ -1,6 +1,4 @@
 @extends('layouts.app')
-
-
 @section('content')
 @include('layouts.headers.costing')
 <div class="container-fluid mt--7">

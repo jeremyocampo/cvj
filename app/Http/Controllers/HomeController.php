@@ -31,11 +31,12 @@ class HomeController extends Controller
     {
         // return view('admin');
         if(auth()->user()->userType == 1){
+
             return view('adminhome');
+
         } else if (auth()->user()->userType == 2){
-            // return view('admin');
+            
             $joinedTable = DB::table('category_ref')
-            // ->join('category_ref','inventory.category','=','category_ref.id')
             ->join('inventory','category_ref.category_no','=','inventory.category')
             ->get();
 
@@ -45,8 +46,20 @@ class HomeController extends Controller
             ->join('reserve_venue','event.reservation_id','=','reserve_venue.reservation_id')
             ->select('*')
             ->get();
-
+            
             return view('inventoryDashboard',['events' => $event, 'criticalInventory' => $criticalInventory]);
+        } else if(auth()->user()->userType == 3){
+
+
+
+        }  else if(auth()->user()->userType == 4){
+
+
+            
+        }  else if(auth()->user()->userType == 5){
+
+
+            
         }
     }
 }

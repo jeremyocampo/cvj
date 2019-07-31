@@ -34,6 +34,6 @@ class InventoryHomeController extends Controller
         ->join('inventory','category_ref.category_no','=','inventory.category')
         ->get();
 
-        return view('inventoryDashboard',['joinedTable' => $joinedTable]);
+        return view('inventoryDashboard',['joinedTable' => $joinedTable, ]);
     }
 }

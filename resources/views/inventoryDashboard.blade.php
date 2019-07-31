@@ -1,4 +1,4 @@
-@extends('layouts.inventoryApp')
+@extends('layouts.app')
 
 @section('content')
     @include('layouts.headers.cards')
@@ -15,7 +15,7 @@
                                 <h3 class="mb-0">Events Happening Now</h3>
                             </div>
                             <div class="col text-right">
-                            <a href="{{url("events")}}" class="btn btn-sm btn-primary">See all</a>
+                            <a href="{{--url("events")--}}" class="btn btn-sm btn-primary">See all</a>
                             </div>
                         </div>
                     </div>

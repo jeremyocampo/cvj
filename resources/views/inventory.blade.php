@@ -1,4 +1,4 @@
-@extends('layouts.inventoryApp')
+@extends('layouts.app')
 
 {{-- @include('layouts.headers.pagination') --}}
 
