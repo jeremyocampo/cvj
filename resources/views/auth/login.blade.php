@@ -1,4 +1,4 @@
-@extends('layouts.inventoryApp', ['class' => 'bg-default'])
+@extends('layouts.app', ['class' => 'bg-default'])
 
 @section('content')
     @include('layouts.headers.guest')

@@ -108,8 +108,7 @@
                 
         }
     </script>
-
-
+    
     </head>
     <body class="{{ $class ?? '' }}">
         @auth()

@@ -237,7 +237,7 @@
                                         @foreach ($criticalInventory as $b)
                                         @if($b->status > 0)
                                         <tr>
-                                            <td scope="col">{{ $b->inventory_name }}</td>
+                                            <td scope="col">{{ $b->inventory_name }}</td> 
                                             <td scope="col">{{ $b->threshold }}</td>
                                             <td scope="col">{{ $b->quantity }}</td>
                                             <td scope="col">{{ $b->price }}</td>
@@ -255,12 +255,10 @@
                                                             <i class="ni ni-zoom-split-in"></i>
                                                             <span>{{ __('View Event Details') }}</span>
                                                         </a>
-        
                                                         <a href="{{ url('inventory/'.$b->inventory_id.'/edit')}}" class="dropdown-item">
                                                             <i class="ni ni-fat-add"></i>
                                                             <span>{{ __('Replenish Item') }}</span>
                                                         </a>
-                                                        
                                                         <a href="" class="dropdown-item" onclick="event.preventDefault();
                                                             document.getElementById('delete-form-{{ $b->inventory_id }}').submit();">
                                                             <i class="ni ni-fat-remove"></i>

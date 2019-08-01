@@ -65,3 +65,5 @@ Auth::routes();
 
 //Rosette's Routes
 Route::resource('bookevent', 'BookEventController');
+
+Route::resource();

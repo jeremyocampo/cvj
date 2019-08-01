@@ -36,10 +36,6 @@ class HomeController extends Controller
 
         } else if (auth()->user()->userType == 2){
             
-            $joinedTable = DB::table('category_ref')
-            ->join('inventory','category_ref.category_no','=','inventory.category')
-            ->get();
-
             $criticalInventory = DB::select('select * from cvjdb.inventory where quantity <= threshold;');
 
             $event = DB::table('event')
@@ -50,7 +46,7 @@ class HomeController extends Controller
             return view('inventoryDashboard',['events' => $event, 'criticalInventory' => $criticalInventory]);
         } else if(auth()->user()->userType == 3){
 
-
+            return view('bookevent');
 
         }  else if(auth()->user()->userType == 4){
 
