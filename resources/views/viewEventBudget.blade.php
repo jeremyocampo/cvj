@@ -68,7 +68,11 @@
                                 </div>
                                 <br>
                                 <div style="margin-top: 2vh">
-                                    <small>Buffer Amount: </small><span class="badge badge-primary" id="buffer_amount">0.0</span>
+                                    <br>
+                                    <small>Total Buffer Amount</small><br>
+                                    <input type="number" name="total_buffer_amount" step="any" style="font-size:14px;display: inline-block;width: 75%;height:20%" class="" placeholder="0.0" value="">
+                                    <br>
+                                    <small>Recommended Buffer Amount: </small><span class="badge badge-primary" id="buffer_amount">0.0</span>
                                 </div>
                             </div>
                             <hr>

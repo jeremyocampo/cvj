@@ -58,6 +58,7 @@ class EventsBudgetController extends Controller
         if($request->input('action') == "add"){
             $event_budget = new EventBudget();
             $event_budget->event_id = $request->input('event');
+            $event_budget->total_buffer = $request->input('total_buffer_amount');
             $event_budget->total_budget = 0;
             $event_budget->save();
             for($i=0; $i<count($request->input("names"));$i++){
@@ -73,6 +74,8 @@ class EventsBudgetController extends Controller
         else{
             $event_budget = EventBudget::where('id','=',$request->get("budget_id"))->first();
             $event_budget->total_budget = 0;
+            $event_budget->total_buffer = $request->input('total_buffer_amount');
+            $event_budget->spent_buffer = $request->input('spent_buffer_amount');
             $to_delete = explode(",",$request->input('to_delete'));
             array_shift($to_delete);
             //delete first

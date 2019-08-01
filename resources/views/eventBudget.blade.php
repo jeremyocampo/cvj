@@ -27,6 +27,7 @@
                                 <th>Event Name</th>
                                 <th>Event Start/End</th>
                                 <th>Spent Budget/Total Budget</th>
+                                <th>Remarks</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -35,7 +36,8 @@
                                 <tr>
                                     <td>{{$event->event_name}}<br><small><b>Client:</b> {{$event->client_name}}</small></td>
                                     <td>{{$event->event_start}} to {{$event->event_end}} </td>
-                                    <td>@if($event->budget_id == null) N/A @else {{$event->total_spent}}  / {{$event->total_budget}} @endif</td>
+                                    <td>@if($event->budget_id == null) N/A @else {{number_format($event->total_spent,2)}}  / {{ number_format($event->total_budget,2)}} @endif</td>
+                                    <td>Items are overspent.</td>
                                     <td>
                                         <a href="/event_budgets/view/{{$event->event_id}}">
                                         @if($event->budget_id == null)
