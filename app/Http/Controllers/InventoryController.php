@@ -27,13 +27,18 @@ class InventoryController extends Controller
     public function index()
     {
         //
-        $joinedTable = DB::table('category_ref')
-            // ->join('category_ref','inventory.category','=','category_ref.id')
-            ->join('inventory','category_ref.category_no','=','inventory.category')
+        $joinedTable = DB::table('inventory')
+            // // ->join('category_ref','inventory.category','=','category_ref.id')
+            // ->join('inventory','category_ref.category_no','=','inventory.category')
+            ->join('category_ref', 'inventory.category', '=', 'category_ref.category_no')
+            ->join('color','inventory.color','=','color.color_id')
+            ->join('size','inventory.size', '=', 'size.size_id')
             ->get();
         //dd($joinedTable);
 
-        return view('inventory', ['joinedInventory' => $joinedTable]);
+        $criticalInventory = DB::select('select * from cvjdb.inventory where quantity <= threshold;');
+
+        return view('inventory', ['joinedInventory' => $joinedTable, 'criticalInventory' => $criticalInventory]);
     }
 
     /**
@@ -189,7 +194,6 @@ class InventoryController extends Controller
             'category'      => 'required|min:1',
             'quantity'      => 'required|numeric|min:1',
             'source'        => 'required|min:1',
-            'subcategory'   => 'required|min:1',
             'threshold'     => 'required|numeric|min:'.$minTh,
             'status'        => 'required|numeric|min:0',
         ],[
@@ -197,7 +201,6 @@ class InventoryController extends Controller
             'category.required'     => 'Please Select a Category.',
             'quantity.required'     => 'Please input a valid Quantity',
             'source.required'       => 'Please Select a Source',
-            'subcategory.required'  => 'Please Select a Sub-Category.',
             'threshold,required'    => 'Please Input a valid Threshold Amount',
             'threshold.min'         => 'Please Input a Threshold Amount at least 50% of Starting Quantity',
             'status.required'        => 'Please select the appropriate Status for this item',
@@ -223,8 +226,8 @@ class InventoryController extends Controller
             'status'        => $request->input('status'),
             'itemSource'        => $request->input('source'),
             'threshold'     => $request->input('threshold'),
-            'subcategory'   => $request->input('subcategory'),
         ]);
+        
         
         return redirect('/inventory')->with('success', 'Item Updated');
     }

@@ -28,7 +28,7 @@ class DeployInventoryController extends Controller
         $joinedTable = DB::table('event')
             // ->join('category_ref','inventory.category','=','category_ref.id')
             // ->join('inventory','category_ref.category_no','=','inventory.category')
-            ->join('inventory','event.inventory_id','=','inventory.inventory_id')
+            ->join('reserve_venue','event.reservation_id','=','reserve_venue.reservation_id')
             ->get();
         //dd($joinedTable);
 

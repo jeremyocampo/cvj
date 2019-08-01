@@ -1,4 +1,4 @@
-@extends('layouts.eventApp')
+@extends('layouts.app')
 @section('title', 'BookEvent')
 
 {{-- @include('layouts.headers.pagination') --}}

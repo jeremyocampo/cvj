@@ -11,9 +11,16 @@
         <!-- Favicon -->
         <link href="{{ asset('argon') }}/img/brand/favicon.png" rel="icon" type="image/png">
         <!-- Fonts -->
+
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+        <script
+                src="https://code.jquery.com/jquery-3.4.1.min.js"
+                integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+                crossorigin="anonymous"></script>
         <!-- Icons -->
-        <link href="{{ asset('argon') }}/vendor/nucleo/css/nucleo.css" rel="stylesheet">
+
+        <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <link href="{{ asset('argon/vendor/nucleo/css/nucleo.css') }}" rel="stylesheet">
         <link href="{{ asset('argon') }}/vendor/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
         <!-- Argon CSS -->
         <link type="text/css" href="{{ asset('argon') }}/css/argon.css?v=1.0.0" rel="stylesheet">
@@ -105,22 +112,7 @@
                     //document.getElementById("myInput").value = "";
                     
             }
-            
-            
         </script>
-        
-        {{-- <script>
-            function whichOne(){
-                if(document.getElementById("myTable").value == " ")
-                {
-                    function Pager(tableName, itemsPerPage);
-                } 
-                else if (document.getElementById("myTable").value != " ") 
-                {
-                    function searchTable();
-                }
-            }    
-        </script> --}}
         
     </head>
     <body class="{{ $class ?? '' }}">
@@ -128,7 +120,7 @@
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf
             </form>
-            @include('layouts.navbars.sidebar')
+            @include('layouts.navbars.inventorySidebar')
         @endauth
         
         <div class="main-content">

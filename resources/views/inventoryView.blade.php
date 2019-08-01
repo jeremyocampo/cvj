@@ -4,12 +4,38 @@
 @section('content')
 @include('layouts.headers.inventoryCard1')
 <div class="container-fluid mt--7">
+		{!! Form::open(['action' => ['InventoryController@update', $itemInfo[0]->inventory_id], 'method' => 'POST']) !!}
+	<!-- Modal -->
+	<div id="myModal" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+		  
+			  <!-- Modal content-->
+			  <div class="modal-content">
+				<div class="modal-header">
+				  <div class="row">
+					  <div >
+				  		<h2 class="modal-title">Are you sure you want to continue?</h4>
+					  </div>
+				  
+				  </div>
+				  
+				</div>
+				{{-- <div class="modal-body">
+				  <p>Some text in the modal.</p>
+				</div> --}}
+				<div class="modal-footer">
+				  {{ Form::submit('Confirm Changes', ['class' => 'btn btn-success']) }}
+				  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+				</div>
+			  </div>
+		  
+			</div>
+		  </div>
 	<div class="card-body">
 		<div class="col-xl-10 mb-5 mb-xl-0">
 				<div class="card shadow">
 						<div class="card-header">
-								{!! Form::open(['action' => ['InventoryController@update', $itemInfo[0]->inventory_id], 'method' => 'POST']) !!}
-								<div class="row">
+							<div class="row">
 									<div class="col-xl-8 ">
 										<h2 calss="mb-0">View Item Details</h2>
 									</div>
@@ -47,7 +73,7 @@
 													<option value=0 selected>Disabled</option>
 													<option value=1> Activate Item</option>
 												@else
-													<option value=0>		  Disable Item </option>
+													<option value=0> Disable Item </option>
 													<option value=1 selected> Active</option>
 												@endif
 											</select>
@@ -142,7 +168,7 @@
 				</div>
 				<div class="card-footer text-muted">
 						<div class="text-right">
-								{{ Form::submit('Save Changes', ['class' => 'btn btn-success']) }}
+								<button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">Save</button>
 								<a href="{{ url('inventory')}}" class="btn btn-default">Back</a>
 								<a href="" class="btn btn-primary" onclick="printContent('barcode-{{ $itemInfo[0]->inventory_id }}');" id="printBtn{{ $itemInfo[0]->inventory_id}}">
 									<i class="ni ni-single-copy-04"></i>
