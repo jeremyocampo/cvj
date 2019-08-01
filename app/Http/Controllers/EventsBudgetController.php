@@ -90,14 +90,16 @@ class EventsBudgetController extends Controller
                 $update_budget_items[$i]->save();
                 $event_budget->total_budget += $update_budget_items[$i]->budget_amount;
             }
-            for($i=0; $i<count($request->input("acts"));$i++){
-                $event_budget_item = new EventBudgetItem();
-                $event_budget_item->event_budget_id = $event_budget->id;
-                $event_budget_item->item_name = $request->get("names")[$i];
-                $update_budget_items[$i]->actual_amount = $request->input("acts")[$i];
-                $event_budget_item->budget_amount = $request->get("vals")[$i];
-                $event_budget_item->save();
-                $event_budget->total_budget +=$event_budget_item->budget_amount;
+            if($request->input("acts") != null){
+                for($i=0; $i<count($request->input("acts"));$i++){
+                    $event_budget_item = new EventBudgetItem();
+                    $event_budget_item->event_budget_id = $event_budget->id;
+                    $event_budget_item->item_name = $request->get("names")[$i];
+                    $update_budget_items[$i]->actual_amount = $request->input("acts")[$i];
+                    $event_budget_item->budget_amount = $request->get("vals")[$i];
+                    $event_budget_item->save();
+                    $event_budget->total_budget +=$event_budget_item->budget_amount;
+                }
             }
             $event_budget->save();
         }
