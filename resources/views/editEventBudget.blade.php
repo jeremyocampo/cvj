@@ -52,18 +52,17 @@
         <div style="margin-top: 2vh">
             <br>
             <small>Spent Buffer Amount</small><br>
-            <input type="number" name="spent_buffer_amount" step="any" style="font-size:14px;display: inline-block;width: 75%;height:20%" class="" placeholder="0.0" value="">
-
+            <input type="number" name="spent_buffer_amount" step="any" style="font-size:14px;display: inline-block;width: 75%;height:20%" class="" placeholder="0.0" value="{{$budget->spent_buffer}}">
             <br>
             <small>Total Buffer Amount</small><br>
-            <input type="number" name="total_buffer_amount" step="any" style="font-size: 14px;display: inline-block;width: 75%;height:20%" class="" placeholder="0.0" value="">
-   </div>
+            <input type="number" name="total_buffer_amount" step="any" style="font-size: 14px;display: inline-block;width: 75%;height:20%" class="" placeholder="0.0" value="{{$budget->total_buffer}}">
+        </div>
 
     </div>
 
     <center id="saving_btn_div" style="margin-top: 3vh">
         <button class="btn btn-icon btn-3 btn-primary" onclick="undisable()" type="button">
-            Create Budget
+            Save Budget
         </button>
         <button id="submit_btn" style="display: none;" type="submit">
         </button>
