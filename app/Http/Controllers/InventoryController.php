@@ -38,7 +38,9 @@ class InventoryController extends Controller
 
         $criticalInventory = DB::select('select * from cvjdb.inventory where quantity <= threshold;');
 
-        return view('inventory', ['joinedInventory' => $joinedTable, 'criticalInventory' => $criticalInventory]);
+        $month = Carbon::now()->format('F');
+
+        return view('inventory', ['joinedInventory' => $joinedTable, 'criticalInventory' => $criticalInventory, 'month' => $month]);
     }
 
     /**

@@ -55,7 +55,6 @@
 												<td> {{ $i->endDateTime }}</td>
 												<td> {{ $i->description }}</td>
 												<td>
-													
 													<a href="{{ url('inventory')}}" class="btn btn-danger">Decline</a>
 												</td>
 												<td class="popup">

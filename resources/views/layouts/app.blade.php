@@ -19,6 +19,25 @@
         <!-- Argon CSS -->
         <link type="text/css" href="{{ asset('argon') }}/css/argon.css?v=1.0.0" rel="stylesheet">
 
+
+        <!------>
+        <script type="text/javascript" src="/bower_components/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="/bower_components/moment/min/moment.min.js"></script>
+        <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+        <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href=". /resources/css/bootstrap-datetimepicker.min.css" />
+
+        <script type="text/javascript" src=". /resources/js/jquery.min.js"></script>
+        <script type="text/javascript" src=". /resources/js/moment.min.js"></script>
+        <script type="text/javascript" src=". /resources/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src=". /resources/js/bootstrap-datetimepicker.*js"></script>
+        {{--  --}}
+        
+    <link rel="stylesheet" type="text/css" media="screen"
+     href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
+
+
         <script type="text/javascript">
             function Pager(tableName, itemsPerPage) {
                 this.tableName = tableName;
@@ -107,6 +126,19 @@
                 //document.getElementById("myInput").value = "";
                 
         }
+    </script>
+    <script type="text/javascript">
+        $(function() {
+          $('#datetimepicker1').datetimepicker({
+            language: 'pt-EN'
+          });
+        });
+      </script>
+
+    <script type="text/javascript">
+        $(function () {
+            $('#datetimepicker1').datetimepicker();
+        });
     </script>
     
     </head>

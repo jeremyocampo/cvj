@@ -175,6 +175,22 @@
                     <!--pagination-->
 
                     </div>
+
+
+                    {{-- <div class="col-xl-12 mb-5">
+                        <div class="card shadow " >
+                                <div class="card-body">
+                                        <div class="table-responsive mb-3">
+                                            <!-- Projects table -->
+                                            <table class="table table-bordered align-items-center table-flush mb-4" id="myTable">
+                                            
+                                            </table>
+                                        </div>
+                                </div>
+                        </div>
+                    </div> --}}
+
+
                     <div class="col-xl-12 mb-5">
                         <div class="card shadow " >
                             <div class="card-header ">
@@ -182,8 +198,9 @@
                                     <div class="col">
                                         <div class="row">
                                             <div class="col-xs-5">
-                                                <h1 class="mb-0">Critical Inventory</h1>
+                                                <h1 class="mb-0">Critical Inventory</h1> &nbsp;&nbsp; <p>as of {{ $month }}</p>
                                             </div>
+                                            
                                         </div>
                                     </div>
                                    
@@ -211,9 +228,9 @@
                                                 {{ session()->get('deleted') }}<br>
                                             </div>
                                         @endif --}}
-                                    </div>
+                                    {{-- </div>
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="card-body">
         
                             
@@ -259,14 +276,6 @@
                                                             <i class="ni ni-fat-add"></i>
                                                             <span>{{ __('Replenish Item') }}</span>
                                                         </a>
-                                                        <a href="" class="dropdown-item" onclick="event.preventDefault();
-                                                            document.getElementById('delete-form-{{ $b->inventory_id }}').submit();">
-                                                            <i class="ni ni-fat-remove"></i>
-                                                            <span>{{ __('Remove from Inventory') }}</span>
-                                                            {!! Form::open(['action' => ['InventoryController@destroy', $b->inventory_id], 'method' => 'POST', 'id' => 'delete-form-'.$i->inventory_id]) !!}
-                                                                {{ Form::hidden('_method','DELETE')}}
-                                                            {!! Form::close() !!}
-                                                        </a>
                                                     </div>
                                                 </div>
                                             </td>
@@ -293,7 +302,9 @@
                             
                             <!--pagination-->
         
-                            </div>
+                        </div>
+                    </div>
+                </div>
                 </div>
                 </div>
             </div>
