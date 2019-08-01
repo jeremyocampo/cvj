@@ -4,7 +4,7 @@
 @include('layouts.headers.inventoryCard1')
 <div class="container-fluid mt--7">
 	<div class="card-body">
-		<div class="col-xl-8 mb-5 mb-xl-0">
+		<div class="col-xl-12 mb-5 mb-xl-0">
 				<div class="card shadow">
 						{!! Form::open(['action' => 'InventoryController@store', 'method' => 'POST', 'autocomplete' =>'off']) !!}
 						<div class="card-header">
@@ -37,12 +37,11 @@
 							
 							
 							<div class="row">
-								<div class="col-md-9 mb-3">
+								<div class="col-md-12 mb-3">
 									<label class="form-label">Item Name</label>
 									{{ Form::text('itemName', '',['class' => 'form-control', 'placeholder' => 'Item Name'] )}}
 								</div>
-								<div class="col-md-3 mb-3"></div>
-								<div class="col-md-3 mb-3">
+								<div class="col-md-9 mb-3">
 										<label class="form-label">Category</label>
 										<select id="category" name="category" class="form-control" placeholder="Category" onchange="filterDropdown()" required>
 												<option value = 0 selected disabled>Please Select a Category</option>
@@ -51,7 +50,8 @@
 												@endforeach
 										</select>
 								</div>
-								<div class="col-md-3 mb-3">
+								<div class="col-md-3 mb-3"></div>
+								<div class="col-md-9 mb-3">
 									<label class="form-label">Color</label>
 									<select id="color" name="color" class="form-control" placeholder="Color" required>
 											<option value = 0 selected disabled>Please Select a Color</option>
@@ -60,7 +60,8 @@
 											@endforeach
 									</select>
 								</div>
-								<div class="col-md-3 mb-3">
+								<div class="col-md-3 mb-3"></div>
+								<div class="col-md-9 mb-3">
 									<label class="form-label">Size</label>
 									<select id="color" name="Size" class="form-control" placeholder="Size" required>
 											<option value = 0 selected disabled>Please Select a Size</option>
@@ -69,28 +70,8 @@
 											<option value=3>Large</option>
 											<option value=4>Extra Large</option>
 									</select>
-								</div> 
-								<!-- test test -->
-								{{-- <div class="col-md-6 mb-3">
-										<label class="form-label">Sub-Category</label>
-										<select id="subcategory" name="subcategory" class="form-control" placeholder="Sub-Category" required>
-												<option value = 0 selected disabled>Please Select a Category</option>
-												{{$items[] = array()}}
-													@foreach($subcategories as $subcategory)
-														{{$items[] = $subcategory->subcategory}}
-													@endforeach
-												<input type="hidden" value="{{$items}}" id="hiddenArray">
-												@foreach ($subcategories as $subcategory)
-													
-													<option id="subcategory-{{$subcategory->category_no}}" value="{{ $subcategory->subcategory }}">{{ $subcategory->subcategory_name }}</option>
-													
-												@endforeach             
-												@foreach ($subcategories as $subcategory)
-													<option id="category-{{$subcategory->subcategory}}" value="{{ $subcategory->subcategory }}">{{ $subcategory->subcategory_name }}</option>
-												@endforeach
-										</select>
-								</div> --}}
-								
+								</div>
+								<div class="col-md-3 mb-3"></div>
 								<div class="col-md-5 mb-3">
 									<label class="form-label">Item Quantity</label>
 									{{ Form::number('quantity', '',['class' => 'form-control', 'placeholder' => 'Starting Quantity'] )}}

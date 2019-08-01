@@ -20,10 +20,15 @@ class EventsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         //create a new event
-        $event = new Event;
+        // $event = new Event;
 
         // $event->name = 'A new event';
         // $event->startDateTime = Carbon\Carbon::now();

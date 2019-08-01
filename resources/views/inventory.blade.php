@@ -91,6 +91,8 @@
                                     <th >Item name</th>
                                     {{-- <th >Stock Keeping Unit(SKU)</th> --}}
                                     <th >Category</th>
+                                    <th>Color</th>
+                                    <th>Size</th>
                                     <th >Quantity</th>
                                     <th >Threshold</th>
                                     <th >Last Modified (YY-MM-DD)</th>
@@ -107,17 +109,12 @@
                                     
                                     <td>
                                         <a href="{{ url('inventory/'.$i->inventory_id) }}" class="dropdown-item">
-                                            {{ $i->inventory_name }}</td>
+                                            {{ $i->inventory_name }}
                                         </a>
-                                   
-                                    {{-- <td>
-                                        <div id="barcode-{{$i->inventory_id}}" value="toPrint-{{$i->inventory_id}}">
-                                            <a href="" class="dropdown-item" onclick="printContent('barcode-{{$i->inventory_id}}');" id="printBtn{{ $i->inventory_id}}">
-                                                {!!'<img src="data:image/png;base64,' . DNS1D::getBarcodePNG("".$i->sku, "C128A",2,44,array(1,1,1), true) . '" alt="barcode"   />' !!}
-                                            </a>
-                                        </div>
-                                    </td> --}}
+                                    </td>    
                                     <td>{{ $i->category_name }}</td>
+                                    <td>{{ $i->color_name }}</td>
+                                    <td> {{ $i->size }}</td>
                                     <td>{{ $i->quantity }}</td>
                                     <td>{{ $i->threshold }}</td>
                                     {{-- <td>{{ $i->barcode }}</td> --}}

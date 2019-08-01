@@ -27,9 +27,12 @@ class InventoryController extends Controller
     public function index()
     {
         //
-        $joinedTable = DB::table('category_ref')
-            // ->join('category_ref','inventory.category','=','category_ref.id')
-            ->join('inventory','category_ref.category_no','=','inventory.category')
+        $joinedTable = DB::table('inventory')
+            // // ->join('category_ref','inventory.category','=','category_ref.id')
+            // ->join('inventory','category_ref.category_no','=','inventory.category')
+            ->join('category_ref', 'inventory.category', '=', 'category_ref.category_no')
+            ->join('color','inventory.color','=','color.color_id')
+            ->join('size','inventory.size', '=', 'size.size_id')
             ->get();
         //dd($joinedTable);
 
