@@ -67,8 +67,20 @@ Route::resource('/roset', 'Roset');
 Route::resource('calendar', 'Calendar');
 
 Auth::routes();
+// Route::get('/home', 'HomeController@index')->name('home');
+Route::resource('ingredient', 'IngredientController');
+Route::resource('food', 'FoodController');
+Route::resource('users', 'ManageUsersController');
+Route::resource('employee', 'EmployeeController');
+Route::resource('eventreport', 'EventLogisticsReportController');
+Route::resource('returnInventory', 'ReturnInventoryContoller');
+Route::resource('manageuser', 'ManageUsersController');
+
+Route::get('admin/routes', 'AdminController@admin')->middleware('admin');
+
 
 Route::get('/home', 'HomeController@index')->name('home');
 
 //Rosette's Routes.
 Route::resource('bookevent', 'BookEventController');
+Route::resource('selectpackages', 'SelectPackageController');

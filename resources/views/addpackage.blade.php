@@ -45,40 +45,19 @@
 
                          <div class="row">
                             <div class="col-md-5 mb-3">
-                                 <label class = "form-label"> Event Name <font color="red">*</font></label>
+                                 <label class = "form-label"> Package Name <font color="red">*</font></label>
                                 {{ Form::text('eventName', '', ['class' => 'form-control', 'placeholder' => 'Event Name', 'required' => 'true'])}}
                            </div>
 
-                           <div class="col-md-4 mb-3"> 
-                                <label class = "form-label"> Event Type <font color="red">*</font></label>
-                                <input list = "eventType" name="eventType" class = "form-control" form = "bookevent" onchange="toggle(this.value)">
-                                 <datalist id ="eventType">    
-                                    <option disabled> - Please Select Event Type - </option>
-                                    <option value="Wedding"> Wedding </option>
-                                    <option value="Birthday"> Birthday </option>
-                                    <option value="Debut"> Debut </option>
-                                    <option value="Business"> Business </option>
-                                    <option value="Corporate"> Corporate </option>
-                                    <option value="Others"> Others </option>
-                                
-                            </datalist>
-                       </div>
-
-                       {{-- Hidden Div for additional request --}}
-                           <div class="col-md-3 mb-3" id='test' style="display:none">
-                                 {{ Form::text('eventType', '', ['class' => 'form-control', 'placeholder' => 'Others: Please Specify', 'required' => 'true'])}}
-                            </div>
-
                            <div class="col-md-5 mb-3">
-                                <label class = "form-label"> Event Start Date <font color="red">*</font></label>
-                                   {{ Form::date('eventDate', '', ['class' => 'form-control', 'placeholder' => 'Date of Event', 'required' => 'true', 'min' => date("Y-m-d H:i:s")]) }} 
-                           </div>
-
+                                <label class = "form-label"> Package c <font color="red">*</font></label>
+                               {{ Form::text('eventName', '', ['class' => 'form-control', 'placeholder' => 'Event Name', 'required' => 'true'])}}
+                          </div>
+                            
                            <div class="col-md-4 mb-3">
-                                <label class = "form-label"> Event End Date <font color="red">*</font></label>
+                                <label class = "form-label"> Event Date <font color="red">*</font></label>
                                    {{ Form::date('eventDate', '', ['class' => 'form-control', 'placeholder' => 'Date of Event', 'required' => 'true', 'min' => date("Y-m-d H:i:s")]) }} 
                            </div>
-                           
                            
                             {{-- <div class="col-md-3 mb-3"></div>
                             <div class="col-md-3 mb-3"> --}}
@@ -93,34 +72,66 @@
                                     <option value="05"> Other Venue </option>
                             </select>
                             </div> --}}
-                            
-                            <div class="col-md-5 mb-3">                                
-                                <label class = "form-label"> Event Theme <font color="red">*</font></label>
+                                   
+                            <div class="col-md-4 mb-3"> 
+                                    <label class = "form-label"> Event Type <font color="red">*</font></label>
+                                    <input list = "eventType" name="eventType" class = "form-control" form = "bookevent" onchange="toggle(this.value)">
+                                     <datalist id ="eventType">    
+                                        <option disabled> - Please Select Event Type - </option>
+                                        <option value="Wedding"> Wedding </option>
+                                        <option value="Birthday"> Birthday </option>
+                                        <option value="Debut"> Debut </option>
+                                        <option value="Business"> Business </option>
+                                        <option value="Corporate"> Corporate </option>
+                                        <option value="Others"> Others </option>
+                                    
+                                </datalist>
+                           </div>
+                           
+                           {{-- Hidden Div for additional request --}}
+                           <div class="col-md-4 mb-3" id='test' style="display:none">
+                                 {{ Form::text('eventType', '', ['class' => 'form-control', 'placeholder' => 'Others: Please Specify', 'required' => 'true'])}}
+                            </div>
+
+                            <div class="col-md-3 mb-3"></div>
+                            <div class="col-md-3 mb-3">
+                                <label class = "form-label"> Theme <font color="red">*</font></label>
                                 {{ Form::text('theme', '', ['class' => 'form-control', 'placeholder' => 'Theme', 'required' => 'true'])}}
                             </div>
 
-                            
-                           {{-- by 50s, 60s, 70, 80s etcc.. --}}
-                           <div class="col-md-4 mb-3"> 
-                               <label class = "form-label"> Total Pax <font color="red">*</font></label>
-                               <select name="totalPax" class = "form-control" form = "bookevent">
-                                        <option value="01"> 50 </option>
-                                        <option value="02"> 80 </option>
-                                        <option value="03"> 100 </option>
-                                        <option value="04"> more than 100 </option>
-                                </select>
-                                {{-- {{ Form::number('totalPax', '', ['class' => 'form-control', 'placeholder' => 'Total Pax', 'required' => 'true'])}} --}}
-                            </div>
-                           
-
-                             
-                            
-
-                            <div class="col-md-5 mb-3"> <label class = "form-label"> Others </label>
-                                {{ Form::textarea('others', '', ['class' => 'form-control', 'placeholder' => 'Others (Optional)'])}}
+                            <div class="col-md-3 mb-3"> 
+                                <label class = "form-label"> Centerpiece <font color="red">*</font></label>
+                                {{ Form::text('centerpiece', '', ['class' => 'form-control', 'placeholder' => 'Centerpiece', 'required' => 'true'])}}
                             </div>
 
-                            
+                            <div class="col-md-3 mb-3"> 
+                                <label class = "form-label">  Flowers <font color="red">*</font></label>
+                                {{ Form::text('flowers', '', ['class' => 'form-control', 'placeholder' => 'Flowers', 'required' => 'true'])}}
+                            </div>
+
+                            <div class="col-md-3 mb-3">
+                                <label class = "form-label"> Linen Color <font color="red">*</font></label>
+                                {{ Form::text('linencolor', '', ['class' => 'form-control', 'placeholder' => 'Linen Color', 'required' => 'true'])}}
+                            </div>
+                                
+                            <div class="col-md-3 mb-3"></div>
+                            <div class="col-md-3 mb-3">
+                                <label class = "form-label"> Chair <font color="red">*</font></label>
+                                {{ Form::text('chair', '', ['class' => 'form-control', 'placeholder' => 'Chair', 'required' => 'true'])}}
+                            </div>
+    
+                            <div class="col-md-4"> <h4> Table <font color="red">*</font></h4>
+                                {{ Form::text('table', '', ['class' => 'form-control', 'placeholder' => 'Table', 'required' => 'true'])}}
+                            </div>
+    
+                            <div class="col-md-4"> <h4> Others 
+                                {{ Form::textarea('others', '', ['class' => 'form-control', 'placeholder' => 'Others (Optional)', 'required' => 'true'])}}
+                            </div>
+
+                            {{-- by 50s, 60s, 70, 80s etcc.. --}}
+                            <div class="col-md-4"> <h4> Total Pax <font color="red">*</font></h4>
+                                {{ Form::number('totalPax', '', ['class' => 'form-control', 'placeholder' => 'Total Pax', 'required' => 'true'])}}
+                            </div>
     
                             {{-- <div class="col-md-4"> <h4> Package </h4>
                                 <select name="package" class = "form-control"> 
