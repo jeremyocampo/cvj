@@ -36,17 +36,13 @@ class HomeController extends Controller
 
         } else if (auth()->user()->userType == 2){
             
-            $criticalInventory = DB::select('select * from cvjdb.inventory where quantity <= threshold;');
-
-            $event = DB::table('event')
-            ->join('reserve_venue','event.reservation_id','=','reserve_venue.reservation_id')
-            ->select('*')
-            ->get();
             
-            return view('inventoryDashboard',['events' => $event, 'criticalInventory' => $criticalInventory]);
+            
+            
+            return redirect('inventoryDash');
         } else if(auth()->user()->userType == 3){
 
-            return view('bookevent');
+            return redirect('events');
 
         }  else if(auth()->user()->userType == 4){
 
@@ -54,7 +50,7 @@ class HomeController extends Controller
             
         }  else if(auth()->user()->userType == 5){
 
-
+            return view('clientDashboard');
             
         }
     }

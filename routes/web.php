@@ -67,3 +67,7 @@ Auth::routes();
 Route::resource('bookevent', 'BookEventController');
 
 Route::resource('selectpackages', 'SelectPackageController');
+
+Route::resource('clientregister', 'ClientRegisterController');
+
+Route::resource('inventoryDash', 'InventoryHomeController');

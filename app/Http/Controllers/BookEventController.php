@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\DB;
 use App\EventModel;
 use App\Http\Requests;
 use Session;
+use Spatie\GoogleCalendar\Event;
+use Carbon\Carbon;
 
 class BookEventController extends Controller
 {
@@ -66,7 +68,10 @@ class BookEventController extends Controller
 
     // Session::put('loginDetails', $loginDet);
     // $loginDetails = Session::get('loginDetails');
-   
+    // $client_id = 1;
+
+    $userID = Session::get('userId');
+
     $event = new EventModel([
        // 'client_id' => $loginDet['client_id'],
         'event_name' => $request->input('eventName'),
@@ -82,16 +87,31 @@ class BookEventController extends Controller
         'totalpax' => $request->input('totalPax'),
        
         'others' => $request->input('others'),
-        
+        'client_id' => $userID,
 
     ]);
     $event->save();
 
-    Event::create([
-        'name' =>  $request->input('eventName'),
-        'startDateTime' => $request->input('eventStartDate'),
-        'endDateTime' => $request->input('eventEndDate'),
-     ]);
+    // Event::create([
+    //     'name' =>  $request->input('eventName'),
+    //     'startDateTime' => $request->input('eventStartDate'),
+    //     'endDateTime' => $request->input('eventEndDate'),
+    //     'location' => $request->input('location'),
+    //     'description' => $request->input('others'),
+        
+    //  ]);
+
+    
+
+    $gevent = new Event;
+    $gevent->name =  $request->input('eventName');
+    $gevent->startDateTime =Carbon::now();
+    $gevent->endDateTime = Carbon::now();
+    $gevent->addAttendee(['email' => 'jeremy_ocampojr@dlsu.edu.ph']);
+
+    $gevent->save();
+
+
         
     return redirect('/selectpackages')
     ->with('success', "Event details saved!");

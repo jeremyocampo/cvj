@@ -12,7 +12,7 @@
             <div class="header-body">
                 <!-- Card stats -->
                 <div class="col-md-12 {{ $class ?? '' }}">
-                        <h1 class="display-2 text-white">Hi Earl Medina!</h1>
+                        <h1 class="display-2 text-white">Hi {{ auth()->user()->name }} !</h1>
                         <p class="text-white mt-0 mb-5">You can see your event details below</p>
                 </div>
                 <div class="row">

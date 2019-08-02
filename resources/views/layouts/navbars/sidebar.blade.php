@@ -187,6 +187,11 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="{{ url('event_budgets') }}">
+                            <i class="ni ni-calendar-grid-58 text-yellow"></i> {{ __('Event Budgets') }}
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="http://cvj.test:3000/logout" class="nav-link" onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();">
                             <i class="ni ni-button-power text-info"></i>

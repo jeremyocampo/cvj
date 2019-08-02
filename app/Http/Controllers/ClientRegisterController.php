@@ -37,13 +37,15 @@ class ClientRegisterController extends Controller
      */
     public function store(Request $request)
     {
-        $loginDet = [
-            "client_id" => "Admin",
-            "password" => "123456"
-        ];
-        Session::put('loginDetails', $loginDet);
-        $loginDetails = Session::get('loginDetails');
+        // $loginDet = [
+        //     "client_id" => "Admin",
+        //     "password" => "123456"
+        // ];
+        // Session::put('loginDetails', $loginDet);
+        // $loginDetails = Session::get('loginDetails');
         
+        Session::put('loginDetails', $loginDet);
+
         $this->validate($request, [
             'clientFName' => 'required',
             'clientLName' => 'required',
@@ -84,7 +86,7 @@ class ClientRegisterController extends Controller
         $client->save();
 
 
-        $client = DB::table('event')
+        $event = DB::table('event')
             // ->join('client_ref','event.client_name','=','client_ref.client_name')
             // ->join('event','client_ref.client_name','=','event.client_name')
             ->get();
@@ -99,7 +101,7 @@ class ClientRegisterController extends Controller
         //return view('eventbookingpage.bookevent', compact('client', 'packages', 'status'));
         return redirect('/bookevent')
             ->with('success', "Account successfully created!")
-            ->with('client', $client)
+            ->with('event', $event)
             ->with('packages', $packages);
 
     }

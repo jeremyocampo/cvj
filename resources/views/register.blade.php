@@ -43,19 +43,19 @@
                        </div>
 
                        <div class= "col-md-12 mb-3"> <h4> Email <font color="red">*</font></h4>
-                        {{ Form::email('clientEmail', '', ['class' => 'form-control', 'placeholder' => 'Enter Email', 'required' => 'true'])}}
+                            {{ Form::email('clientEmail', '', ['class' => 'form-control', 'placeholder' => 'Enter Email', 'required' => 'true'])}}
                        </div>
 
                        <div class= "col-md-12 mb-3"> <h4> Username <font color="red">*</font></h4>
-                        {{ Form::text('client_id', '', ['class' => 'form-control', 'placeholder' => 'Enter Username', 'required' => 'true' ])}}
+                            {{ Form::text('client_id', '', ['class' => 'form-control', 'placeholder' => 'Enter Username', 'required' => 'true' ])}}
                        </div>
 
                        <div class= "col-md-12 mb-3"> <h4> Password <font color="red"> * </font></h4>
-                        {{ Form::password('clientPassword', ['id' => 'clientPassword', 'class' => 'form-control', 'placeholder' => 'Enter Password', 'required' => 'true' ])}}
+                            {{ Form::password('clientPassword', ['id' => 'clientPassword', 'class' => 'form-control', 'placeholder' => 'Enter Password', 'required' => 'true' ])}}
                        </div>
                         
                        <div class= "col-md-12 mb-3"> <h4> Confirm Password <font color="red"> * </font></h4>
-                        {{ Form::password('clientPassword_confirmation', ['id' => 'clientPassword_confirmation', 'class' => 'form-control', 'placeholder' => 'Confirm Password', 'required' => 'true'])}}
+                            {{ Form::password('clientPassword_confirmation', ['id' => 'clientPassword_confirmation', 'class' => 'form-control', 'placeholder' => 'Confirm Password', 'required' => 'true'])}}
                         <span id='message'></span>   
                        </div>
                          
@@ -64,11 +64,11 @@
                        </div>
                                 
                        <div class= "col-md-12 mb-3"> <h4> Fax no</h4>
-                        {{ Form::number('faxNo', '', ['class' => 'form-control', 'placeholder' => 'Enter Fax Number (Optional)',  'min' => '1000000', 'max' => '9999999'])}}
+                            {{ Form::number('faxNo', '', ['class' => 'form-control', 'placeholder' => 'Enter Fax Number (Optional)',  'min' => '1000000', 'max' => '9999999'])}}
                        </div>
 
                        <div class= "col-md-12 mb-3"> <h4> Mobile no <font color="red">*</font></h4>
-                        {{ Form::number('mobileNo', '', ['class' => 'form-control', 'placeholder' => 'Enter Mobile Number', 'required' => 'true', 'min' => '9000000000', 'max' => '9999999999'])}}
+                            {{ Form::number('mobileNo', '', ['class' => 'form-control', 'placeholder' => 'Enter Mobile Number', 'required' => 'true', 'min' => '9000000000', 'max' => '9999999999'])}}
                        </div>
                       
                         <div class= "col-md-12 mb-3"> <h4> Address </h4>

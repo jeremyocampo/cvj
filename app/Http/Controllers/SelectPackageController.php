@@ -16,7 +16,7 @@ class SelectPackageController extends Controller
      */
     public function index()
     {
-        return view('selectpackages');
+        return view('selectPackage');
 
         
     }

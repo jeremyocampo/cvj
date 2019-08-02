@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\EventModel;
 
 class ReturnInventoryController extends Controller
 {
@@ -19,7 +20,21 @@ class ReturnInventoryController extends Controller
     
     public function index()
     {
-        return view('returnInventory');
+        $events = Event::get();
+
+        $eventDeets = DB::table('events')
+        ->join('')
+        ->get();
+
+        $inventoryDeets = DB::table('inventory')
+            // // ->join('category_ref','inventory.category','=','category_ref.id')
+            // ->join('inventory','category_ref.category_no','=','inventory.category')
+            ->join('category_ref', 'inventory.category', '=', 'category_ref.category_no')
+            ->join('color','inventory.color','=','color.color_id')
+            ->join('size','inventory.size', '=', 'size.size_id')
+            ->get();
+
+        return view('returnInventory',['events' => $events, 'inventory' => $joinedTable]);
     }
 
     /**
