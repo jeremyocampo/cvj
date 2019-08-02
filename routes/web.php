@@ -81,7 +81,7 @@ Route::get('event_budgets/view/{event_id}','EventsBudgetController@show')->name(
 Route::post('event_budgets/','EventsBudgetController@create')->name("post.event_budgets");
 //Gmail API
 Route::get('send_mail','MailController@index');
-
+Route::get('email/{send_name}/{send_email}/{subject}','MailController@send_email');
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 

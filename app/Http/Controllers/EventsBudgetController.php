@@ -19,6 +19,11 @@ use App\Http\Requests;
 use Carbon\Carbon;
 use App\Client;
 
+use Mail;
+use App\Http\Controllers\MailController;
+use \Illuminate\Foundation\Testing\Concerns\MakesHttpRequests;
+
+
 class EventsBudgetController extends Controller
 {
     /**
@@ -26,8 +31,11 @@ class EventsBudgetController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
+        //$send_name, $send_email, $subject
+
         $events = Event::All();
         foreach($events as $event){
             $budget_check = EventBudget::where('event_id', '=',$event->event_id)->first();
@@ -37,6 +45,8 @@ class EventsBudgetController extends Controller
 
             //$event->budget = $budget_check == null? null : $budget_check;
             if($budget_check != null){
+
+                $this->send_email($event->client_name,'leebet16@gmail.com',$event->event_name,'Caterie Booking Confirmation');
                 $event->total_spent = $event->spent_buffer;
                 $event->budget_id=$budget_check->id;
                 foreach(EventBudgetItem::where('event_budget_id','=',$budget_check->id)->get() as $budget_item){
@@ -48,7 +58,16 @@ class EventsBudgetController extends Controller
         }
         return view('eventBudget',['events'=>$events]);
     }
-
+    public function send_email($send_name, $send_email, $event_name, $subject){
+        $to_name = $send_name;
+        $to_email = $send_email;
+        $data = array('send_mail'=>'monkaS', 'body' => 'monkey','client_name'=>$send_name,'event_name'=>$event_name);
+        Mail::send('send_mail', $data, function($message) use ($to_name, $to_email, $subject) {
+            $message->to($to_email, $to_name)->subject($subject);
+            $message->from('betbot.py@gmail.com','Caterie Bot');
+        });
+        return "sent_";
+    }
     /**
      * Show the form for creating a new resource.
      *
