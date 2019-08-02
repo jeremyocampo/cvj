@@ -1,5 +1,5 @@
 @inject('func', 'App\Http\Controllers\EventsCostingController')
-@extends('layouts.inventoryApp', ['title' => __('User Management')])
+@extends('layouts.app', ['title' => __('User Management')])
 @section('content')
     @include('layouts.headers.eventsCard')
     <style>
@@ -36,9 +36,13 @@
                             @foreach($events as $event)
                                 <tr>
                                     <td>{{$event->event_name}}<br><small><b>Client:</b> {{$event->client_name}}</small></td>
+
                                     <td>From: {{$event->event_start}}
                                         <br>To: {{$event->event_end}}
                                     </td>
+
+                                    <td>{{$event->event_start}} to <br> {{$event->event_end}} </td>
+
                                     <td>@if($event->budget_id == null) N/A @else {{number_format($event->total_spent,2)}}  / {{ number_format($event->total_budget,2)}} @endif</td>
                                     <td>
                                         @foreach($event->personnels as $personnel)

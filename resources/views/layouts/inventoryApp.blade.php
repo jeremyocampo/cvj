@@ -112,22 +112,7 @@
                     //document.getElementById("myInput").value = "";
                     
             }
-            
-            
         </script>
-        
-        {{-- <script>
-            function whichOne(){
-                if(document.getElementById("myTable").value == " ")
-                {
-                    function Pager(tableName, itemsPerPage);
-                } 
-                else if (document.getElementById("myTable").value != " ") 
-                {
-                    function searchTable();
-                }
-            }    
-        </script> --}}
         
     </head>
     <body class="{{ $class ?? '' }}">
@@ -135,7 +120,7 @@
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf
             </form>
-            @include('layouts.navbars.sidebar')
+            @include('layouts.navbars.inventorySidebar')
         @endauth
         
         <div class="main-content">

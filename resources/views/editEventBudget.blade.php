@@ -22,8 +22,8 @@
                         <input type="text" style="display: inline-block;width: 90%" name="old_names[]" class="input_like item_names budg_item" placeholder="Item Name" value="{{$budget_item->item_name}}" disabled>
                     @endforeach
                 </div>
-                <div id="budget_prog_col" class="col-md-3 marg_top">
-                    <label >Budget Breakdown</label>
+                <div id="budget_prog_col" class="col-md-2 marg_top">
+                    <label >Budget Status</label>
                     @foreach($budget->budget_items as $budget_item)
                         <div class="prog">
                             <div class="progress" style="height: 20px" >
@@ -32,18 +32,27 @@
                         </div>
                     @endforeach
                 </div>
-                <div id="budget_act_col" class="col-md-3 marg_top">
-                    <label>Amount Spent</label>
-                    @foreach($budget->budget_items as $budget_item)
-                        <input type="text" style="display: inline-block;" name="old_acts[]" class="item_acts form-control budg_item" placeholder="0.0" value="{{$budget_item->actual_amount}}">
-                    @endforeach
-                </div>
-                <div id="budget_amt_col" class="col-md-3 marg_top">
+                
+                <div id="budget_amt_col" class="col-md-2 marg_top">
                     <label>Budget Amount</label>
                     @foreach($budget->budget_items as $budget_item)
                         <input type="number" name="old_vals[]" step="any" style="display: inline-block;" class="item_amts form-control budg_item" placeholder="0.0" value="{{$budget_item->budget_amount}}" disabled>
                     @endforeach
                 </div>
+
+                <div id="budget_amt_col" class="col-md-2 marg_top">
+                        <label>Total Amount Spent</label>
+                        {{-- @foreach($budget->budget_items as $budget_item)
+                            <input type="number" name="old_vals[]" step="any" style="display: inline-block;" class="item_amts form-control budg_item" placeholder="0.0" value="{{$budget_item->budget_amount}}" disabled>
+                        @endforeach --}}
+                    </div>
+
+                <div id="budget_act_col" class="col-md-3 marg_top">
+                        <label>Amount Spent</label>
+                        @foreach($budget->budget_items as $budget_item)
+                            <input type="text" style="display: inline-block;" name="old_acts[]" class="item_acts form-control budg_item" placeholder="0.0" value="{{$budget_item->actual_amount}}">
+                        @endforeach
+                    </div>
             </div>
             <button id="add_item_btn" class="btn btn-icon btn-sm btn-primary" style="margin-top: 4vh;display: none" onclick="duplicate()" type="button">
                 Add New Item <i class="fa fa-plus fa-lg"></i>

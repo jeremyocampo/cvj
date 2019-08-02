@@ -1,5 +1,5 @@
 
-@extends('layouts.inventoryApp')
+@extends('layouts.app')
 
 @section('content')
 @include('layouts.headers.inventoryCard1')
@@ -44,7 +44,7 @@
 										</thead>
 										<tbody>
 											@foreach ($events as $i)
-											@if($i->status > 0)
+											@if($i->status > 2)
 											<tr>
 												<td></td>
 												<td></td>

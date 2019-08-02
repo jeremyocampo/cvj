@@ -27,13 +27,20 @@ class InventoryController extends Controller
     public function index()
     {
         //
-        $joinedTable = DB::table('category_ref')
-            // ->join('category_ref','inventory.category','=','category_ref.id')
-            ->join('inventory','category_ref.category_no','=','inventory.category')
+        $joinedTable = DB::table('inventory')
+            // // ->join('category_ref','inventory.category','=','category_ref.id')
+            // ->join('inventory','category_ref.category_no','=','inventory.category')
+            ->join('category_ref', 'inventory.category', '=', 'category_ref.category_no')
+            ->join('color','inventory.color','=','color.color_id')
+            ->join('size','inventory.size', '=', 'size.size_id')
             ->get();
         //dd($joinedTable);
 
-        return view('inventory', ['joinedInventory' => $joinedTable]);
+        $criticalInventory = DB::select('select * from cvjdb.inventory where quantity <= threshold;');
+
+        $month = Carbon::now()->format('F');
+
+        return view('inventory', ['joinedInventory' => $joinedTable, 'criticalInventory' => $criticalInventory, 'month' => $month]);
     }
 
     /**
@@ -100,7 +107,6 @@ class InventoryController extends Controller
             $inventory->color = $request->input('color');
             $inventory->threshold = $request->input('threshold');
             $inventory->price = $request->input('price');
-            //$inventory->last_modified = Carbon::now();
             $inventory->save();
             
             return redirect('/inventory')->with('success', 'Item Added!');
@@ -108,7 +114,7 @@ class InventoryController extends Controller
     }
 
     /**
-     * Display the specified resource.hhthrrejajgoeaibijgntoeaofineoaniivnomrnninalnuentamaimeuguop ihean
+     * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -118,24 +124,14 @@ class InventoryController extends Controller
         //
 
         $itemInfo = DB::table('category_ref')
-            // ->join('category_ref','inventory.category','=','category_ref.id')
             ->select('*')
             ->where('inventory.inventory_id', '=', $id)
             ->join('inventory','category_ref.category_no','=','inventory.category')
             ->get();
-        //dd($joinedTable);
-
         $category_ref = DB::table('category_ref')->get();
-
         $color =  DB::table('color')->get();
-
         $size = DB::table('size')->get();
        
-        // $subcategory = DB::table('subcategory_ref')
-        //     ->select('subcategory')
-        //     ->where('subcategory', '>', 0);
-        //dd($itemInfo);
-        // dd($color);
         return view('inventoryView', ['itemInfo' => $itemInfo, 'categories' => $category_ref, 'sizes' => $size, 'colors' => $color]);
 
     }
@@ -160,10 +156,6 @@ class InventoryController extends Controller
         ->join('inventory','category_ref.category_no','=','inventory.category')
         ->get();
 
-       
-
-        //   dd($item);
-        //   dd($category);
         return view('replenishInventory', ['items' => $item, 'category' => $category]);
     }
 
@@ -189,7 +181,6 @@ class InventoryController extends Controller
             'category'      => 'required|min:1',
             'quantity'      => 'required|numeric|min:1',
             'source'        => 'required|min:1',
-            'subcategory'   => 'required|min:1',
             'threshold'     => 'required|numeric|min:'.$minTh,
             'status'        => 'required|numeric|min:0',
         ],[
@@ -197,22 +188,11 @@ class InventoryController extends Controller
             'category.required'     => 'Please Select a Category.',
             'quantity.required'     => 'Please input a valid Quantity',
             'source.required'       => 'Please Select a Source',
-            'subcategory.required'  => 'Please Select a Sub-Category.',
             'threshold,required'    => 'Please Input a valid Threshold Amount',
             'threshold.min'         => 'Please Input a Threshold Amount at least 50% of Starting Quantity',
             'status.required'        => 'Please select the appropriate Status for this item',
         ]);
-        
-        //dd($request->input('category'));
 
-        // $newQuantity = DB::table('inventory')
-        // ->select('quantity')
-        // ->where('inventory_id', '=', $id)
-        // ->get();
-
-        //$newQuantity = $newQuantity[0]->quantity + $request->input('quantity');
-
-        
         $item = DB::table('inventory')
         ->where('inventory_id', '=', $id)
         ->update([
@@ -223,8 +203,8 @@ class InventoryController extends Controller
             'status'        => $request->input('status'),
             'itemSource'        => $request->input('source'),
             'threshold'     => $request->input('threshold'),
-            'subcategory'   => $request->input('subcategory'),
         ]);
+        
         
         return redirect('/inventory')->with('success', 'Item Updated');
     }
@@ -246,8 +226,6 @@ class InventoryController extends Controller
     public function destroy($id)
     {
         //
-        // return alert('Are you sure you want to Continue?');
-
         $item = DB::table('inventory')
         ->where('inventory_id', '=', $id)
         ->update([

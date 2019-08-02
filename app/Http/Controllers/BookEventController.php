@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\DB;
 use App\EventModel;
 use App\Http\Requests;
 use Session;
+use Spatie\GoogleCalendar\Event;
+use Carbon\Carbon;
 
 class BookEventController extends Controller
 {
@@ -17,6 +19,11 @@ class BookEventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index(){
        
         $client = DB::table('event')
@@ -61,31 +68,59 @@ class BookEventController extends Controller
 
     // Session::put('loginDetails', $loginDet);
     // $loginDetails = Session::get('loginDetails');
-   
+    // $client_id = 1;
+
+    $userID = Session::get('userId');
+
     $event = new EventModel([
-        'client_id' => $loginDet['client_id'],
+       // 'client_id' => $loginDet['client_id'],
         'event_name' => $request->input('eventName'),
-        'event_date_time' => $request->input('eventDate'),
-         'reservation_id' => $request->input('eventVenue'),
+
         //Event Type Selection
-        'eventType' => $request->input('event_type'),
+        'event_type' => $request->input('eventType'),
+
+        'event_start' => $request->input('eventStartDate'),
+        'event_end' => $request->input('eventEndDate'),
+         //'reservation_id' => $request->input('eventVenue'),
+
         'theme' => $request->input('theme'),
-        'centerpiece' => $request->input('centerpiece'),
-        'flowers' => $request->input('flowers'),
-        'linencolor' => $request->input('linencolor'),
-        'chair' => $request->input('chair'),
-        'table' => $request->input('table'),
+        'totalpax' => $request->input('totalPax'),
+       
         'others' => $request->input('others'),
-        'totalpax' => $request->input('totalpax'),
+        'client_id' => $userID,
 
     ]);
     $event->save();
+
+    // Event::create([
+    //     'name' =>  $request->input('eventName'),
+    //     'startDateTime' => $request->input('eventStartDate'),
+    //     'endDateTime' => $request->input('eventEndDate'),
+    //     'location' => $request->input('location'),
+    //     'description' => $request->input('others'),
+    //  ]);
+
+    $email = DB::table('users')
+    // ->join('category_ref','inventory.category','=','category_ref.id')
+    ->select('email')
+    ->where('users.id', '=', $userID)
+    ->get();
+
+    $gevent = new Event;
+    $gevent->name =  $request->input('eventName');
+    $gevent->startDateTime = Carbon::now();
+    $gevent->endDateTime = Carbon::now();
+    $gevent->addAttendee(['email' => 'jeremy_ocampojr@dlsu.edu.ph']);
+
+    $gevent->save();
+
+
         
-    return redirect('/selectpackage')
-    ->with('success', "Event details saved!")
-    ->with('client', $client)
-    ->with('packages', $packages);
-    //return view('eventbookingpage.selectpackage', compact('status'));
+    return redirect('/selectpackages')
+    ->with('success', "Event details saved!");
+    //->with('client', $client)
+    //->with('packages', $packages);
+    
     }
 
     /**

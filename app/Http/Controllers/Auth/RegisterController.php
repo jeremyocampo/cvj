@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\DB;
+use Session;
 
 class RegisterController extends Controller
 {
@@ -52,6 +54,10 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:3', 'confirmed'],
+            // 'userType' => ['required'],
+            'tel_no' => ['string'],
+            'mob_no' => ['string'],
+            'address' => ['string'],
         ]);
     }
 
@@ -63,10 +69,31 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        // $statement = DB::select("SHOW TABLE STATUS LIKE 'users'");
+        // $userID = $statement[0]->Auto_increment;
+        
+        // Session::put('userId', $userID);
+        
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            // 'userType' => $data['userType'],
+            'tel_no' => $data['tel_no'],
+            'mob_no' => $data['mob_no'],
+            'address' => $data['address'],
+            'status' => 'Pending',
+            'userType' => 5,
         ]);
+
+        // return User::create([
+        //     'name' => $data['name'],
+        //     'email' => $data['email'],
+        //     'password' => Hash::make($data['password']),
+        // ]);
+
+        // return $user;
+        // return redirect('/bookevent')->with('userId', $userID);
+        
     }
 }

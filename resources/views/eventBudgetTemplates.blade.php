@@ -1,5 +1,5 @@
 @inject('func', 'App\Http\Controllers\EventsCostingController')
-@extends('layouts.inventoryApp', ['title' => __('User Management')])
+@extends('layouts.app', ['title' => __('User Management')])
 @section('content')
     @include('layouts.headers.eventsCard')
     <style>

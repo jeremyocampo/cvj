@@ -13,6 +13,13 @@
       0 => 'Fideloper\\Proxy\\TrustedProxyServiceProvider',
     ),
   ),
+  'laravel-frontend-presets/argon' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'LaravelFrontendPresets\\ArgonPreset\\ArgonPresetServiceProvider',
+    ),
+  ),
   'laravel/nexmo-notification-channel' => 
   array (
     'providers' => 
@@ -34,20 +41,6 @@
       0 => 'Laravel\\Tinker\\TinkerServiceProvider',
     ),
   ),
-  'nesbot/carbon' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Carbon\\Laravel\\ServiceProvider',
-    ),
-  ),
-  'nunomaduro/collision' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
-    ),
-  ),
   'laravelcollective/html' => 
   array (
     'providers' => 
@@ -60,11 +53,18 @@
       'Html' => 'Collective\\Html\\HtmlFacade',
     ),
   ),
-  'laravel-frontend-presets/argon' => 
+  'nesbot/carbon' => 
   array (
     'providers' => 
     array (
-      0 => 'LaravelFrontendPresets\\ArgonPreset\\ArgonPresetServiceProvider',
+      0 => 'Carbon\\Laravel\\ServiceProvider',
+    ),
+  ),
+  'nunomaduro/collision' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
     ),
   ),
   'spatie/laravel-google-calendar' => 

@@ -20,12 +20,47 @@ class EventsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
-        
-        $event = Event::get();
-        return view('eventsDash', ['events' => $event]);
-    
+        //create a new event
+        // $event = new Event;
+
+        // $event->name = 'A new event';
+        // $event->startDateTime = Carbon\Carbon::now();
+        // $event->endDateTime = Carbon\Carbon::now()->addHour();
+        // $event->addAttendee(['email' => 'youremail@gmail.com']);
+        // $event->addAttendee(['email' => 'anotherEmail@gmail.com']);
+
+        // $event->save();
+
+        // get all future events on a calendar
+        $events = Event::get();
+
+        // update existing event
+        // $firstEvent = $events->first();
+        // $firstEvent->name = 'updated name';
+        // $firstEvent->save();
+
+        // $firstEvent->update(['name' => 'updated again']);
+
+        // // create a new event
+        // Event::create([
+        // 'name' => 'A new event',
+        // 'startDateTime' => Carbon\Carbon::now(),
+        // 'endDateTime' => Carbon\Carbon::now()->addHour(),
+        // ]);
+
+        // // delete an event
+        // $event->delete();
+        // dd($events);
+
+        return view('eventsDash', ['events' => $events]);
+        // return view('eventsDash');
     }
 
     /**

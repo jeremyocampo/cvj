@@ -193,6 +193,7 @@ class EventsBudgetController extends Controller
         }
         $check_budget = EventBudget::where('event_id','=',$event->event_id)->first();
         $budget_templates = EventBudgetTemplate::all();
+        
         foreach($budget_templates as $budget_template){
             $budget_template->items = EventBudgetTemplateItem::where('event_budget_template_id','=',$budget_template->id)->get();
         }

@@ -2,14 +2,17 @@
 
 <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
     <div class="container-fluid">
+
         <!-- Toggler -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidenav-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <!-- Brand -->
         <a class="navbar-brand pt-0" href="{{ url('home') }}">
-            <img src="{{ asset('argon') }}/img/brand/blue.png" class="navbar-brand-img" alt="...">
+            <img src="{{ asset('argon') }}/img/brand/cvj.png" class="navbar-brand-img img-responsive" alt="..." height="150%" width="50%">
         </a>
+
         <!-- User -->
         <ul class="nav align-items-center d-md-none">
             <li class="nav-item dropdown">
@@ -32,17 +35,8 @@
                         <i class="ni ni-settings-gear-65"></i>
                         <span>{{ __('Settings') }}</span>
                     </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="ni ni-calendar-grid-58"></i>
-                        <span>{{ __('Activity') }}</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="ni ni-support-16"></i>
-                        <span>{{ __('Support') }}</span>
-                    </a>
                     <div class="dropdown-divider"></div>
-                    <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault();
-                    document.getElementById('logout-form').submit();">
+                    <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <i class="ni ni-user-run"></i>
                         <span>{{ __('Logout') }}</span>
                     </a>
@@ -56,7 +50,7 @@
                 <div class="row">
                     <div class="col-6 collapse-brand">
                         <a href="{{ url('home') }}">
-                            <img src="{{ asset('argon') }}/img/brand/blue.png">
+                            <img src="{{ asset('argon') }}/img/brand/cvj.png">
                         </a>
                     </div>
                     <div class="col-6 collapse-close">
@@ -78,68 +72,185 @@
                     </div>
                 </div>
             </form>
-            <!-- Navigation -->
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('home') }}">
-                        <i class="ni ni-tv-2 text-primary"></i> {{ __('Dashboard') }}
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('bookevent') }}">
-                        <i class="ni ni-calendar-grid-58 text-yellow"></i> {{ __('Events') }}
-                    </a>
-                </li>
-                {{-- <li class="nav-item">
-                    <a class="nav-link" href="{{ url('inventory') }}">
-                        <i class="ni ni-collection text-red"></i> {{ __('Inventory Management') }}
-                    </a>
-                </li> --}}
-                <li class="nav-item">
-                    <a class="nav-link" href="#navbar-dashboards" data-toggle="collapse" role="" aria-expanded="false" aria-controls="">
-                        <i class="ni ni-collection text-red"></i>
-                        <span class="nav-link-text">Manage Inventory</span>
-                    </a>
-                    <div class="collapse" id="navbar-dashboards" style>
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a href="{{ url('inventory') }}" class="nav-link">
-                                        <i class="ni ni-bullet-list-67 text-blue"></i>View Inventory</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ url('deploy') }}" class="nav-link">
-                                    <i class="ni ni-delivery-fast text-green"></i> Deploy Inventory</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ url('inventory/return') }}" class="nav-link">
-                                    <i class="ni ni-archive-2 text-purple"></i>Inventory Return</a>
-                            </li>
-                            {{-- <li class="nav-item">
-                                <a href="{{ url('inventory/create') }}" class="nav-link">
-                                Add to Inventory</a>
-                            </li> --}}
-                            {{-- <li class="nav-item">
-                                <a href="/inventory" class="nav-link">
-                                Alternative
-                                </a>
-                            </li> --}}
-                        </ul>
-                    </div>
-                </li>
-                <!-- <li class="nav-item">
-                    <a class="nav-link" href="{{ url('inventory/create') }}">
-                        <i class="ni ni-collection text-red"></i> {{ __('Add Inventory') }}
-                    </a>
-                </li> -->
-                
-                <li class="nav-item">
-                    <a href="http://cvj.test:3000/logout" class="nav-link" onclick="event.preventDefault();
-                        document.getElementById('logout-form').submit();">
-                        <i class="ni ni-button-power text-info"></i>
-                        {{__('Logout') }}
-                    </a>
-                </li>
-            </ul>
+            @if(auth()->user()->userType == 1)
+                <!-- admin Navigation -->
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('home') }}">
+                            <i class="ni ni-tv-2 text-primary"></i> {{ __('Dashboard') }}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('events') }}">
+                            <i class="ni ni-calendar-grid-58 text-yellow"></i> {{ __('Events') }}
+                        </a>
+                    </li>
+                    {{-- <li class="nav-item">
+                        <a class="nav-link" href="{{ url('inventory') }}">
+                            <i class="ni ni-collection text-red"></i> {{ __('Inventory Management') }}
+                        </a>
+                    </li> --}}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#navbar-dashboards" data-toggle="collapse" role="" aria-expanded="false" aria-controls="">
+                            <i class="ni ni-collection text-red"></i>
+                            <span class="nav-link-text">Manage Users</span>
+                        </a>
+                        <div class="collapse" id="navbar-dashboards" style>
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a href="{{ url('users') }}" class="nav-link">
+                                            <i class="ni ni-bullet-list-67 text-blue"></i>View Users</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('users/create') }}" class="nav-link">
+                                        <i class="ni ni-delivery-fast text-green"></i>Create Users</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a href="http://cvj.test:3000/logout" class="nav-link" onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">
+                            <i class="ni ni-button-power text-info"></i>
+                            {{__('Logout') }}
+                        </a>
+                    </li>
+                </ul>
+            @endif
+            @if(auth()->user()->userType == 2)
+                    <!-- inventory Navigation -->
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('home') }}">
+                                <i class="ni ni-tv-2 text-primary"></i> {{ __('Dashboard') }}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('events') }}">
+                                <i class="ni ni-calendar-grid-58 text-yellow"></i> {{ __('Events') }}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#navbar-dashboards" data-toggle="collapse" role="" aria-expanded="false" aria-controls="">
+                                <i class="ni ni-collection text-red"></i>
+                                <span class="nav-link-text">Manage Inventory</span>
+                            </a>
+                            <div class="collapse" id="navbar-dashboards" style>
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="{{ url('inventory') }}" class="nav-link">
+                                                <i class="ni ni-bullet-list-67 text-blue"></i>View Inventory</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ url('deploy') }}" class="nav-link">
+                                            <i class="ni ni-delivery-fast text-green"></i> Deploy Inventory</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ url('inventoryReturn') }}" class="nav-link">
+                                            <i class="ni ni-archive-2 text-purple"></i>Inventory Return</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <!-- <li class="nav-item">
+                            <a class="nav-link" href="{{ url('inventory/create') }}">
+                                <i class="ni ni-collection text-red"></i> {{ __('Add Inventory') }}
+                            </a>
+                        </li> -->
+                        
+                        <li class="nav-item">
+                            <a href="http://cvj.test:3000/logout" class="nav-link" onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">
+                                <i class="ni ni-button-power text-info"></i>
+                                {{__('Logout') }}
+                            </a>
+                        </li>
+                    </ul>
+            @endif
+            @if(auth()->user()->userType == 3)
+                <!-- eventmanager Navigation -->
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('home') }}">
+                            <i class="ni ni-tv-2 text-primary"></i> {{ __('Dashboard') }}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('events') }}">
+                            <i class="ni ni-calendar-grid-58 text-yellow"></i> {{ __('Events') }}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('bookevent') }}">
+                            <i class="ni ni-calendar-grid-58 text-yellow"></i> {{ __('Book Event') }}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('event_budgets') }}">
+                            <i class="ni ni-calendar-grid-58 text-yellow"></i> {{ __('Event Budgets') }}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="http://cvj.test:3000/logout" class="nav-link" onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">
+                            <i class="ni ni-button-power text-info"></i>
+                            {{__('Logout') }}
+                        </a>
+                    </li>
+                </ul>
+            @endif
+            @if(auth()->user()->userType == 4)
+                <!-- eventmanager Navigation -->
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('home') }}">
+                            <i class="ni ni-tv-2 text-primary"></i> {{ __('Dashboard') }}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('events') }}">
+                            <i class="ni ni-calendar-grid-58 text-yellow"></i> {{ __('Events') }}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('bookevent') }}">
+                            <i class="ni ni-calendar-grid-58 text-yellow"></i> {{ __('Book Event') }}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="http://cvj.test:3000/logout" class="nav-link" onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">
+                            <i class="ni ni-button-power text-info"></i>
+                            {{__('Logout') }}
+                        </a>
+                    </li>
+                </ul>
+            @endif
+            @if(auth()->user()->userType == 5)
+                 <!-- client Navigation -->
+                 <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('home') }}">
+                            <i class="ni ni-tv-2 text-primary"></i> {{ __('Dashboard') }}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('bookevent') }}">
+                            <i class="ni ni-calendar-grid-58 text-yellow"></i> {{ __('Create Booking') }}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="http://cvj.test:3000/logout" class="nav-link" onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">
+                            <i class="ni ni-button-power text-info"></i>
+                            {{__('Logout') }}
+                        </a>
+                    </li>
+                </ul>
+            
+            @endif
+
             <!-- Divider -->
             {{-- <hr class="my-3"> 
             <!-- Heading -->

@@ -1,4 +1,4 @@
-@extends('layouts.eventApp')
+@extends('layouts.app')
 
 @section('content')
     @include('layouts.headers.cards')
@@ -56,13 +56,13 @@
                                                     <span>{{ __('View Event Details') }}</span>
                                                 </a>
 
-                                                <a href="{{ url('inventory/'.$i->inventory_id.'/edit')}}" class="dropdown-item">
+                                                <a href="{{ url('inventory/'.$i->event_name.'/edit')}}" class="dropdown-item">
                                                     <i class="ni ni-fat-add"></i>
                                                     <span>{{ __('Replenish Item') }}</span>
                                                 </a>
                                                 
                                                 <a href="" class="dropdown-item" onclick="event.preventDefault();
-                                                    document.getElementById('delete-form-{{ $i->inventory_id }}').submit();">
+                                                    document.getElementById('delete-form-{{ $i->event_name }}').submit();">
                                                     <i class="ni ni-fat-remove"></i>
                                                     <span>{{ __('Remove from Inventory') }}</span>
                                                     {!! Form::open(['action' => ['InventoryController@destroy', $i->event_name], 'method' => 'POST', 'id' => 'delete-form-'.$i->inventory_id]) !!}

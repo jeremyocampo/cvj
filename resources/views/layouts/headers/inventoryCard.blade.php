@@ -1,10 +1,10 @@
-<div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+<div class="header bg-gradient-success pb-8 pt-5 pt-md-8">
     <div class="container-fluid">
         <div class="header-body">
             <!-- Card stats -->
             <div class="col-4">
                 <div class="">
-                    <!-- <div class="card card-stats">
+                    {{-- <!-- <div class="card card-stats">
                         <a href="{{ url('inventory/create') }}">
                         <div class="card-body">
                             <div class="row">
@@ -19,7 +19,7 @@
                             </div>    
                         </div>
                         </a>
-                    </div> -->
+                    </div> --> --}}
                 </div>
             </div>
         </div>

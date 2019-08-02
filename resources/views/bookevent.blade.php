@@ -1,4 +1,4 @@
-@extends('layouts.eventApp')
+@extends('layouts.app')
 @section('title', 'BookEvent')
 
 {{-- @include('layouts.headers.pagination') --}}
@@ -15,34 +15,15 @@
                             <div class="col">
                                 <div class="row">
                                 <div class="col-xs-5">
-                                    <h1 class="mb-0">Book Event</h1>
+                                    <h1 class="">Book Event</h1>
                                 </div>
                                 <div class="col-xs-2">
                                         &nbsp;&nbsp;
                                 </div>
-                               
                                 </div>
                             </div>
-                            <!-- <div class="col text-right">
-                                {{-- <a href="inventory/create" class="btn btn-sm btn-primary">Add Item</a> --}}
-                                
-                            </div> -->
-
-                            <!-- <div class="col text-left">
-                                {{-- <div class="row"> --}}
-                                    <div class="col-xs-5">
-                                {{-- <input class="form-control" id="myInput" type="search" onkeyup="searchTable()" style="background: transparent;" placeholder="Search Item Here"> --}}
-                                <input class="form-control" id="myInput" type="search" onkeyup="searchTable()" style="background: transparent;" placeholder="Search Item Here">
-                                    </div>
-                                    {{-- <div class="col-xs-2">
-                                        &nbsp; &nbsp;
-                                    </div> --}}
-                                    {{-- <div class="col-xs-3">
-                                    <button type="button" class="btn btn-md btn-block" onclick="seachTable()">Search</button>
-                                    </div> --}}
-                                {{-- </div> --}}
-                            </div> -->
                         </div>
+
                         <div class="row">
                             <div class="col-md-12">
                                 @if(session()->has('success'))
@@ -57,76 +38,70 @@
                             {{-- {!! Form::open('action' => ['BookEventController@store', 'method' => 'POST', 'id' => 'bookevent']) !!} --}}
                             {!! Form::open(['action' => 'BookEventController@store', 'method' => 'POST']) !!}
                             {{-- <form action = "BookEventController@store" method = "POST"> --}}
-                            {{ csrf_field() }}
+                            {{-- {{ csrf_field() }} --}}
 
-                            <div class="col-md-4"> <h4> Event Name <font color="red">*</font></h4>
+                            <div class="card-body border-0"></div>
+
+                         <div class="row">
+                            <div class="col-md-5 mb-3">
+                                 <label class = "form-label"> Event Name <font color="red">*</font></label>
                                 {{ Form::text('eventName', '', ['class' => 'form-control', 'placeholder' => 'Event Name', 'required' => 'true'])}}
                            </div>
-                            
-                           <div class="col-md-4"> <h4> Event Date <font color="red">*</font></h4>
-                                   {{ Form::date('eventDate', '', ['class' => 'form-control', 'placeholder' => 'Date of Event', 'required' => 'true', 'min' => date("Y-m-d H:i:s")]) }} 
-                           </div>
 
-                           <div class="col-md-4"> <h4> Event Venue </h4>
-                            <select name="eventVenue" class = "form-control" form = "bookevent">
-                                <option disabled> - Please Select a Venue - </option>
-                                    <option value="01"> CVJ Hall A </option>
-                                    <option value="02"> CVJ Hall B </option>
-                                    <option value="03"> CVJ Hall C </option>
-                                    <option value="04"> CVJ Hall D </option>
-                                    <option value="05"> Other Venue </option>
-                            </select>
+                           <div class="col-md-4 mb-3"> 
+                                <label class = "form-label"> Event Type <font color="red">*</font></label>
+                                <select name = "eventType"  id = "eventType" class = "form-control" form = "bookevent">
+                                    <option disabled selected> - Please Select Event Type - </option>
+                                    <option value="Wedding"> Wedding </option>
+                                    <option value="Birthday"> Birthday </option>
+                                    <option value="Debut"> Debut </option>
+                                    <option value="Business"> Business </option>
+                                    <option value="Corporate"> Corporate </option>
+                                    <option value="Others"> Others </option>
+                                </select>
                             </div>
-                                   
-                           <div class="col-md-4"> <h4> Event Type <font color="red">*</font></h4>
-                                   <select name="eventType" class = "form-control" form = "bookevent" onchange="toggle(this.value)">
-                                       <option disabled> - Please Select Event Type - </option>
-                                           <option value="Wedding"> Wedding </option>
-                                           <option value="Birthday"> Birthdays </option>
-                                           <option value="Debut"> Baptismal </option>
-                                           <option value="Business"> Business </option>
-                                           <option value="Corporate"> Corporate </option>
-                                           <option value="Others"> Others </option>
-                                   </select>
-                           </div>
-                           
-                           {{-- Hidden Div for additional request --}}
-                            <div class= "col-md-12 mb-3" id='test' style="display:none">
+
+                       {{-- Hidden Div for additional request --}}
+                           {{-- <div class="col-md-3 mb-3" id='test' style="display:none">
                                  {{ Form::text('eventType', '', ['class' => 'form-control', 'placeholder' => 'Others: Please Specify', 'required' => 'true'])}}
+                            </div> --}}
+
+                           <div class="col-md-5 mb-3">
+                                <label class = "form-label"> Event Start Date <font color="red">*</font></label>
+                                   {{-- {{ Form::date('eventStartDate', '', ['class' => 'form-control', 'placeholder' => 'Date of Event', 'required' => 'true', 'min' => date("Y-m-d H:i:s")]) }}  --}}
+                                   <input type="datetime-local" name="eventStartDate" class="form-control" placeholder="Start date">
+
                             </div>
 
-                            <div class="col-md-4"> <h4> Theme <font color="red">*</font></h4>
+                           <div class="col-md-4 mb-3">
+                                <label class = "form-label"> Event End Date <font color="red">*</font></label>
+                                   {{-- {{ Form::date('eventEndDate', '', ['class' => 'form-control', 'placeholder' => 'Date of Event', 'required' => 'true', 'min' => date("Y-m-d H:i:s")]) }}  --}}
+                                   <input type="datetime-local" name="eventEndDate" class="form-control" placeholder="Start date">
+                            </div>
+            
+                            <div class="col-md-5 mb-3">                                
+                                <label class = "form-label"> Event Theme <font color="red">*</font></label>
                                 {{ Form::text('theme', '', ['class' => 'form-control', 'placeholder' => 'Theme', 'required' => 'true'])}}
                             </div>
 
-                            <div class="col-md-4"> <h4> Centerpiece <font color="red">*</font></h4>
-                                {{ Form::text('centerpiece', '', ['class' => 'form-control', 'placeholder' => 'Centerpiece', 'required' => 'true'])}}
+                           {{-- by 50s, 60s, 70, 80s etcc.. --}}
+                           <div class="col-md-4 mb-3"> 
+                               <label class = "form-label"> Number of Attendees <font color="red">*</font></label>
+                               <select name="totalPax" class = "form-control" form = "bookevent">
+                                    <option selected disabled>Please Select Number of Attendees</option>
+                                        <option value="50"> 50 </option>
+                                        <option value="80"> 80 </option>
+                                        <option value="100"> 100 </option>
+                                        <option value="101"> more than 100 </option>
+                                </select>
+                                {{-- {{ Form::number('totalPax', '', ['class' => 'form-control', 'placeholder' => 'Total Pax', 'required' => 'true'])}} --}}
                             </div>
 
-                            <div class="col-md-4"> <h4> Flowers <font color="red">*</font></h4>
-                                {{ Form::text('flowers', '', ['class' => 'form-control', 'placeholder' => 'Flowers', 'required' => 'true'])}}
+                            <div class="col-md-5 mb-3"> <label class = "form-label"> Others </label>
+                                {{ Form::textarea('others', '', ['class' => 'form-control', 'placeholder' => 'Others (Optional)'])}}
                             </div>
 
-                            <div class="col-md-4"> <h4> Linen Color <font color="red">*</font></h4>
-                                {{ Form::text('linencolor', '', ['class' => 'form-control', 'placeholder' => 'Linen Color', 'required' => 'true'])}}
-                            </div>
-    
-                            <div class="col-md-4"> <h4> Chair <font color="red">*</font></h4>
-                                {{ Form::text('chair', '', ['class' => 'form-control', 'placeholder' => 'Chair', 'required' => 'true'])}}
-                            </div>
-    
-                            <div class="col-md-4"> <h4> Table <font color="red">*</font></h4>
-                                {{ Form::text('table', '', ['class' => 'form-control', 'placeholder' => 'Table', 'required' => 'true'])}}
-                            </div>
-    
-                            <div class="col-md-4"> <h4> Others 
-                                {{ Form::textarea('others', '', ['class' => 'form-control', 'placeholder' => 'Others (Optional)', 'required' => 'true'])}}
-                            </div>
-
-                            {{-- by 50s, 60s, 70, 80s etcc.. --}}
-                            <div class="col-md-4"> <h4> Total Pax <font color="red">*</font></h4>
-                                {{ Form::number('totalPax', '', ['class' => 'form-control', 'placeholder' => 'Total Pax', 'required' => 'true'])}}
-                            </div>
+                            
     
                             {{-- <div class="col-md-4"> <h4> Package </h4>
                                 <select name="package" class = "form-control"> 
@@ -142,11 +117,12 @@
                             <div class="col-md-4"> <h4> Price per Head </h4>
                                 {{ Form::number('priceHead', '', ['class' => 'form-control', 'placeholder' => 'Price per Head', 'required' => 'true'])}}
                             </div> --}}
-
+                              
                             <br>
+
                             <div class="col-md-12 mb-3">
                                     <p style="text-align:center">
-                                         {{ Form::submit('Next: Add Book Event', ['class' => 'btn btn-success']) }} 
+                                         {{ Form::submit('Next: Select Packages', ['class' => 'btn btn-success']) }} 
                                     </p>
                                  </div>
                                  
