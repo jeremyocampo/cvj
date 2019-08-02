@@ -79,9 +79,15 @@ Route::post('event_budget_template','EventsBudgetTemplateController@store')->nam
 Route::get('event_budgets','EventsBudgetController@index')->name("event_budgets");
 Route::get('event_budgets/view/{event_id}','EventsBudgetController@show')->name("get.event_budgets");
 Route::post('event_budgets/','EventsBudgetController@create')->name("post.event_budgets");
+
+//Personnel API
+Route::get('avail_personnels/{event_id}','EventsBudgetController@get_available_personnel')->name("get.personnels");
+Route::get('add_personnel/{emp_id}/{event_id}','EventsBudgetController@save_personnel')->name("get.personnels");
+
 //Gmail API
 Route::get('send_mail','MailController@index');
 Route::get('email/{send_name}/{send_email}/{subject}','MailController@send_email');
+
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 

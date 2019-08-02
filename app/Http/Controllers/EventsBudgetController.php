@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Employee;
+use App\EmployeeEventSchedule;
 use App\EventBudget;
 use App\Supplier;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Event;
 use App\inventory;
+use Response;
 use App\categoryRef;
 use App\OutsourcedItem;
 use App\EventBudgetTemplate;
@@ -46,9 +49,11 @@ class EventsBudgetController extends Controller
             //$event->budget = $budget_check == null? null : $budget_check;
             if($budget_check != null){
 
-                $this->send_email($event->client_name,'leebet16@gmail.com',$event->event_name,'Caterie Booking Confirmation');
+                //$this->send_email($event->client_name,'leebet16@gmail.com',$event->event_name,'Caterie Confirmation');
                 $event->total_spent = $event->spent_buffer;
                 $event->budget_id=$budget_check->id;
+                $employees=EmployeeEventSchedule::select('employee_id')->where('event_assigned','=',$event->event_id)->get();
+                $event->personnels=Employee::whereIn('employee_id',$employees)->get();
                 foreach(EventBudgetItem::where('event_budget_id','=',$budget_check->id)->get() as $budget_item){
                     $event->total_spent += $budget_item->actual_amount;
                 }
@@ -56,13 +61,58 @@ class EventsBudgetController extends Controller
                 $event->budget_id=null;
             }
         }
-        return view('eventBudget',['events'=>$events]);
+
+        $all_personnels = array();
+
+
+        return view('eventBudget',['events'=>$events,'all_personnels'=>$all_personnels]);
+    }
+    public function get_available_personnel($event_id){
+        $event = Event::where('event_id','=',$event_id)->first();
+        $employees=EmployeeEventSchedule::select('employee_id')->where('event_assigned','=',$event->event_id)->get();
+        $event->personnel=Employee::whereIn('employee_id',$employees)->get();
+        $event_personel = array();
+        foreach($event->personnel as $personnel){array_push($event_personel,$personnel->employee_id);}
+
+        $personnels = Employee::whereNotIn("employee_id",$event_personel)->get();
+        $avail_personnel = array();
+
+        error_log($personnels);
+        foreach($personnels as $personnel){
+
+                $event_sched_ids = EmployeeEventSchedule::select('employee_id')
+                    ->where('employee_id','=',$personnel->employee_id)
+                    ->whereBetween('event_date_time',[$event->event_start,$event->event_end])
+                    ->get();
+                error_log($event_sched_ids);
+                if(count($event_sched_ids) == 0){
+                    array_push($avail_personnel,array("emp_id"=>$personnel->employee_id,"fn"=>$personnel->employee_FN,"ln"=>$personnel->employee_LN));
+                }else{
+                    if(!in_array($personnel->employee_id,$event_sched_ids)){
+                        array_push($avail_personnel,array("emp_id"=>$personnel->employee_id,"fn"=>$personnel->employee_FN,"ln"=>$personnel->employee_LN));
+                    }
+                }
+
+        }
+        return Response::json($avail_personnel);
+    }
+    public function save_personnel($personnel_id,$event_id){
+        $sched = new EmployeeEventSchedule();
+        $event = Event::where('event_id','=',$event_id)->first();
+        $sched->employee_id= $personnel_id;
+        $sched->event_assigned= $event_id;
+        $sched->event_date_time = $event->event_start;
+        $sched->save();
+        return redirect('event_budgets');
+    }
+    public function remove_personnel($event_id,$personnel_id){
+
     }
     public function send_email($send_name, $send_email, $event_name, $subject){
         $to_name = $send_name;
         $to_email = $send_email;
-        $data = array('send_mail'=>'monkaS', 'body' => 'monkey','client_name'=>$send_name,'event_name'=>$event_name);
-        Mail::send('send_mail', $data, function($message) use ($to_name, $to_email, $subject) {
+        $data = array('event_confirm_mail'=>'monkaS', 'body' => 'monkey','client_name'=>$send_name,'event_name'=>$event_name);
+        Mail::send('event_confirm_mail', $data, function($message) use ($to_name, $to_email, $subject) {
             $message->to($to_email, $to_name)->subject($subject);
             $message->from('betbot.py@gmail.com','Caterie Bot');
         });
