@@ -39,7 +39,7 @@
                             {{-- {!! Form::open('action' => ['BookEventController@store', 'method' => 'POST', 'id' => 'bookevent']) !!} --}}
                             {!! Form::open(['action' => 'BookEventController@store', 'method' => 'POST']) !!}
                             {{-- <form action = "BookEventController@store" method = "POST"> --}}
-                            {{ csrf_field() }}
+                            {{-- {{ csrf_field() }} --}}
 
                             <div class="card-body border-0"></div>
 
@@ -51,9 +51,9 @@
 
                            <div class="col-md-4 mb-3"> 
                                 <label class = "form-label"> Event Type <font color="red">*</font></label>
-                                <input list = "eventType" name="eventType" class = "form-control" form = "bookevent" onchange="toggle(this.value)">
-                                 <datalist id ="eventType">    
-                                    <option disabled> - Please Select Event Type - </option>
+                                <select name = "eventType"  id = "eventType" class = "form-control" form = "bookevent">
+                                   
+                                    <option disabled selected> - Please Select Event Type - </option>
                                     <option value="Wedding"> Wedding </option>
                                     <option value="Birthday"> Birthday </option>
                                     <option value="Debut"> Debut </option>
@@ -61,24 +61,27 @@
                                     <option value="Corporate"> Corporate </option>
                                     <option value="Others"> Others </option>
                                 
-                            </datalist>
+                                </select>
                        </div>
 
                        {{-- Hidden Div for additional request --}}
-                           <div class="col-md-3 mb-3" id='test' style="display:none">
+                           {{-- <div class="col-md-3 mb-3" id='test' style="display:none">
                                  {{ Form::text('eventType', '', ['class' => 'form-control', 'placeholder' => 'Others: Please Specify', 'required' => 'true'])}}
-                            </div>
+                            </div> --}}
 
                            <div class="col-md-5 mb-3">
                                 <label class = "form-label"> Event Start Date <font color="red">*</font></label>
-                                   {{ Form::date('eventDate', '', ['class' => 'form-control', 'placeholder' => 'Date of Event', 'required' => 'true', 'min' => date("Y-m-d H:i:s")]) }} 
-                           </div>
+                                   {{-- {{ Form::input('datetime-local', 'startDate', ['class' => 'form-control', 'placeholder' => 'Date of Event', 'required' => 'true', 'min' => date("Y-m-d H:i:s")]) }}  --}}
+                                   <input type="datetime-local" name="eventStartDate" class="form-control" placeholder="Start date">
+                                   {{-- {!! Form::input('datetime-local', 'published_at', $article->published_at->format('Y-m-d\TH:i'), ['class' => 'form-control']) !!} --}}
+                                </div>
 
                            <div class="col-md-4 mb-3">
                                 <label class = "form-label"> Event End Date <font color="red">*</font></label>
-                                   {{ Form::date('eventDate', '', ['class' => 'form-control', 'placeholder' => 'Date of Event', 'required' => 'true', 'min' => date("Y-m-d H:i:s")]) }} 
+                                <input type="datetime-local" name="eventStartDate" class="form-control" placeholder="End date">
+                                    {{-- //{{ Form::date('eventEndDate', '', ['class' => 'form-control', 'placeholder' => 'Date of Event', 'required' => 'true', 'min' => date("Y-m-d H:i:s")]) }}  --}}
                            </div>
-                           
+
                            
                             {{-- <div class="col-md-3 mb-3"></div>
                             <div class="col-md-3 mb-3"> --}}
@@ -104,10 +107,11 @@
                            <div class="col-md-4 mb-3"> 
                                <label class = "form-label"> Total Pax <font color="red">*</font></label>
                                <select name="totalPax" class = "form-control" form = "bookevent">
-                                        <option value="01"> 50 </option>
-                                        <option value="02"> 80 </option>
-                                        <option value="03"> 100 </option>
-                                        <option value="04"> more than 100 </option>
+                                    <option disabled selected> - Please select number of attendees - </option>
+                                        <option value="50"> 50 </option>
+                                        <option value="80"> 80 </option>
+                                        <option value="100"> 100 </option>
+                                        <option value="101"> more than 100 </option>
                                 </select>
                                 {{-- {{ Form::number('totalPax', '', ['class' => 'form-control', 'placeholder' => 'Total Pax', 'required' => 'true'])}} --}}
                             </div>
@@ -141,7 +145,7 @@
 
                             <div class="col-md-12 mb-3">
                                     <p style="text-align:center">
-                                         {{ Form::submit('Next: Add Book Event', ['class' => 'btn btn-success']) }} 
+                                         {{ Form::submit('Next: Select Packages', ['class' => 'btn btn-success']) }} 
                                     </p>
                                  </div>
                                  

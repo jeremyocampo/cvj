@@ -50,7 +50,8 @@ class HomeController extends Controller
             return view('inventoryDashboard',['events' => $event, 'criticalInventory' => $criticalInventory]);
         } else if(auth()->user()->userType == 3){
             //change this to change dashboard
-            return view('bookevent');
+
+            return view('eventDashboard');
 
 
         }  else if(auth()->user()->userType == 4){

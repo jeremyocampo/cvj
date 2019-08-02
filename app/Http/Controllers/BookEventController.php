@@ -68,29 +68,30 @@ class BookEventController extends Controller
     // $loginDetails = Session::get('loginDetails');
    
     $event = new EventModel([
-        'client_id' => $loginDet['client_id'],
+       // 'client_id' => $loginDet['client_id'],
         'event_name' => $request->input('eventName'),
-        'event_date_time' => $request->input('eventDate'),
-         'reservation_id' => $request->input('eventVenue'),
+
         //Event Type Selection
-        'eventType' => $request->input('event_type'),
+        'event_type' => $request->input('eventType'),
+
+        'event_start' => $request->input('eventStartDate'),
+        'event_end' => $request->input('eventEndDate'),
+         //'reservation_id' => $request->input('eventVenue'),
+
         'theme' => $request->input('theme'),
-        'centerpiece' => $request->input('centerpiece'),
-        'flowers' => $request->input('flowers'),
-        'linencolor' => $request->input('linencolor'),
-        'chair' => $request->input('chair'),
-        'table' => $request->input('table'),
+        'totalpax' => $request->input('totalPax'),
+       
         'others' => $request->input('others'),
-        'totalpax' => $request->input('totalpax'),
+        
 
     ]);
     $event->save();
         
-    return redirect('/selectpackage')
-    ->with('success', "Event details saved!")
-    ->with('client', $client)
-    ->with('packages', $packages);
-    //return view('eventbookingpage.selectpackage', compact('status'));
+    return redirect('/selectpackages')
+    ->with('success', "Event details saved!");
+    //->with('client', $client)
+    //->with('packages', $packages);
+    
     }
 
     /**

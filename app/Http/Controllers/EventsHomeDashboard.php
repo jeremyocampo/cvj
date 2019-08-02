@@ -4,44 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\events;
-use App\inventory;
-use App\categoryRef;
-use Illuminate\Support\Facades\DB;
-use App\Http\Requests;
-use Carbon\Carbon;
-use Faker\Generator as Faker;
-use Spatie\GoogleCalendar\Event;
 
-class EventsController extends Controller
+class EventsHomeDashboard extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     public function index()
     {
-        //create a new event
-        // $event = new Event;
-
-        // $event->name = 'A new event';
-        // $event->startDateTime = Carbon\Carbon::now();
-        // $event->endDateTime = Carbon\Carbon::now()->addHour();
-        // $event->addAttendee(['email' => 'youremail@gmail.com']);
-        // $event->addAttendee(['email' => 'anotherEmail@gmail.com']);
-
-        // $event->save();
-
-        // get all future events on a calendar
-        $events = Event::get();
-        return view('eventsDash', ['events' => $events]);
-
+        //
+        return view('eventDashboard');
     }
 
     /**
@@ -63,12 +37,6 @@ class EventsController extends Controller
     public function store(Request $request)
     {
         //
-        // create a new event
-        // Event::create([
-        // 'name' => 'A new event',
-        // 'startDateTime' => Carbon\Carbon::now(),
-        // 'endDateTime' => Carbon\Carbon::now()->addHour(),
-        // ]);
     }
 
     /**
@@ -91,7 +59,6 @@ class EventsController extends Controller
     public function edit($id)
     {
         //
-
     }
 
     /**
@@ -104,12 +71,6 @@ class EventsController extends Controller
     public function update(Request $request, $id)
     {
         //
-        // update existing event
-        // $firstEvent = $events->first();
-        // $firstEvent->name = 'updated name';
-        // $firstEvent->save();
-
-        // $firstEvent->update(['name' => 'updated again']);
     }
 
     /**
@@ -121,8 +82,5 @@ class EventsController extends Controller
     public function destroy($id)
     {
         //
-        // // delete an event
-        // $event->delete();
-        // dd($events);
     }
 }
