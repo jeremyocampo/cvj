@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="acb9a2cb-0c91-4cfe-98e9-5d7151ab0887" name="Default Changelist" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/EventsBudgetController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/EventsBudgetController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/editEventBudget.blade.php" afterPath="$PROJECT_DIR$/resources/views/editEventBudget.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/viewEventBudget.blade.php" afterPath="$PROJECT_DIR$/resources/views/viewEventBudget.blade.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -214,41 +216,57 @@
       <file leaf-file-name="viewEventBudget.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/viewEventBudget.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="253">
-              <caret line="70" column="40" lean-forward="true" selection-start-line="70" selection-start-column="40" selection-end-line="70" selection-end-column="40" />
+            <state relative-caret-position="468">
+              <caret line="43" column="0" lean-forward="false" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
               <folding>
-                <element signature="e#2765#2794#0#HTML" expanded="true" />
-                <element signature="e#2948#2988#0#HTML" expanded="true" />
-                <element signature="e#3325#3365#0#HTML" expanded="true" />
-                <element signature="e#3945#3968#0#HTML" expanded="true" />
-                <element signature="e#4181#4247#0#HTML" expanded="true" />
-                <element signature="e#9779#11847#0#HTML" expanded="false" />
-                <marker date="1564527361000" expanded="true" signature="5905:5926" ph="..." />
-                <marker date="1564527361000" expanded="true" signature="6176:6208" ph="..." />
-                <marker date="1564527361000" expanded="true" signature="6515:6536" ph="..." />
-                <marker date="1564527361000" expanded="true" signature="8183:8204" ph="..." />
-                <marker date="1564527361000" expanded="true" signature="8437:8469" ph="..." />
-                <marker date="1564527361000" expanded="true" signature="8743:8775" ph="..." />
+                <element signature="e#2766#2795#0#HTML" expanded="true" />
+                <element signature="e#2949#2989#0#HTML" expanded="true" />
+                <element signature="e#3326#3366#0#HTML" expanded="true" />
+                <element signature="e#3946#3969#0#HTML" expanded="true" />
+                <element signature="e#4182#4248#0#HTML" expanded="true" />
+                <element signature="e#4915#9514#0#HTML" expanded="false" />
+                <element signature="e#9780#11848#0#HTML" expanded="false" />
+                <marker date="1564706900000" expanded="true" signature="5906:5927" ph="..." />
+                <marker date="1564706900000" expanded="true" signature="6177:6209" ph="..." />
+                <marker date="1564706900000" expanded="true" signature="6516:6537" ph="..." />
+                <marker date="1564706900000" expanded="true" signature="8184:8205" ph="..." />
+                <marker date="1564706900000" expanded="true" signature="8438:8470" ph="..." />
+                <marker date="1564706900000" expanded="true" signature="8744:8776" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EventsBudgetController.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="EventsBudgetController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/EventsBudgetController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="92" column="48" lean-forward="false" selection-start-line="92" selection-start-column="48" selection-end-line="92" selection-end-column="48" />
+            <state relative-caret-position="512">
+              <caret line="117" column="56" lean-forward="false" selection-start-line="117" selection-start-column="56" selection-end-line="117" selection-end-column="56" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="editEventBudget.blade.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="cvjdb.event" pinned="false" current-in-tab="false">
+        <entry file="dbDummy://dbtable:/11b9e3/5cbb29b8-6af1-4c84-9557-6e7cf1a9e9d0/cvjdb.event">
+          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+            <state>
+              <filtering enabled="true" />
+            </state>
+          </provider>
+          <provider editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="editEventBudget.blade.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/editEventBudget.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="155">
-              <caret line="84" column="29" lean-forward="false" selection-start-line="84" selection-start-column="25" selection-end-line="84" selection-end-column="29" />
+            <state relative-caret-position="15">
+              <caret line="1" column="20" lean-forward="false" selection-start-line="1" selection-start-column="20" selection-end-line="1" selection-end-column="20" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#form#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#form#0;n#!!top" expanded="true" />
@@ -257,10 +275,10 @@
                 <element signature="n#style#0;n#input#1;n#div#1;n#div#0;n#form#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#center#0;n#form#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#button#1;n#center#0;n#form#0;n#!!top" expanded="true" />
-                <marker date="1564669117000" expanded="true" signature="1885:2488" ph="..." />
-                <marker date="1564669117000" expanded="true" signature="1926:2488" ph="..." />
-                <marker date="1564669117000" expanded="true" signature="5094:5115" ph="..." />
-                <marker date="1564669117000" expanded="true" signature="5299:5331" ph="..." />
+                <marker date="1564708134000" expanded="true" signature="1924:2527" ph="..." />
+                <marker date="1564708134000" expanded="true" signature="1965:2527" ph="..." />
+                <marker date="1564708134000" expanded="true" signature="5133:5154" ph="..." />
+                <marker date="1564708134000" expanded="true" signature="5338:5370" ph="..." />
               </folding>
             </state>
           </provider>
@@ -317,8 +335,8 @@
       <find>1200</find>
       <find>desc</find>
       <find>saving_</find>
-      <find>hr</find>
       <find>acts</find>
+      <find>hr</find>
     </findStrings>
     <replaceStrings>
       <replace>event_budget_template</replace>
@@ -327,8 +345,8 @@
       <replace>budget</replace>
       <replace>amts</replace>
       <replace>acts</replace>
-      <replace>item_acts</replace>
       <replace>act</replace>
+      <replace>item_acts</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -374,8 +392,8 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/resources/views/eventBudget.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/viewEventBudget.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/editEventBudget.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/EventsBudgetController.php" />
+        <option value="$PROJECT_DIR$/resources/views/editEventBudget.blade.php" />
       </list>
     </option>
   </component>
@@ -502,8 +520,9 @@
     </include_path>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="width" value="1440" />
-    <option name="height" value="900" />
+    <option name="x" value="1440" />
+    <option name="width" value="1920" />
+    <option name="height" value="1080" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -883,26 +902,27 @@
       <option name="presentableId" value="Default" />
       <updated>1551689203595</updated>
       <workItem from="1551689204767" duration="707000" />
-      <workItem from="1562400158984" duration="78591000" />
+      <workItem from="1562400158984" duration="80686000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="79298000" />
+    <option name="totallyTimeSpent" value="81393000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <frame x="1440" y="0" width="1920" height="1080" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329602" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19456366" sideWeight="0.49355432" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14483494" sideWeight="0.49355432" order="3" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20028612" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14909478" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24964234" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32462686" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2652439" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19456366" sideWeight="0.50644565" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1309,19 +1329,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="dbDummy://dbtable:/11b9e3/5cbb29b8-6af1-4c84-9557-6e7cf1a9e9d0/cvjdb.event">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Event.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
@@ -1406,27 +1413,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/viewEventBudget.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="70" column="40" lean-forward="true" selection-start-line="70" selection-start-column="40" selection-end-line="70" selection-end-column="40" />
-          <folding>
-            <element signature="e#2765#2794#0#HTML" expanded="true" />
-            <element signature="e#2948#2988#0#HTML" expanded="true" />
-            <element signature="e#3325#3365#0#HTML" expanded="true" />
-            <element signature="e#3945#3968#0#HTML" expanded="true" />
-            <element signature="e#4181#4247#0#HTML" expanded="true" />
-            <element signature="e#9779#11847#0#HTML" expanded="false" />
-            <marker date="1564527361000" expanded="true" signature="5905:5926" ph="..." />
-            <marker date="1564527361000" expanded="true" signature="6176:6208" ph="..." />
-            <marker date="1564527361000" expanded="true" signature="6515:6536" ph="..." />
-            <marker date="1564527361000" expanded="true" signature="8183:8204" ph="..." />
-            <marker date="1564527361000" expanded="true" signature="8437:8469" ph="..." />
-            <marker date="1564527361000" expanded="true" signature="8743:8775" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/web.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="174">
@@ -1443,10 +1429,53 @@
         </state>
       </provider>
     </entry>
+    <entry file="dbDummy://dbtable:/11b9e3/5cbb29b8-6af1-4c84-9557-6e7cf1a9e9d0/cvjdb.event">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/EventsBudgetController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="512">
+          <caret line="117" column="56" lean-forward="false" selection-start-line="117" selection-start-column="56" selection-end-line="117" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/viewEventBudget.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="468">
+          <caret line="43" column="0" lean-forward="false" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
+          <folding>
+            <element signature="e#2766#2795#0#HTML" expanded="true" />
+            <element signature="e#2949#2989#0#HTML" expanded="true" />
+            <element signature="e#3326#3366#0#HTML" expanded="true" />
+            <element signature="e#3946#3969#0#HTML" expanded="true" />
+            <element signature="e#4182#4248#0#HTML" expanded="true" />
+            <element signature="e#4915#9514#0#HTML" expanded="false" />
+            <element signature="e#9780#11848#0#HTML" expanded="false" />
+            <marker date="1564706900000" expanded="true" signature="5906:5927" ph="..." />
+            <marker date="1564706900000" expanded="true" signature="6177:6209" ph="..." />
+            <marker date="1564706900000" expanded="true" signature="6516:6537" ph="..." />
+            <marker date="1564706900000" expanded="true" signature="8184:8205" ph="..." />
+            <marker date="1564706900000" expanded="true" signature="8438:8470" ph="..." />
+            <marker date="1564706900000" expanded="true" signature="8744:8776" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/editEventBudget.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="84" column="29" lean-forward="false" selection-start-line="84" selection-start-column="25" selection-end-line="84" selection-end-column="29" />
+        <state relative-caret-position="15">
+          <caret line="1" column="20" lean-forward="false" selection-start-line="1" selection-start-column="20" selection-end-line="1" selection-end-column="20" />
           <folding>
             <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#form#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#form#0;n#!!top" expanded="true" />
@@ -1455,19 +1484,11 @@
             <element signature="n#style#0;n#input#1;n#div#1;n#div#0;n#form#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#center#0;n#form#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#button#1;n#center#0;n#form#0;n#!!top" expanded="true" />
-            <marker date="1564669117000" expanded="true" signature="1885:2488" ph="..." />
-            <marker date="1564669117000" expanded="true" signature="1926:2488" ph="..." />
-            <marker date="1564669117000" expanded="true" signature="5094:5115" ph="..." />
-            <marker date="1564669117000" expanded="true" signature="5299:5331" ph="..." />
+            <marker date="1564708134000" expanded="true" signature="1924:2527" ph="..." />
+            <marker date="1564708134000" expanded="true" signature="1965:2527" ph="..." />
+            <marker date="1564708134000" expanded="true" signature="5133:5154" ph="..." />
+            <marker date="1564708134000" expanded="true" signature="5338:5370" ph="..." />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/EventsBudgetController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="92" column="48" lean-forward="false" selection-start-line="92" selection-start-column="48" selection-end-line="92" selection-end-column="48" />
-          <folding />
         </state>
       </provider>
     </entry>

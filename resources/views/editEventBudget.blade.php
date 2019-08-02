@@ -1,8 +1,10 @@
 <form action="{{ route('post.event_budgets') }}" method="POST" style="padding:10px">
     {{csrf_field()}}
+    @if($event_lock!=false)
     <button class="btn btn-icon btn-3 btn-secondary" id="edit_item_btn" onclick="edit_items()" type="button">
         <i class="fa fa-edit fa-lg"></i>  Edit Budget
     </button>
+    @endif
     <hr>
     <div class="row" style="background-color: #f4f5f7;padding: 1.0vw;">
         <input type="hidden" name="event" value="{{$event_id}}">

@@ -41,6 +41,7 @@
                         </div>
                     </div>
                     <div class="col-12" style="padding-bottom: 5vh;padding-right: 2vw;min-height: 75vh;">
+
                         @if($budget==null)
                         <form action="{{ route('post.event_budgets') }}" method="POST" style="padding:10px">
                             <input type="hidden" name="action" value="add">
