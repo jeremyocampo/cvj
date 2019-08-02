@@ -98,14 +98,17 @@ class BookEventController extends Controller
     //     'endDateTime' => $request->input('eventEndDate'),
     //     'location' => $request->input('location'),
     //     'description' => $request->input('others'),
-        
     //  ]);
 
-    
+    $email = DB::table('users')
+    // ->join('category_ref','inventory.category','=','category_ref.id')
+    ->select('email')
+    ->where('users.id', '=', $userID)
+    ->get();
 
     $gevent = new Event;
     $gevent->name =  $request->input('eventName');
-    $gevent->startDateTime =Carbon::now();
+    $gevent->startDateTime = Carbon::now();
     $gevent->endDateTime = Carbon::now();
     $gevent->addAttendee(['email' => 'jeremy_ocampojr@dlsu.edu.ph']);
 

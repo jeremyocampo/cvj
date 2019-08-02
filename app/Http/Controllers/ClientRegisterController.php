@@ -44,7 +44,6 @@ class ClientRegisterController extends Controller
         // Session::put('loginDetails', $loginDet);
         // $loginDetails = Session::get('loginDetails');
         
-        Session::put('loginDetails', $loginDet);
 
         $this->validate($request, [
             'clientFName' => 'required',

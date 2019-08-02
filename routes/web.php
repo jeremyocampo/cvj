@@ -50,7 +50,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('outsource', 'OutsourcingController');
 Route::resource('ingredient', 'IngredientController');
 Route::resource('food', 'FoodController');
-Route::resource('users', 'ManageUsersController');
+Route::resource('users', 'UsersController');
 Route::resource('employee', 'EmployeeController');
 Route::resource('eventreport', 'EventLogisticsReportController');
 Route::resource('returnInventory', 'ReturnInventoryController');
@@ -71,3 +71,5 @@ Route::resource('selectpackages', 'SelectPackageController');
 Route::resource('clientregister', 'ClientRegisterController');
 
 Route::resource('inventoryDash', 'InventoryHomeController');
+
+Route::get('/send/email', 'HomeController@mail');

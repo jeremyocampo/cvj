@@ -68,12 +68,15 @@
 
                            <div class="col-md-5 mb-3">
                                 <label class = "form-label"> Event Start Date <font color="red">*</font></label>
-                                   {{ Form::date('eventStartDate', '', ['class' => 'form-control', 'placeholder' => 'Date of Event', 'required' => 'true', 'min' => date("Y-m-d H:i:s")]) }} 
+                                   {{-- {{ Form::date('eventStartDate', '', ['class' => 'form-control', 'placeholder' => 'Date of Event', 'required' => 'true', 'min' => date("Y-m-d H:i:s")]) }}  --}}
+                                   <input type="datetime-local" name="eventStartDate" class="form-control" placeholder="Start date">
+
                             </div>
 
                            <div class="col-md-4 mb-3">
                                 <label class = "form-label"> Event End Date <font color="red">*</font></label>
-                                   {{ Form::date('eventEndDate', '', ['class' => 'form-control', 'placeholder' => 'Date of Event', 'required' => 'true', 'min' => date("Y-m-d H:i:s")]) }} 
+                                   {{-- {{ Form::date('eventEndDate', '', ['class' => 'form-control', 'placeholder' => 'Date of Event', 'required' => 'true', 'min' => date("Y-m-d H:i:s")]) }}  --}}
+                                   <input type="datetime-local" name="eventEndDate" class="form-control" placeholder="Start date">
                             </div>
             
                             <div class="col-md-5 mb-3">                                
@@ -81,7 +84,6 @@
                                 {{ Form::text('theme', '', ['class' => 'form-control', 'placeholder' => 'Theme', 'required' => 'true'])}}
                             </div>
 
-                            
                            {{-- by 50s, 60s, 70, 80s etcc.. --}}
                            <div class="col-md-4 mb-3"> 
                                <label class = "form-label"> Number of Attendees <font color="red">*</font></label>

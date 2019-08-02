@@ -85,160 +85,56 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    
+                                    @foreach ($events as $i)
                                     <tr>
-                                        <th><h2>Lanz Celebration</h2></th>
-                                        <th class="text-center"> 
-                                            <div class="icon icon-shape bg-success text-white rounded-circle">
-                                                <i class="ni ni-check-bold"></i>
-                                            </div>      
-                                            <div class="icon icon-shape bg-danger text-white rounded-circle" hidden>
-                                                <i class="fas fa-times"></i>
-                                            </div>                         
-                                        </th>
-                                        <th class="text-center"> 
-                                            <div class="icon icon-shape bg-success text-white rounded-circle shadow" hidden>
-                                                <i class="ni ni-check-bold"></i>
-                                            </div>                      
-                                            <div class="icon icon-shape bg-danger text-white rounded-circle shadow" >
-                                                <i class="fas fa-times"></i>
-                                            </div>              
-                                        </th>
-                                        <th class="text-center"> 
-                                            <div class="icon icon-shape bg-success text-white rounded-circle" hidden>
-                                                <i class="ni ni-check-bold"></i>
-                                            </div>  
-                                            <div class="icon icon-shape bg-danger text-white rounded-circle">
-                                                <i class="fas fa-times"></i>
-                                            </div>                           
-                                        </th>
-                                        <th class="text-center"> 
-                                            <div class="icon icon-shape bg-success text-white rounded-circle" hidden >
-                                                <i class="ni ni-check-bold"></i>
-                                            </div> 
-                                            <div class="icon icon-shape bg-danger text-white rounded-circle" >
-                                                <i class="fas fa-times"></i>
-                                            </div>                         
-                                        </th>
-                                        <th class="text-center"> 
-                                            <div class="icon icon-shape bg-success text-white rounded-circle" hidden >
-                                                <i class="ni ni-check-bold"></i>
-                                            </div> 
-                                            <div class="icon icon-shape bg-danger text-white rounded-circle" >
-                                                <i class="fas fa-times"></i>
-                                            </div>                              
-                                        </th>
+                                        <td>{{ $i->event_name}}</td>
+                                            @if(($i->status > 0) )
+                                                <td class="text-center">
+                                                    <div class="icon icon-shape bg-success text-white rounded-circle">
+                                                        <i class="ni ni-check-bold"></i>
+                                                    </div>
+                                                    Event booking request has been sent and is <br> being reviewed by the event manager
+                                                </td>
+                                            @endif
+                                            @if(($i->status > 0) && ($i->status < 3))
+                                                <td class="text-center">
+                                                    <div class="icon icon-shape bg-success text-white rounded-circle">
+                                                        <i class="ni ni-check-bold"></i>
+                                                    </div>
+                                                    Event booking request has been <br> approved
+                                                </td>
+                                            @endif
+                                            @if(($i->status > 0) && ($i->status < 4))
+                                                <td class="text-center">
+                                                    {{-- <div class="icon icon-shape bg-danger text-white rounded-circle" >
+                                                        <i class="fas fa-times"></i>
+                                                    </div>   --}}
+                                                    <div class="icon icon-shape bg-success text-white rounded-circle">
+                                                        <i class="ni ni-check-bold"></i>
+                                                    </div>
+                                                    You have confirmed your booking <br> request
+                                                </td>
+                                            @endif
+                                            @if(($i->status > 0) && ($i->status < 5))
+                                            <td class="text-center">
+                                                    <div class="icon icon-shape bg-success text-white rounded-circle">
+                                                        <i class="ni ni-check-bold"></i>
+                                                    </div>
+                                                Event is now in progress
+                                            </td>
+                                            @endif
+                                            @if(($i->status > 0) && ($i->status < 6))
+                                            <td class="text-center">
+                                                    <div class="icon icon-shape bg-success text-white rounded-circle">
+                                                        <i class="ni ni-check-bold"></i>
+                                                    </div>
+                                                Event finished
+                                            </td>
+                                            @endif
                                     </tr>
-                                    <tr>
-                                        <th></th>
-                                        <th class="text-center">Event booking request has been sent and is <br> being reviewed by the event manager</th>
-                                        <th class="text-center">Event booking request has been <br> approved</th>
-                                        <th class="text-center">You have confirmed your booking <br> request</th>
-                                        <th class="text-center">Event is now in progress</th>
-                                        <th class="text-center">Event finished</th>
-                                    </tr>
-                                    <tr>
-                                        <th><h2>Debut ni Rose</h2></th>
-                                        <th class="text-center"> 
-                                                <div class="icon icon-shape bg-success text-white rounded-circle">
-                                                    <i class="ni ni-check-bold"></i>
-                                                </div>      
-                                                <div class="icon icon-shape bg-danger text-white rounded-circle" hidden>
-                                                    <i class="fas fa-times"></i>
-                                                </div>                         
-                                            </th>
-                                            <th class="text-center"> 
-                                                <div class="icon icon-shape bg-success text-white rounded-circle shadow" >
-                                                    <i class="ni ni-check-bold"></i>
-                                                </div>                      
-                                                <div class="icon icon-shape bg-danger text-white rounded-circle shadow" hidden>
-                                                    <i class="fas fa-times"></i>
-                                                </div>              
-                                            </th>
-                                            <th class="text-center"> 
-                                                <div class="icon icon-shape bg-success text-white rounded-circle" >
-                                                    <i class="ni ni-check-bold"></i>
-                                                </div>  
-                                                <div class="icon icon-shape bg-danger text-white rounded-circle" hidden>
-                                                    <i class="fas fa-times"></i>
-                                                </div>                           
-                                            </th>
-                                            <th class="text-center"> 
-                                                <div class="icon icon-shape bg-success text-white rounded-circle" hidden >
-                                                    <i class="ni ni-check-bold"></i>
-                                                </div> 
-                                                <div class="icon icon-shape bg-danger text-white rounded-circle" >
-                                                    <i class="fas fa-times"></i>
-                                                </div>                         
-                                            </th>
-                                            <th class="text-center"> 
-                                                <div class="icon icon-shape bg-success text-white rounded-circle" hidden >
-                                                    <i class="ni ni-check-bold"></i>
-                                                </div> 
-                                                <div class="icon icon-shape bg-danger text-white rounded-circle" >
-                                                    <i class="fas fa-times"></i>
-                                                </div>                              
-                                            </th>
-                                    </tr>
-                                    <tr>
-                                            <th></th>
-                                            <th class="text-center">Event booking request has been sent and is <br> being reviewed by the event manager</th>
-                                            <th class="text-center">Event booking request has been <br> approved</th>
-                                            <th class="text-center">You have confirmed your booking <br> request</th>
-                                            <th class="text-center">Event is now in progress</th>
-                                            <th class="text-center">Event finished</th>
-                                    </tr>
-                                    <tr>
-                                        <th><h2>Jeremy Despidida</h2></th>
-                                        <th class="text-center"> 
-                                                <div class="icon icon-shape bg-success text-white rounded-circle">
-                                                    <i class="ni ni-check-bold"></i>
-                                                </div>      
-                                                <div class="icon icon-shape bg-danger text-white rounded-circle" hidden>
-                                                    <i class="fas fa-times"></i>
-                                                </div>                         
-                                            </th>
-                                            <th class="text-center"> 
-                                                <div class="icon icon-shape bg-success text-white rounded-circle shadow" hidden>
-                                                    <i class="ni ni-check-bold"></i>
-                                                </div>                      
-                                                <div class="icon icon-shape bg-danger text-white rounded-circle shadow" >
-                                                    <i class="fas fa-times"></i>
-                                                </div>              
-                                            </th>
-                                            <th class="text-center"> 
-                                                <div class="icon icon-shape bg-success text-white rounded-circle" hidden>
-                                                    <i class="ni ni-check-bold"></i>
-                                                </div>  
-                                                <div class="icon icon-shape bg-danger text-white rounded-circle">
-                                                    <i class="fas fa-times"></i>
-                                                </div>                           
-                                            </th>
-                                            <th class="text-center"> 
-                                                <div class="icon icon-shape bg-success text-white rounded-circle" hidden >
-                                                    <i class="ni ni-check-bold"></i>
-                                                </div> 
-                                                <div class="icon icon-shape bg-danger text-white rounded-circle" >
-                                                    <i class="fas fa-times"></i>
-                                                </div>                         
-                                            </th>
-                                            <th class="text-center"> 
-                                                <div class="icon icon-shape bg-success text-white rounded-circle" hidden >
-                                                    <i class="ni ni-check-bold"></i>
-                                                </div> 
-                                                <div class="icon icon-shape bg-danger text-white rounded-circle" >
-                                                    <i class="fas fa-times"></i>
-                                                </div>                              
-                                            </th>   
-                                    </tr>
-                                    <tr>
-                                        <th></th>
-                                        <th class="text-center">Event booking request has been sent and is <br> being reviewed by the event manager</th>
-                                        <th class="text-center">Event booking request has been <br> rejected</th>
-                                        <th class="text-center">You have confirmed your booking <br> request</th>
-                                        <th class="text-center">Event is now in progress</th>
-                                        <th class="text-center">Event finished</th>
-                                    </tr>
-                                </tbody>
+                                @endforeach
+                            </tbody>
                             </table>
                         </div>
                                     
@@ -261,3 +157,58 @@
 @endpush
 
 
+{{-- <tbody>
+        
+        @foreach ($joinedInventory as $i)
+        @if($i->status > 0)
+        <tr>
+            
+            <td>
+                <a href="{{ url('inventory/'.$i->inventory_id) }}" class="dropdown-item">
+                    {{ $i->inventory_name }}
+                </a>
+            </td>    
+            <td>{{ $i->category_name }}</td>
+            <td>{{ $i->color_name }}</td>
+            <td> {{ $i->size }}</td>
+            <td>{{ $i->quantity }}</td>
+            <td>{{ $i->threshold }}</td>
+            <td>{{ $i->barcode }}</td>
+           
+            <td>{{ $i->last_modified }}</td>
+            <td class="popup">
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Action
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-arrow dropdown-menu">
+                        <div class=" dropdown-header noti-title">
+                            <h6 class="text-overflow m-0">{{ __('Please Select an Action!') }}</h6>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <a href="{{ url('inventory/'.$i->inventory_id) }}" class="dropdown-item">
+                            <i class="ni ni-zoom-split-in"></i>
+                            <span>{{ __('View Item Details') }}</span>
+                        </a>
+
+                        <a href="{{ url('inventory/'.$i->inventory_id.'/edit')}}" class="dropdown-item">
+                            <i class="ni ni-fat-add"></i>
+                            <span>{{ __('Replenish Item') }}</span>
+                        </a>
+                        
+                        <a href="" class="dropdown-item" onclick="event.preventDefault();
+                            document.getElementById('delete-form-{{ $i->inventory_id }}').submit();">
+                            <i class="ni ni-fat-remove"></i>
+                            <span>{{ __('Remove from Inventory') }}</span>
+                            {!! Form::open(['action' => ['InventoryController@destroy', $i->inventory_id], 'method' => 'POST', 'id' => 'delete-form-'.$i->inventory_id]) !!}
+                                {{ Form::hidden('_method','DELETE')}}
+                            {!! Form::close() !!}
+                        </a>
+                    </div>
+                </div>
+                <a class="btn btn-sm btn-primary" href="inventory/{{ $i->itemId }}/edit"> Replenish Item </a> mahaba 
+            </td>
+        </tr>
+        @endif
+        @endforeach
+    </tbody> --}}

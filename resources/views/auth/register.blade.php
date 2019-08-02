@@ -109,8 +109,7 @@
 
         {{-- remove later --}}
         {{-- <div class="col-md-9 mb-3"> --}}
-        <div class="form-group">
-            {{-- <label class="form-label">User Type</label> --}}
+        {{-- <div class="form-group">
             <select id="color" name="userType" class="form-control" placeholder="User Type" required>
                     <option value = 0 selected disabled>Please Select a User Type</option>
                     <option value = 1>Admin</option>
@@ -119,7 +118,7 @@
                     <option value = 4>Employee</option>
                     <option value = 5>Customer</option>
             </select>
-        </div>
+        </div> --}}
 
         <div class="row my-4">
             <div class="col-12">

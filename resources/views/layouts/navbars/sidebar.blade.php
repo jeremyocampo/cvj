@@ -98,11 +98,11 @@
                         <div class="collapse" id="navbar-dashboards" style>
                             <ul class="nav nav-sm flex-column">
                                 <li class="nav-item">
-                                    <a href="{{ url('/') }}" class="nav-link">
+                                    <a href="{{ url('users') }}" class="nav-link">
                                             <i class="ni ni-bullet-list-67 text-blue"></i>View Users</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ url('/') }}" class="nav-link">
+                                    <a href="{{ url('users/create') }}" class="nav-link">
                                         <i class="ni ni-delivery-fast text-green"></i>Create Users</a>
                                 </li>
                             </ul>
