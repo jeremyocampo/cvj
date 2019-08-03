@@ -16,7 +16,7 @@ use App\OutsourcedItem;
 use App\EventBudgetTemplate;
 use App\EventBudgetTemplateItem;
 use App\EventBudgetItem;
-use App\Package;
+use App\PackageModel;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests;
 use Carbon\Carbon;
@@ -43,9 +43,12 @@ class EventsBudgetController extends Controller
         foreach($events as $event){
             $budget_check = EventBudget::where('event_id', '=',$event->event_id)->first();
             $client = Client::where('client_id','=',$event->client_id)->first();
+
             $event->client_name = $client->client_FN ." ".$client->client_LN;
             $event->total_budget = $budget_check == null? 0 : $budget_check->total_budget;
-
+            $event->formatted_day = date("M jS, Y", strtotime($event->event_start));
+            $event->formatted_start = date("H:i", strtotime($event->event_start));
+            $event->formatted_end = date("H:i", strtotime($event->event_start));
             //$event->budget = $budget_check == null? null : $budget_check;
             if($budget_check != null){
 
@@ -157,7 +160,7 @@ class EventsBudgetController extends Controller
             for($i=0; $i<count($request->input("old_acts"));$i++){
                 $update_budget_items[$i]->item_name = $request->input("old_names")[$i];
                 $update_budget_items[$i]->budget_amount = $request->input("old_vals")[$i];
-                $update_budget_items[$i]->actual_amount = $request->input("old_acts")[$i];
+                $update_budget_items[$i]->actual_amount += $request->input("old_acts")[$i];
                 $update_budget_items[$i]->save();
                 $event_budget->total_budget += $update_budget_items[$i]->budget_amount;
             }
@@ -184,7 +187,9 @@ class EventsBudgetController extends Controller
     {
 
         $event = Event::where('event_id','=',$event_id)->first();
+        $event->package = PackageModel::Where('package_id','=',$event->package_id)->first();
         $event_lock = $event->whereDate('event_start','<=',date('Y-m-d'))->get();
+        $event->total_spent = 0;
         if(count($event_lock)>0){
             $event_lock = true;
         }
@@ -204,6 +209,8 @@ class EventsBudgetController extends Controller
                 if($budget_item->actual_amount > $budget_item->budget_amount){
                     $budget_item->overflow = true;
                 }
+                error_log("here me ngayong".$budget_item->actual_amount);
+               $event->total_spent += $budget_item->actual_amount;
             }
         }
         return view('viewEventBudget',['event_lock'=>$event_lock,'event'=>$event,'event_id'=>$event_id,'budget'=>$check_budget,'budget_templates'=>$budget_templates]);

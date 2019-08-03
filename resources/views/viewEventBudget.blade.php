@@ -7,6 +7,10 @@
             margin-top:1vh;
             margin-bottom:1vh;
         }
+        .budg_item_no_edit{
+            margin-top:1vh;
+            margin-bottom:1vh;
+        }
         .marg_top{
             margin-top: 3vh;
         }
@@ -27,28 +31,35 @@
         <div class="row">
             <div class="col">
                 <div class="card shadow">
-                    <div class="card-header border-0">
-                        <div class="row align-items-center">
-                            <div class="col-12">
-                                <center>
-                                    @if($budget == null)
-                                    <h3 class="mb-0">Create Event Budget for {{$event->event_name}} </h3>
-                                    @else
-                                    <h3 class="mb-0">Event Budget for {{$event->event_name}} </h3>
-                                    @endif
-                                </center>
-                            </div>
-                        </div>
-                    </div>
                     <div class="col-12" style="padding-bottom: 5vh;padding-right: 2vw;min-height: 75vh;">
-
                         @if($budget==null)
                         <form action="{{ route('post.event_budgets') }}" method="POST" style="padding:10px">
                             <input type="hidden" name="action" value="add">
                             {{csrf_field()}}
-                            <button class="btn btn-icon btn-3 btn-secondary" data-toggle="modal" data-target="#exampleModal" type="button">
-                                Choose From Budget Templates <i class="fa fa-newspaper-o fa-lg"></i>
-                            </button>
+                            <div class="row" style="margin-top: 4vh;margin-bottom: 2vh;">
+                                <div class="col-md-4">
+                                    <button class="btn btn-icon btn-3 btn-secondary" data-toggle="modal" data-target="#exampleModal" type="button">
+                                        Choose From Budget Templates <i class="fa fa-newspaper-o fa-lg"></i>
+                                    </button>
+                                </div>
+                                <div class="col-md-4">
+                                    <center>
+                                            <h2 class="mb-0">Create Event Budget for {{$event->event_name}} </h2>
+                                    </center>
+                                </div>
+                                <div class="col-md-4">
+                                    <table class="table-bordered" style="padding: 1vh;float:right">
+                                        <tr>
+                                            <td style="padding: 5px"><b>Event Package Price</b></td>
+                                            <td style="padding: 5px;padding-left: 20px;">P{{number_format($event->package->price,2)}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 5px"><b>Total Budget</b></td>
+                                            <td style="padding: 5px;padding-left: 20px;">P{{number_format($budget->total_budget,2)}}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
                             <div class="row" style="background-color: #f4f5f7;padding: 1.0vw;">
                                 <input type="hidden" name="event" value="{{$event_id}}">
                                 <div class="col-md-12" >

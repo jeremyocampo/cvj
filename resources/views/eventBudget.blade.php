@@ -36,18 +36,17 @@
                             @foreach($events as $event)
                                 <tr>
                                     <td>{{$event->event_name}}<br><small><b>Client:</b> {{$event->client_name}}</small></td>
-
-                                    <td>From: {{$event->event_start}}
-                                        <br>To: {{$event->event_end}}
+                                    <td><b>{{$event->formatted_day}}</b><br>{{$event->formatted_start}} - {{$event->formatted_end}}
                                     </td>
-
-                                    <td>{{$event->event_start}} to <br> {{$event->event_end}} </td>
 
                                     <td>@if($event->budget_id == null) N/A @else {{number_format($event->total_spent,2)}}  / {{ number_format($event->total_budget,2)}} @endif</td>
                                     <td>
-                                        @foreach($event->personnels as $personnel)
-                                            {{$personnel->employee_FN}} {{$personnel->employee_LN}}<br>
-                                        @endforeach
+                                        @if($event->personnels == null) N/A
+                                        @else
+                                            @foreach($event->personnels as $personnel)
+                                                {{$personnel->employee_FN}} {{$personnel->employee_LN}}<br>
+                                            @endforeach
+                                        @endif
                                     </td>
                                     <td>
                                         Items are overspent.

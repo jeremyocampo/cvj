@@ -1,11 +1,35 @@
 <form action="{{ route('post.event_budgets') }}" method="POST" style="padding:10px">
     {{csrf_field()}}
-    @if($event_lock!=false)
-    <button class="btn btn-icon btn-3 btn-secondary" id="edit_item_btn" onclick="edit_items()" type="button">
-        <i class="fa fa-edit fa-lg"></i>  Edit Budget
-    </button>
-    @endif
-    <hr>
+    <div class="row" style="margin-top: 4vh;margin-bottom: 2vh;">
+        <div class="col-md-4">
+            @if($event_lock!=false)
+                <button class="btn btn-icon btn-3 btn-secondary" id="edit_item_btn" onclick="edit_items()" type="button">
+                    <i class="fa fa-edit fa-lg"></i>  Edit Budget
+                </button>
+            @endif
+        </div>
+        <div class="col-md-4">
+            <center>
+                    <h2 class="mb-0">Event Budget for {{$event->event_name}} </h2>
+            </center>
+        </div>
+        <div class="col-md-4">
+            <table class="table-bordered" style="padding: 1vh;float:right">
+                <tr>
+                    <td style="padding: 5px"><b>Event Package Price</b></td>
+                    <td style="padding: 5px;padding-left: 20px;padding-right: 10px;">P{{number_format($event->package->price,2)}}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 5px"><b>Total Budget</b></td>
+                    <td style="padding: 5px;padding-left: 20px;padding-right: 10px;">P{{number_format($budget->total_budget,2)}}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 5px"><b>Total Spent</b></td>
+                    <td style="padding: 5px;padding-left: 20px;padding-right: 10px;">P{{number_format($event->total_spent,2)}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
     <div class="row" style="background-color: #f4f5f7;padding: 1.0vw;">
         <input type="hidden" name="event" value="{{$event_id}}">
         <input type="hidden" name="action" value="update">
@@ -15,14 +39,14 @@
 
         <div class="col-md-12" >
             <div class="row budget_item_rows">
-                <div id="budget_name_col" class="col-md-3 marg_top">
+                <div id="budget_name_col" class="col-md-2 marg_top">
                     <center><label>Budget Item</label></center>
                     @foreach($budget->budget_items as $budget_item)
                         <i class="brs fa fa-remove fa-lg rm_item old_item" budget_item_id="{{$budget_item->id}}" style="display: none" onclick="remove_item(this)"></i>
                         <input type="text" style="display: inline-block;width: 90%" name="old_names[]" class="input_like item_names budg_item" placeholder="Item Name" value="{{$budget_item->item_name}}" disabled>
                     @endforeach
                 </div>
-                <div id="budget_prog_col" class="col-md-2 marg_top">
+                <div id="budget_prog_col" class="col-md-3 marg_top">
                     <label >Budget Status</label>
                     @foreach($budget->budget_items as $budget_item)
                         <div class="prog">
@@ -45,12 +69,15 @@
                         {{-- @foreach($budget->budget_items as $budget_item)
                             <input type="number" name="old_vals[]" step="any" style="display: inline-block;" class="item_amts form-control budg_item" placeholder="0.0" value="{{$budget_item->budget_amount}}" disabled>
                         @endforeach --}}
+                        @foreach($budget->budget_items as $budget_item)
+                            <input type="number" style="display: inline-block;"  class="form-control budg_item_no_edit" placeholder="0.0" value="{{$budget_item->actual_amount}}" disabled>
+                        @endforeach
                     </div>
 
                 <div id="budget_act_col" class="col-md-3 marg_top">
                         <label>Amount Spent</label>
                         @foreach($budget->budget_items as $budget_item)
-                            <input type="text" style="display: inline-block;" name="old_acts[]" class="item_acts form-control budg_item" placeholder="0.0" value="{{$budget_item->actual_amount}}">
+                            <input type="number" style="display: inline-block;" name="old_acts[]" class="item_acts form-control budg_item" placeholder="0.0" value="0.0">
                         @endforeach
                     </div>
             </div>
