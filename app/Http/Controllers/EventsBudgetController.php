@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Employee;
 use App\EmployeeEventSchedule;
 use App\EventBudget;
+use App\InventoryCategory;
+use App\PackageInventory;
+use App\PackageMiscItem;
 use App\Supplier;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -179,7 +182,7 @@ class EventsBudgetController extends Controller
             $event_budget->save();
         }
 
-        return redirect('event_budgets');
+        return redirect('event_budgets/view/'.$request->input('event'));
     }
 
 
@@ -209,10 +212,48 @@ class EventsBudgetController extends Controller
                 if($budget_item->actual_amount > $budget_item->budget_amount){
                     $budget_item->overflow = true;
                 }
-                error_log("here me ngayong".$budget_item->actual_amount);
+                //error_log("here me ngayong".$budget_item->actual_amount);
                $event->total_spent += $budget_item->actual_amount;
             }
         }
+        /// building logic here of costing with modules
+        /// Default Budget Hierachy -> By Categories > Misc Items > Outsourced Expenses
+        /// ?? optional : Mark each budget item with a tag. Tags are either -> item,misc,outsource
+        $distinct = array();
+        $return_item = array();
+        $package = PackageModel::where('package_id','=',$event->package_id)->first();
+        $package_inv = PackageInventory::where('package_id','=',$package->package_id)->get();
+        //error_log($package);
+        error_log($package_inv);
+
+        foreach($package_inv as $package_item){
+            if(!in_array($package_item->category_id,$distinct)){
+                array_push($distinct,$package_item->category_id);
+            }
+        }
+        error_log(print_r($distinct,1));
+        foreach($distinct as $cat_item_id){
+            $cur_total = 0;
+            $category_item = InventoryCategory::where('category_id','=',$cat_item_id)->first();
+            $inv_items = PackageInventory::where('package_id','=',$package->package_id)->where('category_id','=',$cat_item_id)->get();
+            foreach( $inv_items as $inv_item){
+                $cur_total += $inv_item->rent_cost * $inv_item->quantity;
+            }
+            array_push($return_item,array('budg_name'=>$category_item->category_name,'budget_amount'=>$cur_total,'mark'=>'item'));
+        }
+        foreach(PackageMiscItem::where('package_id','=',$package->package_id)->get() as $misc){
+            array_push($return_item,array('budg_name'=>$misc->name,'budget_amount'=>($misc->unit_cost * $misc->quantity),'mark'=>'misc'));
+        }
+        $outsourced_items = DB::table('event_outsource_item')->where('event_id', '=',$event_id)->get();
+        $total_outsource = 0;
+        foreach($outsourced_items as $item){
+            $total_outsource += $item->total_price;
+        }
+        array_push($return_item,array('budg_name'=>'Outsourcing Expenses','budget_amount'=>$total_outsource,'mark'=>'outsource'));
+
+
+        $OUT = print_r($return_item,1);
+        error_log($OUT);
         return view('viewEventBudget',['event_lock'=>$event_lock,'event'=>$event,'event_id'=>$event_id,'budget'=>$check_budget,'budget_templates'=>$budget_templates]);
     }
 

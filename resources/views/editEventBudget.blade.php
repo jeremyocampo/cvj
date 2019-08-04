@@ -77,7 +77,7 @@
                 <div id="budget_act_col" class="col-md-3 marg_top">
                         <label>Amount Spent</label>
                         @foreach($budget->budget_items as $budget_item)
-                            <input type="number" style="display: inline-block;" name="old_acts[]" class="item_acts form-control budg_item" placeholder="0.0" value="0.0">
+                            <input type="number" style="display: inline-block;" name="old_acts[]" class="item_acts form-control budg_item" placeholder="0.0" value="">
                         @endforeach
                     </div>
             </div>
