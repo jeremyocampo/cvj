@@ -55,10 +55,10 @@
                                 <label class = "form-label"> Customize Packages </label> &nbsp;
                             </label>
                                 
-                            <label class="radio-inline">
+                            {{-- <label class="radio-inline">
                                 <input type="radio" name="selectpackagetype" value="package3" onchange="toggle(this.value)"> 
                                 <label class = "form-label"> Budget Packages </label> &nbsp;
-                            </label>
+                            </label> --}}
                             
                             <div class="container"  id = "package1accord" style="display:none">
                                 {{-- <div class="container"> --}}
@@ -70,7 +70,8 @@
                                                           <p class="lead"><b>Wedding Package A</b></p>
                                                           <p>Min 100 guests </p>
                                                           <p>100,000 - 147,000</p>
-                                                          <p><a href = " "> See more details </a></p>
+                                                          {{-- <p><a class="nav-link" href = ""> "> See more details </a></p> --}}
+                                                          <p> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit-modal"> View details </button></p>
                                                       </div>
                                                   </div>
                                                   <div class="item">
@@ -78,7 +79,7 @@
                                                           <p class="lead">Wedding Package B</p>
                                                           <p>Min 100 guests </p>
                                                           <p>100,000 - 147,000</p>
-                                                          <p><a href = " "> See more details </a></p>
+                                                          <p> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit-modal"> View details </button></p>
                                                       </div>
                                                   </div>
                                                   <div class="item">
@@ -86,7 +87,7 @@
                                                           <p class="lead">Wedding Package C</p>
                                                           <p>Min 100 guests </p>
                                                           <p>100,000 - 147,000</p>
-                                                          <p><a href = " "> See more details </a></p>
+                                                          <p> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit-modal"> View details </button></p>
                                                       </div>
                                                   </div>
                                                   <div class="item">
@@ -94,103 +95,103 @@
                                                           <p class="lead">Wedding Package D</p>
                                                           <p>Min 100 guests </p>
                                                           <p>100,000 - 147,000</p>
-                                                          <p><a href = " "> See more details </a></p>
+                                                          <p> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit-modal"> View details </button></p>
                                                       </div>
                                                   </div>
                                                   <div class="item">
                                                       <div class="pad15">
                                                           <p class="lead">Birthday Package A</p>
-                                                          <p>Min 100 guests </p>
+                                                          <p>Min 50 guests </p>
                                                           <p>100,000 - 147,000</p>
-                                                          <p><a href = " "> See more details </a></p>
+                                                          <p> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit-modal"> View details </button></p>
                                                       </div>
                                                   </div>
                                                   <div class="item">
                                                       <div class="pad15">
                                                           <p class="lead">Birthday Package B</p>
-                                                          <p>Min 100 guests </p>
+                                                          <p>Min 50 guests </p>
                                                           <p>100,000 - 147,000</p>
-                                                          <p><a href = " "> See more details </a></p>
+                                                          <p> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit-modal"> View details </button></p>
                                                       </div>
                                                   </div>
                                                   <div class="item">
                                                       <div class="pad15">
                                                           <p class="lead">Birthday Package C</p>
-                                                          <p>Min 100 guests </p>
+                                                          <p>Min 50 guests </p>
                                                           <p>100,000 - 147,000</p>
-                                                          <p><a href = " "> See more details </a></p>
+                                                          <p> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit-modal"> View details </button></p>
                                                       </div>
                                                   </div>
                                                   <div class="item">
                                                       <div class="pad15">
-                                                          <p class="lead">Multi Item Carousel</p>
-                                                          <p>₹ 1</p>
-                                                          <p>₹ 6000</p>
-                                                          <p>50% off</p>
+                                                          <p class="lead">Birthday Package D</p>
+                                                          <p>Min 50 guests </p>
+                                                          <p>40,000 - 50,000 </p>
+                                                          <p> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit-modal"> View details </button></p>
                                                       </div>
                                                   </div>
                                                   <div class="item">
                                                       <div class="pad15">
-                                                          <p class="lead">Multi Item Carousel</p>
-                                                          <p>₹ 1</p>
-                                                          <p>₹ 6000</p>
-                                                          <p>50% off</p>
+                                                          <p class="lead">Birthday Package E</p>
+                                                          <p> Min 50 </p>
+                                                          <p>30,000 - 70,000</p>
+                                                          <p> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit-modal"> View details </button></p>
                                                       </div>
                                                   </div>
                                                   <div class="item">
                                                       <div class="pad15">
-                                                          <p class="lead">Multi Item Carousel</p>
-                                                          <p>₹ 1</p>
-                                                          <p>₹ 6000</p>
-                                                          <p>50% off</p>
+                                                          <p class="lead">Corporate Party Package A</p>
+                                                          <p>Min 80 Guests</p>
+                                                          <p>50,000</p>
+                                                          <p> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit-modal"> View details </button></p>
                                                       </div>
                                                   </div>
                                                   <div class="item">
                                                       <div class="pad15">
-                                                          <p class="lead">Multi Item Carousel</p>
+                                                          <p class="lead">Corporate Party Package B</p>
                                                           <p>₹ 1</p>
                                                           <p>₹ 6000</p>
-                                                          <p>50% off</p>
+                                                          <p> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit-modal"> View details </button></p>
                                                       </div>
                                                   </div>
                                                   <div class="item">
                                                       <div class="pad15">
-                                                          <p class="lead">Multi Item Carousel</p>
+                                                          <p class="lead">Coporate Party Package C</p>
                                                           <p>₹ 1</p>
                                                           <p>₹ 6000</p>
-                                                          <p>50% off</p>
+                                                          <p> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit-modal"> View details </button></p>
                                                       </div>
                                                   </div>
                                                   <div class="item">
                                                       <div class="pad15">
-                                                          <p class="lead">Multi Item Carousel</p>
+                                                          <p class="lead">Corporate Party Package D</p>
                                                           <p>₹ 1</p>
                                                           <p>₹ 6000</p>
-                                                          <p>50% off</p>
+                                                          <p> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit-modal"> View details </button></p>
                                                       </div>
                                                   </div>
                                                   <div class="item">
                                                       <div class="pad15">
-                                                          <p class="lead">Multi Item Carousel</p>
+                                                          <p class="lead">Corporate Party Package E</p>
                                                           <p>₹ 1</p>
                                                           <p>₹ 6000</p>
-                                                          <p>50% off</p>
+                                                          <p> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit-modal"> View details </button></p>
                                                       </div>
                                                   </div>
                                                   <div class="item">
                                                       <div class="pad15">
-                                                          <p class="lead">Multi Item Carousel</p>
+                                                          <p class="lead">Other Package A</p>
                                                           <p>₹ 1</p>
                                                           <p>₹ 6000</p>
-                                                          <p>50% off</p>
+                                                          <p> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit-modal"> View details </button></p>
                                                       </div>
                                                   </div>
                                                   <div class="item">
                                                       <div class="pad15">
-                                                          <p class="lead">Multi Item Carousel</p>
+                                                          <p class="lead">Other Package B </p>
                                                           <p>₹ 1</p>
                                                           <p>₹ 6000</p>
-                                                          <p>50% off</p>
+                                                          <p> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit-modal"> View details </button></p>
                                                       </div>
                                                   </div>
                                               </div>
@@ -350,7 +351,7 @@
                             
 
                           <br>
-                            <div class = "container" id = "package3budget" style = "display:none">
+                            {{-- <div class = "container" id = "package3budget" style = "display:none">
                             <!-- ##### Single Widget ##### -->
             <div class="widget price mb-50">
                 <!-- Widget Title -->
@@ -367,16 +368,59 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
-        <div class="amado_product_area section-padding-100">
-            <div class="container-fluid">
+            <div class="amado_product_area section-padding-100">
+                <div class="container-fluid">
 
 
+                            </div>
                         </div>
-                    </div>
                 </div>
-
+                
+                <div class="modal fade" id="edit-modal">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                              <h4 class="modal-title" text-align: center><b>Wedding Package</b></h4>
+                            </div>
+                            <div class="modal-body">
+                              <form role="form" action="/edit_user">
+                                <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+                                <div class="box-body">
+                                  <div class="form-group">
+                                    <label for="Appetizer">  </label> 
+                                    {{-- <input type="text" class="form-control" name="user_id" placeholder="User ID" > --}}
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="exampleInputEmail1">Username</label> 
+                                    <input type="text" class="form-control" name="username" placeholder="Enter username">
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="exampleInputEmail1">Email</label> 
+                                    <input type="text" class="form-control" name="email" placeholder="Enter email">
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="exampleInputEmail1">Contact</label> 
+                                    <input type="text" class="form-control" name="contact" placeholder="Enter contact">
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="exampleInputEmail1">Change Password</label> 
+                                    <input type="password" class="form-control" name="change_password" placeholder="Enter password">
+                                  </div>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                                  <button type="submit" class="btn btn-primary">Save changes</button>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
 
                             <div class="col-md-12 mb-3">
                                     <p align = 'center'> {{ Form::submit('Next: Summary', ['class' => 'btn btn-primary btn-lg'])}} </p>

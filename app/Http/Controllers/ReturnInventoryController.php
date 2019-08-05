@@ -88,15 +88,13 @@ class ReturnInventoryController extends Controller
         ->select('*')
         ->where('event.event_id', '=', $id)
         ->join('event_inventory', 'event.event_id', '=', 'event_inventory.event_id')
-        // ->join('inventory', 'event_inventory.inventory_id', '=' ,'inventory.inventory_id')
-        // ->join('event', 'event_inventory.event_id', '=', 'event.event_id')
-        // ->join('reserve_venue','event.reservation_id','=','reserve_venue.reservation_id')
-        // ->join('category_ref', 'inventory.category', '=', 'category_ref.category_no')
-        // ->join('color','inventory.color','=','color.color_id')
-        
+        ->join('inventory', 'event_inventory.inventory_id', '=' ,'inventory.inventory_id')
+        ->join('reserve_venue','event.reservation_id','=','reserve_venue.reservation_id')
+        ->join('category_ref', 'inventory.category', '=', 'category_ref.category_no')
+        ->join('color','inventory.color','=','color.color_id')
         ->get();
 
-        dd($borrowedItems);
+        // dd($borrowedItems);
 
         return view('viewEventReturn', ['borrowedItems' => $borrowedItems ]);
     }

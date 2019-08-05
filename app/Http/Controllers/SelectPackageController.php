@@ -16,7 +16,7 @@ class SelectPackageController extends Controller
      */
     public function index()
     {
-        return view('selectPackage');
+        return view('selectpackages');
 
         
     }
@@ -49,7 +49,7 @@ class SelectPackageController extends Controller
             }
         }
 
-        dd($appetizersSelected);
+        // dd($appetizersSelected);
 
         // $client = null;
         // $packages = 
