@@ -51,7 +51,7 @@ class HomeController extends Controller
         } else if(auth()->user()->userType == 3){
             //change this to change dashboard
 
-            return view('eventDashboard');
+            return view('events');
 
 
         }  else if(auth()->user()->userType == 4){
