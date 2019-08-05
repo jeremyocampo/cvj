@@ -70,7 +70,6 @@
                                 <label class = "form-label"> Event Start Date <font color="red">*</font></label>
                                    {{-- {{ Form::date('eventStartDate', '', ['class' => 'form-control', 'placeholder' => 'Date of Event', 'required' => 'true', 'min' => date("Y-m-d H:i:s")]) }}  --}}
                                    <input type="datetime-local" name="eventStartDate" class="form-control" placeholder="Start date">
-
                             </div>
 
                            <div class="col-md-4 mb-3">
@@ -96,6 +95,21 @@
                                 </select>
                                 {{-- {{ Form::number('totalPax', '', ['class' => 'form-control', 'placeholder' => 'Total Pax', 'required' => 'true'])}} --}}
                             </div>
+
+                            <div class="col-md-5 mb-3">                                
+                                    <label class = "form-label"> Venue <font color="red">*</font></label>
+                                    {{ Form::text('venue', '', ['class' => 'form-control', 'placeholder' => 'Venue', 'required' => 'true'])}}
+                                </div>
+                            {{-- <div class="col-md-4 mb-3"> 
+                            <label class = "form-label"> Venue <font color="red">*</font></label>
+                            <select name="totalPax" class = "form-control" form = "bookevent">
+                                    <option selected disabled>Please Select a Venue</option>
+                                        <option value="50"> 50 </option>
+                                        <option value="80"> 80 </option>
+                                        <option value="100"> 100 </option>
+                                        <option value="101"> more than 100 </option>
+                                </select>
+                            </div> --}}
 
                             <div class="col-md-5 mb-3"> <label class = "form-label"> Others </label>
                                 {{ Form::textarea('others', '', ['class' => 'form-control', 'placeholder' => 'Others (Optional)'])}}

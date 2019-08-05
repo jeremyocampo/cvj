@@ -40,7 +40,7 @@
                                     <td>{{ $i->venue }}</td>
                                     <td>{{ $i->event_start }}</td>
                                     <td>{{ $i->event_end }}</td>
-                                    <td>{{ $i->status}} </td>
+                                    <td>{{ $i->status_name}} </td>
                                     <td>
                                         <div class="dropdown">
                                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -55,20 +55,14 @@
                                                     <i class="ni ni-zoom-split-in"></i>
                                                     <span>{{ __('View Event Details') }}</span>
                                                 </a>
-
-                                                <a href="{{ url('inventory/'.$i->event_name.'/edit')}}" class="dropdown-item">
-                                                    <i class="ni ni-fat-add"></i>
-                                                    <span>{{ __('Replenish Item') }}</span>
-                                                </a>
-                                                
-                                                <a href="" class="dropdown-item" onclick="event.preventDefault();
+                                                {{-- <a href="" class="dropdown-item" onclick="event.preventDefault();
                                                     document.getElementById('delete-form-{{ $i->event_name }}').submit();">
                                                     <i class="ni ni-fat-remove"></i>
                                                     <span>{{ __('Remove from Inventory') }}</span>
                                                     {!! Form::open(['action' => ['InventoryController@destroy', $i->event_name], 'method' => 'POST', 'id' => 'delete-form-'.$i->inventory_id]) !!}
                                                         {{ Form::hidden('_method','DELETE')}}
                                                     {!! Form::close() !!}
-                                                </a>
+                                                </a> --}}
                                             </div>
                                         </div>
                                     </td>

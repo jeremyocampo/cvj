@@ -49,6 +49,7 @@ class BookEventController extends Controller
     public function create()
     {
         //
+        return view('bookevent');
     }
 
     /**
@@ -89,6 +90,9 @@ class BookEventController extends Controller
         'others' => $request->input('others'),
         'client_id' => $userID,
 
+        //move this to select package
+        'status' => 1,
+
     ]);
     $event->save();
 
@@ -106,11 +110,19 @@ class BookEventController extends Controller
     ->where('users.id', '=', $userID)
     ->get();
 
+    // dd($email);
+
+    $startDateTime = Carbon::parse($request->input('eventStartDate'));
+    $endDateTime = Carbon::parse($request->input('eventEndDate'));
+
+    dd($startDateTime);
+
     $gevent = new Event;
     $gevent->name =  $request->input('eventName');
-    $gevent->startDateTime = Carbon::now();
-    $gevent->endDateTime = Carbon::now();
-    $gevent->addAttendee(['email' => 'jeremy_ocampojr@dlsu.edu.ph']);
+    $gevent->startDateTime =  $startDateTime;
+    $gevent->endDateTime = $endDateTime;
+    $gevent->venue = $request->input('venue');
+    $gevent->addAttendee(['email' => 'itsoneseno@gmail.com']);
 
     $gevent->save();
 

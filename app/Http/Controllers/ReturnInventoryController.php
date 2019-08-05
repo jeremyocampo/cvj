@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\EventModel;
+use Illuminate\Support\Facades\DB;
+use App\Http\Requests;
+use Carbon\Carbon;
+use Faker\Generator as Faker;
 
 class ReturnInventoryController extends Controller
 {
@@ -20,21 +24,34 @@ class ReturnInventoryController extends Controller
     
     public function index()
     {
-        $events = Event::get();
-
-        $eventDeets = DB::table('events')
-        ->join('')
+        $eventFinished = DB::table('event')
+        ->join('reserve_venue','event.reservation_id','=','reserve_venue.reservation_id')
+        ->join('event_status_ref', 'event.status', '=', 'event_status_ref.status_id')
+        ->select('*')
+        ->where('event.status', '=', '5')
         ->get();
 
-        $inventoryDeets = DB::table('inventory')
-            // // ->join('category_ref','inventory.category','=','category_ref.id')
-            // ->join('inventory','category_ref.category_no','=','inventory.category')
-            ->join('category_ref', 'inventory.category', '=', 'category_ref.category_no')
-            ->join('color','inventory.color','=','color.color_id')
-            ->join('size','inventory.size', '=', 'size.size_id')
-            ->get();
+        $date = Carbon::now('+8:00');
+        // dd($date);
 
-        return view('returnInventory',['events' => $events, 'inventory' => $joinedTable]);
+        // $check = (Carbon::parse($date)->gt($event[0]->event_start));
+       
+        $finishedEvents = array();
+
+        foreach($eventFinished as $i){
+            if(Carbon::parse($i->event_end)->format('Y-m-d') <= $date->format('Y-m-d')){
+                array_push($finishedEvents, $i);
+            }
+        }
+
+        // dd(Carbon::parse($i->event_end)->format('Y-m-d'));
+        // dd($date->format('Y-m-d'));
+        // dd($finishedEvents);
+        
+        
+        
+
+        return view('returnInventory',['events' => $finishedEvents]);
     }
 
     /**
@@ -67,6 +84,21 @@ class ReturnInventoryController extends Controller
     public function show($id)
     {
         //
+        $borrowedItems = DB::table('event')
+        ->select('*')
+        ->where('event.event_id', '=', $id)
+        ->join('event_inventory', 'event.event_id', '=', 'event_inventory.event_id')
+        // ->join('inventory', 'event_inventory.inventory_id', '=' ,'inventory.inventory_id')
+        // ->join('event', 'event_inventory.event_id', '=', 'event.event_id')
+        // ->join('reserve_venue','event.reservation_id','=','reserve_venue.reservation_id')
+        // ->join('category_ref', 'inventory.category', '=', 'category_ref.category_no')
+        // ->join('color','inventory.color','=','color.color_id')
+        
+        ->get();
+
+        dd($borrowedItems);
+
+        return view('viewEventReturn', ['borrowedItems' => $borrowedItems ]);
     }
 
     /**

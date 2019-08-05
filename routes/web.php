@@ -17,10 +17,10 @@ Route::put('profile', ['as' => 'profile.update', 'uses' => 'ProfileController@up
 
 //Jeremy's Routess
 
-Route::get('inventory/return', 'InventoryController@return');
+// Route::get('inventory/return', 'InventoryController@return');
 //Route::get('inventory/view/{$id}', 'InventoryController@updateInfo');
-Route::get('inventory/view/{$id}', 'InventoryController@updateInfo');
-Route::get('inventory/deploy', 'InventoryController@deploy');
+// Route::get('inventory/view/{$id}', 'InventoryController@updateInfo');
+// Route::get('inventory/deploy', 'InventoryController@deploy');
 Route::resource('inventory','InventoryController');
 Route::resource('deploy','DeployInventoryController');
 Route::resource('events', 'EventsController');
@@ -58,8 +58,8 @@ Route::resource('manageuser', 'ManageUsersController');
 
 Route::get('admin/routes', 'AdminController@admin')->middleware('admin');
 
-Route::resource('cal','gCalendarController');
-Route::get('oauth', 'gCalendarController@oauth');
+// Route::resource('cal','gCalendarController');
+// Route::get('oauth', 'gCalendarController@oauth');
 
 Auth::routes();
 
@@ -73,3 +73,5 @@ Route::resource('clientregister', 'ClientRegisterController');
 Route::resource('inventoryDash', 'InventoryHomeController');
 
 Route::get('/send/email', 'HomeController@mail');
+
+Route::resource('inventoryReturn','ReturnInventoryController');
