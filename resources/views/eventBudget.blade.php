@@ -27,6 +27,7 @@
                                 <th>Event Name</th>
                                 <th>Event Start/End</th>
                                 <th>Spent Budget/Total Budget</th>
+                                <th>Assigned Personnel</th>
                                 <th>Remarks</th>
                                 <th>Action</th>
                             </tr>
@@ -35,9 +36,21 @@
                             @foreach($events as $event)
                                 <tr>
                                     <td>{{$event->event_name}}<br><small><b>Client:</b> {{$event->client_name}}</small></td>
-                                    <td>{{$event->event_start}} to <br> {{$event->event_end}} </td>
+                                    <td><b>{{$event->formatted_day}}</b><br>{{$event->formatted_start}} - {{$event->formatted_end}}
+                                    </td>
+
                                     <td>@if($event->budget_id == null) N/A @else {{number_format($event->total_spent,2)}}  / {{ number_format($event->total_budget,2)}} @endif</td>
-                                    <td>Items are overspent.</td>
+                                    <td>
+                                        @if($event->personnels == null) N/A
+                                        @else
+                                            @foreach($event->personnels as $personnel)
+                                                {{$personnel->employee_FN}} {{$personnel->employee_LN}}<br>
+                                            @endforeach
+                                        @endif
+                                    </td>
+                                    <td>
+                                        Items are overspent.
+                                    </td>
                                     <td>
                                         <a href="/event_budgets/view/{{$event->event_id}}">
                                         @if($event->budget_id == null)
@@ -47,6 +60,10 @@
                                             <i class="fa fa-eye fa-lg"></i>
                                             View Event Budget
                                         @endif
+                                        </a><br>
+                                        <a href="#" data-toggle="modal" data-target="#exampleModal"  onclick="get_avail_personnel({{$event->event_id}})">
+                                            <i class="fa fa-plus fa-lg"> </i>
+                                            Assign Personnel
                                         </a>
                                     </td>
                                 </tr>
@@ -84,17 +101,26 @@
     </script>
     -->
     <script>
-        let curr_row_nums = 0;
-        function duplicate() {
-            $("#item_table").append('<tr id="children_row">'+
-                '<td><input name="item_name[]" type="text" class="form-control" placeholder="Item Name"></td>'+
-                '<td><input name="default_value[]" type="number" class="form-control cost_item" value="0.0"></td></tr>');
+        let personnel_assigned_ids = [@foreach($event->personnels as $personnel)'{{$personnel->employee_id}}',@endforeach];
+        let all_personnel = [@foreach($all_personnels as $personnel)'{{$personnel->employee_id}}',@endforeach];
+        function get_avail_personnel(event_id){
+            $.get("avail_personnels/"+event_id, function(data, status){
+                console.log("Data: " + data + "\nStatus: " + status);
+                $("#personnel_table").empty().append("<tr><th>First Name</th><th>Last Name</th></tr>");
+
+                data.forEach(function(entry) {
+                    console.log(entry);
+                    $("#personnel_table").append('<tr>');
+                    $("#personnel_table").append('<td><a href="add_personnel/'+entry["emp_id"]+'/'+event_id+'/">'+entry["fn"]+'</a></td>');
+                    $("#personnel_table").append('<td>'+entry["ln"]+'</td>');
+                    $("#personnel_table").append('</tr>');
+                });
+            });
         }
     </script>
     <div class="modal fade" id="exampleModal" tabindex="-1" style="width: 100%" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-                <form method="post" action="{{ route('post.event_budget_template') }}">
                     {{csrf_field()}}
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Add New Budget Template</h5>
@@ -103,23 +129,17 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="col-md-12" style="background-color: #f4f5f7;padding: 1.5vw;">
-                            <label>Template Name: </label>
-                            <input name="template_name" type="text" class="form-control" placeholder="Enter Template Name.">
-                            <table style="width:100%" id="item_table">
+                    <div class="col-md-12">
+                            <small>Displaying Available Employees for this event.</small>
+                            <table class="table-bordered table" id="personnel_table">
                                 <tr>
-                                    <th>Item Name</th>
-                                    <th>Default Value</th>
-                                </tr>
-                                <tr id="mother_row">
-                                    <td><input name="item_name[]" type="text" class="form-control" placeholder="Item Name"></td>
-                                    <td><input name="default_value[]" type="number" class="form-control cost_item" value="0.0"></td>
+                                    @foreach($all_personnels as $personnel)
+                                        <td>{{$personnel->employee_FN}}</td>
+                                        <td>{{$personnel->employee_LN}}</td>
+                                    @endforeach
                                 </tr>
                             </table>
                         <hr>
-                        <button class="btn btn-icon btn-3 btn-primary" onclick="duplicate()" type="button">
-                            <i class="fa fa-plus fa-lg"></i>
-                        </button>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -127,7 +147,6 @@
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
 
-                </form>
             </div>
         </div>
     </div>
