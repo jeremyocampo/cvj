@@ -230,7 +230,8 @@
                              <h2> Customize Packages </h2>
                                     <table width="100%" boarder="0" cellspacing="20" cellpadding="0" id="fully_customized">
                                             <tbody><tr>
-                                              <td width="50%"><h3>Appetizer</h3>
+                                              <td width="50%">
+                                                <h2 style="background:#eee; padding:5px 10px;">Appetizer</h2>
                                                 {{Form::checkbox('appetizer1', 'Crispy Wanton Balls', false)}}
                                                 {{-- <input type="radio" name="appetizer1" value=""> --}}
                                                 Crispy Wanton Balls<br>
@@ -251,7 +252,7 @@
                                                 Assorted Cold Cuts<br><br>
                                                 
 
-                                                <h3>Soup</h3>
+                                                <h2 style="background:#eee; padding:5px 10px;">Soup</h2>
                                                 
                                                 {{Form::checkbox('soup1', 'Pumpkin Soup', false)}}
                                                 Pumpkin Soup<br>
@@ -265,7 +266,7 @@
 
                                                 <h2 style="background:#eee; padding:5px 10px;">Main Course</h2>
 
-                                                <h3>Pork</h3>
+                                                <h1>Pork</h1>
                                                 {{Form::checkbox('pork1', 'Pork Ballotine in Shallot Mushroom Sauce', false)}}
                                                 Pork Ballotine in Shallot Mushroom Sauce<br>
 
@@ -275,7 +276,7 @@
                                                 {{Form::checkbox('pork3', 'Pork Barbeque Spareribs', false)}}
                                                 Pork Barbeque Spareribs<br><br>
 
-                                                <h3>Beef</h3>
+                                                <h1>Beef</h1>
                                                 {{Form::checkbox('beef1', 'Beef Lok-lak', false)}}
                                                 Beef Lok-lak<br>
 
@@ -287,7 +288,7 @@
                                                 
                                                 <br>
                                                 
-                                                <h3>Chicken</h3>
+                                                <h1>Chicken</h1>
                                                 {{Form::checkbox('chicken1', 'Crispy Honey Chicken in Sweet Chili Sauce', false)}}
                                                 Crispy Honey Chicken in Sweet Chili Sauce<br>
 
@@ -299,7 +300,7 @@
                                                 
                                                 <br>
 
-                                                <h3>Seafood</h3>
+                                                <h1>Seafood</h1>
                                                 {{Form::checkbox('seafood1', 'Deep Fried Fish Fillet ala Mexicana (Mildly Spicy)', false)}}
                                                 Deep Fried Fish Fillet ala Mexicana (Mildly Spicy)<br>
 
@@ -310,7 +311,7 @@
                                                 Fish Fillet Meunière<br></td>
 
                                               
-                                              <td width="50%"><h3>Vegetables</h3>
+                                              <td width="50%"><h2 style="background:#eee; padding:5px 10px;">Vegetables/Salad</h2>
                                                 {{Form::checkbox('vegetable1', 'Buttered Balkan Mixed Vegetables', false)}}
                                                 Buttered Balkan Mixed Vegetables<br>
 
@@ -320,21 +321,28 @@
                                                 {{Form::checkbox('vegetable3', 'Buttered Vegetables', false)}}
                                                 Buttered Vegetables<br><br>
 
-                                                <h3>Pasta or Rice</h3>
+                                                <h2 style="background:#eee; padding:5px 10px;">Pasta</h2>
                                                 {{Form::checkbox('pastarice1', 'Angel Hair in Olive Oil Tapenade', false)}}
                                                 Angel Hair in Olive Oil Tapenade<br>
                                                 
                                                 {{Form::checkbox('pastarice1', 'Spaghetti', false)}}
                                                 Spaghetti <br>
+
                                                 {{Form::checkbox('pastarice1', 'Lasagna', false)}}
                                                 Lasagna<br>
-                                                {{Form::checkbox('pastarice1', 'Steamed Rice', false)}}
-                                                Steamed Rice<br><br>
 
-                                                <h1>Dessert </h1>
+                                                <h2 style="background:#eee; padding:5px 10px;">Rice</h2>
+                                                {{Form::checkbox('pastarice1', 'Steamed Rice', false)}}
+                                                Steamed Rice<br>
+                                                {{Form::checkbox('pastarice2', 'Fried Rice', false)}}
+                                                Fried Rice<br>
+                                                {{Form::checkbox('pastarice3', 'Yang Chow Rice', false)}}
+                                                Yang Chow<br>
+
+                                                <h2 style="background:#eee; padding:5px 10px;">Desserts</h2>
                                                 {{Form::checkbox('desserts1', 'Assorted Pastries', false)}}
                                                 Assorted Pastries<br>
-                                                {{Form::checkbox('desserts2', 'Spaghetti', false)}}
+                                                {{Form::checkbox('desserts2', 'Cassava Cake', false)}}
                                                 Casava Cake<br>
                                                 {{Form::checkbox('desserts3', 'Leche Flan', false)}}
                                                 Leche Flan<br>
@@ -342,7 +350,7 @@
                                                 Buko Fruit Salad<br>
                                                 <br>
 
-                                                <h1 style="background:#eee; padding:5px 10px;">Beverages</h1>
+                                                <h2 style="background:#eee; padding:5px 10px;">Beverages</h2>
                                                 <h1>Alcoholic</h1>
                                                 {{Form::checkbox('alcoholic1', 'San Miguel Light', false)}}
                                                 San Miguel Light<br>
