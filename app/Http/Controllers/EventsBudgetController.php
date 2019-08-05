@@ -53,19 +53,18 @@ class EventsBudgetController extends Controller
             $event->formatted_start = date("H:i", strtotime($event->event_start));
             $event->formatted_end = date("H:i", strtotime($event->event_start));
             //$event->budget = $budget_check == null? null : $budget_check;
-            if($budget_check != null){
-
-                //$this->send_email($event->client_name,'leebet16@gmail.com',$event->event_name,'Caterie Confirmation');
-                $event->total_spent = $event->spent_buffer;
-                $event->budget_id=$budget_check->id;
-                $employees=EmployeeEventSchedule::select('employee_id')->where('event_assigned','=',$event->event_id)->get();
-                $event->personnels=Employee::whereIn('employee_id',$employees)->get();
-                foreach(EventBudgetItem::where('event_budget_id','=',$budget_check->id)->get() as $budget_item){
-                    $event->total_spent += $budget_item->actual_amount;
-                }
-            }else{
-                $event->budget_id=null;
+            if($budget_check == null) {
+                $this->createAutomatedBudget($event->event_id);
             }
+            //$this->send_email($event->client_name,'leebet16@gmail.com',$event->event_name,'Caterie Confirmation');
+            $event->total_spent = $budget_check->spent_buffer;
+            $event->budget_id=$budget_check->id;
+            $employees=EmployeeEventSchedule::select('employee_id')->where('event_assigned','=',$event->event_id)->get();
+            $event->personnels=Employee::whereIn('employee_id',$employees)->get();
+            foreach(EventBudgetItem::where('event_budget_id','=',$budget_check->id)->get() as $budget_item) {
+                $event->total_spent += $budget_item->actual_amount;
+            }
+
         }
 
         $all_personnels = array();
@@ -216,11 +215,18 @@ class EventsBudgetController extends Controller
                $event->total_spent += $budget_item->actual_amount;
             }
         }
+                return view('viewEventBudget',['event_lock'=>$event_lock,'event'=>$event,'event_id'=>$event_id,'budget'=>$check_budget,'budget_templates'=>$budget_templates]);
+    }
+
+    public function createAutomatedBudget($event_id)
+    {
         /// building logic here of costing with modules
         /// Default Budget Hierachy -> By Categories > Misc Items > Outsourced Expenses
         /// ?? optional : Mark each budget item with a tag. Tags are either -> item,misc,outsource
+
         $distinct = array();
         $return_item = array();
+        $event = Event::where('event_id','=',$event_id)->first();
         $package = PackageModel::where('package_id','=',$event->package_id)->first();
         $package_inv = PackageInventory::where('package_id','=',$package->package_id)->get();
         //error_log($package);
@@ -254,11 +260,23 @@ class EventsBudgetController extends Controller
 
         $OUT = print_r($return_item,1);
         error_log($OUT);
-        return view('viewEventBudget',['event_lock'=>$event_lock,'event'=>$event,'event_id'=>$event_id,'budget'=>$check_budget,'budget_templates'=>$budget_templates]);
-    }
 
-    public function createIndex($event_id)
-    {   }
+        // create new budget here
+        $event_budget = new EventBudget();
+        $event_budget->event_id = $event_id;
+        $event_budget->save();
+        foreach($return_item as $item){
+            $event_budget_item = new EventBudgetItem();
+            $event_budget_item->event_budget_id = $event_budget->id;
+            $event_budget_item->item_name = $item->budg_name;
+            $event_budget_item->budget_amount = $item->budget_amount;
+            $event_budget_item->save();
+            $event_budget->total_budget +=$event_budget_item->budget_amount;
+        }
+
+        $event_budget->total_buffer = $event_budget->total_budget * 0.15;
+        $event_budget->save();
+    }
 
     public static function getSupplier_by_Id($id){
        return $supplier = Supplier::where('supplier_id', '=',$id)->first();
