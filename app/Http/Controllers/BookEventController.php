@@ -70,6 +70,15 @@ class BookEventController extends Controller
     // Session::put('loginDetails', $loginDet);
     // $loginDetails = Session::get('loginDetails');
     // $client_id = 1;
+    $today = Carbon::now('+8:00');
+
+    $eventDate =  Carbon::parse($request->input('eventStartDate'))->format('Y-m-d');
+
+    $daysBefore = $eventDate->subDay(90)->format('Y-m-d');
+
+    if($today <= $daysBefore){
+
+    }
 
     $userID = Session::get('userId');
 

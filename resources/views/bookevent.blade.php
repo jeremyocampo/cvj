@@ -96,6 +96,18 @@
                                 {{-- {{ Form::number('totalPax', '', ['class' => 'form-control', 'placeholder' => 'Total Pax', 'required' => 'true'])}} --}}
                             </div>
 
+                            <div class="col-md-5 mb-3"> 
+                                <label class = "form-label"> Location <font color="red">*</font></label>
+                                <select name="location" class = "form-control" form = "bookevent">
+                                     <option selected disabled>Please Select Location</option>
+                                         <option value="1"> CVJ Clubhouse Ground Floor </option>
+                                         <option value="2"> CVJ Clubhouse Ground Floor </option>
+                                         <option value="3"> CVJ Clubhouse Ground Floor </option>
+                                         <option value="4"> Off-Premise </option>
+                                 </select>
+                                 {{-- {{ Form::number('totalPax', '', ['class' => 'form-control', 'placeholder' => 'Total Pax', 'required' => 'true'])}} --}}
+                             </div>
+
                             <div class="col-md-5 mb-3">                                
                                     <label class = "form-label"> Venue <font color="red">*</font></label>
                                     {{ Form::text('venue', '', ['class' => 'form-control', 'placeholder' => 'Venue', 'required' => 'true'])}}

@@ -64,14 +64,14 @@ class EventsController extends Controller
 
         //Gets events from Database
         $eventPending = DB::table('event')
-        ->join('reserve_venue','event.reservation_id','=','reserve_venue.reservation_id')
+        // ->join('reserve_venue','event.reservation_id','=','reserve_venue.reservation_id')
         ->join('event_status_ref', 'event.status', '=', 'event_status_ref.status_id')
         ->select('*')
         ->where('event.status', '<', '2')
         ->get();
 
         $eventApproved = DB::table('event')
-        ->join('reserve_venue','event.reservation_id','=','reserve_venue.reservation_id')
+        // ->join('reserve_venue','event.reservation_id','=','reserve_venue.reservation_id')
         ->join('event_status_ref', 'event.status', '=', 'event_status_ref.status_id')
         ->select('*')
         ->where('event.status', '>', '1')

@@ -81,6 +81,12 @@
 																<span>{{ __('Purchse Inventory') }}</span>
 																
 															</a>
+
+															<a href="{{ url('inventory/create')}}" class="dropdown-item">
+																<i class="ni ni-fat-add"></i>
+																<span>{{ __('outsource Inventory') }}</span>
+																
+															</a>
 															
 															<a href="" class="dropdown-item" onclick="event.preventDefault();
 																document.getElementById('delete-form-{{ $i->event_id }}').submit();">
