@@ -3,8 +3,8 @@
 @section('content')
 @include('layouts.headers.inventoryCard1')
 <div class="container-fluid mt--7">
-		{{-- {!! Form::open(['action' => ['ReturnInventoryController@update', $borrowedItems[0]->event_id], 'method' => 'POST']) !!} --}}
-	<!-- Modal -->
+		
+	{{-- <!-- Modal -->
 	<div id="myModal" class="modal fade" role="dialog">
 			<div class="modal-dialog">
 		  
@@ -17,9 +17,7 @@
 					  </div>
 				  </div>
 				</div>
-				{{-- <div class="modal-body">
-				  <p>Some text in the modal.</p>
-				</div> --}}
+				
 				<div class="modal-footer">
 				  {{ Form::submit('Confirm Changes', ['class' => 'btn btn-success']) }}
 				  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
@@ -27,7 +25,7 @@
 			  </div>
 		  
 			</div>
-		  </div>
+		  </div> --}}
 		
 				{{-- <div class="col-xl-8 mb-5 mb-xl-0"> --}}
 				<div class="col-xl-12 mb-5">
@@ -50,7 +48,7 @@
 									{{-- <div class="row"> --}}
 										<div class="col-xs-5">
 									{{-- <input class="form-control" id="myInput" type="search" onkeyup="searchTable()" style="background: transparent;" placeholder="Search Item Here"> --}}
-									<input class="form-control" id="barcodeInput" type="number" onkeyup="checkBarcode()" style="background: transparent;" placeholder="Input Barcode Here" max=9999999999999>
+									<input class="form-control" id="barcodeInput" type="number" onkeyup="checkBarcode(this)" style="background: transparent;" placeholder="Input Barcode Here" autofocus>
 										</div>
 										{{-- <div class="col-xs-2">
 											&nbsp; &nbsp;
@@ -81,8 +79,8 @@
 							</div>
 						   
 						</div>
-		  
-	<div class="card-body">
+						{!! Form::open(['action' => ['ReturnInventoryController@update', $borrowedItems[0]->event_id], 'method' => 'POST' ,'id' => 'barcodeForm']) !!}
+					<div class="card-body">
 		
 							<div class="row">
 									
@@ -150,6 +148,7 @@
 												<div id="barcode-{!! $i->inventory_id !!}" value="{!! "toPrint-" . $i->inventory_id!!}">
 													{{-- <a href="" class="dropdown-item" onclick="printContent('barcode-{{$i->inventory_id}}');" id="printBtn{{ $i->inventory_id }}"> --}}
 														{!!'<img src="data:image/png;base64,' . DNS1D::getBarcodePNG("".$i->esku, "C128A",2,44,array(1,1,1), true) . '" alt="barcode"   />' !!}
+														
 													{{-- </a> --}}
 												</div>	
 											</td>
@@ -158,7 +157,8 @@
 											<td>
 												<div class="col-xl-4">
 													<label class="form-label">Qty to Return</label>
-													<input type="text" disabled class="form-control" name="qtyReturned" id="qtyReturn{{ $i->einventory_id}}">
+													<input type="hidden" disbaled value="{{ $i->esku }}" id="inputBarcodeQty">
+													<input type="text" disabled class="form-control" name="qtyReturned" id="qtyReturn{{ $i->esku }}">
 												</div>
 											</td>
 											
@@ -187,14 +187,15 @@
 									<i class="ni ni-single-copy-04"></i>
 									<span>{{ __('Print Barcode') }}</span>
 								</a> --}}
-								{{Form::hidden('_method', 'PUT')}}
+								
 						</div>
 				</div>
 				{{-- <div class="col-md-12 mb-3">
 						{{ Form::submit('Replenish Item', ['class' => 'btn btn-success']) }}
 				</div> --}}
 			</div>
-		</div>				
+		</div>
+				
 		{!! Form::close() !!}
 		</div>
 		</div>
@@ -221,5 +222,44 @@
             // window.print();
             // document.body.innerHTML = restorepage;
         }
-    </script>
+	</script>
+	<script>
+		$( document ).ready(function() {
+			var barcode = document.getElementById('barcodeInput').value;
+			document.getElementById('barcodeInput').onkeyup = function checkBarcode(){
+
+				var barcode = document.getElementById('barcodeInput').value;
+				// alert(barcode);
+				var barcodeId = "qtyReturn" + barcode;
+				var element = document.getElementById('barcodeForm').elements;
+				for (var i = 0, element; element = elements[i++];) {
+					if (element.type === "text" && element.id === barcodeId)
+					alert(barcode);
+				}
+								
+				var elem = document.getElementById('barcodeForm').elements;
+				for(var i = 0; i < elem.length; i++)
+				{
+					if(elem[i].getElementById("inputBarcodeQty").value == barcode){
+						// alert(barcode);
+						// elem[i].getElementById('qtyReturn'+barcode).value = 1;
+					}
+					
+				} 
+			}
+			
+			// function checkBarcode(e)
+			// {
+			// 	var barcode = e.value;
+			// 	var elem = document.getElementById('barcodeForm').elements;
+			// 	for(var i = 0; i < elem.length; i++)
+			// 	{
+			// 		if(elem[i].getElementById("inputBarcodeQty").value == barcode){
+			// 			elem[i].getElementById('qtyReturn'+barcode).value = 1;
+			// 		}
+					
+			// 	} 
+			// }
+		});
+	</script>
 @endpush
