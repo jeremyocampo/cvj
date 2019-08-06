@@ -35,7 +35,7 @@
 								<div class="table-responsive mb-2" >
 									{{-- <div class="row"> --}}
 									<!-- Projects table -->
-									<table class="table table-bordered align-items-center  mb-3" id="myTable" >
+									<table class="table  align-items-center  mb-3" id="myTable" >
 										<thead class="thead-light">
 											<tr>
 												<th>Event Name</th>
@@ -84,10 +84,9 @@
 
 															<a href="{{ url('inventory/create')}}" class="dropdown-item">
 																<i class="ni ni-fat-add"></i>
-																<span>{{ __('outsource Inventory') }}</span>
+																<span>{{ __('Outsource Inventory') }}</span>
 																
 															</a>
-															
 															<a href="" class="dropdown-item" onclick="event.preventDefault();
 																document.getElementById('delete-form-{{ $i->event_id }}').submit();">
 																<i class="ni ni-fat-remove"></i>
@@ -154,24 +153,22 @@
 								
 						</div>
 						<div class="card-body border-0">
-								<div class="table-responsive mb-2" >
-										{{-- <div class="row"> --}}
-										<!-- Projects table -->
-										<table class="table table-bordered align-items-center  mb-3" id="myTable1" >
-											<thead class="thead-light">
-												<tr>
-													<th>Event Name</th>
-													<th>Venue</th>
-													<th>Start Date/Time</th>
-													<th>End Date/Time</th>
-													<th>Description</th>
-													<th>Status </th>
-													<th >Action</th>
-												</tr>
-											</thead>
-											<tbody>
-												@foreach ($events as $i)
-												{{-- @if($i->status > 0) --}}
+							<div class="table-responsive mb-2" >
+								<table class="table  align-items-center  mb-3" id="myTable" >
+										<thead class="thead-light">
+											<tr>
+												<th>Event Name</th>
+												<th>Venue</th>
+												<th>Start Date/Time</th>
+												<th>End Date/Time</th>
+												<th>Description</th>
+												<th>Status</th>
+												<th >Action</th>
+											</tr>
+										</thead>
+										<tbody>
+										@foreach($events as $i)
+										@if($i->status < 5)
 												<tr>
 													<td> {{ $i->event_name }}</td>
 													<td> {{ $i->venue }}</td>
@@ -214,10 +211,10 @@
 																</a>
 															</div>
 														</div>
-														{{-- <a class="btn btn-sm btn-primary" href="inventory/{{ $i->itemId }}/edit"> Replenish Item </a> mahaba--}} 
+														
 													</td>
 												</tr>
-												{{-- @endif --}}
+												@endif
 												@endforeach
 											</tbody>
 										</table>
@@ -232,9 +229,7 @@
                                 pager.showPage(1);
                             </script>
 						</div>
-					{{-- <div class="col-md-12 mb-3">
-							{{ Form::submit('Replenish Item', ['class' => 'btn btn-success']) }}
-					</div> --}}
+				
 				</div>
 			</div>				
 			{!! Form::close() !!}
@@ -243,13 +238,15 @@
 	
 
 </div>
-</div>
+</div> 
 	
+</div>
 </div>
 @endsection
 
 
 @push('js')
+
 
 <script>
 	function getSelected(){

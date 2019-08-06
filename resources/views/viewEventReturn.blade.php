@@ -33,24 +33,28 @@
 				<div class="card shadow">
 						<div class="card-header">
 							<div class="row">
-									<div class="col-xl-8 ">
+									<div class="col-xl-12 ">
 										<h2 calss="mb-0">View Item Details</h2>
 									</div>
 									<div class="col-xl-4">
-										<label class="text-muted">Event Name: {{$borrowedItems[0]->event_name}}</label>
+										{{-- <label class="text-muted">Event Name: {{$borrowedItems[0]->event_name}}</label> --}}
+										<label class="form-label">Event Name</label>
+										{{ Form::text('itemName', $borrowedItems[0]->event_name,['class' => 'form-control', 'disabled'] )}}
 									</div>
 									<div class="col-xl-4">
-										<label class="text-muted">Date Borrowed: {{$borrowedItems[0]->event_start}}</label>
+											<label class="form-label">Date Borrowed</label>
+											{{ Form::text('itemName', $borrowedItems[0]->event_start,['class' => 'form-control', 'disabled'] )}}
 									</div>
 									<div class="col-xl-4">
-										<label class="text-muted">Date Due: {{$borrowedItems[0]->event_end}}</label>
+										{{-- <label class="text-muted">Date Due: {{$borrowedItems[0]->event_end}}</label> --}}
+										<label class="form-label">Date Due</label>
+										{{ Form::text('itemName', $borrowedItems[0]->event_end,['class' => 'form-control', 'disabled'] )}}
 									</div>
-									<div class="col-xl-4">
-										<label class="text-muted">Date Due: {{$borrowedItems[0]->date_created}}</label>
+									<div class="col-xl-12">
+											<label class="form-label">Venue</label>
+											{{ Form::text('itemName', $borrowedItems[0]->venue,['class' => 'form-control', 'disabled'] )}}
 									</div>
-									<div class="col-xl-4">
-										<label class="text-muted">Date Due: {{$borrowedItems[0]->date_created}}</label>
-									</div>
+									
 									<div class="col-xl-4">
 										
 									</div>
@@ -70,7 +74,8 @@
                             <table class="table align-items-center table-flush">
                                     <thead class="thead-light">
                                         <tr>
-                                            <th scope="col">Event Name</th>
+											<th scope="col">Item Name</th>
+											<th scope="col">Quantity</th>
                                             <th scope="col">Venue</th>
                                             <th scope="col">Borrow Date/Time</th>
                                             <th scope="col">Return Date/Time</th>
@@ -82,7 +87,10 @@
                                         @foreach ($borrowedItems as $i)
                                         @if($i->status > 0)
                                         <tr>
-                                            <td>{{ $i->event_name }}</td>
+                                            <td>
+												
+												
+											</td>
                                             <td>{{ $i->venue }}</td>
                                             <td>{{ $i->event_start }}</td>
                                             <td>{{ $i->event_end }}</td>
@@ -129,10 +137,10 @@
 						<div class="text-right">
 								<button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">Save</button>
 								<a href="{{ url('returnInventory')}}" class="btn btn-default">Back</a>
-								<a href="" class="btn btn-primary" onclick="printContent('barcode-{{ $itemInfo[0]->inventory_id }}');" id="printBtn{{ $itemInfo[0]->inventory_id}}">
+								{{-- <a href="" class="btn btn-primary" onclick="printContent('barcode-{{ $itemInfo[0]->inventory_id }}');" id="printBtn{{ $itemInfo[0]->inventory_id}}">
 									<i class="ni ni-single-copy-04"></i>
 									<span>{{ __('Print Barcode') }}</span>
-								</a>
+								</a> --}}
 								{{Form::hidden('_method', 'PUT')}}
 						</div>
 				</div>

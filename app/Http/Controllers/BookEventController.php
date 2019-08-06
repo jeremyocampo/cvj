@@ -72,46 +72,60 @@ class BookEventController extends Controller
     // $client_id = 1;
     $today = Carbon::now('+8:00');
 
-    $eventDate =  Carbon::parse($request->input('eventStartDate'))->format('Y-m-d');
+    $eventDate =  Carbon::parse($request->input('eventStartDate'));
+    $eventEnd = Carbon::parse($request->input('eventEndDate'))->format('Y-m-d');
 
     $daysBefore = $eventDate->subDay(90)->format('Y-m-d');
 
-    if($today <= $daysBefore){
+    // $errors = '';
+    // if($today <= $daysBefore){
+    //     $eventStart =  Carbon::parse($request->input('eventStartDate'));
+    // } else {
 
-    }
+    // }
+
+    // if($eventEnd >= $eventDate){
+    //     $eventEnd =  Carbon::parse($request->input('eventEndDate'));
+    // }
 
     $userID = Session::get('userId');
 
+    $this->validate($request, [
+        'eventName'                 => 'required',
+        'eventType'                 => 'required',
+        'eventStartDate'            => 'required|before_or_equal:'.$daysBefore,
+        'eventEndDate'              => 'required|after:event_start',
+        'theme'                     => 'required|min:1',
+        'totalPax'                  => 'required',
+        'others'                    => '',
+        'venue1'                    => 'sometimes|required',
+        'venue2'                    => 'sometimes|required',
+        
+    ],[
+        'eventName'             => 'Please Input a valid Event Name',
+        'eventType'             => 'Please Input a valid Event Type',
+        'eventStartDate'        => 'Please Input a valid Event Start Date',
+        'eventEndDate'          => 'Please Input a valid Event End Date',
+        'theme'                 => 'Please Input a valid Theme',
+        'totalPax'              => 'Please Input a valid Number of Attendees',
+        'others'                => 'Please Input a valid Description',
+        'venue1'                => 'Please Input a valid Location',
+        'venue2'                => 'Please Input a valid Venue',
+    ]);
+
+
     $event = new EventModel([
-       // 'client_id' => $loginDet['client_id'],
         'event_name' => $request->input('eventName'),
-
-        //Event Type Selection
         'event_type' => $request->input('eventType'),
-
-        'event_start' => $request->input('eventStartDate'),
-        'event_end' => $request->input('eventEndDate'),
-         //'reservation_id' => $request->input('eventVenue'),
-
+        'event_start' => $eventStart,
+        'event_end' => $eventEnd,
         'theme' => $request->input('theme'),
         'totalpax' => $request->input('totalPax'),
-       
         'others' => $request->input('others'),
         'client_id' => $userID,
-
-        //move this to select package
         'status' => 1,
 
     ]);
-    $event->save();
-
-    // Event::create([
-    //     'name' =>  $request->input('eventName'),
-    //     'startDateTime' => $request->input('eventStartDate'),
-    //     'endDateTime' => $request->input('eventEndDate'),
-    //     'location' => $request->input('location'),
-    //     'description' => $request->input('others'),
-    //  ]);
 
     $email = DB::table('users')
     // ->join('category_ref','inventory.category','=','category_ref.id')
@@ -133,12 +147,13 @@ class BookEventController extends Controller
     $gevent->venue = $request->input('venue');
     $gevent->addAttendee(['email' => 'itsoneseno@gmail.com']);
 
+
+    $event->save();
     $gevent->save();
-
-
-        
     return redirect('/selectpackages')
     ->with('success', "Event details saved!");
+    
+        
     //->with('client', $client)
     //->with('packages', $packages);
     

@@ -25,22 +25,35 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-12">
-                                @if(session()->has('success'))
-                                    <br>
-                                    <div class="alert alert-success" role="alert">
-                                        <button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">x</span></button>
-                                        {{ session()->get('success') }}<br>
-                                    </div>
-                                @endif
+                                <div class="col-md-12">
+                                    @if(session()->has('success'))
+                                        <br>
+                                        <div class="alert alert-success" role="alert">
+                                            <button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">x</span></button>
+                                            {{ session()->get('success') }}<br>
+                                        </div>
+                                    @endif
+                                    @if(session()->has('error'))
+                                        <br>
+                                        <div class="alert alert-danger" role="alert">
+                                            <button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">x</span></button>
+                                            {{ session()->get('error') }}<br>
+                                        </div>
+                                    @endif
+                                </div>
                             </div>
-                        </div>
                             {{-- {!! Form::open('action' => ['BookEventController@store', 'method' => 'POST', 'id' => 'bookevent']) !!} --}}
                             {!! Form::open(['action' => 'BookEventController@store', 'method' => 'POST']) !!}
                             {{-- <form action = "BookEventController@store" method = "POST"> --}}
                             {{-- {{ csrf_field() }} --}}
 
-                            <div class="card-body border-0"></div>
+                    <div class="card-body border-0"></div>
+                        @foreach($errors->all() as $error)
+                            <div class="alert alert-danger" role="alert">
+                                <button type = button data-dismiss="alert" class="close"><span aria-hidden="true">x</span></button>
+                                    {{ $error }}<br>
+                            </div>
+                        @endforeach
 
                          <div class="row">
                             <div class="col-md-5 mb-3">
@@ -60,11 +73,6 @@
                                     <option value="Others"> Others </option>
                                 </select>
                             </div>
-
-                       {{-- Hidden Div for additional request --}}
-                           {{-- <div class="col-md-3 mb-3" id='test' style="display:none">
-                                 {{ Form::text('eventType', '', ['class' => 'form-control', 'placeholder' => 'Others: Please Specify', 'required' => 'true'])}}
-                            </div> --}}
 
                            <div class="col-md-5 mb-3">
                                 <label class = "form-label"> Event Start Date <font color="red">*</font></label>
@@ -86,31 +94,31 @@
                            {{-- by 50s, 60s, 70, 80s etcc.. --}}
                            <div class="col-md-4 mb-3"> 
                                <label class = "form-label"> Number of Attendees <font color="red">*</font></label>
-                               <select name="totalPax" class = "form-control" form = "bookevent">
+                               <select name="totalPax" class = "form-control" >
                                     <option selected disabled>Please Select Number of Attendees</option>
-                                        <option value="50"> 50 </option>
-                                        <option value="80"> 80 </option>
-                                        <option value="100"> 100 </option>
-                                        <option value="101"> more than 100 </option>
+                                    <option value=50> 50 </option>
+                                    <option value=80> 80 </option>
+                                    <option value=100> 100 </option>
+                                    <option value=101> more than 100 </option>
                                 </select>
                                 {{-- {{ Form::number('totalPax', '', ['class' => 'form-control', 'placeholder' => 'Total Pax', 'required' => 'true'])}} --}}
                             </div>
 
                             <div class="col-md-5 mb-3"> 
-                                <label class = "form-label"> Location <font color="red">*</font></label>
-                                <select name="location" class = "form-control" form = "bookevent">
-                                     <option selected disabled>Please Select Location</option>
+                                <label class = "form-label"> Location <font color="red" >*</font></label>
+                                <select name="venue1" class = "form-control" form = "bookevent" id="location" value="0">
+                                     <option value="0" selected disabled>Please Select Location</option>
                                          <option value="1"> CVJ Clubhouse Ground Floor </option>
-                                         <option value="2"> CVJ Clubhouse Ground Floor </option>
-                                         <option value="3"> CVJ Clubhouse Ground Floor </option>
+                                         <option value="2"> CVJ Clubhouse Second Floor </option>
+                                         <option value="3"> CVJ Clubhouse Third Floor </option>
                                          <option value="4"> Off-Premise </option>
                                  </select>
                                  {{-- {{ Form::number('totalPax', '', ['class' => 'form-control', 'placeholder' => 'Total Pax', 'required' => 'true'])}} --}}
                              </div>
 
-                            <div class="col-md-5 mb-3">                                
-                                    <label class = "form-label"> Venue <font color="red">*</font></label>
-                                    {{ Form::text('venue', '', ['class' => 'form-control', 'placeholder' => 'Venue', 'required' => 'true'])}}
+                            <div class="col-md-4 mb-3">                                
+                                    <label class = "form-label" id="eventvenueL"> Venue <font color="red" id="eventvenueA">*</font></label>
+                                    {{ Form::text('venue2', '', ['class' => 'form-control', 'placeholder' => 'Venue', 'required' => 'true', 'id' => 'eventvenue'])}}
                                 </div>
                             {{-- <div class="col-md-4 mb-3"> 
                             <label class = "form-label"> Venue <font color="red">*</font></label>
@@ -168,3 +176,37 @@
     </div>
 </div>
 @endsection
+
+@push('js')
+
+<script>
+    $(document).ready(function(){
+        var sel = document.getElementById("location");
+        var text = document.getElementById("eventvenue");
+        var text1 = document.getElementById("eventvenueL");
+        var text2 = document.getElementById("eventvenueA");
+        text.hidden = (sel.value != "4");
+        text1.hidden = (sel.value != "4");
+        text2.hidden = (sel.value != "4");
+        // text.disabled = (sel.value != "4");
+        text1.disabled = (sel.value != "4");
+        text2.disabled = (sel.value != "4");
+        sel.disabled = (text.value != ''); 
+
+        sel.onchange = function(e) {
+            text.hidden = (sel.value != "4");
+            text1.hidden = (sel.value != "4");
+            text2.hidden = (sel.value != "4");
+            text.disabled = (sel.value != "4");
+            text1.disabled = (sel.value != "4");
+            text2.disabled = (sel.value != "4");
+        };
+
+        text.oninput = function(e){
+            sel.disabled = (text.value != ''); 
+        }
+    });
+    
+</script>
+
+@endpush

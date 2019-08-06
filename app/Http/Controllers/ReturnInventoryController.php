@@ -25,7 +25,7 @@ class ReturnInventoryController extends Controller
     public function index()
     {
         $eventFinished = DB::table('event')
-        ->join('reserve_venue','event.reservation_id','=','reserve_venue.reservation_id')
+        // ->join('reserve_venue','event.reservation_id','=','reserve_venue.reservation_id')
         ->join('event_status_ref', 'event.status', '=', 'event_status_ref.status_id')
         ->select('*')
         ->where('event.status', '=', '5')
@@ -89,10 +89,11 @@ class ReturnInventoryController extends Controller
         ->where('event.event_id', '=', $id)
         ->join('event_inventory', 'event.event_id', '=', 'event_inventory.event_id')
         ->join('inventory', 'event_inventory.inventory_id', '=' ,'inventory.inventory_id')
-        ->join('reserve_venue','event.reservation_id','=','reserve_venue.reservation_id')
+        // ->join('reserve_venue','event.reservation_id','=','reserve_venue.reservation_id')
         ->join('category_ref', 'inventory.category', '=', 'category_ref.category_no')
         ->join('color','inventory.color','=','color.color_id')
         ->join('client', 'event.client_id', '=', 'client.client_id')
+        ->join('event_status_ref', 'event.status', '=', 'event_status_ref.status_id')
         ->get();
 
         // dd($borrowedItems);

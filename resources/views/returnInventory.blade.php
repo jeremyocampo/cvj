@@ -52,8 +52,8 @@
                                                 <tr>
                                                     <td>{{ $i->event_name }}</td>
                                                     <td>{{ $i->venue }}</td>
-                                                    <td>{{ $i->event_start }}</td>
-                                                    <td>{{ $i->event_end }}</td>
+                                                    <td>{{ Carbon\Carbon::parse($i->event_start)->format('F j, Y g:i a') }}</td>
+                                                    <td>{{ Carbon\Carbon::parse($i->event_end)->format('F j, Y g:i a') }}</td>
                                                     <td>{{ $i->status_name}} </td>
                                                     <td>
                                                         <a class="" href="{{ url('returnInventory/'.$i->event_id) }}" >
