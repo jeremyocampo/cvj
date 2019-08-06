@@ -97,7 +97,6 @@ class EventsBudgetController extends Controller
                         array_push($avail_personnel,array("emp_id"=>$personnel->employee_id,"fn"=>$personnel->employee_FN,"ln"=>$personnel->employee_LN));
                     }
                 }
-
         }
         return Response::json($avail_personnel);
     }
@@ -247,15 +246,18 @@ class EventsBudgetController extends Controller
             }
             array_push($return_item,array('budg_name'=>$category_item->category_name,'budget_amount'=>$cur_total,'mark'=>'item'));
         }
+
         foreach(PackageMiscItem::where('package_id','=',$package->package_id)->get() as $misc){
             array_push($return_item,array('budg_name'=>$misc->name,'budget_amount'=>($misc->unit_cost * $misc->quantity),'mark'=>'misc'));
         }
         $outsourced_items = DB::table('event_outsource_item')->where('event_id', '=',$event_id)->get();
         $total_outsource = 0;
-        foreach($outsourced_items as $item){
-            $total_outsource += $item->total_price;
+        if(count($outsourced_items)>0){
+            foreach($outsourced_items as $item){
+                $total_outsource += $item->total_price;
+            }
+            array_push($return_item,array('budg_name'=>'Outsourcing Expenses','budget_amount'=>$total_outsource,'mark'=>'outsource'));
         }
-        array_push($return_item,array('budg_name'=>'Outsourcing Expenses','budget_amount'=>$total_outsource,'mark'=>'outsource'));
 
 
         $OUT = print_r($return_item,1);
