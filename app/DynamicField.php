@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PackageModel extends Model
+class DynamicField extends Model
 {
     public $primaryKey = 'package_id';
     public $table = 'package';
