@@ -150,6 +150,10 @@
                                         <a href="{{ url('inventoryReturn') }}" class="nav-link">
                                             <i class="ni ni-archive-2 text-purple"></i>Inventory Return</a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a href="{{ url('food') }}" class="nav-link">
+                                            <i class="ni ni-archive-2 text-purple"></i>View Food Inventory</a>
+                                    </li>
                                 </ul>
                             </div>
                         </li>

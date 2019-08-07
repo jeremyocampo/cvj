@@ -79,7 +79,6 @@
 															<a href="{{ url('inventory/create')}}" class="dropdown-item">
 																<i class="ni ni-fat-add"></i>
 																<span>{{ __('Purchse Inventory') }}</span>
-																
 															</a>
 
 															<a href="{{ url('inventory/create')}}" class="dropdown-item">

@@ -143,7 +143,9 @@
                                             
 											<td>{{ $i->inventory_name }}</td>
 											<td>{{ $i->color_name }}</td>
-                                            <td>{{ $i->qty }}</td>
+											<td>{{ $i->qty }}
+											<input hidden type="text" value="{{ $i->qty}}" id="qty{{ $i->esku }}">
+											</td>
 											<td>
 												<div id="barcode-{!! $i->inventory_id !!}" value="{!! "toPrint-" . $i->inventory_id!!}">
 													{{-- <a href="" class="dropdown-item" onclick="printContent('barcode-{{$i->inventory_id}}');" id="printBtn{{ $i->inventory_id }}"> --}}
@@ -157,22 +159,11 @@
 											<td>
 												<div class="col-xl-4">
 													<label class="form-label">Qty to Return</label>
-													<input type="hidden" disbaled value="{{ $i->esku }}" id="inputBarcodeQty">
-													<input type="text" disabled class="form-control" name="qtyReturned" id="qtyReturn{{ $i->esku }}">
+													<input type="hidden" value="{{ $i->esku }}" id="inputBarcodeQty">
+													<input type="number" value=0  disabled class="form-control" name="qtyReturned" id="qtyReturn{{ $i->esku }}">
 												</div>
 											</td>
-											
-
-                                            {{-- <td>
-                                                <a class="" href="{{ url('returnInventory/'.$i->event_id) }}" >
-                                                    
-                                                    <button class="btn btn-block btn-sm"><i class="ni ni-zoom-split-in"></i> &nbsp; View Event Details</button>
-                                                    
-                                                </a>
-                                                
-                                            </td> --}}
                                         </tr>
-                                        
                                         @endif
                                         @endforeach
                                     </tbody>
@@ -230,22 +221,22 @@
 
 				var barcode = document.getElementById('barcodeInput').value;
 				// alert(barcode);
-				var barcodeId = "qtyReturn" + barcode;
-				var element = document.getElementById('barcodeForm').elements;
-				for (var i = 0, element; element = elements[i++];) {
-					if (element.type === "text" && element.id === barcodeId)
-					alert(barcode);
-				}
-								
-				var elem = document.getElementById('barcodeForm').elements;
-				for(var i = 0; i < elem.length; i++)
-				{
-					if(elem[i].getElementById("inputBarcodeQty").value == barcode){
+				
+				var barcodeId = "qtyReturn"+barcode+"";
+				var qtyId = "qty"+barcode+"";
+				// alert(barcodeId);
+				// var barcode = document.getElementById('barcodeInput').value = "";
+				// var element = document.getElementById('barcodeForm').elements;
+				
+				if (document.getElementById(barcodeId).value != null){
+					if(parseInt(document.getElementById(barcodeId).value) <= parseInt(document.getElementById(qtyId).value)){
 						// alert(barcode);
-						// elem[i].getElementById('qtyReturn'+barcode).value = 1;
+						document.getElementById(barcodeId).value = parseInt(document.getElementById(barcodeId).value) + 1;
 					}
-					
-				} 
+					barcode = document.getElementById('barcodeInput').value = "";
+				}
+				
+			
 			}
 			
 			// function checkBarcode(e)

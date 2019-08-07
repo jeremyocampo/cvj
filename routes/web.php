@@ -24,7 +24,6 @@ Route::put('profile', ['as' => 'profile.update', 'uses' => 'ProfileController@up
 Route::resource('inventory','InventoryController');
 Route::resource('deploy','DeployInventoryController');
 Route::resource('events', 'EventsController');
-Route::resource('/roset', 'Roset');
 Route::resource('calendar', 'Calendar');
 
 //MARKzs Routes

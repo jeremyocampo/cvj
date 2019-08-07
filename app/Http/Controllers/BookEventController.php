@@ -77,6 +77,8 @@ class BookEventController extends Controller
 
     $daysBefore = $eventDate->subDay(90)->format('Y-m-d');
 
+    $daysBefore1 = $today->addDay(90)->format("Y-m-d");
+
     // $errors = '';
     // if($today <= $daysBefore){
     //     $eventStart =  Carbon::parse($request->input('eventStartDate'));
@@ -93,7 +95,7 @@ class BookEventController extends Controller
     $this->validate($request, [
         'eventName'                 => 'required',
         'eventType'                 => 'required',
-        'eventStartDate'            => 'required|before_or_equal:'.$daysBefore,
+        'eventStartDate'            => 'required|after_or_equal:'.$daysBefore1,
         'eventEndDate'              => 'required|after:event_start',
         'theme'                     => 'required|min:1',
         'totalPax'                  => 'required',
@@ -113,12 +115,14 @@ class BookEventController extends Controller
         'venue2'                => 'Please Input a valid Venue',
     ]);
 
+    $startDateTime = Carbon::parse($request->input('eventStartDate'));
+    $endDateTime = Carbon::parse($request->input('eventEndDate'));
 
     $event = new EventModel([
         'event_name' => $request->input('eventName'),
         'event_type' => $request->input('eventType'),
-        'event_start' => $eventStart,
-        'event_end' => $eventEnd,
+        'event_start' => $startDateTime,
+        'event_end' => $endDateTime,
         'theme' => $request->input('theme'),
         'totalpax' => $request->input('totalPax'),
         'others' => $request->input('others'),
@@ -135,10 +139,9 @@ class BookEventController extends Controller
 
     // dd($email);
 
-    $startDateTime = Carbon::parse($request->input('eventStartDate'));
-    $endDateTime = Carbon::parse($request->input('eventEndDate'));
+    
 
-    dd($startDateTime);
+    // dd($startDateTime);
 
     $gevent = new Event;
     $gevent->name =  $request->input('eventName');

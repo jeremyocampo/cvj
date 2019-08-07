@@ -47,23 +47,29 @@ class EventsBudgetController extends Controller
             $budget_check = EventBudget::where('event_id', '=',$event->event_id)->first();
             $client = Client::where('client_id','=',$event->client_id)->first();
 
-            $event->client_name = $client->client_FN ." ".$client->client_LN;
+            $event->client_name = $client->client_name;
             $event->total_budget = $budget_check == null? 0 : $budget_check->total_budget;
             $event->formatted_day = date("M jS, Y", strtotime($event->event_start));
             $event->formatted_start = date("H:i", strtotime($event->event_start));
             $event->formatted_end = date("H:i", strtotime($event->event_start));
             //$event->budget = $budget_check == null? null : $budget_check;
             if($budget_check == null) {
-                $this->createAutomatedBudget($event->event_id);
+               $budget_check = $this->createAutomatedBudget($event->event_id);
             }
             //$this->send_email($event->client_name,'leebet16@gmail.com',$event->event_name,'Caterie Confirmation');
             $event->total_spent = $budget_check->spent_buffer;
             $event->budget_id=$budget_check->id;
-            $employees=EmployeeEventSchedule::select('employee_id')->where('event_assigned','=',$event->event_id)->get();
-            $event->personnels=Employee::whereIn('employee_id',$employees)->get();
-            foreach(EventBudgetItem::where('event_budget_id','=',$budget_check->id)->get() as $budget_item) {
-                $event->total_spent += $budget_item->actual_amount;
+            
+            $employees=EmployeeEventSchedule::select('employee_id')->where('event_id','=',$event->event_id)->get();
+
+            if($employees != null){
+                
+                $event->personnels=Employee::whereIn('employee_id',$employees)->get();
+                foreach(EventBudgetItem::where('event_budget_id','=',$budget_check->id)->get() as $budget_item) {
+                    $event->total_spent += $budget_item->actual_amount;
+                }
             }
+            
 
         }
 
@@ -270,14 +276,15 @@ class EventsBudgetController extends Controller
         foreach($return_item as $item){
             $event_budget_item = new EventBudgetItem();
             $event_budget_item->event_budget_id = $event_budget->id;
-            $event_budget_item->item_name = $item->budg_name;
-            $event_budget_item->budget_amount = $item->budget_amount;
+            $event_budget_item->item_name = $item["budg_name"];
+            $event_budget_item->budget_amount = $item["budget_amount"];
             $event_budget_item->save();
             $event_budget->total_budget +=$event_budget_item->budget_amount;
         }
 
         $event_budget->total_buffer = $event_budget->total_budget * 0.15;
         $event_budget->save();
+        return $event_budget;
     }
 
     public static function getSupplier_by_Id($id){

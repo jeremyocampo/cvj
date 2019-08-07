@@ -63,7 +63,7 @@
 
                            <div class="col-md-4 mb-3"> 
                                 <label class = "form-label"> Event Type <font color="red">*</font></label>
-                                <select name = "eventType"  id = "eventType" class = "form-control" form = "bookevent">
+                                <select name = "eventType"  id = "eventType" class = "form-control">
                                     <option disabled selected> - Please Select Event Type - </option>
                                     <option value="Wedding"> Wedding </option>
                                     <option value="Birthday"> Birthday </option>
@@ -108,9 +108,9 @@
                                 <label class = "form-label"> Location <font color="red" >*</font></label>
                                 <select name="venue1" class = "form-control" form = "bookevent" id="location" value="0">
                                      <option value="0" selected disabled>Please Select Location</option>
-                                         <option value="1"> CVJ Clubhouse Ground Floor </option>
-                                         <option value="2"> CVJ Clubhouse Second Floor </option>
-                                         <option value="3"> CVJ Clubhouse Third Floor </option>
+                                         <option value="CVJ Clubhouse Ground Floor"> CVJ Clubhouse Ground Floor </option>
+                                         <option value="CVJ Clubhouse Second Floor"> CVJ Clubhouse Second Floor </option>
+                                         <option value="CVJ Clubhouse Third Floor"> CVJ Clubhouse Third Floor </option>
                                          <option value="4"> Off-Premise </option>
                                  </select>
                                  {{-- {{ Form::number('totalPax', '', ['class' => 'form-control', 'placeholder' => 'Total Pax', 'required' => 'true'])}} --}}
