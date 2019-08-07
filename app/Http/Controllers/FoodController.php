@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class FoodController extends Controller
 {
@@ -19,15 +20,8 @@ class FoodController extends Controller
 
     public function index()
     {
-        $joinedTable = DB::table('inventory')
-        // // ->join('category_ref','inventory.category','=','category_ref.id')
-        // ->join('inventory','category_ref.category_no','=','inventory.category')
-        ->join('category_ref', 'inventory.category', '=', 'category_ref.category_no')
-        ->join('color','inventory.color','=','color.color_id')
-        ->join('size','inventory.size', '=', 'size.size_id')
-        ->get();
-
-        return view('addFood', ['joinedTable' => $joinedTable]);
+        //
+        return view('foodList');
     }
 
     /**
@@ -38,6 +32,13 @@ class FoodController extends Controller
     public function create()
     {
         //
+        $joinedTable = DB::table('ingredient')
+        // ->join('ingredient','rawmaterial.ingredient_id', '=', 'ingredient.ingredient_id')
+        ->get();
+
+        // dd($joinedTable);
+
+        return view('addFood', ['joinedTable' => $joinedTable]);
     }
 
     /**

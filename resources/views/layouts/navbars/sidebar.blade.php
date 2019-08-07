@@ -147,7 +147,7 @@
                                             <i class="ni ni-delivery-fast text-green"></i> Deploy Inventory</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="{{ url('inventoryReturn') }}" class="nav-link">
+                                        <a href="{{ url('returnInventory') }}" class="nav-link">
                                             <i class="ni ni-archive-2 text-purple"></i>Inventory Return</a>
                                     </li>
                                     <li class="nav-item">

@@ -122,6 +122,39 @@ class ReturnInventoryController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $borrowedItems = DB::table('event')
+        ->select('*')
+        ->where('event.event_id', '=', $id)
+        ->join('event_inventory', 'event.event_id', '=', 'event_inventory.event_id')
+        ->join('inventory', 'event_inventory.inventory_id', '=' ,'inventory.inventory_id')
+        ->get();
+
+        foreach($borrowedItems as $i){
+            $item = DB::table('inventory')
+            ->where('inventory_id', '=', $i->inventory_id)
+            ->update([
+                'quantity' => $request->input('quantity'),
+            ]);
+        }
+        dd($borrowedItems);
+
+        $a = array();
+
+        // foreach($request->input('qtyReturnArray') as $i){
+        //     $i
+        // }
+        $a = $request->input('qtyReturned');
+        // dd($a);
+
+        $item = DB::table('inventory')
+        ->where('inventory_id', '=', $id)
+        ->update([
+            'quantity'      => $request->input('quantity'),
+        ]);
+        
+        
+        return redirect('/inventory')->with('success', 'Item Updated');
+
     }
 
     /**

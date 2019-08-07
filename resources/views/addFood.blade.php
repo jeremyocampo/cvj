@@ -34,11 +34,10 @@
 									{{ Form::number('price', '',['class' => 'form-control', 'placeholder' => 'Item Price' , 'type' => 'number' , 'min' => 1 , 'step' => 0.01] )}}
 								</div>
 
+								
 								<div class="col-md-12 mb-3">
-									<button clas="btn btn-sm btn-block" type="button" id="more_fields" onclick="add_a_row();" value="" class="btn btn-secondary">+ Add Ingredient</button>
+									<button class="btn btn-sm btn-block btn-success" type="button" id="more_fields" onclick="add_a_row();" value="" class="btn btn-secondary">+ Add Ingredient</button>
 								</div>
-
-
 
 								<div class="table-responsive mb-2" >
 								
@@ -97,17 +96,12 @@
 			if(x>=1){
 				// var row = $("<tr id='appndd_tr'><td><input type='date' id='select_product' class='form-control'></td><td><input type='number' id='quentity'></td><td><input type='date' id='price' class='form-control'></td><td><textarea id='address'></textarea></td><td><br/><button type='button' onclick='remove_row()' class='btn btn-wide btn-danger'>Remove</button></td></tr>");
 				
-               	var row = $('<tr id="appndd_tr"><td><input type="text" name="itemName" placeholder="Item Name"  id="item_name1" class="form-control"></td><td><input type="number" name="qty" placeholder="Item Quantity"  id="item_qty1" class="form-control"></td><td><br/><button type="button" onclick="remove_row()" class="btn btn-wide btn-danger">Remove</button></td></tr>');
+               	// var row = $('<tr id="appndd_tr"><td><input type="text" name="itemName" placeholder="Item Name"  id="item_name1" class="form-control"></td><td><input type="number" name="qty" placeholder="Item Quantity"  id="item_qty1" class="form-control"></td><td><br/><button type="button" onclick="remove_row()" class="btn btn-wide btn-danger">Remove</button></td></tr>');
 				
-				var row = $('<tr id="appndd_tr"><td><input type="text" name="itemName" placeholder="Item Name"  id="item_name1" class="form-control"></td><td><input type="number" name="qty" placeholder="Item Quantity"  id="item_qty1" class="form-control"></td><td><br/><button type="button" onclick="remove_row()" class="btn btn-wide btn-danger">Remove</button></td></tr>');
+				// var row = $('<tr id="appndd_tr"><td><input type="text" name="itemName" placeholder="Item Name"  id="item_name1" class="form-control"></td><td><input type="number" name="qty" placeholder="Item Quantity"  id="item_qty1" class="form-control"></td><td><br/><button type="button" onclick="remove_row()" class="btn btn-wide btn-danger">Remove</button></td></tr>');
 				
 
-				<select id="color" name="rawMatItem" class="form-control" placeholder="Raw Material Item" required>
-											<option value = 0 selected disabled>Please Select an Ingredient</option>
-											@foreach ($colors as $color)
-												<option id="category-{{ $color->color_id }}" value="{{ $color->color_id }}">{{ $color->color_name}}</option>
-											@endforeach
-									</select>
+				var row = $('<tr id="appndd_tr"><td><select id="color" name="rawMatItem" class="form-control" placeholder="Raw Material Item" required><option value="0" selected disabled>Please Select an Ingredient</option><br> @foreach($joinedTable as $i) <br><option id="category-{{ $i->ingredient_id }}" value="{{ $i->ingredient_id }}">{{ $i->name}}</option><br>@endforeach<br></select></td><td><input type="number" name="qty" placeholder="Item Quantity"  id="item_qty1" class="form-control"></td><td><br/><button type="button" onclick="remove_row()" class="btn btn-wide btn-danger">Remove</button></td></tr>');
 				row.append().prependTo("#myTable");
 				x++;
 			}

@@ -14,7 +14,7 @@
                             <div class="col">
                                 <div class="row">
                                 <div class="col-xs-5">
-                                    <h1 class="mb-0">Current Inventory</h1>
+                                    <h1 class="mb-0">Current Food In Inventory</h1>
                                 </div>
                                 <div class="col-xs-2">
                                         &nbsp;&nbsp;
@@ -24,11 +24,23 @@
                                 </div>
                                 </div>
                             </div>
-                            <div class="col text-right"> </div>
+                            <div class="col text-right">
+                                {{-- <a href="inventory/create" class="btn btn-sm btn-primary">Add Item</a> --}}
+                                
+                            </div>
                             <div class="col text-left">
-                                <div class="col-xs-5"> 
-                                    <input class="form-control" id="myInput" type="search" onkeyup="searchTable()" style="background: transparent;" placeholder="Search Item Here">
-                                </div>
+                                {{-- <div class="row"> --}}
+                                    <div class="col-xs-5">
+                                {{-- <input class="form-control" id="myInput" type="search" onkeyup="searchTable()" style="background: transparent;" placeholder="Search Item Here"> --}}
+                                <input class="form-control" id="myInput" type="search" onkeyup="searchTable()" style="background: transparent;" placeholder="Search Item Here">
+                                    </div>
+                                    {{-- <div class="col-xs-2">
+                                        &nbsp; &nbsp;
+                                    </div> --}}
+                                    {{-- <div class="col-xs-3">
+                                    <button type="button" class="btn btn-md btn-block" onclick="seachTable()">Search</button>
+                                    </div> --}}
+                                {{-- </div> --}}
                             </div>
                         </div>
                         <div class="row">
@@ -62,13 +74,9 @@
                             <thead class="thead-light">
                                 <tr>
                                     <th >Item name</th>
-                                    {{-- <th >Stock Keeping Unit(SKU)</th> --}}
-                                    <th >Category</th>
-                                    <th>Color</th>
                                     <th>Size</th>
                                     <th >Quantity</th>
-                                    <th >Threshold</th>
-                                    <th >Last Modified (YY-MM-DD)</th>
+                                    <th>Price</th>
                                     <th >Action</th>
                                 </tr>
                             </thead>

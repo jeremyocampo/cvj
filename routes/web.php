@@ -58,7 +58,6 @@ Route::resource('food', 'FoodController');
 Route::resource('users', 'UsersController');
 Route::resource('employee', 'EmployeeController');
 Route::resource('eventreport', 'EventLogisticsReportController');
-Route::resource('returnInventory', 'ReturnInventoryController');
 Route::resource('manageuser', 'ManageUsersController');
 
 Route::get('admin/routes', 'AdminController@admin')->middleware('admin');
@@ -79,4 +78,4 @@ Route::resource('inventoryDash', 'InventoryHomeController');
 
 Route::get('/send/email', 'HomeController@mail');
 
-Route::resource('inventoryReturn','ReturnInventoryController');
+Route::resource('returnInventory','ReturnInventoryController');

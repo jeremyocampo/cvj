@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+{{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> --}}
 @section('content')
 @include('layouts.headers.inventoryCard1')
 <div class="container-fluid mt--7">
@@ -129,9 +129,9 @@
                                         <tr>
 											<th scope="col">Item Name</th>
 											<th scope="col">Color</th>
-											<th scope="col">Quantity</th>
 											<th scope="col">Event Barcode</th>
 											<th scope="col">Rental Cost</th>
+											<th scope="col">Quantity</th>
 											<th scope="col">Total Rental Cost</th>
                                             <th scope="col">Items Scanned</th>
                                         </tr>
@@ -139,28 +139,27 @@
                                     <tbody>
                                         @foreach ($borrowedItems as $i)
                                         @if($i->status > 0)
-                                        <tr>
+                                        <tr id="row{{ $i->esku }}" class="success">
                                             
 											<td>{{ $i->inventory_name }}</td>
 											<td>{{ $i->color_name }}</td>
-											<td>{{ $i->qty }}
-											<input hidden type="text" value="{{ $i->qty}}" id="qty{{ $i->esku }}">
-											</td>
 											<td>
 												<div id="barcode-{!! $i->inventory_id !!}" value="{!! "toPrint-" . $i->inventory_id!!}">
-													{{-- <a href="" class="dropdown-item" onclick="printContent('barcode-{{$i->inventory_id}}');" id="printBtn{{ $i->inventory_id }}"> --}}
-														{!!'<img src="data:image/png;base64,' . DNS1D::getBarcodePNG("".$i->esku, "C128A",2,44,array(1,1,1), true) . '" alt="barcode"   />' !!}
-														
-													{{-- </a> --}}
+													{!!'<img src="data:image/png;base64,' . DNS1D::getBarcodePNG("".$i->esku, "C128A",2,44,array(1,1,1), true) . '" alt="barcode"   />' !!}
+													<br>{{$i->esku}}
 												</div>	
 											</td>
 											<td>{{ $i->rental_cost}} </td>
+											<td>
+												{{ $i->qty }}
+												<input hidden type="text" value="{{ $i->qty}}" id="qty{{ $i->esku }}">
+											</td>
 											<td>{{ $i->rent_price}} </td>
 											<td>
 												<div class="col-xl-4">
 													<label class="form-label">Qty to Return</label>
-													<input type="hidden" value="{{ $i->esku }}" id="inputBarcodeQty">
-													<input type="number" value=0  disabled class="form-control" name="qtyReturned" id="qtyReturn{{ $i->esku }}">
+													<input type="hidden" class="invID" name="invIDs[]" value="{{ $i->inventory_id }}" id="inputBarcodeQty">
+													<input type="number" value=0  readonly class="form-control qtyReturn" name="qtyReturned[]" id="qtyReturn{{ $i->esku }}">
 												</div>
 											</td>
                                         </tr>
@@ -172,7 +171,7 @@
 				</div>
 				<div class="card-footer text-muted">
 						<div class="text-right">
-								<button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">Return Items to Inventory</button>
+								<button type="submit" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">Return Items to Inventory</button>
 								<a href="{{ url('returnInventory')}}" class="btn btn-default">Back</a>
 								{{-- <a href="" class="btn btn-primary" onclick="printContent('barcode-{{ $itemInfo[0]->inventory_id }}');" id="printBtn{{ $itemInfo[0]->inventory_id}}">
 									<i class="ni ni-single-copy-04"></i>
@@ -186,7 +185,9 @@
 				</div> --}}
 			</div>
 		</div>
-				
+				<input type="hidden" name="qtyReturnArray" id="qtyReturnArray">
+				<input type="hidden" name="idReturnArray" id="idReturnArray">
+				{{Form::hidden('_method', 'PUT')}}
 		{!! Form::close() !!}
 		</div>
 		</div>
@@ -224,33 +225,37 @@
 				
 				var barcodeId = "qtyReturn"+barcode+"";
 				var qtyId = "qty"+barcode+"";
-				// alert(barcodeId);
-				// var barcode = document.getElementById('barcodeInput').value = "";
-				// var element = document.getElementById('barcodeForm').elements;
-				
+				var rowId = "row"+barcode+"";
 				if (document.getElementById(barcodeId).value != null){
-					if(parseInt(document.getElementById(barcodeId).value) <= parseInt(document.getElementById(qtyId).value)){
+					if(parseInt(document.getElementById(barcodeId).value) < parseInt(document.getElementById(qtyId).value)){
 						// alert(barcode);
 						document.getElementById(barcodeId).value = parseInt(document.getElementById(barcodeId).value) + 1;
+					} else if (parseInt(document.getElementById(barcodeId).value) == parseInt(document.getElementById(qtyId).value)){
+						document.getElementById(rowId).className = 'success';
 					}
 					barcode = document.getElementById('barcodeInput').value = "";
 				}
 				
-			
+				var inputs = document.getElementsByClassName( 'qtyReturn' ),
+					qtys  = [].map.call(inputs, function( input ) {
+						return input.value;
+					}).join();
+
+				var inventoryIDs = document.getElementsByClassName( 'invID' ),
+					ids  = [].map.call(inputs, function( input ) {
+						return input.value;
+					}).join();
+
+
+				document.getElementById('qtyReturnArray').value = qtys;
+				document.getElementById('idReturnArray').value = ids;
+
+				var arrayhehe = document.getElementById('qtyReturnArray').value;
+				var arrayhehe1 = document.getElementById('idReturnArray').value;
+
+				alert(arrayhehe1);
+
 			}
-			
-			// function checkBarcode(e)
-			// {
-			// 	var barcode = e.value;
-			// 	var elem = document.getElementById('barcodeForm').elements;
-			// 	for(var i = 0; i < elem.length; i++)
-			// 	{
-			// 		if(elem[i].getElementById("inputBarcodeQty").value == barcode){
-			// 			elem[i].getElementById('qtyReturn'+barcode).value = 1;
-			// 		}
-					
-			// 	} 
-			// }
 		});
 	</script>
 @endpush
