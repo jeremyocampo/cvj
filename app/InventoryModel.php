@@ -13,4 +13,5 @@ class InventoryModel extends Model
         'inventory_id', 
         'inventory_name', 
         'rental_cost',
+    ];
 }
