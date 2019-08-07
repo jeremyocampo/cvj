@@ -77,13 +77,13 @@
                            <div class="col-md-5 mb-3">
                                 <label class = "form-label"> Event Start Date <font color="red">*</font></label>
                                    {{-- {{ Form::date('eventStartDate', '', ['class' => 'form-control', 'placeholder' => 'Date of Event', 'required' => 'true', 'min' => date("Y-m-d H:i:s")]) }}  --}}
-                                   <input type="datetime-local" name="eventStartDate" class="form-control" placeholder="Start date">
+                                   <input type="datetime-local" name="eventStartDate" class="form-control" placeholder="Start date" id="eventStartDate">
                             </div>
 
                            <div class="col-md-4 mb-3">
                                 <label class = "form-label"> Event End Date <font color="red">*</font></label>
                                    {{-- {{ Form::date('eventEndDate', '', ['class' => 'form-control', 'placeholder' => 'Date of Event', 'required' => 'true', 'min' => date("Y-m-d H:i:s")]) }}  --}}
-                                   <input type="datetime-local" name="eventEndDate" class="form-control" placeholder="Start date">
+                                   <input type="datetime-local" name="eventEndDate" class="form-control" placeholder="Start date" id="eventEndDate">
                             </div>
             
                             <div class="col-md-5 mb-3">                                
@@ -106,7 +106,7 @@
 
                             <div class="col-md-5 mb-3"> 
                                 <label class = "form-label"> Location <font color="red" >*</font></label>
-                                <select name="venue1" class = "form-control" form = "bookevent" id="location" value="0">
+                                <select name="venue" class = "form-control" form = "bookevent" id="location" value="0">
                                      <option value="0" selected disabled>Please Select Location</option>
                                          <option value="CVJ Clubhouse Ground Floor"> CVJ Clubhouse Ground Floor </option>
                                          <option value="CVJ Clubhouse Second Floor"> CVJ Clubhouse Second Floor </option>
@@ -118,7 +118,7 @@
 
                             <div class="col-md-4 mb-3">                                
                                     <label class = "form-label" id="eventvenueL"> Venue <font color="red" id="eventvenueA">*</font></label>
-                                    {{ Form::text('venue2', '', ['class' => 'form-control', 'placeholder' => 'Venue', 'required' => 'true', 'id' => 'eventvenue'])}}
+                                    {{ Form::text('venue', '', ['class' => 'form-control', 'placeholder' => 'Venue', 'required' => 'true', 'id' => 'eventvenue'])}}
                                 </div>
                             {{-- <div class="col-md-4 mb-3"> 
                             <label class = "form-label"> Venue <font color="red">*</font></label>
@@ -191,7 +191,15 @@
         // text.disabled = (sel.value != "4");
         text1.disabled = (sel.value != "4");
         text2.disabled = (sel.value != "4");
-        sel.disabled = (text.value != ''); 
+        sel.disabled = (text.value != '');
+
+        var start = document.getElementById('eventStartDate');
+        var end = document.getElementById('eventEndDate');
+        
+        start.onchange = function(){
+            end.value = start.value; 
+        };
+        
 
         sel.onchange = function(e) {
             text.hidden = (sel.value != "4");

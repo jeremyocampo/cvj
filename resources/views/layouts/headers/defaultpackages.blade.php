@@ -202,7 +202,8 @@ h2::after {
 						<div class="col-sm-3">
 							<div class="thumb-wrapper">
 									<div class="thumb-content">
-									<h4> Grand Wedding Package A</h4>									
+									<h4> Grand Wedding Package A</h4>
+									<br>									
 									<p class="totalpax"><b>Minimum 100 pax </b></p>
 									<p class="price"> <b>107,000 - 150,000</b></p>
 									<a href="#" id = "viewdetails" class="btn btn-primary">View Details</a>

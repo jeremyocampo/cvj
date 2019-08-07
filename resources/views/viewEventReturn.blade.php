@@ -158,7 +158,7 @@
 											<td>
 												<div class="col-xl-4">
 													<label class="form-label">Qty to Return</label>
-													<input type="hidden" class="invID" name="invIDs[]" value="{{ $i->inventory_id }}" id="inputBarcodeQty">
+													<input type="hidden" class="invID" name="invIDs[]" value="{{ $i->inventory_id }}" id="inventory-{{ $i->inventory_id }}">
 													<input type="number" value=0  readonly class="form-control qtyReturn" name="qtyReturned[]" id="qtyReturn{{ $i->esku }}">
 												</div>
 											</td>

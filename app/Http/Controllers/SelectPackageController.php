@@ -49,7 +49,7 @@ class SelectPackageController extends Controller
             }
         }
 
-        // dd($appetizersSelected);
+        dd($appetizersSelected);
 
         // $client = null;
         // $packages = 

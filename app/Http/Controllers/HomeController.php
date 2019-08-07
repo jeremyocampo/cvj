@@ -88,18 +88,20 @@ class HomeController extends Controller
             
         }  else if(auth()->user()->userType == 5){
 
-            $user = auth()->user()->id;
+            // $user = auth()->user()->id;
 
-            $events = DB::table('event')
-            ->select('*')
-            // ->where('event.client_id', '=', $user)
-            ->get(); 
+            // $events = DB::table('event')
+            // ->select('*')
+            // // ->where('event.client_id', '=', $user)
+            // ->get(); 
 
-            // $events::where('client_id', $user)->get();
+            // // $events::where('client_id', $user)->get();
 
-            // dd($user);
-            // dd($events);
-            return view('clientDashboard', ['events' => $events]);
+            // // dd($user);
+            // // dd($events);
+            // return view('clientDashboard', ['events' => $events]);
+
+            return redirect('bookevent');
             
         }
     }

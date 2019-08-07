@@ -80,7 +80,7 @@ class EventsBudgetController extends Controller
     }
     public function get_available_personnel($event_id){
         $event = Event::where('event_id','=',$event_id)->first();
-        $employees=EmployeeEventSchedule::select('employee_id')->where('event_assigned','=',$event->event_id)->get();
+        $employees=EmployeeEventSchedule::select('employee_id')->where('event_id','=',$event->event_id)->get();
         $event->personnel=Employee::whereIn('employee_id',$employees)->get();
         $event_personel = array();
         foreach($event->personnel as $personnel){array_push($event_personel,$personnel->employee_id);}
@@ -110,7 +110,7 @@ class EventsBudgetController extends Controller
         $sched = new EmployeeEventSchedule();
         $event = Event::where('event_id','=',$event_id)->first();
         $sched->employee_id= $personnel_id;
-        $sched->event_assigned= $event_id;
+        $sched->event_id= $event_id;
         $sched->event_date_time = $event->event_start;
         $sched->save();
         return redirect('event_budgets');
