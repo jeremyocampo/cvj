@@ -12,9 +12,6 @@
 									<div class="col">
 										<h1 class="">Add Food to Inventory</h1>
 									</div>
-									<div class="col">
-										<input type="button" id="more_fields" onclick="add_a_row();" value="+ Add Row" class="btn btn-secondary" />
-									</div>
 								</div>
 						</div>
 						<div class="card-body border-0">
@@ -35,9 +32,18 @@
 								<div class="col-md-4 mb-3">
                                     <label class="form-label">Item Price (Php)</label>
 									{{ Form::number('price', '',['class' => 'form-control', 'placeholder' => 'Item Price' , 'type' => 'number' , 'min' => 1 , 'step' => 0.01] )}}
-                                </div>
-								<div class="col-md-12">
-                                        <table id="myTable" class="table table-responsive table-hover">
+								</div>
+
+								<div class="col-md-12 mb-3">
+									<button clas="btn btn-sm btn-block" type="button" id="more_fields" onclick="add_a_row();" value="" class="btn btn-secondary">+ Add Ingredient</button>
+								</div>
+
+
+
+								<div class="table-responsive mb-2" >
+								
+									
+								<table class="table  align-items-center table-hover  mb-3" id="myTable" >
 											<thead>
 												<tr>
 													<th>Question</th>
@@ -58,18 +64,19 @@
 												</td>
 											</tr> --}}
 											</tbody>
-                                        </table>
+										</table>
+								</div>
 								</div>
 							</div>
-						</div>
+					
 						<div class="card-footer text-muted">
 								{{-- @foreach($subcategoryIds as $subcategoryId)
 									<p>{{$subcategoryId}}</p>
 								@endforeach --}}
 
 								<div class="text-right">
-								
-								{{ Form::submit('Add Item', ['class' => 'btn btn-success']) }}
+								<button></button>
+								{{-- {{ Form::submit('Add Item', ['class' => 'btn btn-success']) }} --}}
 								<a href="{{ url('inventory')}}" class="btn btn-default">Back</a>
 								{{-- {{Form::hidden('_method', 'PUT')}} --}} 
 								</div>
@@ -91,6 +98,16 @@
 				// var row = $("<tr id='appndd_tr'><td><input type='date' id='select_product' class='form-control'></td><td><input type='number' id='quentity'></td><td><input type='date' id='price' class='form-control'></td><td><textarea id='address'></textarea></td><td><br/><button type='button' onclick='remove_row()' class='btn btn-wide btn-danger'>Remove</button></td></tr>");
 				
                	var row = $('<tr id="appndd_tr"><td><input type="text" name="itemName" placeholder="Item Name"  id="item_name1" class="form-control"></td><td><input type="number" name="qty" placeholder="Item Quantity"  id="item_qty1" class="form-control"></td><td><br/><button type="button" onclick="remove_row()" class="btn btn-wide btn-danger">Remove</button></td></tr>');
+				
+				var row = $('<tr id="appndd_tr"><td><input type="text" name="itemName" placeholder="Item Name"  id="item_name1" class="form-control"></td><td><input type="number" name="qty" placeholder="Item Quantity"  id="item_qty1" class="form-control"></td><td><br/><button type="button" onclick="remove_row()" class="btn btn-wide btn-danger">Remove</button></td></tr>');
+				
+
+				<select id="color" name="rawMatItem" class="form-control" placeholder="Raw Material Item" required>
+											<option value = 0 selected disabled>Please Select an Ingredient</option>
+											@foreach ($colors as $color)
+												<option id="category-{{ $color->color_id }}" value="{{ $color->color_id }}">{{ $color->color_name}}</option>
+											@endforeach
+									</select>
 				row.append().prependTo("#myTable");
 				x++;
 			}
@@ -100,5 +117,17 @@
 			$('#appndd_tr').remove();
 			x = x-1;
 		}
+
+		var trArray = [];
+		$('#tbPermission tr').each(function () {
+			var tr =$(this).text();  //get current tr's text
+			var tdArray = [];
+			$(this).find('td').each(function () {
+				var td = $(this).text();  //get current td's text
+				var items = {}; //create an empty object
+				items[tr] = td; // add elements to object 
+				tdArray.push(items); //push the object to array
+			});    
+		});
 	</script>
 

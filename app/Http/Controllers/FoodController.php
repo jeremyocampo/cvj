@@ -19,7 +19,15 @@ class FoodController extends Controller
 
     public function index()
     {
-        return view('addFood');
+        $joinedTable = DB::table('inventory')
+        // // ->join('category_ref','inventory.category','=','category_ref.id')
+        // ->join('inventory','category_ref.category_no','=','inventory.category')
+        ->join('category_ref', 'inventory.category', '=', 'category_ref.category_no')
+        ->join('color','inventory.color','=','color.color_id')
+        ->join('size','inventory.size', '=', 'size.size_id')
+        ->get();
+
+        return view('addFood', ['joinedTable' => $joinedTable]);
     }
 
     /**
