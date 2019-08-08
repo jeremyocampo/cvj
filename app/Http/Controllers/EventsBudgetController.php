@@ -54,7 +54,7 @@ class EventsBudgetController extends Controller
             $event->formatted_end = date("H:i", strtotime($event->event_start));
             //$event->budget = $budget_check == null? null : $budget_check;
             if($budget_check == null) {
-                $this->createAutomatedBudget($event->event_id);
+               $budget_check = $this->createAutomatedBudget($event->event_id);
             }
             //$this->send_email($event->client_name,'leebet16@gmail.com',$event->event_name,'Caterie Confirmation');
             $event->total_spent = $budget_check->spent_buffer;
@@ -270,14 +270,15 @@ class EventsBudgetController extends Controller
         foreach($return_item as $item){
             $event_budget_item = new EventBudgetItem();
             $event_budget_item->event_budget_id = $event_budget->id;
-            $event_budget_item->item_name = $item->budg_name;
-            $event_budget_item->budget_amount = $item->budget_amount;
+            $event_budget_item->item_name = $item['budg_name'];
+            $event_budget_item->budget_amount = $item["budget_amount"];
             $event_budget_item->save();
             $event_budget->total_budget +=$event_budget_item->budget_amount;
         }
 
         $event_budget->total_buffer = $event_budget->total_budget * 0.15;
         $event_budget->save();
+        return $event_budget;
     }
 
     public static function getSupplier_by_Id($id){
