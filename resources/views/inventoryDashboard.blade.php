@@ -133,7 +133,7 @@
                                                     document.getElementById('delete-form-{{ $b->inventory_id }}').submit();">
                                                     <i class="ni ni-fat-remove"></i>
                                                     <span>{{ __('Remove from Inventory') }}</span>
-                                                    {!! Form::open(['action' => ['InventoryController@destroy', $b->inventory_id], 'method' => 'POST', 'id' => 'delete-form-'.$i->inventory_id]) !!}
+                                                    {!! Form::open(['action' => ['InventoryController@destroy', $b->inventory_id], 'method' => 'POST', 'id' => 'delete-form-'.$b->inventory_id]) !!}
                                                         {{ Form::hidden('_method','DELETE')}}
                                                     {!! Form::close() !!}
                                                 </a>

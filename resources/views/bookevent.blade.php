@@ -11,19 +11,16 @@
             <div class="col-xl-12 mb-5">
                 <div class="card shadow " >
                     <div class="card-header ">
-                        <div class="row align-items-center">
-                            <div class="col">
-                                <div class="row">
-                                <div class="col-xs-5">
-                                    <h1 class="">Book Event</h1>
+                        {{-- <div class="row align-items-center"> --}}
+                            <div class="row">
+                            
+                                <div class="col-xs-12 mb-3">
+                                    <h1 class="">Book Event <br> </h1>
                                 </div>
                                 <div class="col-xs-2">
-                                        &nbsp;&nbsp;
+                                    <p>for {{ $client[0]->client_name }}</p>
                                 </div>
-                                </div>
-                            </div>
                         </div>
-
                         <div class="row">
                                 <div class="col-md-12">
                                     @if(session()->has('success'))
@@ -46,8 +43,8 @@
                             {!! Form::open(['action' => 'BookEventController@store', 'method' => 'POST']) !!}
                             {{-- <form action = "BookEventController@store" method = "POST"> --}}
                             {{-- {{ csrf_field() }} --}}
-
-                    <div class="card-body border-0"></div>
+                    </div>
+                    <div class="card-body border-0">
                         @foreach($errors->all() as $error)
                             <div class="alert alert-danger" role="alert">
                                 <button type = button data-dismiss="alert" class="close"><span aria-hidden="true">x</span></button>
@@ -188,7 +185,6 @@
         text.hidden = (sel.value != "4");
         text1.hidden = (sel.value != "4");
         text2.hidden = (sel.value != "4");
-        // text.disabled = (sel.value != "4");
         text1.disabled = (sel.value != "4");
         text2.disabled = (sel.value != "4");
         sel.disabled = (text.value != '');
@@ -199,6 +195,9 @@
         start.onchange = function(){
             end.value = start.value; 
         };
+        // start.onkeydown = function(){
+        //     end.value = start.value; 
+        // };
         
 
         sel.onchange = function(e) {

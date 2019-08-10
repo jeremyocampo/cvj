@@ -154,6 +154,11 @@
                                         <a href="{{ url('food') }}" class="nav-link">
                                             <i class="ni ni-archive-2 text-purple"></i>View Food Inventory</a>
                                     </li>
+                                    <li class="nav-item">
+                                            <a class="nav-link" href="{{ url('outsource') }}">
+                                                <i class="ni ni-calendar-grid-58 text-yellow">Outsource Items</i>
+                                            </a>
+                                        </li>
                                 </ul>
                             </div>
                         </li>

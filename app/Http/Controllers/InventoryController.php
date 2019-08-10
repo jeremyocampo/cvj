@@ -110,7 +110,7 @@ class InventoryController extends Controller
             $inventory->size = $request->input('size');
             $inventory->save();
             
-            dd($inventory);
+            // dd($inventory);
 
             return redirect('/inventory')->with('success', 'Item Added!');
         

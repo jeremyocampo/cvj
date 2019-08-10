@@ -3,6 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\inventory;
+use App\categoryRef;
+use Illuminate\Support\Facades\DB;
+use App\Http\Requests;
+use Carbon\Carbon;
+use Faker\Generator as Faker;
 
 class OutsourcingController extends Controller
 {
@@ -20,6 +27,15 @@ class OutsourcingController extends Controller
     public function index()
     {
         //
+
+        $outsource = DB::table('event_outsource_item')
+        ->join('event', 'event_outsource_item.event_id', '=', 'event.event_id')
+        ->join('outsourced_item', 'event_outsource_item.outsourced_item_id', '=', 'outsourced_item.outsourced_item_id')
+        ->join('supplier', 'outsourced_item.supplier_id', '=', 'supplier.supplier_id')
+        ->where('event_outsource_item.status', '=')
+        ->get();
+
+        return view('outsource', ['outsource' => $outsource]);
     }
 
     /**
@@ -29,7 +45,13 @@ class OutsourcingController extends Controller
      */
     public function create()
     {
-        //
+        $outsource = DB::table('event_outsource_item')
+        ->join('event', 'event_outsource_item.event_id', '=', 'event.event_id')
+        ->join('outsourced_item', 'event_outsource_item.outsourced_item_id', '=', 'outsourced_item.outsourced_item_id')
+        ->join('supplier', 'outsourced_item.supplier_id', '=', 'supplier.supplier_id')
+        ->get();
+
+        return view('addOutsource',['outsource' => $outsource]);
     }
 
     /**
@@ -41,6 +63,7 @@ class OutsourcingController extends Controller
     public function store(Request $request)
     {
         //
+        return redirect('/outsource');
     }
 
     /**
@@ -52,7 +75,8 @@ class OutsourcingController extends Controller
     public function show($id)
     {
         //
-    }
+        return view('viewOutsource')
+;    }
 
     /**
      * Show the form for editing the specified resource.
@@ -86,5 +110,6 @@ class OutsourcingController extends Controller
     public function destroy($id)
     {
         //
+        return redirect('/outsource');
     }
 }

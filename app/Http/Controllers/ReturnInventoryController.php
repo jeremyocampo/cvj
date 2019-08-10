@@ -44,13 +44,6 @@ class ReturnInventoryController extends Controller
             }
         }
 
-        // dd(Carbon::parse($i->event_end)->format('Y-m-d'));
-        // dd($date->format('Y-m-d'));
-        // dd($finishedEvents);
-        
-        
-        
-
         return view('returnInventory',['events' => $finishedEvents]);
     }
 
