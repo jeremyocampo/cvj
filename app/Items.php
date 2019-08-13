@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PackageModel extends Model
+class Items extends Model
 {
     //
-    public $table = 'package';
+    public $table = 'items';
     public $timestamps = false;
 }
