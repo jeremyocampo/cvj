@@ -26,10 +26,23 @@ class AddPackageController extends Controller
 
     public function index()
     {
-        $inventory = DB::table('inventory')->get();
+        // $name = DB::table('inventory')
+        // ->select('inventory_name')
+        // ->get();
 
-        return view('addpackages',['' => $inventory, 'colors' => $colors]);
+        // $rental_cost = DB::table('inventory')
+        // ->select('rental_cost')
+        // ->get();
+
+        $inventory = DB::table('inventory')
+        ->select('*')
+        ->get();
+        // dd($name);
+        // dd($rental_cost);
+        // return view('addpackages',['inventory_name' => $name, 'rental_cost' => $rental_cost]);
+        return view('addpackages',[ 'Inventory' => $inventory]);
     }
+
 
     function insert(Request $request)
     {
@@ -40,14 +53,14 @@ class AddPackageController extends Controller
           $rules = array(
            'name.*'  => 'required',
            'quantity.*'  => 'required',
-           //'rental_cost.*'  => 'required'
+           'rental_cost.*'  => 'required'
           );
 
           $error = Validator::make($request->all(), $rules);
           if($error->fails())
           {
            return response()->json([
-            'error'  => $error->errors()->all()
+            'error'  => $error->errors()->all(),
            ]);
           }
     
@@ -59,7 +72,7 @@ class AddPackageController extends Controller
           {
            $data = array(
             'name' => $name[$count],
-            'quantity'  => $quantity[$count],
+            //'quantity'  => $quantity[$count],
             //'rental_cost' => $quantity[$count]
            );
            $insert_data[] = $data; 

@@ -12,6 +12,6 @@ class InventoryModel extends Model
     public $fillable = [
         'inventory_id', 
         'inventory_name', 
-        'rental_cost',
+        'rental_cost'
     ];
 }

@@ -82,7 +82,8 @@ Auth::routes();
 //Rosette's Routes
 Route::resource('bookevent', 'BookEventController');
 Route::resource('eventdashboard','EventsHomeDashboard');
-//Route::resource('addpackages','AddPackageController');
-Route::get('addpackages', 'AddPackageController@index');
+Route::resource('confirmevents', 'ConfirmEventsController');
 
-Route::post('addpackages/insert', 'AddPackageController@store')->name('addpackages.insert');
+Route::get('/daterange', 'DateRangeController@index');
+Route::post('/daterange/fetch_data', 'DateRangeController@fetch_data')->name('daterange.fetch_data');
+
