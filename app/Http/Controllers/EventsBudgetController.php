@@ -276,7 +276,11 @@ class EventsBudgetController extends Controller
         foreach($return_item as $item){
             $event_budget_item = new EventBudgetItem();
             $event_budget_item->event_budget_id = $event_budget->id;
+<<<<<<< HEAD
             $event_budget_item->item_name = $item["budg_name"];
+=======
+            $event_budget_item->item_name = $item['budg_name'];
+>>>>>>> 5ee7ab0992f2ad344771d24f2231bc348d9c6e5c
             $event_budget_item->budget_amount = $item["budget_amount"];
             $event_budget_item->save();
             $event_budget->total_budget +=$event_budget_item->budget_amount;

@@ -26,7 +26,6 @@ Route::resource('deploy','DeployInventoryController');
 Route::resource('events', 'EventsController');
 Route::resource('calendar', 'Calendar');
 
-//MARKzs Routes
 
 //Costing
 Route::get('event_costing/{event_id}','EventsCostingController@show');
@@ -65,17 +64,21 @@ Route::get('admin/routes', 'AdminController@admin')->middleware('admin');
 // Route::resource('cal','gCalendarController');
 // Route::get('oauth', 'gCalendarController@oauth');
 
-Auth::routes();
 
 //Rosette's Routes
 Route::resource('bookevent', 'BookEventController');
 
-Route::resource('selectpackages', 'SelectPackageController');
-
+Route::get('selectpackages/{event_id}', 'SelectPackageController@index')->name('get.selectpackages');
+Route::post('postselectpackages/', 'SelectPackageController@create')->name('post.selectpackages');
+Route::get('customize_package/{event_id}/{package_id?}', 'SelectPackageController@index')->name('customize_package');
 Route::resource('clientregister', 'ClientRegisterController');
 
 Route::resource('inventoryDash', 'InventoryHomeController');
 
 Route::get('/send/email', 'HomeController@mail');
 
+<<<<<<< HEAD
 Route::resource('returnInventory','ReturnInventoryController');
+=======
+Auth::routes();
+>>>>>>> 5ee7ab0992f2ad344771d24f2231bc348d9c6e5c
