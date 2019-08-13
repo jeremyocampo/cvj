@@ -77,8 +77,5 @@ Route::resource('inventoryDash', 'InventoryHomeController');
 
 Route::get('/send/email', 'HomeController@mail');
 
-<<<<<<< HEAD
 Route::resource('returnInventory','ReturnInventoryController');
-=======
 Auth::routes();
->>>>>>> 5ee7ab0992f2ad344771d24f2231bc348d9c6e5c
