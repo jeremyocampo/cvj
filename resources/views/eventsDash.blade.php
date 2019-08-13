@@ -32,7 +32,6 @@
 								</div>
 								<div class="table-responsive mb-3">
 									<!-- Projects table -->
-									
 									<table class="table table-bordered align-items-center table-flush mb-4" id="myTable">
 										<thead class="thead-light">
 											<tr>
@@ -56,7 +55,6 @@
 												<td> {{ $i->endDateTime }}</td>
 												<td> {{ $i->description }}</td>
 												<td>
-													
 													<a href="{{ url('inventory')}}" class="btn btn-danger">Decline</a>
 												</td>
 												<td class="popup">

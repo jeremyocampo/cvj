@@ -1,9 +1,35 @@
 <form action="{{ route('post.event_budgets') }}" method="POST" style="padding:10px">
     {{csrf_field()}}
-    <button class="btn btn-icon btn-3 btn-secondary" id="edit_item_btn" onclick="edit_items()" type="button">
-        <i class="fa fa-edit fa-lg"></i>  Edit Budget
-    </button>
-    <hr>
+    <div class="row" style="margin-top: 4vh;margin-bottom: 2vh;">
+        <div class="col-md-4">
+            @if($event_lock!=false)
+                <button class="btn btn-icon btn-3 btn-secondary" id="edit_item_btn" onclick="edit_items()" type="button">
+                    <i class="fa fa-edit fa-lg"></i>  Edit Budget
+                </button>
+            @endif
+        </div>
+        <div class="col-md-4">
+            <center>
+                    <h2 class="mb-0">Event Budget for {{$event->event_name}} </h2>
+            </center>
+        </div>
+        <div class="col-md-4">
+            <table class="table-bordered" style="padding: 1vh;float:right">
+                <tr>
+                    <td style="padding: 5px"><b>Event Package Price</b></td>
+                    <td style="padding: 5px;padding-left: 20px;padding-right: 10px;">P{{number_format($event->package->price,2)}}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 5px"><b>Total Budget</b></td>
+                    <td style="padding: 5px;padding-left: 20px;padding-right: 10px;">P{{number_format($budget->total_budget,2)}}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 5px"><b>Total Spent</b></td>
+                    <td style="padding: 5px;padding-left: 20px;padding-right: 10px;">P{{number_format($event->total_spent,2)}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
     <div class="row" style="background-color: #f4f5f7;padding: 1.0vw;">
         <input type="hidden" name="event" value="{{$event_id}}">
         <input type="hidden" name="action" value="update">
@@ -13,7 +39,7 @@
 
         <div class="col-md-12" >
             <div class="row budget_item_rows">
-                <div id="budget_name_col" class="col-md-3 marg_top">
+                <div id="budget_name_col" class="col-md-2 marg_top">
                     <center><label>Budget Item</label></center>
                     @foreach($budget->budget_items as $budget_item)
                         <i class="brs fa fa-remove fa-lg rm_item old_item" budget_item_id="{{$budget_item->id}}" style="display: none" onclick="remove_item(this)"></i>
@@ -21,7 +47,7 @@
                     @endforeach
                 </div>
                 <div id="budget_prog_col" class="col-md-3 marg_top">
-                    <label >Budget Breakdown</label>
+                    <label >Budget Status</label>
                     @foreach($budget->budget_items as $budget_item)
                         <div class="prog">
                             <div class="progress" style="height: 20px" >
@@ -30,18 +56,30 @@
                         </div>
                     @endforeach
                 </div>
-                <div id="budget_act_col" class="col-md-3 marg_top">
-                    <label>Amount Spent</label>
-                    @foreach($budget->budget_items as $budget_item)
-                        <input type="text" style="display: inline-block;" name="old_acts[]" class="item_acts form-control budg_item" placeholder="0.0" value="{{$budget_item->actual_amount}}">
-                    @endforeach
-                </div>
-                <div id="budget_amt_col" class="col-md-3 marg_top">
+                
+                <div id="budget_amt_col" class="col-md-2 marg_top">
                     <label>Budget Amount</label>
                     @foreach($budget->budget_items as $budget_item)
                         <input type="number" name="old_vals[]" step="any" style="display: inline-block;" class="item_amts form-control budg_item" placeholder="0.0" value="{{$budget_item->budget_amount}}" disabled>
                     @endforeach
                 </div>
+
+                <div id="budget_amt_col" class="col-md-2 marg_top">
+                        <label>Total Amount Spent</label>
+                        {{-- @foreach($budget->budget_items as $budget_item)
+                            <input type="number" name="old_vals[]" step="any" style="display: inline-block;" class="item_amts form-control budg_item" placeholder="0.0" value="{{$budget_item->budget_amount}}" disabled>
+                        @endforeach --}}
+                        @foreach($budget->budget_items as $budget_item)
+                            <input type="number" style="display: inline-block;"  class="form-control budg_item_no_edit" placeholder="0.0" value="{{$budget_item->actual_amount}}" disabled>
+                        @endforeach
+                    </div>
+
+                <div id="budget_act_col" class="col-md-3 marg_top">
+                        <label>Amount Spent</label>
+                        @foreach($budget->budget_items as $budget_item)
+                            <input type="number" style="display: inline-block;" name="old_acts[]" class="item_acts form-control budg_item" placeholder="0.0" value="">
+                        @endforeach
+                    </div>
             </div>
             <button id="add_item_btn" class="btn btn-icon btn-sm btn-primary" style="margin-top: 4vh;display: none" onclick="duplicate()" type="button">
                 Add New Item <i class="fa fa-plus fa-lg"></i>
@@ -50,16 +88,19 @@
         <br>
 
         <div style="margin-top: 2vh">
-            <small>Spent Buffer: </small><span class="badge badge-primary" id="buffer_amount">{{$budget->spent_buffer}}</span><br>
-
-            <small>Total Buffer   : </small><span class="badge badge-success" id="buffer_amount">{{$budget->total_buffer}}</span>
+            <br>
+            <small>Spent Buffer Amount</small><br>
+            <input type="number" name="spent_buffer_amount" step="any" style="font-size:14px;display: inline-block;width: 75%;height:20%" class="" placeholder="0.0" value="{{$budget->spent_buffer}}">
+            <br>
+            <small>Total Buffer Amount</small><br>
+            <input type="number" name="total_buffer_amount" step="any" style="font-size: 14px;display: inline-block;width: 75%;height:20%" class="" placeholder="0.0" value="{{$budget->total_buffer}}">
         </div>
 
     </div>
 
     <center id="saving_btn_div" style="margin-top: 3vh">
         <button class="btn btn-icon btn-3 btn-primary" onclick="undisable()" type="button">
-            Create Budget
+            Save Budget
         </button>
         <button id="submit_btn" style="display: none;" type="submit">
         </button>

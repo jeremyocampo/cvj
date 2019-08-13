@@ -27,20 +27,6 @@ Route::resource('events', 'EventsController');
 Route::resource('/roset', 'Roset');
 Route::resource('calendar', 'Calendar');
 
-Auth::routes();
-
-// Route::get('/home', 'HomeController@index')->name('home');
-Route::resource('ingredient', 'IngredientController');
-Route::resource('food', 'FoodController');
-Route::resource('users', 'ManageUsersController');
-Route::resource('employee', 'EmployeeController');
-Route::resource('eventreport', 'EventLogisticsReportController');
-Route::resource('returnInventory', 'ReturnInventoryContoller');
-Route::resource('manageuser', 'ManageUsersController');
-
-Route::get('admin/routes', 'AdminController@admin')->middleware('admin');
-
-//MARKzs Routes
 
 //Costing
 Route::get('event_costing/{event_id}','EventsCostingController@show');
@@ -53,8 +39,14 @@ Route::post('event_budget_template','EventsBudgetTemplateController@store')->nam
 Route::get('event_budgets','EventsBudgetController@index')->name("event_budgets");
 Route::get('event_budgets/view/{event_id}','EventsBudgetController@show')->name("get.event_budgets");
 Route::post('event_budgets/','EventsBudgetController@create')->name("post.event_budgets");
+
+//Personnel API
+Route::get('avail_personnels/{event_id}','EventsBudgetController@get_available_personnel')->name("get.personnels");
+Route::get('add_personnel/{emp_id}/{event_id}','EventsBudgetController@save_personnel')->name("get.personnels");
+
 //Gmail API
 Route::get('send_mail','MailController@index');
+Route::get('email/{send_name}/{send_email}/{subject}','MailController@send_email');
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
@@ -66,7 +58,7 @@ Route::resource('selectpackages', 'SelectPackageController');
 Route::resource('outsource', 'OutsourcingController');
 Route::resource('ingredient', 'IngredientController');
 Route::resource('food', 'FoodController');
-Route::resource('users', 'ManageUsersController');
+Route::resource('users', 'UsersController');
 Route::resource('employee', 'EmployeeController');
 Route::resource('eventreport', 'EventLogisticsReportController');
 Route::resource('returnInventory', 'ReturnInventoryController');
@@ -77,7 +69,6 @@ Route::get('admin/routes', 'AdminController@admin')->middleware('admin');
 Route::resource('cal','gCalendarController');
 Route::get('oauth', 'gCalendarController@oauth');
 
-Auth::routes();
 
 //Rosette's Routes
 Route::resource('bookevent', 'BookEventController');
@@ -87,3 +78,14 @@ Route::resource('confirmevents', 'ConfirmEventsController');
 Route::get('/daterange', 'DateRangeController@index');
 Route::post('/daterange/fetch_data', 'DateRangeController@fetch_data')->name('daterange.fetch_data');
 
+
+Route::get('selectpackages/{event_id}', 'SelectPackageController@index')->name('get.selectpackages');
+Route::post('postselectpackages/', 'SelectPackageController@create')->name('post.selectpackages');
+Route::get('customize_package/{event_id}/{package_id?}', 'SelectPackageController@index')->name('customize_package');
+Route::resource('clientregister', 'ClientRegisterController');
+
+Route::resource('inventoryDash', 'InventoryHomeController');
+
+Route::get('/send/email', 'HomeController@mail');
+
+Auth::routes();

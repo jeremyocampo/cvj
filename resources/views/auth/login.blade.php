@@ -1,6 +1,5 @@
 @extends('layouts.app', ['class' => 'bg-default'])
 
-
     @include('layouts.headers.guest')
     
     <div class="container mt--8 pb-5">

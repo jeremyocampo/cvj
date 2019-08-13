@@ -24,6 +24,7 @@ class EventModel extends Model
         'status',
         'event_detailesAdded',
         'inventory_id',
+        'client_id',
     ];
 
 }

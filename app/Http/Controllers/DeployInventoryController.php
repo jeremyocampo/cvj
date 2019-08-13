@@ -26,11 +26,13 @@ class DeployInventoryController extends Controller
     public function index()
     {
         $joinedTable = DB::table('event')
-            // ->join('category_ref','inventory.category','=','category_ref.id')
-            // ->join('inventory','category_ref.category_no','=','inventory.category')
             ->join('reserve_venue','event.reservation_id','=','reserve_venue.reservation_id')
             ->get();
         //dd($joinedTable);
+
+        $eventPackages = DB::table('event');
+
+
 
         
         return view('deployInventory', ['events'  => $joinedTable]);

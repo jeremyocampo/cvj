@@ -61,22 +61,7 @@ class HomeController extends Controller
             ->select('*')
             ->get();
 
-            $date = Carbon::now()->format('Y-m-d');
-            // dd($date);
-
-            // $check = (Carbon::parse($date)->gt($event[0]->event_start));
-            $events = array();
-
-            foreach($event as $i){
-                if(Carbon::parse($i->event_start)->format('Y-m-d') == $date){
-                    array_push($events, $i);
-                }
-            }
-
-            // dd($eventArr);
-            
-
-            return view('inventoryDashboard',['events' => $events, 'criticalInventory' => $criticalInventory]);
+            return view('inventoryDashboard',['events' => $event, 'criticalInventory' => $criticalInventory]);
 
         } else if(auth()->user()->userType == 3){
 
@@ -88,20 +73,18 @@ class HomeController extends Controller
             
         }  else if(auth()->user()->userType == 5){
 
-            // $user = auth()->user()->id;
+            $user = auth()->user()->id;
 
-            // $events = DB::table('event')
-            // ->select('*')
-            // // ->where('event.client_id', '=', $user)
-            // ->get(); 
+            $events = DB::table('event')
+            ->select('*')
+            // ->where('event.client_id', '=', $user)
+            ->get(); 
 
-            // // $events::where('client_id', $user)->get();
+            // $events::where('client_id', $user)->get();
 
-            // // dd($user);
-            // // dd($events);
-            // return view('clientDashboard', ['events' => $events]);
-
-            return redirect('bookevent');
+            // dd($user);
+            // dd($events);
+            return view('clientDashboard', ['events' => $events]);
             
         }
     }

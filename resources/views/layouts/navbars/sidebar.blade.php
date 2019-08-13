@@ -23,8 +23,7 @@
                         </span>
                     </div>
                 </a>
-
-                <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
+                {{-- <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
                     <div class=" dropdown-header noti-title">
                         <h6 class="text-overflow m-0">{{ __('Welcome!') }}</h6>
                     </div>
@@ -41,8 +40,7 @@
                         <i class="ni ni-user-run"></i>
                         <span>{{ __('Logout') }}</span>
                     </a>
-                </div>
-
+                </div> --}}
             </li>
         </ul>
         <!-- Collapse -->
@@ -100,11 +98,11 @@
                         <div class="collapse" id="navbar-dashboards" style>
                             <ul class="nav nav-sm flex-column">
                                 <li class="nav-item">
-                                    <a href="{{ url('/') }}" class="nav-link">
+                                    <a href="{{ url('users') }}" class="nav-link">
                                             <i class="ni ni-bullet-list-67 text-blue"></i>View Users</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ url('/') }}" class="nav-link">
+                                    <a href="{{ url('users/create') }}" class="nav-link">
                                         <i class="ni ni-delivery-fast text-green"></i>Create Users</a>
                                 </li>
                             </ul>
@@ -186,6 +184,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('bookevent') }}">
                             <i class="ni ni-calendar-grid-58 text-yellow"></i> {{ __('Book Event') }}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('event_budgets') }}">
+                            <i class="ni ni-calendar-grid-58 text-yellow"></i> {{ __('Event Budgets') }}
                         </a>
                     </li>
                     <li class="nav-item">

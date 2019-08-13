@@ -20,7 +20,6 @@
                                 <div class="col-xs-2">
                                         &nbsp;&nbsp;
                                 </div>
-                               
                                 </div>
                             </div>
                         </div>
@@ -52,7 +51,6 @@
                            <div class="col-md-4 mb-3"> 
                                 <label class = "form-label"> Event Type <font color="red">*</font></label>
                                 <select name = "eventType"  id = "eventType" class = "form-control" form = "bookevent">
-                                   
                                     <option disabled selected> - Please Select Event Type - </option>
                                     <option value="Wedding"> Wedding </option>
                                     <option value="Birthday"> Birthday </option>
@@ -60,9 +58,8 @@
                                     <option value="Business"> Business </option>
                                     <option value="Corporate"> Corporate </option>
                                     <option value="Others"> Others </option>
-                                
                                 </select>
-                       </div>
+                            </div>
 
                        {{-- Hidden Div for additional request --}}
                            {{-- <div class="col-md-3 mb-3" id='test' style="display:none">
@@ -71,43 +68,28 @@
 
                            <div class="col-md-5 mb-3">
                                 <label class = "form-label"> Event Start Date <font color="red">*</font></label>
-                                   {{-- {{ Form::input('datetime-local', 'startDate', ['class' => 'form-control', 'placeholder' => 'Date of Event', 'required' => 'true', 'min' => date("Y-m-d H:i:s")]) }}  --}}
+                                   {{-- {{ Form::date('eventStartDate', '', ['class' => 'form-control', 'placeholder' => 'Date of Event', 'required' => 'true', 'min' => date("Y-m-d H:i:s")]) }}  --}}
                                    <input type="datetime-local" name="eventStartDate" class="form-control" placeholder="Start date">
-                                   {{-- {!! Form::input('datetime-local', 'published_at', $article->published_at->format('Y-m-d\TH:i'), ['class' => 'form-control']) !!} --}}
-                                </div>
+
+                            </div>
+                           
 
                            <div class="col-md-4 mb-3">
                                 <label class = "form-label"> Event End Date <font color="red">*</font></label>
-                                <input type="datetime-local" name="eventStartDate" class="form-control" placeholder="End date">
-                                    {{-- //{{ Form::date('eventEndDate', '', ['class' => 'form-control', 'placeholder' => 'Date of Event', 'required' => 'true', 'min' => date("Y-m-d H:i:s")]) }}  --}}
-                           </div>
-
-                           
-                            {{-- <div class="col-md-3 mb-3"></div>
-                            <div class="col-md-3 mb-3"> --}}
-
-                           {{-- <div class="col-md-4"> <h4> Event Venue </h4>
-                            <select name="eventVenue" class = "form-control" form = "bookevent">
-                                <option disabled> - Please Select a Venue - </option>
-                                    <option value="01"> CVJ Hall A </option>
-                                    <option value="02"> CVJ Hall B </option>
-                                    <option value="03"> CVJ Hall C </option>
-                                    <option value="04"> CVJ Hall D </option>
-                                    <option value="05"> Other Venue </option>
-                            </select>
-                            </div> --}}
-                            
+                                   {{-- {{ Form::date('eventEndDate', '', ['class' => 'form-control', 'placeholder' => 'Date of Event', 'required' => 'true', 'min' => date("Y-m-d H:i:s")]) }}  --}}
+                                   <input type="datetime-local" name="eventEndDate" class="form-control" placeholder="Start date">
+                            </div>
+            
                             <div class="col-md-5 mb-3">                                
                                 <label class = "form-label"> Event Theme <font color="red">*</font></label>
                                 {{ Form::text('theme', '', ['class' => 'form-control', 'placeholder' => 'Theme', 'required' => 'true'])}}
                             </div>
 
-                            
                            {{-- by 50s, 60s, 70, 80s etcc.. --}}
                            <div class="col-md-4 mb-3"> 
-                               <label class = "form-label"> Total Pax <font color="red">*</font></label>
+                               <label class = "form-label"> Number of Attendees <font color="red">*</font></label>
                                <select name="totalPax" class = "form-control" form = "bookevent">
-                                    <option disabled selected> - Please select number of attendees - </option>
+                                    <option selected disabled>Please Select Number of Attendees</option>
                                         <option value="50"> 50 </option>
                                         <option value="80"> 80 </option>
                                         <option value="100"> 100 </option>
@@ -115,10 +97,6 @@
                                 </select>
                                 {{-- {{ Form::number('totalPax', '', ['class' => 'form-control', 'placeholder' => 'Total Pax', 'required' => 'true'])}} --}}
                             </div>
-                           
-
-                             
-                            
 
                             <div class="col-md-5 mb-3"> <label class = "form-label"> Others </label>
                                 {{ Form::textarea('others', '', ['class' => 'form-control', 'placeholder' => 'Others (Optional)'])}}

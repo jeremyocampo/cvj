@@ -1,11 +1,7 @@
 @extends('layouts.app')
 @section('title', 'Select Packages')
 
-{{-- <style>
-    
-    .MultiCarousel { float: left; overflow: hidden; padding: 15px; width: 100%; position:relative; }
     .MultiCarousel{ Height: 250px;}
-    .MultiCarousel .MultiCarousel-inner { transition: 1s ease all; float: left; }
     .MultiCarousel .MultiCarousel-inner .item { float: left;}
     .MultiCarousel .MultiCarousel-inner .item > div { text-align: center; padding:10px; margin:10px; background:#f1f1f1; color:#666;}
     .MultiCarousel .leftLst, .MultiCarousel .rightLst { position:absolute; border-radius:50%;top:calc(50% - 20px); }
@@ -14,7 +10,7 @@
     
     .MultiCarousel .leftLst.over, .MultiCarousel .rightLst.over { pointer-events: none; background:#ccc; }
     
-  </style> --}}
+  </style>
 
 {{-- @include('layouts.headers.pagination') --}}
 
@@ -55,183 +51,159 @@
                                 <label class = "form-label"> Customize Packages </label> &nbsp;
                             </label>
                                 
-                            {{-- <label class="radio-inline">
+                            <label class="radio-inline">
                                 <input type="radio" name="selectpackagetype" value="package3" onchange="toggle(this.value)"> 
                                 <label class = "form-label"> Budget Packages </label> &nbsp;
-                            </label> --}}
+                            </label>
                             
                             <div class="container"  id = "package1accord" style="display:none">
-                                    @include('layouts.headers.defaultpackages')
-
-                            </div><br>
-
-                            {{-- MULTI ITEM MultiCarousel --}}
-                            {{-- <div class="container"> --}}
-                                {{-- <div class="row"> --}}
-                                {{-- <div class="MultiCarousel" data-items="1,3,5,6" data-slide="1" id="MultiCarousel"  data-interval="1000">
-                                        <div class="MultiCarousel-inner">
-                                            <div class="item">
-                                                <div class="pad15">
-                                                    <p class="lead"><b>Wedding Package A</b></p>
-                                                    <p>Min 100 guests </p>
-                                                    <p>100,000 - 147,000</p>
-                                                    <p> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit-modal"> View details </button></p>
-                                                </div>
-                                            </div>
-                                            <div class="item">
-                                                <div class="pad15">
-                                                    <p class="lead">Wedding Package B</p>
-                                                    <p>Min 100 guests </p>
-                                                    <p>100,000 - 147,000</p>
-                                                    <p> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit-modal"> View details </button></p>
-                                                </div>
-                                            </div>
-                                            <div class="item">
-                                                <div class="pad15">
-                                                    <p class="lead">Wedding Package C</p>
-                                                    <p>Min 100 guests </p>
-                                                    <p>100,000 - 147,000</p>
-                                                    <p> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit-modal"> View details </button></p>
-                                                </div>
-                                            </div>
-                                            <div class="item">
-                                                <div class="pad15">
-                                                    <p class="lead">Wedding Package D</p>
-                                                    <p>Min 100 guests </p>
-                                                    <p>100,000 - 147,000</p>
-                                                    <p> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit-modal"> View details </button></p>
-                                                </div>
-                                            </div>
-                                            <div class="item">
-                                                <div class="pad15">
-                                                    <p class="lead">Birthday Package A</p>
-                                                    <p>Min 50 guests </p>
-                                                    <p>100,000 - 147,000</p>
-                                                    <p> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit-modal"> View details </button></p>
-                                                </div>
-                                            </div>
-                                            <div class="item">
-                                                <div class="pad15">
-                                                    <p class="lead">Birthday Package B</p>
-                                                    <p>Min 50 guests </p>
-                                                    <p>100,000 - 147,000</p>
-                                                    <p> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit-modal"> View details </button></p>
-                                                </div>
-                                            </div>
-                                            <div class="item">
-                                                <div class="pad15">
-                                                    <p class="lead">Birthday Package C</p>
-                                                    <p>Min 50 guests </p>
-                                                    <p>100,000 - 147,000</p>
-                                                    <p> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit-modal"> View details </button></p>
-                                                </div>
-                                            </div>
-                                            <div class="item">
-                                                <div class="pad15">
-                                                    <p class="lead">Birthday Package D</p>
-                                                    <p>Min 50 guests </p>
-                                                    <p>40,000 - 50,000 </p>
-                                                    <p> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit-modal"> View details </button></p>
-                                                </div>
-                                            </div>
-                                            <div class="item">
-                                                <div class="pad15">
-                                                    <p class="lead">Birthday Package E</p>
-                                                    <p> Min 50 </p>
-                                                    <p>30,000 - 70,000</p>
-                                                    <p> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit-modal"> View details </button></p>
-                                                </div>
-                                            </div>
-                                            <div class="item">
-                                                <div class="pad15">
-                                                    <p class="lead">Corporate Party Package A</p>
-                                                    <p>Min 80 Guests</p>
-                                                    <p>50,000</p>
-                                                    <p> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit-modal"> View details </button></p>
-                                                </div>
-                                            </div>
-                                            <div class="item">
-                                                <div class="pad15">
-                                                    <p class="lead">Corporate Party Package B</p>
-                                                    <p>₹ 1</p>
-                                                    <p>₹ 6000</p>
-                                                    <p> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit-modal"> View details </button></p>
-                                                </div>
-                                            </div>
-
-                                            
-                                            <div class="item">
-                                                <div class="pad15">
-                                                    <p class="lead">Coporate Party Package C</p>
-                                                    <p>₹ 1</p>
-                                                    <p>₹ 6000</p>
-                                                    <p> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit-modal"> View details </button></p>
-                                                </div>
-                                            </div>
-                                            <div class="item">
-                                                <div class="pad15">
-                                                    <p class="lead">Corporate Party Package D</p>
-                                                    <p>₹ 1</p>
-                                                    <p>₹ 6000</p>
-                                                    <p> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit-modal"> View details </button></p>
-                                                </div>
-                                            </div>
-                                            <div class="item">
-                                                <div class="pad15">
-                                                    <p class="lead">Corporate Party Package E</p>
-                                                    <p>₹ 1</p>
-                                                    <p>₹ 6000</p>
-                                                    <p> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit-modal"> View details </button></p>
-                                                </div>
-                                            </div>
-                                            <div class="item">
-                                                <div class="pad15">
-                                                    <p class="lead">Other Package A</p>
-                                                    <p>₹ 1</p>
-                                                    <p>₹ 6000</p>
-                                                    <p> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit-modal"> View details </button></p>
-                                                </div>
-                                            </div>
-                                            <div class="item">
-                                                <div class="pad15">
-                                                    <p class="lead">Other Package B </p>
-                                                    <p>₹ 1</p>
-                                                    <p>₹ 6000</p>
-                                                    <p> <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit-modal"> View details </button></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <button class="btn btn-primary leftLst"><</button>
-                                        <button class="btn btn-primary rightLst">></button>
-
-
-                                    </div> 
-                                
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
+                                {{-- <div class="container"> --}}
+                                    <div class="row">
+                                      <div class="MultiCarousel" data-items="1,3,5,6" data-slide="1" id="MultiCarousel"  data-interval="1000">
+                                              <div class="MultiCarousel-inner">
+                                                  <div class="item">
+                                                      <div class="pad15">
+                                                          <p class="lead"><b>Wedding Package A</b></p>
+                                                          <p>Min 100 guests </p>
+                                                          <p>100,000 - 147,000</p>
+                                                          <p><a href = " "> See more details </a></p>
+                                                      </div>
+                                                  </div>
+                                                  <div class="item">
+                                                      <div class="pad15">
+                                                          <p class="lead">Wedding Package B</p>
+                                                          <p>Min 100 guests </p>
+                                                          <p>100,000 - 147,000</p>
+                                                          <p><a href = " "> See more details </a></p>
+                                                      </div>
+                                                  </div>
+                                                  <div class="item">
+                                                      <div class="pad15">
+                                                          <p class="lead">Wedding Package C</p>
+                                                          <p>Min 100 guests </p>
+                                                          <p>100,000 - 147,000</p>
+                                                          <p><a href = " "> See more details </a></p>
+                                                      </div>
+                                                  </div>
+                                                  <div class="item">
+                                                      <div class="pad15">
+                                                          <p class="lead">Wedding Package D</p>
+                                                          <p>Min 100 guests </p>
+                                                          <p>100,000 - 147,000</p>
+                                                          <p><a href = " "> See more details </a></p>
+                                                      </div>
+                                                  </div>
+                                                  <div class="item">
+                                                      <div class="pad15">
+                                                          <p class="lead">Birthday Package A</p>
+                                                          <p>Min 100 guests </p>
+                                                          <p>100,000 - 147,000</p>
+                                                          <p><a href = " "> See more details </a></p>
+                                                      </div>
+                                                  </div>
+                                                  <div class="item">
+                                                      <div class="pad15">
+                                                          <p class="lead">Birthday Package B</p>
+                                                          <p>Min 100 guests </p>
+                                                          <p>100,000 - 147,000</p>
+                                                          <p><a href = " "> See more details </a></p>
+                                                      </div>
+                                                  </div>
+                                                  <div class="item">
+                                                      <div class="pad15">
+                                                          <p class="lead">Birthday Package C</p>
+                                                          <p>Min 100 guests </p>
+                                                          <p>100,000 - 147,000</p>
+                                                          <p><a href = " "> See more details </a></p>
+                                                      </div>
+                                                  </div>
+                                                  <div class="item">
+                                                      <div class="pad15">
+                                                          <p class="lead">Multi Item Carousel</p>
+                                                          <p>₹ 1</p>
+                                                          <p>₹ 6000</p>
+                                                          <p>50% off</p>
+                                                      </div>
+                                                  </div>
+                                                  <div class="item">
+                                                      <div class="pad15">
+                                                          <p class="lead">Multi Item Carousel</p>
+                                                          <p>₹ 1</p>
+                                                          <p>₹ 6000</p>
+                                                          <p>50% off</p>
+                                                      </div>
+                                                  </div>
+                                                  <div class="item">
+                                                      <div class="pad15">
+                                                          <p class="lead">Multi Item Carousel</p>
+                                                          <p>₹ 1</p>
+                                                          <p>₹ 6000</p>
+                                                          <p>50% off</p>
+                                                      </div>
+                                                  </div>
+                                                  <div class="item">
+                                                      <div class="pad15">
+                                                          <p class="lead">Multi Item Carousel</p>
+                                                          <p>₹ 1</p>
+                                                          <p>₹ 6000</p>
+                                                          <p>50% off</p>
+                                                      </div>
+                                                  </div>
+                                                  <div class="item">
+                                                      <div class="pad15">
+                                                          <p class="lead">Multi Item Carousel</p>
+                                                          <p>₹ 1</p>
+                                                          <p>₹ 6000</p>
+                                                          <p>50% off</p>
+                                                      </div>
+                                                  </div>
+                                                  <div class="item">
+                                                      <div class="pad15">
+                                                          <p class="lead">Multi Item Carousel</p>
+                                                          <p>₹ 1</p>
+                                                          <p>₹ 6000</p>
+                                                          <p>50% off</p>
+                                                      </div>
+                                                  </div>
+                                                  <div class="item">
+                                                      <div class="pad15">
+                                                          <p class="lead">Multi Item Carousel</p>
+                                                          <p>₹ 1</p>
+                                                          <p>₹ 6000</p>
+                                                          <p>50% off</p>
+                                                      </div>
+                                                  </div>
+                                                  <div class="item">
+                                                      <div class="pad15">
+                                                          <p class="lead">Multi Item Carousel</p>
+                                                          <p>₹ 1</p>
+                                                          <p>₹ 6000</p>
+                                                          <p>50% off</p>
+                                                      </div>
+                                                  </div>
+                                                  <div class="item">
+                                                      <div class="pad15">
+                                                          <p class="lead">Multi Item Carousel</p>
+                                                          <p>₹ 1</p>
+                                                          <p>₹ 6000</p>
+                                                          <p>50% off</p>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <button class="btn btn-primary leftLst"><</button>
+                                              <button class="btn btn-primary rightLst">></button>
+                                          </div>
                                     </div>
-                                  </div>    --}}
-                            
-                                
-                        
-                                                                       
-                
-                    
-                        {{-- </div><br> --}}
+                                  </div>    
+                            </div>                                          
+                            <br>
                             {{-- CUSTOMIZED PACKAGE --}}
                             
                              <div class = "container" id = "package2customized" style = "display:none">
                              <h2> Customize Packages </h2>
                                     <table width="100%" boarder="0" cellspacing="20" cellpadding="0" id="fully_customized">
                                             <tbody><tr>
-                                              <td width="50%">
-                                                <h2 style="background:#eee; padding:5px 10px;">Appetizer</h2>
+                                              <td width="50%"><h3>Appetizer</h3>
                                                 {{Form::checkbox('appetizer1', 'Crispy Wanton Balls', false)}}
                                                 {{-- <input type="radio" name="appetizer1" value=""> --}}
                                                 Crispy Wanton Balls<br>
@@ -252,7 +224,7 @@
                                                 Assorted Cold Cuts<br><br>
                                                 
 
-                                                <h2 style="background:#eee; padding:5px 10px;">Soup</h2>
+                                                <h3>Soup</h3>
                                                 
                                                 {{Form::checkbox('soup1', 'Pumpkin Soup', false)}}
                                                 Pumpkin Soup<br>
@@ -266,7 +238,7 @@
 
                                                 <h2 style="background:#eee; padding:5px 10px;">Main Course</h2>
 
-                                                <h1>Pork</h1>
+                                                <h3>Pork</h3>
                                                 {{Form::checkbox('pork1', 'Pork Ballotine in Shallot Mushroom Sauce', false)}}
                                                 Pork Ballotine in Shallot Mushroom Sauce<br>
 
@@ -276,7 +248,7 @@
                                                 {{Form::checkbox('pork3', 'Pork Barbeque Spareribs', false)}}
                                                 Pork Barbeque Spareribs<br><br>
 
-                                                <h1>Beef</h1>
+                                                <h3>Beef</h3>
                                                 {{Form::checkbox('beef1', 'Beef Lok-lak', false)}}
                                                 Beef Lok-lak<br>
 
@@ -288,7 +260,7 @@
                                                 
                                                 <br>
                                                 
-                                                <h1>Chicken</h1>
+                                                <h3>Chicken</h3>
                                                 {{Form::checkbox('chicken1', 'Crispy Honey Chicken in Sweet Chili Sauce', false)}}
                                                 Crispy Honey Chicken in Sweet Chili Sauce<br>
 
@@ -300,7 +272,7 @@
                                                 
                                                 <br>
 
-                                                <h1>Seafood</h1>
+                                                <h3>Seafood</h3>
                                                 {{Form::checkbox('seafood1', 'Deep Fried Fish Fillet ala Mexicana (Mildly Spicy)', false)}}
                                                 Deep Fried Fish Fillet ala Mexicana (Mildly Spicy)<br>
 
@@ -311,7 +283,7 @@
                                                 Fish Fillet Meunière<br></td>
 
                                               
-                                              <td width="50%"><h2 style="background:#eee; padding:5px 10px;">Vegetables/Salad</h2>
+                                              <td width="50%"><h3>Vegetables</h3>
                                                 {{Form::checkbox('vegetable1', 'Buttered Balkan Mixed Vegetables', false)}}
                                                 Buttered Balkan Mixed Vegetables<br>
 
@@ -321,28 +293,21 @@
                                                 {{Form::checkbox('vegetable3', 'Buttered Vegetables', false)}}
                                                 Buttered Vegetables<br><br>
 
-                                                <h2 style="background:#eee; padding:5px 10px;">Pasta</h2>
+                                                <h3>Pasta or Rice</h3>
                                                 {{Form::checkbox('pastarice1', 'Angel Hair in Olive Oil Tapenade', false)}}
                                                 Angel Hair in Olive Oil Tapenade<br>
                                                 
                                                 {{Form::checkbox('pastarice1', 'Spaghetti', false)}}
                                                 Spaghetti <br>
-
                                                 {{Form::checkbox('pastarice1', 'Lasagna', false)}}
                                                 Lasagna<br>
-
-                                                <h2 style="background:#eee; padding:5px 10px;">Rice</h2>
                                                 {{Form::checkbox('pastarice1', 'Steamed Rice', false)}}
-                                                Steamed Rice<br>
-                                                {{Form::checkbox('pastarice2', 'Fried Rice', false)}}
-                                                Fried Rice<br>
-                                                {{Form::checkbox('pastarice3', 'Yang Chow Rice', false)}}
-                                                Yang Chow<br>
+                                                Steamed Rice<br><br>
 
-                                                <h2 style="background:#eee; padding:5px 10px;">Desserts</h2>
+                                                <h1>Dessert </h1>
                                                 {{Form::checkbox('desserts1', 'Assorted Pastries', false)}}
                                                 Assorted Pastries<br>
-                                                {{Form::checkbox('desserts2', 'Cassava Cake', false)}}
+                                                {{Form::checkbox('desserts2', 'Spaghetti', false)}}
                                                 Casava Cake<br>
                                                 {{Form::checkbox('desserts3', 'Leche Flan', false)}}
                                                 Leche Flan<br>
@@ -350,7 +315,7 @@
                                                 Buko Fruit Salad<br>
                                                 <br>
 
-                                                <h2 style="background:#eee; padding:5px 10px;">Beverages</h2>
+                                                <h1 style="background:#eee; padding:5px 10px;">Beverages</h1>
                                                 <h1>Alcoholic</h1>
                                                 {{Form::checkbox('alcoholic1', 'San Miguel Light', false)}}
                                                 San Miguel Light<br>
@@ -381,84 +346,36 @@
                             
 
                           <br>
-                            
+                            <div class = "container" id = "package3budget" style = "display:none">
+                            <!-- ##### Single Widget ##### -->
+            <div class="widget price mb-50">
+                <!-- Widget Title -->
+                <h6 class="widget-title mb-30">Price</h6>
 
-            <div class="amado_product_area section-padding-100">
-                <div class="container-fluid">
-
-
-                            </div>
+                <div class="widget-desc">
+                    <div class="slider-range">
+                        <div data-min="50" data-max="10000" data-unit="PHP" class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" data-value-min="0" data-value-max="99999" data-label-result="" >
+                            <div id="price_range" class="ui-slider-range ui-widget-header ui-corner-all"></div>
+                            <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                            <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
                         </div>
+                        <div id="priceRange" class="range-price" data-min="0" data-max="999999">PHP</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="amado_product_area section-padding-100">
+            <div class="container-fluid">
+
+
+                        </div>
+                    </div>
                 </div>
 
-                {{-- MODAL SATRTS HERE --}}
-                <div class="modal fade" id="edit-modal">
-                        <div class="modal-dialog">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                                <h2 class="modal-title" text-align: center><b>Wedding Package</b></h2>
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                              </button>
-                              
-                            </div>
-                            <div class="modal-body">
-                              <form role="form" action="/edit_user">
-                                <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-                                <div class="box-body">
-
-                                  <div class="form-group">
-                                    <label for="Soup"> <h3>  Soup </h3> </label> 
-                                      {{-- INSERT DISPLAY HERE --}}
-                                  </div>
-
-                                  <div class="form-group">
-                                    <label for="Appetizer"><h3> Appetizer </h3></label> 
-                                    {{-- INSERT DISPLAY HERE --}}
-                                  </div>
-                                  <div class="form-group">
-                                    <label for="Salad"> <h3> Salad Bar </h3> </label> 
-                                    {{-- INSERT DISPLAY HERE --}}
-                                  </div>
-                                  <div class="form-group">
-                                    <label for="Main Course"> <h3> Main Course </h3> </label> 
-                                    {{-- INSERT DISPLAY HERE --}}
-                                  </div>
-                                  <div class="form-group">
-                                    <label for="Pasta"> <h3> Pasta </h3></label> 
-                                    {{-- INSERT DISPLAY HERE --}}
-                                  </div>
-
-                                  <div class="form-group">
-                                    <label for="Rice">Rice</label> 
-                                    {{-- INSERT DISPLAY HERE --}}
-                                  </div> 
-
-                                <div class="form-group">
-                                    <label for="Dessert">Dessert</label> 
-                                    {{-- INSERT DISPLAY HERE --}}
-                                </div> 
-
-                                <div class="form-group">
-                                    <label for="Beverages">Beverages</label> 
-                                    {{-- INSERT DISPLAY HERE --}}
-                                </div>   
-
-                                </div>
-
-
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                                  <button type="submit" class="btn btn-primary">Select This Package</button>
-                                </div>
-                              </form>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
 
                             <div class="col-md-12 mb-3">
-                                    <p align = "center"> {{ Form::submit('Next: Summary', ['class' => 'btn btn-primary btn-lg'])}} </p>
+                                    <p align = 'center'> {{ Form::submit('Next: Summary', ['class' => 'btn btn-primary btn-lg'])}} </p>
                                 </div>
 
                                 {!! Form::close() !!}
