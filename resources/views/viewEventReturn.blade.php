@@ -35,8 +35,8 @@
 								<div class="col">
 									<div class="row">
 											<div class="col-md-5 ">
-													<h2 calss="mb-0">View Item Details</h2>
-												</div>
+												<h2 calss="">View Item Details</h2>
+											</div>
 									<div class="col-xs-2">
 											&nbsp;&nbsp;
 									</div>
@@ -154,7 +154,7 @@
 												{{ $i->qty }}
 												<input hidden type="text" value="{{ $i->qty}}" id="qty{{ $i->esku }}">
 											</td>
-											<td>{{ $i->rent_price}} </td>
+											<td> {{ $i->rental_cost * $i->qty }} </td>
 											<td>
 												<div class="col-xl-4">
 													<label class="form-label">Qty to Return</label>
@@ -235,25 +235,29 @@
 					}
 					barcode = document.getElementById('barcodeInput').value = "";
 				}
-				
-				var inputs = document.getElementsByClassName( 'qtyReturn' ),
-					qtys  = [].map.call(inputs, function( input ) {
+				var quantities = document.getElementsByClassName( 'qtyReturn' ),
+					qtys  = [].map.call(quantities, function( input ) {
 						return input.value;
 					}).join();
 
 				var inventoryIDs = document.getElementsByClassName( 'invID' ),
-					ids  = [].map.call(inputs, function( input ) {
+					ids  = [].map.call(inventoryIDs, function( input ) {
 						return input.value;
+						// alert(input.value);
 					}).join();
 
 
+				// var Quant = qtys.split(",");
+				// var IDS = ids.split(","); 
+				
 				document.getElementById('qtyReturnArray').value = qtys;
 				document.getElementById('idReturnArray').value = ids;
 
-				var arrayhehe = document.getElementById('qtyReturnArray').value;
-				var arrayhehe1 = document.getElementById('idReturnArray').value;
+				var qty = document.getElementById('qtyReturnArray').value;
+				var id = document.getElementById('idReturnArray').value;
 
-				alert(arrayhehe1);
+				// alert(id);
+				// alert(qty);
 
 			}
 		});

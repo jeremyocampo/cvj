@@ -7,6 +7,7 @@ use App\EventModel;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests;
 use Carbon\Carbon;
+use App\inventory;
 use Faker\Generator as Faker;
 
 class ReturnInventoryController extends Controller
@@ -122,31 +123,75 @@ class ReturnInventoryController extends Controller
         ->join('inventory', 'event_inventory.inventory_id', '=' ,'inventory.inventory_id')
         ->get();
 
-        foreach($borrowedItems as $i){
-            $item = DB::table('inventory')
-            ->where('inventory_id', '=', $i->inventory_id)
-            ->update([
-                'quantity' => $request->input('quantity'),
-            ]);
-        }
-        dd($borrowedItems);
+        // foreach($borrowedItems as $i){
+        //     $item = DB::table('inventory')
+        //     ->where('inventory_id', '=', $i->inventory_id)
+        //     ->update([
+        //         'quantity' => $request->input('quantity'),
+        //     ]);
+        // }
+        // dd($borrowedItems);
 
         $a = array();
+        $b = array();
+        $i = 0;
 
         // foreach($request->input('qtyReturnArray') as $i){
         //     $i
         // }
-        $a = $request->input('qtyReturned');
-        // dd($a);
+        $a = $request->input('idReturnArray');
+        $b = $request->input('qtyReturnArray');
 
-        $item = DB::table('inventory')
-        ->where('inventory_id', '=', $id)
-        ->update([
-            'quantity'      => $request->input('quantity'),
-        ]);
+        $c = explode (",", $a); 
+        $d = explode (",", $b); 
+        
+
+        $id = $c;
+        $number = $d;
+
+        // dd($id, $number);
+
+        for($i = 0; $i < count($c) ; $i++)
+        {
+            // $item = inventory::find( $c[$i] );
+            // $item->increment('quantity',$d[$i]);
+            $number = (int)$d[$i];
+            $id = (int)$c[$i];
+
+            // dd($id);
+
+            // dd($number);
+            // dd($number,$id);
+            // $item = DB::update('update cvjdb.inventory set quantity = (quantity + '. $number .') where inventory_id = ' . $id . ';');
+           
+            // $quantity = DB::table('inventory')
+            // ->select('quantity')
+            // ->where('inventory.inventory_id', '=', $id)
+            // ->get();
+
+            // $item = inventory::find($id);
+
+            // dd($item->quantity);
+
+            if($number != null){
+                // $item = DB::table('inventory')
+                // ->where('inventory_id', '=', $id)
+                // ->update([
+                //     'quantity' => $quantity[0]->quantity+$number,
+                // ]);
+                $item = inventory::find($id);
+                $item->quantity = ($item->quantity + $number);
+                $item->save();
+            } 
+
+        }
+
+        // dd($number[1]);
+
         
         
-        return redirect('/inventory')->with('success', 'Item Updated');
+        
+        return redirect('/returnInventory')->with('success', 'Item(s) Returned');
 
     }
 

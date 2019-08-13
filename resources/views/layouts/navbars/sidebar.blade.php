@@ -143,6 +143,10 @@
                                                 <i class="ni ni-bullet-list-67 text-blue"></i>View Inventory</a>
                                     </li>
                                     <li class="nav-item">
+                                    <li class="nav-item">
+                                        <a href="{{ url('food') }}" class="nav-link">
+                                        <i class="ni ni-archive-2 text-purple"></i>View Food Inventory</a>
+                                    </li>
                                         <a href="{{ url('deploy') }}" class="nav-link">
                                             <i class="ni ni-delivery-fast text-green"></i> Deploy Inventory</a>
                                     </li>
@@ -151,13 +155,8 @@
                                             <i class="ni ni-archive-2 text-purple"></i>Inventory Return</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="{{ url('food') }}" class="nav-link">
-                                            <i class="ni ni-archive-2 text-purple"></i>View Food Inventory</a>
-                                    </li>
-                                    <li class="nav-item">
-                                            <a class="nav-link" href="{{ url('outsource') }}">
-                                                <i class="ni ni-calendar-grid-58 text-yellow">Outsource Items</i>
-                                            </a>
+                                            <a href="{{ url('outsource') }}" class="nav-link">
+                                                <i class="ni ni-calendar-grid-58 text-yellow"></i>Outsource Items</a>
                                         </li>
                                 </ul>
                             </div>

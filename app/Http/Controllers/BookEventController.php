@@ -33,7 +33,7 @@ class BookEventController extends Controller
             // ->join('event','client_ref.client_name','=','event.client_name')
             // ->get();
         //dd($joinedTable);
-
+        
         $client = DB::table('client')
         ->select('*')
         ->where('client.user_id', '=', auth()->user()->id)

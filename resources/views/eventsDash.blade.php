@@ -33,18 +33,16 @@
 									<iframe src="https://calendar.google.com/calendar/embed?src=cvjcatering.info%40gmail.com&ctz=Asia%2FManila" style="border: 0" width="100%" height="600" frameborder="0" scrolling="no"></iframe>
 								</div>
 								<div class="table-responsive mb-2" >
-									{{-- <div class="row"> --}}
-									<!-- Projects table -->
 									<table class="table  align-items-center  mb-3" id="myTable" >
 										<thead class="thead-light">
 											<tr>
-												<th>Event Name</th>
-												<th>Venue</th>
-												<th>Start Date/Time</th>
-												<th>End Date/Time</th>
-												<th>Description</th>
-												<th>Status</th>
-												<th >Action</th>
+												<th> Event Name </th>
+												<th> Venue </th>
+												<th> Start Date/Time </th>
+												<th> End Date/Time </th>
+												<th> Description </th>
+												<th> Status </th>
+												<th> Action </th>
 											</tr>
 										</thead>
 										<tbody>
@@ -79,7 +77,7 @@
 																<i class="ni ni-fat-add"></i>
 																<span>{{ __('Purchse Inventory') }}</span>
 															</a>
-															<a href="{{ url('outsource/create')}}" class="dropdown-item">
+															<a href="{{ url('outsource/'.$i->event_id)}}" class="dropdown-item">
 																<i class="ni ni-fat-add"></i>
 																<span>{{ __('Outsource Inventory') }}</span>
 															</a>
@@ -107,7 +105,7 @@
 
 						</div>
 						<div class="card-footer text-muted">
-								<div id="pageNavPosition" style="padding-top: 20px; cursor: pointer;" align="center"></div>
+								<div id="pageNavPosition" style=" cursor: pointer;" align="center"></div>
 								<script type="text/javascript">
 									<!--
 									var pager = new Pager('myTable', 5);

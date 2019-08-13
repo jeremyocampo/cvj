@@ -97,7 +97,7 @@
                                 </div>
                         <div class="card-footer text-muted">
                             <div class="text-right">
-                                    <a href="{{ url('inventory')}}" class="btn btn-default">Back</a>
+                                    <a href="{{ url('inventory')}}" class="btn btn-secondary">Back to View Inventory</a>
                                     {{-- {{Form::hidden('_method', 'PUT')}} --}}
                             </div>
                         </div>

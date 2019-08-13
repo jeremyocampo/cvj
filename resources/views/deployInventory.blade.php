@@ -15,6 +15,9 @@
                                         <div class="col-6">
                                             <h1 class="mb-0">Deploy Inventory</h1>
                                         </div>
+                                        <div class="col-xs-4">
+                                            <a href="outsource/create" class="btn btn-sm btn-primary"> + Request Outsource</a>
+                                        </div>
                                         <div class="col">
                                         </div>
                                         <div class="col">
