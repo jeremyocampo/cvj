@@ -97,7 +97,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-4"><label>Number of Attendants</label></div>
-                                            <div class="col-md-8"><input name="suggested_pax" class=" form-control"  type="number" value="{{$event->totalpax}}" readonly></div>
+                                            <div class="col-md-8"><input name="suggested_pax" class=" form-control" id="totalpax" onchange="calibrate_pax(this)" type="number" value="@if($package != null) {{$package->price}} @else 50 @endif" @if($package != null) readonly @endif></div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -188,7 +188,7 @@
 </div>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 <script>
-    let total_pax = {{$event->totalpax}};
+    let total_pax =  @if($package != null) {{$package->price}} @else 50 @endif;
     let venue = {{$venue_price}};
     let inv_subtotal = 0;
     let food_subtotal = 0;
@@ -277,6 +277,14 @@
         });
         $("#food_total_text").html(parseFloat(food_subtotal).toFixed(2));
 
+    }
+    function calibrate_pax(obj) {
+        if($(obj).val()<50){
+            alert('Minimum pax is for 50 persons.');
+            $(obj).val(50);
+        }
+        total_pax = $(obj).val();
+        compute_total_package_price();
     }
     function compute_total_package_price(){
         compute_inv_qtys();

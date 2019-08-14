@@ -98,7 +98,7 @@ class SelectPackageController extends Controller
         $event->package_id = $request->input('package_id');
         $event->save();
 
-        return redirect('selectpackages/'.$request->input("event_id"));
+        return redirect('/summary/'.$event->event_id);
     }
 
     /**
@@ -124,7 +124,7 @@ class SelectPackageController extends Controller
             $e_inv->save();
         }
 
-        return redirect('/home');
+        return redirect('/summary/'.$event->event_id);
     }
 
     /**
@@ -171,9 +171,26 @@ class SelectPackageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function summary($event_id)
     {
-        //
+        //inventory items //food items
+        $client_id = Auth::id();
+        $event = Event::where('event_id','=',$event_id)->first();
+
+        $event->formatted_day = date("M jS, Y", strtotime($event->event_start));
+        $event->formatted_start = date("H:i", strtotime($event->event_start));
+        $event->formatted_end = date("H:i", strtotime($event->event_start));
+
+        $package = PackageModel::where('package_id','>=',$event->package_id)->first();
+        $food_items =PackageItem::where('package_id','=',$package->package_id)->select('item_id')->get();
+        $food_items =$food_items->toArray();
+        $package->foods = Items::whereIn('item_id',$food_items)->get();
+        $package->inventory = PackageInventory::where('package_id','=',$package->package_id)->get();
+        foreach ($package->inventory as $inventory){
+            $inventory->inventory_name = inventory::where('inventory_id','=',$inventory->inventory_id)->first()->inventory_name;
+        }
+        return view('bookingsummary',['package'=>$package,'event'=>$event,'user_id'=>$client_id]);
+
     }
 
     /**

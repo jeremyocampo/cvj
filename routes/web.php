@@ -66,6 +66,8 @@ Route::get('admin/routes', 'AdminController@admin')->middleware('admin');
 Route::resource('cal','gCalendarController');
 Route::get('oauth', 'gCalendarController@oauth');
 
+Route::get('summary/{event_id}', 'SelectPackageController@summary');
+
 
 //Rosette's Routes
 Route::resource('bookevent', 'BookEventController');

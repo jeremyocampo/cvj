@@ -68,10 +68,7 @@ class EventsBudgetController extends Controller
             }
 
         }
-
         $all_personnels = array();
-
-
         return view('eventBudget',['events'=>$events,'all_personnels'=>$all_personnels]);
     }
     public function get_available_personnel($event_id){
