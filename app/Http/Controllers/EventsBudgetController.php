@@ -239,7 +239,7 @@ class EventsBudgetController extends Controller
         error_log(print_r($distinct,1));
         foreach($distinct as $cat_item_id){
             $cur_total = 0;
-            $category_item = InventoryCategory::where('category_id','=',$cat_item_id)->first();
+            $category_item = categoryRef::where('category_no','=',$cat_item_id)->first();
             $inv_items = PackageInventory::where('package_id','=',$package->package_id)->where('category_id','=',$cat_item_id)->get();
             foreach( $inv_items as $inv_item){
                 $cur_total += $inv_item->rent_cost * $inv_item->quantity;

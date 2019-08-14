@@ -3,10 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="acb9a2cb-0c91-4cfe-98e9-5d7151ab0887" name="Default Changelist" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/SelectPackageController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/SelectPackageController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/PackageModel.php" afterPath="$PROJECT_DIR$/app/PackageModel.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/selectPackage.blade.php" afterPath="$PROJECT_DIR$/resources/views/selectPackage.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/web.php" afterPath="$PROJECT_DIR$/routes/web.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/EventsBudgetController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/EventsBudgetController.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -64,42 +61,10 @@
         <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
       </PATH_ELEMENT>
       <PATH_ELEMENT>
-        <option name="myItemId" value="package" />
+        <option name="myItemId" value="category_ref" />
         <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
       </PATH_ELEMENT>
     </PATH>
-  </component>
-  <component name="DockManager">
-    <window id="2">
-      <content type="file-editors">
-        <state>
-          <leaf>
-            <file leaf-file-name="customizePackage.blade.php" pinned="false" current-in-tab="true">
-              <entry file="file://$PROJECT_DIR$/resources/views/customizePackage.blade.php">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="37">
-                    <caret line="124" column="46" lean-forward="false" selection-start-line="124" selection-start-column="46" selection-end-line="124" selection-end-column="46" />
-                    <folding>
-                      <element signature="e#4299#4328#0#HTML" expanded="true" />
-                      <element signature="e#4494#4523#0#HTML" expanded="true" />
-                      <element signature="e#5786#5804#0#HTML" expanded="true" />
-                      <element signature="e#5850#5872#0#HTML" expanded="true" />
-                      <marker date="1565723102000" expanded="true" signature="12189:12216" ph="..." />
-                      <marker date="1565723102000" expanded="true" signature="12529:12553" ph="..." />
-                      <marker date="1565723102000" expanded="true" signature="12957:12984" ph="..." />
-                      <marker date="1565723102000" expanded="true" signature="13335:13346" ph="..." />
-                      <marker date="1565723102000" expanded="true" signature="13814:13841" ph="..." />
-                      <marker date="1565723102000" expanded="true" signature="14048:14072" ph="..." />
-                      <marker date="1565723102000" expanded="true" signature="14502:14529" ph="..." />
-                    </folding>
-                  </state>
-                </provider>
-              </entry>
-            </file>
-          </leaf>
-        </state>
-      </content>
-    </window>
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FUSProjectUsageTrigger">
@@ -133,11 +98,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EventsBudgetController.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="EventsBudgetController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/EventsBudgetController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="355">
-              <caret line="147" column="13" lean-forward="true" selection-start-line="147" selection-start-column="13" selection-end-line="147" selection-end-column="13" />
+            <state relative-caret-position="416">
+              <caret line="265" column="32" lean-forward="true" selection-start-line="265" selection-start-column="32" selection-end-line="265" selection-end-column="33" />
               <folding>
                 <element signature="e#40#57#0#PHP" expanded="true" />
                 <element signature="e#4553#5097#0#PHP" expanded="false" />
@@ -181,11 +146,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SelectPackageController.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SelectPackageController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/SelectPackageController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="87">
-              <caret line="39" column="69" lean-forward="false" selection-start-line="39" selection-start-column="69" selection-end-line="39" selection-end-column="69" />
+            <state relative-caret-position="765">
+              <caret line="51" column="38" lean-forward="true" selection-start-line="51" selection-start-column="38" selection-end-line="51" selection-end-column="38" />
               <folding>
                 <element signature="e#40#54#0#PHP" expanded="true" />
                 <element signature="e#3898#4936#0#PHP" expanded="false" />
@@ -329,7 +294,6 @@
         <option value="$PROJECT_DIR$/app/PackageMiscItem.php" />
         <option value="$PROJECT_DIR$/cvjdb_employee_event_schedule.sql" />
         <option value="$APPLICATION_CONFIG_DIR$/consoles/db/5cbb29b8-6af1-4c84-9557-6e7cf1a9e9d0/console.sql" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/EventsBudgetController.php" />
         <option value="$PROJECT_DIR$/resources/views/eventCosting.blade.php" />
         <option value="$PROJECT_DIR$/app/PackageItem.php" />
         <option value="$PROJECT_DIR$/app/Items.php" />
@@ -338,6 +302,7 @@
         <option value="$PROJECT_DIR$/routes/web.php" />
         <option value="$PROJECT_DIR$/app/PackageModel.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/SelectPackageController.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/EventsBudgetController.php" />
       </list>
     </option>
   </component>
@@ -695,8 +660,8 @@
       <recent name="$PROJECT_DIR$/resources/eventCosting" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/resources/views" />
       <recent name="$PROJECT_DIR$/app" />
+      <recent name="$PROJECT_DIR$/resources/views" />
       <recent name="$PROJECT_DIR$/app/Http/Controllers" />
       <recent name="$PROJECT_DIR$/script_changes" />
       <recent name="$PROJECT_DIR$/resources/views/event_costing" />
@@ -812,18 +777,18 @@
       <workItem from="1564930008918" duration="1953000" />
       <workItem from="1565116869385" duration="6820000" />
       <workItem from="1565607160504" duration="19404000" />
-      <workItem from="1565666315394" duration="22648000" />
+      <workItem from="1565666315394" duration="23381000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="156620000" />
+    <option name="totallyTimeSpent" value="157353000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15450644" sideWeight="0.49355432" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28612304" sideWeight="0.49355432" order="3" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15593705" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1327,17 +1292,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/EventsBudgetController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="355">
-          <caret line="147" column="13" lean-forward="true" selection-start-line="147" selection-start-column="13" selection-end-line="147" selection-end-column="13" />
-          <folding>
-            <element signature="e#40#57#0#PHP" expanded="true" />
-            <element signature="e#4553#5097#0#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/PackageModel.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -1395,11 +1349,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/SelectPackageController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="87">
-          <caret line="39" column="69" lean-forward="false" selection-start-line="39" selection-start-column="69" selection-end-line="39" selection-end-column="69" />
+        <state relative-caret-position="765">
+          <caret line="51" column="38" lean-forward="true" selection-start-line="51" selection-start-column="38" selection-end-line="51" selection-end-column="38" />
           <folding>
             <element signature="e#40#54#0#PHP" expanded="true" />
             <element signature="e#3898#4936#0#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/EventsBudgetController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="416">
+          <caret line="265" column="32" lean-forward="true" selection-start-line="265" selection-start-column="32" selection-end-line="265" selection-end-column="33" />
+          <folding>
+            <element signature="e#40#57#0#PHP" expanded="true" />
+            <element signature="e#4553#5097#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
