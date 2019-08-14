@@ -61,7 +61,7 @@ class EventsBudgetController extends Controller
             //$this->send_email($event->client_name,'leebet16@gmail.com',$event->event_name,'Caterie Confirmation');
             $event->total_spent = $budget_check->spent_buffer;
             $event->budget_id=$budget_check->id;
-            $employees=EmployeeEventSchedule::select('employee_id')->where('event_assigned','=',$event->event_id)->get();
+            $employees=EmployeeEventSchedule::select('employee_id')->where('event_id','=',$event->event_id)->get();
             $event->personnels=Employee::whereIn('employee_id',$employees)->get();
             foreach(EventBudgetItem::where('event_budget_id','=',$budget_check->id)->get() as $budget_item) {
                 $event->total_spent += $budget_item->actual_amount;
@@ -76,7 +76,7 @@ class EventsBudgetController extends Controller
     }
     public function get_available_personnel($event_id){
         $event = Event::where('event_id','=',$event_id)->first();
-        $employees=EmployeeEventSchedule::select('employee_id')->where('event_assigned','=',$event->event_id)->get();
+        $employees=EmployeeEventSchedule::select('employee_id')->where('event_id','=',$event->event_id)->get();
         $event->personnel=Employee::whereIn('employee_id',$employees)->get();
         $event_personel = array();
         foreach($event->personnel as $personnel){array_push($event_personel,$personnel->employee_id);}
@@ -106,7 +106,7 @@ class EventsBudgetController extends Controller
         $sched = new EmployeeEventSchedule();
         $event = Event::where('event_id','=',$event_id)->first();
         $sched->employee_id= $personnel_id;
-        $sched->event_assigned= $event_id;
+        $sched->event_id= $event_id;
         $sched->event_date_time = $event->event_start;
         $sched->save();
         return redirect('event_budgets');
@@ -188,16 +188,19 @@ class EventsBudgetController extends Controller
 
     public function show($event_id)
     {
-
         $event = Event::where('event_id','=',$event_id)->first();
         $event->package = PackageModel::Where('package_id','=',$event->package_id)->first();
-        $event_lock = $event->whereDate('event_start','<=',date('Y-m-d'))->get();
+        $event_lock =  Event::where('event_id','=',$event_id)->whereDate('event_start','<=',date('Y-m-d'))->get();
+
+        //error_log("event: ".$event);
+        error_log("event_log: ".$event_lock);
+        error_log("date_today: ".date('Y-m-d'));
         $event->total_spent = 0;
         if(count($event_lock)>0){
-            $event_lock = true;
+            $event_lock = false;
         }
         else{
-            $event_lock = false;
+            $event_lock = true;
         }
         $check_budget = EventBudget::where('event_id','=',$event->event_id)->first();
         $budget_templates = EventBudgetTemplate::all();
@@ -256,7 +259,7 @@ class EventsBudgetController extends Controller
         foreach(PackageItem::where('package_id','=',$package->package_id)->get() as $food){
             $food_total += $food->computed_cost;
         }
-            array_push($return_item,array('budg_name'=>'Food Expenses','budget_amount'=>($food_total),'mark'=>'misc'));
+            array_push($return_item,array('budg_name'=>'Food','budget_amount'=>($food_total),'mark'=>'misc'));
 
         $outsourced_items = DB::table('event_outsource_item')->where('event_id', '=',$event_id)->get();
         $total_outsource = 0;
@@ -264,7 +267,7 @@ class EventsBudgetController extends Controller
             foreach($outsourced_items as $item){
                 $total_outsource += $item->total_price;
             }
-            array_push($return_item,array('budg_name'=>'Outsourcing Expenses','budget_amount'=>$total_outsource,'mark'=>'outsource'));
+            array_push($return_item,array('budg_name'=>'Outsourcing','budget_amount'=>$total_outsource,'mark'=>'outsource'));
         }
 
 
@@ -294,7 +297,7 @@ class EventsBudgetController extends Controller
     }
 
     public static function getPackage_by_Id($id){
-        return $supplier = Package::where('package_id', '=',$id)->first();
+        return $supplier = PackageModel::where('package_id', '=',$id)->first();
     }
 
     /**

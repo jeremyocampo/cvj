@@ -42,7 +42,7 @@ Route::post('event_budgets/','EventsBudgetController@create')->name("post.event_
 
 //Personnel API
 Route::get('avail_personnels/{event_id}','EventsBudgetController@get_available_personnel')->name("get.personnels");
-Route::get('add_personnel/{emp_id}/{event_id}','EventsBudgetController@save_personnel')->name("get.personnels");
+Route::get('add_personnel/{emp_id}/{event_id}','EventsBudgetController@save_personnel')->name("post.personnels");
 
 //Gmail API
 Route::get('send_mail','MailController@index');
