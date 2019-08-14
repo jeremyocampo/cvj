@@ -84,7 +84,7 @@
                                                             <h6 class="text-overflow m-0">{{ __('Please Select an Action!') }}</h6>
                                                         </div>
                                                         <div class="dropdown-divider"></div>
-                                                        <a href="{{ url('outsource/'.$b->sku) }}" class="dropdown-item">
+                                                        <a href="{{ url('outsource/'.$b->inventory_id) }}" class="dropdown-item">
                                                             <i class="ni ni-zoom-split-in"></i>
                                                             <span>{{ __('View Outsource Details') }}</span>
                                                     </div>

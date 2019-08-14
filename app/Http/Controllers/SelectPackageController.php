@@ -22,10 +22,6 @@ class SelectPackageController extends Controller
      */
     public function index($event_id)
     {
-<<<<<<< HEAD
-        return view('selectpackages');
-        // return 1;
-=======
         $event = Event::where('event_id','=',$event_id)->first();
         $client_id = Auth::id();
         $packages = PackageModel::where('suggested_pax','>=',$event->totalpax)->get();
@@ -42,7 +38,6 @@ class SelectPackageController extends Controller
 
         }
         return view('selectPackage',['packages'=>$packages,'event'=>$event,'user_id'=>$client_id]);
->>>>>>> 5ee7ab0992f2ad344771d24f2231bc348d9c6e5c
         
     }
 

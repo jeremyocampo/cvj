@@ -35,31 +35,31 @@ class OutsourcingController extends Controller
         // ->where('event_outsource_item.status', '=', 'Ordered')
         // ->get();
 
-        // $outsource = DB::table('event')
-        // // ->join('event', 'event_outsource_item.event_id', '=', 'event.event_id')
-        // ->join('event_outsource_item', 'event.event_id', '=', 'event_outsource_item.event_id')
-        // ->join('outsourced_item', 'event_outsource_item.outsourced_item_id', '=', 'outsourced_item.outsourced_item_id')
-        // ->join('supplier', 'outsourced_item.supplier_id', '=', 'supplier.supplier_id')
-        // // ->join('inventory', 'outsourced_item.item_name', '=', 'inventory.inventory_name')
-        // ->where('event_outsource_item.status', '=', 'Ordered')
-        // ->get();
-
-        $outsource = DB::table('inventory')
+        $outsource = DB::table('event')
         // ->join('event', 'event_outsource_item.event_id', '=', 'event.event_id')
-        // ->join('event_outsource_item', 'event.event_id', '=', 'event_outsource_item.event_id')
-        
-        ->join('outsourced_item', 'inventory.inventory_name', '=', 'outsourced_item.item_name')
-        ->join('event_outsource_item', 'outsourced_item.outsourced_item_id', '=', 'event_outsource_item.outsourced_item_id')
+        ->join('event_outsource_item', 'event.event_id', '=', 'event_outsource_item.event_id')
+        ->join('outsourced_item', 'event_outsource_item.outsourced_item_id', '=', 'outsourced_item.outsourced_item_id')
         ->join('supplier', 'outsourced_item.supplier_id', '=', 'supplier.supplier_id')
-        ->join('event', 'event_outsource_item.event_id', '=', 'event.event_id')
         // ->join('inventory', 'outsourced_item.item_name', '=', 'inventory.inventory_name')
         ->where('event_outsource_item.status', '=', 'Ordered')
-        // ->where('inventory.inventory_id', '=', 'outsourced_item.inventory_id')
-        ->select('*')
         ->get();
 
+        // $outsource = DB::table('inventory')
+        // // ->join('event', 'event_outsource_item.event_id', '=', 'event.event_id')
+        // // ->join('event_outsource_item', 'event.event_id', '=', 'event_outsource_item.event_id')
+        
+        // ->join('outsourced_item', 'inventory.inventory_name', '=', 'outsourced_item.item_name')
+        // ->join('event_outsource_item', 'outsourced_item.outsourced_item_id', '=', 'event_outsource_item.outsourced_item_id')
+        // ->join('supplier', 'outsourced_item.supplier_id', '=', 'supplier.supplier_id')
+        // ->join('event', 'event_outsource_item.event_id', '=', 'event.event_id')
+        // // ->join('inventory', 'outsourced_item.item_name', '=', 'inventory.inventory_name')
+        // ->where('event_outsource_item.status', '=', 'Ordered')
+        // // ->where('inventory.inventory_id', '=', 'outsourced_item.inventory_id')
+        // ->select('*')
+        // ->get();
+
         $needToOutsource = DB::table('event')
-        // ->join('event_inventory', 'event.event_id', '=', 'event_inventory.event_id')
+        ->join('event_inventory', 'event.event_id', '=', 'event_inventory.event_id')
         // ->join('inventory', 'event_inventory.inventory_id', '=', 'inventory.inventory_id')
         ->join('package', 'event.package_id', '=', 'package.package_id')
         // ->where('event_inventory.full', '=', 0)
