@@ -69,8 +69,9 @@ Route::get('admin/routes', 'AdminController@admin')->middleware('admin');
 Route::resource('bookevent', 'BookEventController');
 
 Route::get('selectpackages/{event_id}', 'SelectPackageController@index')->name('get.selectpackages');
-Route::post('postselectpackages/', 'SelectPackageController@create')->name('post.selectpackages');
-Route::get('customize_package/{event_id}/{package_id?}', 'SelectPackageController@index')->name('customize_package');
+Route::post('postselectpackages/', 'SelectPackageController@store')->name('post.selectpackages');
+Route::get('customize_package/{event_id}/{package_id?}', 'SelectPackageController@show')->name('customize_package');
+Route::post('customize_package', 'SelectPackageController@store')->name('post.customize_package');
 Route::resource('clientregister', 'ClientRegisterController');
 
 Route::resource('inventoryDash', 'InventoryHomeController');

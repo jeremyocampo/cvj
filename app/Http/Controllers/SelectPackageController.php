@@ -37,7 +37,7 @@ class SelectPackageController extends Controller
             //$package->inventory = inventory::whereIn('inventory_id',$inv_items)->get();
 
         }
-        return view('selectPackage',['packages'=>$packages,'event'=>$event,'user_id'=>$client_id]);
+        return view('selectPackage',['packages'=>$packages->reverse(),'event'=>$event,'user_id'=>$client_id]);
         
     }
 
@@ -46,9 +46,45 @@ class SelectPackageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store()
+    public function store(Request $request)
     {
-        //
+        //chosen_invs,inv_qty,chosen_dishes,
+        $package = new PackageModel();
+        $package->package_name = $request->input("package_name");
+        $package->package_client_id = $request->input("client_id");
+        $package->package_img_url = 'img/default.jpg';
+        $package->suggested_pax = $request->input("suggested_pax");
+        $package->price = 0.0;
+        $package->save();
+        error_log("saved: ".$package);
+
+        error_log("saved: ".$package->package_id);
+
+        for($i=0; $i<count($request->input("chosen_invs"));$i++){
+            $package_inventory = new PackageInventory();
+            $inv = inventory::where('inventory_id','=',$request->get("chosen_invs")[$i])->first();
+
+            $package_inventory->package_id = $package->package_id;
+            $package_inventory->inventory_id = $inv->inventory_id;
+            $package_inventory->category_id = $inv->category;
+            $package_inventory->rent_cost = $inv->rental_cost;
+            $package_inventory->quantity = $request->get("inv_qty")[$i];
+
+            $package_inventory->save();
+            $package->price += $package_inventory->rent_cost * $package_inventory->quantity;
+        }
+        for($i=0; $i<count($request->input("chosen_dishes"));$i++){
+            $package_item = new PackageItem();
+            $itn = Items::where('item_id','=',$request->get("chosen_dishes")[$i])->first();
+            $package_item->package_id = $package->package_id;
+            $package_item->item_id = $itn->item_id;
+            $package_item->computed_cost = $itn->unit_cost * $package->suggested_pax;
+            $package_item->save();
+            $package->price += $package_item->computed_cost;
+        }
+        $package->save();
+
+        return redirect('selectpackages/'.$request->input("event_id"));
     }
 
     /**
@@ -106,9 +142,31 @@ class SelectPackageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($event_id, $package_id=null)
     {
-        //
+        $package = null;
+        $event = events::where('event_id','=',$event_id)->first();
+        $client_id = Auth::id();
+        if($package_id != null){
+            $package = PackageModel::where('package_id','=',$package_id)->first();
+            $food_items =PackageItem::where('package_id','=',$package->package_id)->select('item_id')->get();
+            $food_items =$food_items->toArray();
+            $package->foods = Items::whereIn('item_id',$food_items)->get();
+            $package->inventory = PackageInventory::where('package_id','=',$package->package_id)->get();
+            foreach ($package->inventory as $inventory){
+                $inventory->inventory_name = inventory::where('inventory_id','=',$inventory->inventory_id)->first()->inventory_name;
+            }
+            $inv_items = PackageInventory::where('package_id','=',$package->package_id)->select('inventory_id')->get();
+            $inv_items = $inv_items->toArray();
+
+            $avail_foods = Items::whereNotIn('item_id',$food_items)->get();
+            $avail_invs = inventory::whereNotIn('inventory_id',$inv_items)->get();
+        }
+        else{
+            $avail_foods = Items::all();
+            $avail_invs = inventory::all();
+        }
+        return view('customizePackage',['user_id'=>$client_id,'package'=>$package,'event'=>$event,'avail_foods'=>$avail_foods,'avail_invs'=>$avail_invs]);
     }
 
     /**
