@@ -54,7 +54,7 @@ class SelectPackageController extends Controller
         $package->package_client_id = $request->input("client_id");
         $package->package_img_url = 'img/default.jpg';
         $package->suggested_pax = $request->input("suggested_pax");
-        $package->price = 0.0;
+        $package->price = $request->input("venue_price");
         $package->save();
         error_log("saved: ".$package);
 
@@ -145,6 +145,11 @@ class SelectPackageController extends Controller
     public function show($event_id, $package_id=null)
     {
         $package = null;
+        $venue_cost_table = array("CVJ Clubhouse Ground Floor"=>15000,
+                                  "CVJ Clubhouse Second Floor"=>20000,
+                                  "CVJ Clubhouse Third Floor"=>22000
+                                  );
+
         $event = events::where('event_id','=',$event_id)->first();
         $client_id = Auth::id();
         if($package_id != null){
@@ -166,7 +171,7 @@ class SelectPackageController extends Controller
             $avail_foods = Items::all();
             $avail_invs = inventory::all();
         }
-        return view('customizePackage',['user_id'=>$client_id,'package'=>$package,'event'=>$event,'avail_foods'=>$avail_foods,'avail_invs'=>$avail_invs]);
+        return view('customizePackage',['venue_price'=>$venue_cost_table[$event->venue],'user_id'=>$client_id,'package'=>$package,'event'=>$event,'avail_foods'=>$avail_foods,'avail_invs'=>$avail_invs]);
     }
 
     /**

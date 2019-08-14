@@ -107,6 +107,9 @@
                                         <div>
                                             <label>Inventory Total: P<span id="inv_total_text">...</span></label>
                                         </div>
+                                        <div>
+                                            <label>Venue Cost: P<span id="venue">{{$venue_price}}</span></label>
+                                        </div>
                                         <hr style="margin: 0;">
                                         <h3 style="margin-top: 0;">Total Package Price: <span id="total_package_price"></span></h3>
                                     </div>
@@ -116,9 +119,9 @@
                                 {{csrf_field()}}
                                 <input type="hidden" value="{{$event->event_id}}" name="event_id">
                                 <input type="hidden" value="{{$user_id}}" name="client_id">
+                                <input type="hidden" value="{{$venue_price}}" name="venue_price">
                                 <div class="row">
                                     <div class="col-md-6">
-
                                         <div class="col" style="margin-bottom: 2vh;">
                                             <h3 class="mb-0" style="display: inline">Package Dishes</h3>
                                             <a style="display: inline;color:white" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#dishesModal">+ Add Dishes</a>
@@ -186,6 +189,7 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 <script>
     let total_pax = {{$event->totalpax}};
+    let venue = {{$venue_price}};
     let inv_subtotal = 0;
     let food_subtotal = 0;
     $(document).ready(function () {
@@ -277,7 +281,7 @@
     function compute_total_package_price(){
         compute_inv_qtys();
         compute_food_total();
-        $("#total_package_price").html('P'+(parseFloat(inv_subtotal)+parseFloat(food_subtotal)));
+        $("#total_package_price").html('P'+(venue+parseFloat(inv_subtotal)+parseFloat(food_subtotal)));
     }
 </script>
 @endsection

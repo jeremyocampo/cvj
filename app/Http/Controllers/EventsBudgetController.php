@@ -16,6 +16,8 @@ use App\inventory;
 use Response;
 use App\categoryRef;
 use App\OutsourcedItem;
+
+use App\PackageItem;
 use App\EventBudgetTemplate;
 use App\EventBudgetTemplateItem;
 use App\EventBudgetItem;
@@ -250,6 +252,12 @@ class EventsBudgetController extends Controller
         foreach(PackageMiscItem::where('package_id','=',$package->package_id)->get() as $misc){
             array_push($return_item,array('budg_name'=>$misc->name,'budget_amount'=>($misc->unit_cost * $misc->quantity),'mark'=>'misc'));
         }
+        $food_total = 0;
+        foreach(PackageItem::where('package_id','=',$package->package_id)->get() as $food){
+            $food_total += $food->computed_cost;
+        }
+            array_push($return_item,array('budg_name'=>'Food Expenses','budget_amount'=>($food_total),'mark'=>'misc'));
+
         $outsourced_items = DB::table('event_outsource_item')->where('event_id', '=',$event_id)->get();
         $total_outsource = 0;
         if(count($outsourced_items)>0){
