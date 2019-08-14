@@ -49,7 +49,12 @@
                                         @endif
                                     </td>
                                     <td>
-                                        Items are overspent.
+                                        @if( ($event->total_budget - $event->total_spent) >= 0)
+                                            <p> Items are in budget.</p>
+                                        @else
+                                            <p> Items are overspent.</p>
+                                        @endif
+                                       
                                     </td>
                                     <td>
                                         <a href="/event_budgets/view/{{$event->event_id}}">
@@ -123,7 +128,7 @@
             <div class="modal-content">
                     {{csrf_field()}}
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add New Budget Template</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Assign Employee to Event</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

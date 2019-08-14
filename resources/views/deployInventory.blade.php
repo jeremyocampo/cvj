@@ -15,9 +15,6 @@
                                         <div class="col-6">
                                             <h1 class="mb-0">Deploy Inventory</h1>
                                         </div>
-                                        <div class="col-xs-4">
-                                            <a href="outsource/create" class="btn btn-sm btn-primary"> + Request Outsource</a>
-                                        </div>
                                         <div class="col">
                                         </div>
                                         <div class="col">
@@ -45,7 +42,6 @@
                                                     <th scope="col">Venue</th>
                                                     <th scope="col">Borrow Date/Time</th>
                                                     <th scope="col">Return Date/Time</th>
-                                                    <th scope="col">Status</th>
                                                     <th scope="col">Action</th>
                                                 </tr>
                                             </thead>
@@ -57,49 +53,51 @@
                                                     <td>{{ $i->venue }}</td>
                                                     <td>{{ Carbon\Carbon::parse($i->event_start)->format('F j, Y g:i a') }}</td>
                                                     <td>{{ Carbon\Carbon::parse($i->event_end)->format('F j, Y g:i a') }}</td>
-                                                    <td>{{ $i->status_name}} </td>
                                                     <td>
-                                                        <a class="" href="{{ url('deploy/'.$i->event_id) }}" >
-                                                            
-                                                            <button class="btn btn-block btn-sm"><i class="ni ni-zoom-split-in"></i> &nbsp; View Event Details</button>
-                                                            {{-- <span>{{ __('View Event Details') }}</span> --}}
-                                                        </a>
-                                                        {{-- <div class="dropdown">
-                                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                Action
-                                                            </button>
-                                                            <div class="dropdown-menu dropdown-menu-arrow dropdown-menu">
-                                                                <div class=" dropdown-header noti-title">
-                                                                    <h6 class="text-overflow m-0">{{ __('Please Select an Action!') }}</h6>
+                                                            <a class="" href="{{ url('deploy/'.$i->event_id) }}" >
+                                                                {{-- <i class="ni ni-zoom-split-in"></i> --}}
+                                                                <button class="btn btn-block btn-sm">Deploy Inventory</button>
+                                                                {{-- <span>{{ __('View Event Details') }}</span> --}}
+                                                            </a>
+                                                            {{-- <div class="dropdown">
+                                                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                    Action
+                                                                </button>
+                                                                <div class="dropdown-menu dropdown-menu-arrow dropdown-menu">
+                                                                    <div class=" dropdown-header noti-title">
+                                                                        <h6 class="text-overflow m-0">{{ __('Please Select an Action!') }}</h6>
+                                                                    </div>
+                                                                    <div class="dropdown-divider"></div>
+                                                                    <a href="{{ url('returnInventory/'.$i->event_id) }}" class="dropdown-item">
+                                                                        <i class="ni ni-zoom-split-in"></i>
+                                                                        <span>{{ __('View Event Details') }}</span>
+                                                                    </a>
+                                                                    <a href="" class="dropdown-item" onclick="event.preventDefault();
+                                                                        document.getElementById('delete-form-{{ $i->event_name }}').submit();">
+                                                                        <i class="ni ni-fat-remove"></i>
+                                                                        <span>{{ __('Remove from Inventory') }}</span>
+                                                                        {!! Form::open(['action' => ['InventoryController@destroy', $i->event_name], 'method' => 'POST', 'id' => 'delete-form-'.$i->inventory_id]) !!}
+                                                                            {{ Form::hidden('_method','DELETE')}}
+                                                                        {!! Form::close() !!}
+                                                                    </a>
                                                                 </div>
-                                                                <div class="dropdown-divider"></div>
-                                                                <a href="{{ url('returnInventory/'.$i->event_id) }}" class="dropdown-item">
-                                                                    <i class="ni ni-zoom-split-in"></i>
-                                                                    <span>{{ __('View Event Details') }}</span>
-                                                                </a>
-                                                                <a href="" class="dropdown-item" onclick="event.preventDefault();
-                                                                    document.getElementById('delete-form-{{ $i->event_name }}').submit();">
-                                                                    <i class="ni ni-fat-remove"></i>
-                                                                    <span>{{ __('Remove from Inventory') }}</span>
-                                                                    {!! Form::open(['action' => ['InventoryController@destroy', $i->event_name], 'method' => 'POST', 'id' => 'delete-form-'.$i->inventory_id]) !!}
-                                                                        {{ Form::hidden('_method','DELETE')}}
-                                                                    {!! Form::close() !!}
-                                                                </a>
-                                                            </div>
-                                                        </div> --}}
-                                                    </td>
+                                                            </div> --}}
+                                                        </td>
+                                                    
                                                 </tr>
                                                 
                                                 @endif
                                                 @endforeach
                                             </tbody>
                                         </table>
+                                        
                                 </div>
 
                                 
                                 </div>
                         <div class="card-footer text-muted">
                             <div class="text-right">
+                                    {{-- <a href="{{ url('deploy')}}" class="btn btn-success">Deploy</a> --}}
                                     <a href="{{ url('inventory')}}" class="btn btn-default">Back</a>
                                     {{-- {{Form::hidden('_method', 'PUT')}} --}}
                             </div>

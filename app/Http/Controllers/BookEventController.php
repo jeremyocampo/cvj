@@ -172,9 +172,11 @@ class BookEventController extends Controller
     $event->save();
     $gevent->save();
 
+    
+
     self::send_email(auth()->user()->name,"jeremy_ocampojr@dlsu.edu.ph", $request->input('eventName'));
     
-    return redirect('/selectpackages')
+    return redirect('/selectpackages/' . $event->event_id)
     ->with('success', "Event details saved!");
     
         

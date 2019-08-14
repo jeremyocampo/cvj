@@ -44,7 +44,6 @@ class ReturnInventoryController extends Controller
                 array_push($finishedEvents, $i);
             }
         }
-
         return view('returnInventory',['events' => $finishedEvents]);
     }
 
@@ -88,6 +87,7 @@ class ReturnInventoryController extends Controller
         ->join('color','inventory.color','=','color.color_id')
         ->join('client', 'event.client_id', '=', 'client.client_id')
         ->join('event_status_ref', 'event.status', '=', 'event_status_ref.status_id')
+        ->where('')
         ->get();
 
         // dd($borrowedItems);

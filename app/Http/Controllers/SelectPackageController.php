@@ -49,6 +49,7 @@ class SelectPackageController extends Controller
     public function store(Request $request)
     {
         //chosen_invs,inv_qty,chosen_dishes,
+        // dd($request);
         $package = new PackageModel();
         $package->package_name = $request->input("package_name");
         $package->package_client_id = $request->input("client_id");
@@ -84,7 +85,7 @@ class SelectPackageController extends Controller
         }
         $package->save();
 
-        return redirect('selectpackages/'.$request->input("event_id"));
+        return redirect('selectpackages/'.$request->input("event_id"))->with('success', 'Custom Package Created!');
     }
 
     /**
@@ -98,6 +99,24 @@ class SelectPackageController extends Controller
         $event = events::where('event_id','=',$request->input('event_id'))->first();
         $event->package_id = $request->input('package_id');
         $event->save();
+
+        // $package_inventory = DB::table('event_inventory')
+        // ->
+        // ->update([
+        // ]);
+        // $package_inventory = new PackageInventory();
+        // $inv = inventory::where('inventory_id','=',$request->get("chosen_invs")[$i])->first();
+
+        // $package_inventory->package_id = $package->package_id;
+        // $package_inventory->inventory_id = $inv->inventory_id;
+        // $package_inventory->category_id = $inv->category;
+        // $package_inventory->rent_cost = $inv->rental_cost;
+        // $package_inventory->quantity = $request->get("inv_qty")[$i];
+
+        // $package_inventory->save();
+        // $package->price += $package_inventory->rent_cost * $package_inventory->quantity;
+
+
         /*
         $appetizersSelected = array();
         //FOR APPETIZERS
@@ -133,7 +152,7 @@ class SelectPackageController extends Controller
         // ->with('client', $client)
         // ->with('packages', $packages);
 */
-        return redirect('/home');
+        return redirect('/home')->with('success', 'Event Package Selected');
     }
 
     /**
