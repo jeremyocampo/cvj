@@ -39,8 +39,16 @@ class ConfirmEventsController extends Controller
         // $event->save();
 
         // get all future events on a calendar
-        $events = Event::get();
-        return view('confirmevents', ['events' => $events]);
+        // $events = Event::get();
+
+        $eventdetails = DB::table('event')
+        // ->join('reserve_venue','event.reservation_id','=','reserve_venue.reservation_id')
+        ->join('event_status_ref', 'event.status', '=', 'event_status_ref.status_id')
+        ->select('*')
+        ->where('event.status', '=', '1')
+        ->get();
+        // dd($eventdetails);
+        return view('confirmevents', [ 'eventdetails' => $eventdetails]);
 
     }
 
@@ -51,7 +59,7 @@ class ConfirmEventsController extends Controller
      */
     public function create()
     {
-        //
+       
     }
 
     /**
@@ -62,13 +70,43 @@ class ConfirmEventsController extends Controller
      */
     public function store(Request $request)
     { 
-        //
-        // create a new event
-        // Event::create([
-        // 'name' => 'A new event',
-        // 'startDateTime' => Carbon\Carbon::now(),
-        // 'endDateTime' => Carbon\Carbon::now()->addHour(),
-        // ]);
+        dd($request->input('event'));
+        if ($request->has('approve')) {
+            //handle form1
+            $this->validate($request, [
+                'amount' => 'required|number|min:20000',
+                'receipt'     =>  'required|image|mimes:jpeg,png,jpg|max:2048'
+                
+            ]);
+            $billing = DB::table('billing')
+            ->update([
+                'event_billed' => $request->input('eventID')
+            ])
+            $payment = DB::table('payment')
+            ->update([
+                'billing_id' => $request->input('eventID'),
+                'payment_amount' => $request->input('amount'),
+                'date_paid' => Carbon::now(),
+                'receipt' => $request->input('reciept')
+
+            ]);
+            // $billing->save();
+
+            $event = DB::table('event')
+            ->update([
+                ''
+
+            ]);
+        }
+        
+        else if ($request->has('decline')) {
+            //handle form2
+
+        }
+
+        
+       
+    
     }
 
     /**

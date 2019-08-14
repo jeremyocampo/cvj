@@ -24,7 +24,6 @@ Route::get('inventory/deploy', 'InventoryController@deploy');
 Route::resource('inventory','InventoryController');
 Route::resource('deploy','DeployInventoryController');
 Route::resource('events', 'EventsController');
-Route::resource('/roset', 'Roset');
 Route::resource('calendar', 'Calendar');
 
 
@@ -35,6 +34,7 @@ Route::resource('event_costing','EventsCostingController');
 //Event Budget Template
 Route::get('event_budget_template','EventsBudgetTemplateController@index')->name("event_budget_template");
 Route::post('event_budget_template','EventsBudgetTemplateController@store')->name('post.event_budget_template');
+
 //Event Budget
 Route::get('event_budgets','EventsBudgetController@index')->name("event_budgets");
 Route::get('event_budgets/view/{event_id}','EventsBudgetController@show')->name("get.event_budgets");
@@ -50,10 +50,6 @@ Route::get('email/{send_name}/{send_email}/{subject}','MailController@send_email
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
-
-//Rosette's Routes.
-Route::resource('bookevent', 'BookEventController');
-Route::resource('selectpackages', 'SelectPackageController');
 
 Route::resource('outsource', 'OutsourcingController');
 Route::resource('ingredient', 'IngredientController');

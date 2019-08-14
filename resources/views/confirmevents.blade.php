@@ -7,7 +7,7 @@
 	<div class="card-body">
 		<div class="col-xl-12 mb-5 mb-xl-0">
 				<div class="card shadow">
-						{!! Form::open(['action' => 'InventoryController@store', 'method' => 'POST', 'autocomplete' =>'off']) !!}
+						{{-- {!! Form::open(['action' => 'ConfirmEventsController@update', 'method' => 'POST', 'autocomplete' =>'off']) !!} --}}
 						<div class="card-header">
 								<div class="row align-items-center">
 									<div class="col">
@@ -39,26 +39,27 @@
 												{{-- <th>Event ID</th> --}}
 												<th>Event Name</th>
 												<th>Venue</th>
-												<th>Start Date/Time</th>
-												<th>End Date/Time</th>
+												<th>Event Type</th>
+												<th>Event Date</th>
 												{{-- <th>Description</th> --}}
-												<th >Action</th>
+												<th>Action</th>
 											</tr>
 										</thead>
 										<tbody>
-											@foreach ($events as $i)
-											{{-- @if($i->status > 0) --}}
+											@foreach ($eventdetails as $i)
+                                            {{-- @if($i->status > 0) --}}
+                                            
 											<tr>
 												{{-- <td> {{ $i->id}}</td> --}}
-												<td> {{ $i->name }}</td>
-												<td> {{ $i->location }}</td>
-												<td> {{ $i->startDateTime }}</td>
-												<td> {{ $i->endDateTime }}</td>
+												<td> {{ $i->event_name }}</td>
+												<td> {{ $i->venue }}</td>
+												<td> {{ $i->event_type }}</td>
+												<td> {{ $i->event_start }}</td>
 											{{-- <td> {{ $i->description }}</td> --}}
 												<td>
 													
-													<button class="btn btn-success" data-toggle="modal" data-target="#approve-modal">Approve</button>
-													<button class="btn btn-danger" data-toggle="modal" data-target="#decline-modal">Decline</button>
+                                                <button class="btn btn-success"  data-toggle="modal" data-target="#approve-modal" value="{{$i->event_id}}" onclick="getevent(this)"> Approve</button>
+												<button class="btn btn-danger"   data-toggle="modal" data-target="#decline-modal" value="{{$i->event_id}}"  onclick="getevent(this)"> Decline </button>
 												</td>
 											</tr>
 											{{-- @endif --}}
@@ -67,7 +68,8 @@
 									</table>
 								</div>
 
-
+                                {!! Form::open(['action' => 'ConfirmEventsController@store', 'method' => 'POST', 'autocomplete' =>'off']) !!}
+                                <input type="hidden" id="eventID" name="event">
 								<div class="modal fade" id="approve-modal">
 										<div class="modal-dialog">
 										  <div class="modal-content">
@@ -77,23 +79,29 @@
 												<span aria-hidden="true">&times;</span>
 											  </button>
 											  
-											</div>
+                                            </div>
+                                            
 											<div class="modal-body">
-											 	<input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
 												<div class="box-body">
 				
 												  <div class="form-group">
 													<label > <h3>  Amount </h3> </label> 
 													{{ Form::number('amount', '', ['class' => 'form-control', 'placeholder' => '0.00', 'step'=>'0.01', 'min'=>'20000','required' => 'true'])}}
 													
-												  </div> 
-				
+                                                  </div> 
+                                                  <div class="form-group">
+                                                        <label > <h3>  Upload Reciept </h3> </label> 
+                                                        <br>
+                                                         {!! Form::file('reciept') !!}
+                                                </div>
 												</div>
 				
 				
 												<div class="modal-footer">
-												  <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-												  <button type="submit" class="btn btn-success">Submit</button>
+                                                  <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                                                  
+                                                  {{-- <input type="submit" value="approve" name="approve">Submit</button> --}}
+                                                  {{ Form::submit('Confirm', ['class' => 'btn btn-success']) }}
 												</div>
 											  
 											</div>
@@ -103,6 +111,7 @@
 
 
 									  <div class="modal fade" id="decline-modal">
+                                          
 											<div class="modal-dialog">
 											  <div class="modal-content">
 												<div class="modal-header">
@@ -125,11 +134,13 @@
 					
 					
 													<div class="modal-footer">
-													  <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                                                      <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                                                      
+                                                      {{-- <input type="submit" value="decline" name="decline">Submit</button> --}}
 													  {{ Form::submit('Submit', ['class' => 'btn btn-success']) }} 
-                                                                    
+{{--                                                                     
                                                       {{ Form::hidden('_method','DELETE')}}
-																{!! Form::close() !!}
+																{!! Form::close() !!} --}}
 													</div>
 												  
 												</div>
@@ -158,36 +169,22 @@
 @endsection
 
 <script>
-	function getSelected(){
+    
 
-		// // get references to select list and display text box
-		// var sel = document.getElementById('category');
-		// var el = document.getElementById('display');
+	
 
-		// function getSelectedOption(sel) {
-		// 	var opt;
-		// 	for ( var i = 0, len = sel.options.length; i < len; i++ ) {
-		// 		opt = sel.options[i];
-		// 		if ( opt.selected === true ) {
-		// 			break;
-		// 		}
-		// 	}
-		// 	return opt;
-		}
+</script>
 
-		// assign onclick handlers to the buttons
-		// document.getElementById('showVal').onclick = function () {
-		// 	el.value = sel.value;    
-		// }
-	}
-	$('#selectField').change(function(){
-    if($('#selectField').val() == 'N'){
-        $('#secondaryInput').hide();
-    } else {
-        $('#secondaryInput').show();
-	}
-	});
+<script>
+    function getevent(obj){
+        var event = $(obj).attr('value');
+        // alert(event);
+        document.getElementById('eventID').value = event;
+        // $("eventID").val(event);   
+        
+    // alert(document.getElementById('eventID').value, ' YES');
 
+    } 
 
 </script>
 {{-- <script>

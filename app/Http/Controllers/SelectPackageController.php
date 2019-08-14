@@ -35,10 +35,9 @@ class SelectPackageController extends Controller
                 $inventory->inventory_name = inventory::where('inventory_id','=',$inventory->inventory_id)->first()->inventory_name;
             }
             //$package->inventory = inventory::whereIn('inventory_id',$inv_items)->get();
-
         }
         return view('selectPackage',['packages'=>$packages,'event'=>$event,'user_id'=>$client_id]);
-        
+       
     }
 
     /**
