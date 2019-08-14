@@ -67,7 +67,6 @@
 										</tbody>
 									</table>
 								</div>
-
                                 {!! Form::open(['action' => 'ConfirmEventsController@store', 'method' => 'POST', 'autocomplete' =>'off']) !!}
                                 <input type="hidden" id="eventID" name="event">
 								<div class="modal fade" id="approve-modal">
@@ -90,9 +89,10 @@
 													
                                                   </div> 
                                                   <div class="form-group">
-                                                        <label > <h3>  Upload Reciept </h3> </label> 
+                                                        <label > <h3>  Upload Payment Reciept </h3> </label> 
                                                         <br>
-                                                         {!! Form::file('reciept') !!}
+                                                         {{-- {!! Form::file('reciept') !!} --}}
+                                                         <input type="file" name="receipt">
                                                 </div>
 												</div>
 				
@@ -101,15 +101,16 @@
                                                   <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
                                                   
                                                   {{-- <input type="submit" value="approve" name="approve">Submit</button> --}}
-                                                  {{ Form::submit('Confirm', ['class' => 'btn btn-success']) }}
+                                                  {{-- {{ Form::submit('Confirm', ['class' => 'btn btn-success']) }} --}}
+                                                  <input type="submit" class="btn btn-md btn-success" value="Approve" name="approve">
 												</div>
 											  
 											</div>
 										  </div>
 										</div>
 									  </div>
-
-
+                                      {!! Form::close() !!}
+                                      {!! Form::open(['action' => 'ConfirmEventsController@store', 'method' => 'POST', 'autocomplete' =>'off']) !!}
 									  <div class="modal fade" id="decline-modal">
                                           
 											<div class="modal-dialog">
@@ -137,10 +138,10 @@
                                                       <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
                                                       
                                                       {{-- <input type="submit" value="decline" name="decline">Submit</button> --}}
-													  {{ Form::submit('Submit', ['class' => 'btn btn-success']) }} 
-{{--                                                                     
-                                                      {{ Form::hidden('_method','DELETE')}}
-																{!! Form::close() !!} --}}
+                                                      {{-- {{ Form::submit('Submit', ['class' => 'btn btn-success']) }}  --}}
+                                                      {{-- {{ Form::hidden('_method','DELETE')}}
+                                                                {!! Form::close() !!} --}}
+                                                                <input type="submit" class="btn btn-sm btn-danger" value="Decline" name="decline">
 													</div>
 												  
 												</div>

@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Requests;
 use Carbon\Carbon;
 use Faker\Generator as Faker;
+use App\billing;
+use App\payment;
 use Spatie\GoogleCalendar\Event;
 
 class ConfirmEventsController extends Controller
@@ -70,43 +72,96 @@ class ConfirmEventsController extends Controller
      */
     public function store(Request $request)
     { 
-        dd($request->input('event'));
-        if ($request->has('approve')) {
-            //handle form1
-            $this->validate($request, [
-                'amount' => 'required|number|min:20000',
-                'receipt'     =>  'required|image|mimes:jpeg,png,jpg|max:2048'
-                
-            ]);
-            $billing = DB::table('billing')
-            ->update([
-                'event_billed' => $request->input('eventID')
-            ])
-            $payment = DB::table('payment')
-            ->update([
-                'billing_id' => $request->input('eventID'),
-                'payment_amount' => $request->input('amount'),
-                'date_paid' => Carbon::now(),
-                'receipt' => $request->input('reciept')
+        // dd($request->input('event'));
+        // dd($request->has('approve'));
 
-            ]);
-            // $billing->save();
+        if ($request->has('approve')) {
+            // $this->validate($request, [
+            //     'amount' => 'required|min:20000',
+            //     'receipt' =>  'required|image|mimes:jpeg,png,jpg|max:2048'
+            // ]);
+           
+            $billing = new billing();
+            $billing->event_billed = $request->input('event');
+            // $billing->price = $request->input('amount');
+            $billing->save();
+
+
+            $payment = new payment();
+            $payment->billing_id = $billing->billing_id;
+            $payment->payment_amount = $request->input('amount');
+            $payment->date_paid = Carbon::now('+8:00');
+
+            if ($request->hasFile('reciept')){
+            //Get filename with the extension
+            $fileNameWithExt = $request->file('receipt');
+            //Get just filename
+            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+            //Get just extension
+            $extension = $request->file('receipt');
+            //File Name to Store    
+                $fileNameToStore = $fileName.'_'.time().'.'.$extension;
+            //Upload Image
+                $path = $request->file('receipt')->storeAs('public/receipt', $fileNameToStore);
+                $payment->receipt = $path;
+                $payment->save();
+            }
+
+            else{
+                $fileNameToStore = 'noimage.jpg';
+            }
+
+
+            
+
+            // if ($request->hasFile('receipt')){
+                // //Get filename with the extension
+                // $fileNameWithExt = $request->file('receipt')->getClientOriginalName();
+                // //Get just filename
+                // $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+                // //Get just extension
+                // $extension = $request->file('receipt')->getClientOriginalExtension();
+                // //File Name to Store
+                // $fileNameToStore = $fileName.'_'.time().'.'.$extension;
+                //Upload Image
+            //     $path = $request->file('receipt')->storeAs('public/receipt', $fileNameToStore);
+            // }
+            // else{
+            //     $fileNameToStore = 'noimage.jpg';
+            // };
+
+
+            // $payment = DB::table('payment')
+            // ->update([
+            //     'billing_id' => $request->input('eventID'),
+            //     'payment_amount' => $request->input('amount'),
+            //     'date_paid' => Carbon::now('+8:00'),
+            //     'receipt' => $request->input('reciept')
+
+            // ]);
+            // // $billing->save();
 
             $event = DB::table('event')
+            ->where('event_id', '=', $request->input('event'))
             ->update([
-                ''
-
+                'status' => 2,
             ]);
+
+            return redirect('confirmevents')->with('success', 'Event Approved!');
         }
         
         else if ($request->has('decline')) {
-            //handle form2
-
+            $event = DB::table('event')
+            ->where('event_id', '=', $request->input('event'))
+            ->update([
+                'status' => 6,
+            ]);
+            return redirect('confirmevents')->with('success', 'Event Declined!');
         }
 
         
        
-    
+        return 1;
     }
 
     /**
