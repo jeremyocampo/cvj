@@ -70,17 +70,13 @@ class ConfirmEventsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    { 
-        // dd($request->input('event'));
-        // dd($request->has('approve'));
-
+    public function store(Request $request) { 
+        // dd($request->has('decline'));
+        $event_idA = $request->input('eventA');
+        $event_idD = $request->input('eventD');
+        // dd($event_idA, $event_idD);
         if ($request->has('approve')) {
-            // $this->validate($request, [
-            //     'amount' => 'required|min:20000',
-            //     'receipt' =>  'required|image|mimes:jpeg,png,jpg|max:2048'
-            // ]);
-           
+                   
             $billing = new billing();
             $billing->event_billed = $request->input('event');
             // $billing->price = $request->input('amount');
@@ -91,6 +87,8 @@ class ConfirmEventsController extends Controller
             $payment->billing_id = $billing->billing_id;
             $payment->payment_amount = $request->input('amount');
             $payment->date_paid = Carbon::now('+8:00');
+
+            
 
             if ($request->hasFile('reciept')){
             //Get filename with the extension
@@ -111,58 +109,42 @@ class ConfirmEventsController extends Controller
                 $fileNameToStore = 'noimage.jpg';
             }
 
-
-            
-
-            // if ($request->hasFile('receipt')){
-                // //Get filename with the extension
-                // $fileNameWithExt = $request->file('receipt')->getClientOriginalName();
-                // //Get just filename
-                // $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
-                // //Get just extension
-                // $extension = $request->file('receipt')->getClientOriginalExtension();
-                // //File Name to Store
-                // $fileNameToStore = $fileName.'_'.time().'.'.$extension;
-                //Upload Image
-            //     $path = $request->file('receipt')->storeAs('public/receipt', $fileNameToStore);
-            // }
-            // else{
-            //     $fileNameToStore = 'noimage.jpg';
-            // };
-
-
-            // $payment = DB::table('payment')
-            // ->update([
-            //     'billing_id' => $request->input('eventID'),
-            //     'payment_amount' => $request->input('amount'),
-            //     'date_paid' => Carbon::now('+8:00'),
-            //     'receipt' => $request->input('reciept')
-
-            // ]);
-            // // $billing->save();
-
             $event = DB::table('event')
-            ->where('event_id', '=', $request->input('event'))
+            ->where('event_id', '=', $event_idA)
             ->update([
                 'status' => 2,
             ]);
 
+            
+
             return redirect('confirmevents')->with('success', 'Event Approved!');
         }
         
-        else if ($request->has('decline')) {
+       if($request->has('decline')) {
             $event = DB::table('event')
-            ->where('event_id', '=', $request->input('event'))
+            ->where('event_id', '=', $event_idD)
             ->update([
                 'status' => 6,
             ]);
+
+            // $event = new events();
+            // $event::where('event_id','=', $request->input('event'));
+            // $event->status = 6;
+            // $event->save();
+
+
+            
+            // dd($request->has('decline'));
+            // dd($event_id);
+            
             return redirect('confirmevents')->with('success', 'Event Declined!');
         }
 
+            
+
         
        
-        return 1;
-    }
+        }
 
     /**
      * Display the specified resource.
@@ -213,9 +195,6 @@ class ConfirmEventsController extends Controller
      */
     public function destroy($id)
     {
-        //
-        // // delete an event
-        // $event->delete();
-        // dd($events);
+       
     }
 }

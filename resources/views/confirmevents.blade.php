@@ -21,12 +21,20 @@
 								</div>
 						</div>
 						<div class="card-body border-0">
-								{{-- @foreach($errors->all() as $error)
+								@foreach($errors->all() as $error)
 								<div class="alert alert-danger" role="alert">
 									<button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">x</span></button>
 										{{ $error }}<br>
 								</div>
-								@endforeach --}}
+                                @endforeach
+                                
+                                @if(session()->has('success'))
+                                    <br>
+                                    <div class="alert alert-success" role="alert">
+                                        <button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">x</span></button>
+                                        {{ session()->get('success') }}<br>
+                                    </div>
+                                @endif
 								<div>
 									<iframe src="https://calendar.google.com/calendar/embed?src=cvjcatering.info%40gmail.com&ctz=Asia%2FManila" style="border: 0" width="100%" height="600" frameborder="0" scrolling="no"></iframe>
 								</div>
@@ -58,8 +66,8 @@
 											{{-- <td> {{ $i->description }}</td> --}}
 												<td>
 													
-                                                <button class="btn btn-success"  data-toggle="modal" data-target="#approve-modal" value="{{$i->event_id}}" onclick="getevent(this)"> Approve</button>
-												<button class="btn btn-danger"   data-toggle="modal" data-target="#decline-modal" value="{{$i->event_id}}"  onclick="getevent(this)"> Decline </button>
+                                                <button class="btn btn-success" data-toggle="modal" data-target="#approve-modal" value="{{$i->event_id}}" onclick="getevent(this)"> Approve</button>
+												<button class="btn btn-danger" data-toggle="modal" data-target="#decline-modal" value="{{$i->event_id}}"  onclick="getevent(this)"> Decline </button>
 												</td>
 											</tr>
 											{{-- @endif --}}
@@ -68,7 +76,7 @@
 									</table>
 								</div>
                                 {!! Form::open(['action' => 'ConfirmEventsController@store', 'method' => 'POST', 'autocomplete' =>'off']) !!}
-                                <input type="hidden" id="eventID" name="event">
+                                <input type="hidden" id="eventIDa" name="eventA">
 								<div class="modal fade" id="approve-modal">
 										<div class="modal-dialog">
 										  <div class="modal-content">
@@ -102,7 +110,7 @@
                                                   
                                                   {{-- <input type="submit" value="approve" name="approve">Submit</button> --}}
                                                   {{-- {{ Form::submit('Confirm', ['class' => 'btn btn-success']) }} --}}
-                                                  <input type="submit" class="btn btn-md btn-success" value="Approve" name="approve">
+                                                  <input type="submit" class="btn btn-md btn-success" value="Approve" name="approve" id = "approve">
 												</div>
 											  
 											</div>
@@ -110,7 +118,10 @@
 										</div>
 									  </div>
                                       {!! Form::close() !!}
+
+
                                       {!! Form::open(['action' => 'ConfirmEventsController@store', 'method' => 'POST', 'autocomplete' =>'off']) !!}
+                                      <input type="hidden" id="eventIDd" name="eventD">
 									  <div class="modal fade" id="decline-modal">
                                           
 											<div class="modal-dialog">
@@ -123,25 +134,18 @@
 												  
 												</div>
 												<div class="modal-body">
-												 	<input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-													<div class="box-body">
+												 	<div class="box-body">
 					
 													  <div class="form-group">
 														{{ Form::textarea('reason', '', ['class' => 'form-control', 'placeholder' => 'Input reason here', 'required' => 'true'])}}
-														
-													  </div> 
+													</div> 
 					
 													</div>
 					
 					
 													<div class="modal-footer">
                                                       <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                                                      
-                                                      {{-- <input type="submit" value="decline" name="decline">Submit</button> --}}
-                                                      {{-- {{ Form::submit('Submit', ['class' => 'btn btn-success']) }}  --}}
-                                                      {{-- {{ Form::hidden('_method','DELETE')}}
-                                                                {!! Form::close() !!} --}}
-                                                                <input type="submit" class="btn btn-sm btn-danger" value="Decline" name="decline">
+                                                       <input type="submit" class="btn btn-md btn-danger"  value="Decline" name="decline" id = "decline">
 													</div>
 												  
 												</div>
@@ -153,9 +157,7 @@
 
 						</div>
 						<div class="card-footer text-muted">
-							{{-- @foreach($subcategoryIds as $subcategoryId)
-								<p>{{$subcategoryId}}</p>
-							@endforeach --}}
+							
 							<div class="text-right">
 								
 								
@@ -169,18 +171,14 @@
 	</div>
 @endsection
 
-<script>
-    
-
-	
-
-</script>
 
 <script>
     function getevent(obj){
         var event = $(obj).attr('value');
         // alert(event);
-        document.getElementById('eventID').value = event;
+        document.getElementById('eventIDa').value = event;
+        document.getElementById('eventIDd').value = event;
+
         // $("eventID").val(event);   
         
     // alert(document.getElementById('eventID').value, ' YES');
@@ -188,64 +186,3 @@
     } 
 
 </script>
-{{-- <script>
-	function filterDropdown(){
-		// alert('hi');
-
-		// var arr = document.getElementById('hiddenArray').value;
-		// alert('hi');
-		var ids = @json($subcategoryIds);
-		var names = @json($subcategoryNames);
-		alert(names);
-		// alert('hi');
-		var a = document.getElementById('category').value;
-		var select = document.getElementById("subcategory");
-		var options;
-
-		
-
-		$("#subcategory").empty();
-
-
-		if(a==1){
-			for( var x=0; x<ids.length; x++){
-				options[x] = names[x];
-				alert(options[x]);
-			}
-		} else if(a==2){
-			var b = 4;
-			for( var x=0; (x+b)<ids.length; x++){
-				options[x] = names[x];
-			}
-		} else if(a==3){
-			var b = 9;
-			for( var x=0; (x+b)<ids.length; x++){
-				options[x] = names[x];
-			}
-		} else{
-			options = [16, 17, 18, 19, 20];
-			
-		}
-
-		
-		// var options = 
-		for(var i = 0; i < options.length; i++) {
-			// alert(i);
-			var opt = options[i];
-			var el = document.createElement("option");
-			el.textContent = opt;
-			el.value = opt;
-			select.appendChild(el);
-		}
-	}
-	// 	var options = $("#DropDownList2").html();
-	// $("#DropDownList1").change(function(e) {
-	// var text = $("#DropDownList1 :selected").text();
-	// $("#DropDownList2").html(options);
-	// if(text == "All") return;
-	// 	$('#DropDownList2 :not([value^="' + text.substr(0, 3) + '"])').remove();
-	// });​
-
-	
-	
-</script> --}}
