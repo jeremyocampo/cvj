@@ -44,7 +44,7 @@
             </div>
             </div>
             <div class="container box">
-                   
+                   {!! Form::open(['action' => 'DateRangeController@index', 'method' => 'POST', 'autocomplete' =>'off']) !!}
                     <div class="panel panel-default">
                      <div class="panel-heading">
                       <div class="row">
@@ -52,7 +52,7 @@
                        <div class="col-md-5">
                         <div class="input-group input-daterange">
                                 &nbsp;<input type="date" name="from_date" id="from_date"  class="form-control" /> &nbsp;
-                            <div class="input-group-addon">  &nbsp;  to   &nbsp; </div> 
+                            <div>  &nbsp;  to   &nbsp; </div> 
                             &nbsp;<input type="date" name="to_date" id="to_date"  class="form-control" />  &nbsp;
                         </div>
                         <br>
@@ -67,95 +67,117 @@
                      </div>
                      <div class="panel-body">
                       <div class="table-responsive">
-                       <table class="table table-striped table-bordered">
-                        <thead>
-                         <tr>
-                          <th width="35%">Event Name</th>
-                          <th width="50%">Availed Package</th>
-                          <th width="15%">Expected Cost</th>
-                          <th width="15%">Actual Cost</th>
-                         </tr>
-                        </thead>
-                        <tbody>
-                        
-                        </tbody>
-                       </table>
-                       {{ csrf_field() }}
+                            <div class="table-responsive mb-3">
+									<!-- Projects table -->
+									
+									<table class="table table-bordered align-items-center table-flush mb-4" id="myTable">
+										<thead class="thead-light">
+											<tr>
+												{{-- <th>Event ID</th> --}}
+												<th>Event Name</th>
+												<th>Availed Package</th>
+												<th>Expected Cost</th>
+												<th>Actual Cost</th>
+												{{-- <th>Description</th> --}}
+												
+											</tr>
+										</thead>
+										<tbody>
+											@foreach ($eventdetails as $i)
+                                            {{-- @if($i->status > 0) --}}
+                                            
+											<tr>
+												{{-- <td> {{ $i->id}}</td> --}}
+												<td> {{ $i->event_name }}</td>
+												<td> {{ $i->package_name }}</td>
+												<td> {{ $i->total_budget }}</td>
+												<td> {{ $i->total_spent }}</td>
+											{{-- <td> {{ $i->description }}</td> --}}
+												
+											</tr>
+											{{-- @endif --}}
+											@endforeach
+										</tbody>
+									</table>
+                                    {!! Form::close() !!}
                       </div>
                      </div>
                     </div>
                    </div>
+
+                   
+                   <center><h4>--- END OF REPORT ---</h4></center>
                   </body>
                  </html>
 
 
                  @endsection
 
-                <script>
+                {{-- <script>
                 
-                 $(document).ready(function(){
-                    echo '{!! Form::open(['action' => 'DateRangeController@index', 'method' => 'POST']) !!}';
-                  var date = new Date();
+                //  $(document).ready(function(){
+                //     echo "{!! Form::open(['action' => 'DateRangeController@index', 'method' => 'POST']) !!}";
+                //   var date = new Date();
                  
-                  $('.input-daterange').datepicker({
-                   todayBtn: 'linked',
-                   format: 'yyyy-mm-dd',
-                   autoclose: true
-                  });
+                //   $('.input-daterange').datepicker({
+                //    todayBtn: 'linked',
+                //    format: 'yyyy-mm-dd',
+                //    autoclose: true
+                //   });
                  
-                  var _token = $('input[name="_token"]').val();
+                //   var _token = $('input[name="_token"]').val();
                  
-                  fetch_data();
+                //   fetch_data();
                  
-                  function fetch_data(from_date = '', to_date = '')
-                  {
-                   $.ajax({
-                    url:"{{ route('daterange.fetch_data') }}",
-                    method:"POST",
-                    data:{from_date:from_date, to_date:to_date, _token:_token},
-                    dataType:"json",
-                    success:function(data)
-                    {
-                     var output = '';
-                    //  $('#total_records').text(data.length);
-                    echo '@foreach($event as $event)';
-                     for(var count = 0; count < data.length; count++)
-                     { 
-                      output += '<tr>';
-                      output += '<td>' + data[count].echo'{{$event->event_name}}' + '</td>';
-                      output += '<td>' + data[count].echo'{{$event->package_name}}' + '</td>';
-                      output += '<td>' + data[count].echo'{{$event->total_budget}}'  + '</td></tr>';
-                      output += '<td>' + data[count].echo'{{$event->total_spent}}'  + '</td></tr>';
+                //   function fetch_data(from_date = '', to_date = '')
+                //   {
+                //    $.ajax({
+                //     url:"{{ route('daterange.fetch_data') }}",
+                //     method:"POST",
+                //     data:{from_date:from_date, to_date:to_date, _token:_token},
+                //     dataType:"json",
+                //     success:function(data)
+                //     {
+                //      var output = '';
+                //     //  $('#total_records').text(data.length);
+                //     echo '@foreach($event as $event)';
+                //      for(var count = 0; count < data.length; count++)
+                //      { 
+                //       output += '<tr>';
+                //       output += '<td>' + data[count].echo'{{$event->event_name}}' + '</td>';
+                //       output += '<td>' + data[count].echo'{{$event->package_name}}' + '</td>';
+                //       output += '<td>' + data[count].echo'{{$event->total_budget}}'  + '</td></tr>';
+                //       output += '<td>' + data[count].echo'{{$event->total_spent}}'  + '</td></tr>';
                      
-                     }
-                     echo '@endforeach';
+                //      }
+                //      echo '@endforeach';
 
-                     $('tbody').html(output);
-                    }
-                   })
-                  }
+                //      $('tbody').html(output);
+                //     }
+                //    })
+                //   }
                  
-                  $('#filter').click(function(){
-                   var from_date = $('#from_date').val();
-                   var to_date = $('#to_date').val();
-                   if(from_date != '' &&  to_date != '')
-                   {
-                    fetch_data(from_date, to_date);
-                   }
-                   else
-                   {
-                    alert('Both Date is required');
-                   }
-                  });
+                //   $('#filter').click(function(){
+                //    var from_date = $('#from_date').val();
+                //    var to_date = $('#to_date').val();
+                //    if(from_date != '' &&  to_date != '')
+                //    {
+                //     fetch_data(from_date, to_date);
+                //    }
+                //    else
+                //    {
+                //     alert('Both Date is required');
+                //    }
+                //   });
                  
-                  $('#refresh').click(function(){
-                   $('#from_date').val('');
-                   $('#to_date').val('');
-                   fetch_data();
-                  });
+                //   $('#refresh').click(function(){
+                //    $('#from_date').val('');
+                //    $('#to_date').val('');
+                //    fetch_data();
+                //   });
                  
                  
-                 });
+                //  });
 
-                 echo '{!! Form::close() !!} ';
-                 </script>
+                //  echo '{!! Form::close() !!} ';
+                 </script> --}}

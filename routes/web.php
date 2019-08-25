@@ -71,8 +71,7 @@ Route::resource('bookevent', 'BookEventController');
 Route::resource('eventdashboard','EventsHomeDashboard');
 Route::resource('confirmevents', 'ConfirmEventsController');
 
-Route::get('/daterange', 'DateRangeController@index');
-Route::post('/daterange/fetch_data', 'DateRangeController@fetch_data')->name('daterange.fetch_data');
+Route::get('date_range', 'DateRangeController@index');
 
 
 Route::get('selectpackages/{event_id}', 'SelectPackageController@index')->name('get.selectpackages');

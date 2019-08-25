@@ -49,7 +49,7 @@ class ConfirmEventsController extends Controller
         ->select('*')
         ->where('event.status', '=', '1')
         ->get();
-        // dd($eventdetails);
+         //dd($eventdetails);
         return view('confirmevents', [ 'eventdetails' => $eventdetails]);
 
     }
@@ -78,7 +78,7 @@ class ConfirmEventsController extends Controller
         if ($request->has('approve')) {
                    
             $billing = new billing();
-            $billing->event_billed = $request->input('event');
+            $billing->event_billed = $request->input('eventA');
             // $billing->price = $request->input('amount');
             $billing->save();
 

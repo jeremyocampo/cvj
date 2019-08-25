@@ -14,36 +14,40 @@ class DateRangeController extends Controller
 {
     function index()
     {
-        $joinedsummary = DB::table('event')
+        $eventdetails = DB::table('event')
+        ->join('event_status_ref', 'event.status', '=', 'event_status_ref.status_id')
         ->join('package','event.package_id','=','package.package_id')
-        ->join('event_budget', 'event.event_id', '=', 'event_budget.id')
+        ->join('event_budget', 'event.event_id', '=', 'event_budget.event_id')
         ->select('*')
         ->where('event.status', '=', '5' )
         ->get();
 
-        return view('date_range',['event' => $joinedsummary]);
+      
+        // dd($eventdetails);
+
+        return view('date_range' , ['eventdetails' => $eventdetails]);
      
 
 
     }
 
-    function fetch_data(Request $request)
-    {
-     if($request->ajax())
-     {
-      if($request->from_date != '' && $request->to_date != '') {
-       $data = DB::table('event')
-         ->whereBetween('event_start', array($request->from_date, $request->to_date))
-         ->get();
-      }
+//     function fetch_data(Request $request)
+//     {
+//      if($request->ajax())
+//      {
+//       if($request->from_date != '' && $request->to_date != '') {
+//        $data = DB::table('event')
+//          ->whereBetween('event_start', array($request->from_date, $request->to_date))
+//          ->get();
+//       }
 
-      else{
-       $data = DB::table('event')->orderBy('event_start', 'desc')->get();
-      }
-      echo json_encode($data);
-      dd($data);
-     }
-    }
+//       else{
+//        $data = DB::table('event')->orderBy('event_start', 'desc')->get();
+//       }
+//       echo json_encode($data);
+//       dd($data);
+//      }
+//     }
 }
 
 ?>
