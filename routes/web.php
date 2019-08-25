@@ -42,7 +42,7 @@ Route::post('event_budgets/','EventsBudgetController@create')->name("post.event_
 
 //Personnel API
 Route::get('avail_personnels/{event_id}','EventsBudgetController@get_available_personnel')->name("get.personnels");
-Route::get('add_personnel/{emp_id}/{event_id}','EventsBudgetController@save_personnel')->name("get.personnels");
+Route::get('add_personnel/{emp_id}/{event_id}','EventsBudgetController@save_personnel')->name("post.personnels");
 
 //Gmail API
 Route::get('send_mail','MailController@index');
@@ -66,13 +66,16 @@ Route::get('admin/routes', 'AdminController@admin')->middleware('admin');
 Route::resource('cal','gCalendarController');
 Route::get('oauth', 'gCalendarController@oauth');
 
+Route::get('summary/{event_id}', 'SelectPackageController@summary');
+
 
 //Rosette's Routes
 Route::resource('bookevent', 'BookEventController');
 
 Route::get('selectpackages/{event_id}', 'SelectPackageController@index')->name('get.selectpackages');
-Route::post('postselectpackages/', 'SelectPackageController@create')->name('post.selectpackages');
-Route::get('customize_package/{event_id}/{package_id?}', 'SelectPackageController@index')->name('customize_package');
+Route::post('postselectpackages/', 'SelectPackageController@store')->name('post.selectpackages');
+Route::get('customize_package/{event_id}/{package_id?}', 'SelectPackageController@show')->name('customize_package');
+Route::post('customize_package', 'SelectPackageController@store')->name('post.customize_package');
 Route::resource('clientregister', 'ClientRegisterController');
 
 Route::resource('inventoryDash', 'InventoryHomeController');
