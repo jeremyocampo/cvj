@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Event;
+use App\EventInventory;
 use App\events;
 use App\inventory;
 use App\Items;
@@ -36,8 +37,8 @@ class SelectPackageController extends Controller
             }
             //$package->inventory = inventory::whereIn('inventory_id',$inv_items)->get();
         }
-        return view('selectPackage',['packages'=>$packages,'event'=>$event,'user_id'=>$client_id]);
-       
+        return view('selectPackage',['packages'=>$packages->reverse(),'event'=>$event,'user_id'=>$client_id]);
+        
     }
 
     /**
@@ -45,9 +46,58 @@ class SelectPackageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store()
+    public function store(Request $request)
     {
-        //
+        //chosen_invs,inv_qty,chosen_dishes,
+        $package = new PackageModel();
+
+        $package->package_name = $request->input("package_name");
+        $package->package_client_id = $request->input("client_id");
+        $package->package_img_url = 'img/default.jpg';
+        $package->suggested_pax = $request->input("suggested_pax");
+        $package->price = $request->input("venue_price");
+        $package->save();
+        error_log("saved: ".$package);
+
+        error_log("saved: ".$package->package_id);
+
+        for($i=0; $i<count($request->input("chosen_invs"));$i++){
+            $package_inventory = new PackageInventory();
+            $inv = inventory::where('inventory_id','=',$request->get("chosen_invs")[$i])->first();
+
+            $package_inventory->package_id = $package->package_id;
+            $package_inventory->inventory_id = $inv->inventory_id;
+            $package_inventory->category_id = $inv->category;
+            $package_inventory->rent_cost = $inv->rental_cost;
+            $package_inventory->quantity = $request->get("inv_qty")[$i];
+
+            $package_inventory->save();
+            $package->price += $package_inventory->rent_cost * $package_inventory->quantity;
+
+            $e_inv = new EventInventory();
+            $e_inv->event_id = $request->input("event_id");
+            $e_inv->inventory_id = $inv->inventory_id;
+            $e_inv->qty = $request->get("inv_qty")[$i];
+            $e_inv->rent_price = $inv->rental_cost;
+            $e_inv->esku = $inv->inventory_id;
+            $e_inv->status = $inv->status;
+            $e_inv->save();
+        }
+        for($i=0; $i<count($request->input("chosen_dishes"));$i++){
+            $package_item = new PackageItem();
+            $itn = Items::where('item_id','=',$request->get("chosen_dishes")[$i])->first();
+            $package_item->package_id = $package->package_id;
+            $package_item->item_id = $itn->item_id;
+            $package_item->computed_cost = $itn->unit_cost * $package->suggested_pax;
+            $package_item->save();
+            $package->price += $package_item->computed_cost;
+        }
+        $package->save();
+        $event = events::where('event_id','=',$request->input('event_id'))->first();
+        $event->package_id = $request->input('package_id');
+        $event->save();
+
+        return redirect('/summary/'.$event->event_id);
     }
 
     /**
@@ -61,42 +111,19 @@ class SelectPackageController extends Controller
         $event = events::where('event_id','=',$request->input('event_id'))->first();
         $event->package_id = $request->input('package_id');
         $event->save();
-        /*
-        $appetizersSelected = array();
-        //FOR APPETIZERS
-        for ($i = 0; $i < 6; $i++){
-            $tempName = "appetizer".$i;
-            if ($request->input($tempName)!=null){
-                array_push($appetizersSelected, $request->input($tempName));
-            }
+        foreach (PackageInventory::where('package_id','=',$event->package_id)->get() as $inv){
+            $e_inv = new EventInventory();
+            $inv_inv = inventory::where('inventory_id','=',$inv->inventory_id);
+            $e_inv->event_id = $event->event_id;
+            $e_inv->inventory_id = $inv->inventory_id;
+            $e_inv->qty = $inv->quantity;
+            $e_inv->rent_price = $inv->rent_cost;
+            $e_inv->esku = $inv_inv->sku;
+            $e_inv->status = $inv_inv->status;
+            $e_inv->save();
         }
 
-        dd($appetizersSelected);
-
-        // $client = null;
-        // $packages = 
-        
-        $items = new PackageModel();
-        $items->item_name = $request->$appetizersSelected[0];
-        if($request->input('custom') != ""){
-            $items->package_id = 2;
-        }
-        $items->rawmaterial_id = $request->input('quantity');
-
-       
-        //$inventory->last_modified = Carbon::now();
-        $items->save();
-
-        $success = "Packages Selected!";
-        return redirect('/summary', compact('client', 'packages', 'success'));
-        
-        
-        // return redirect('/summary')
-        // ->with('success', "Packages Selected!")
-        // ->with('client', $client)
-        // ->with('packages', $packages);
-*/
-        return redirect('/home');
+        return redirect('/summary/'.$event->event_id);
     }
 
     /**
@@ -105,9 +132,36 @@ class SelectPackageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($event_id, $package_id=null)
     {
-        //
+        $package = null;
+        $venue_cost_table = array("CVJ Clubhouse Ground Floor"=>15000,
+                                  "CVJ Clubhouse Second Floor"=>20000,
+                                  "CVJ Clubhouse Third Floor"=>22000
+                                  );
+
+        $event = events::where('event_id','=',$event_id)->first();
+        $client_id = Auth::id();
+        if($package_id != null){
+            $package = PackageModel::where('package_id','=',$package_id)->first();
+            $food_items =PackageItem::where('package_id','=',$package->package_id)->select('item_id')->get();
+            $food_items =$food_items->toArray();
+            $package->foods = Items::whereIn('item_id',$food_items)->get();
+            $package->inventory = PackageInventory::where('package_id','=',$package->package_id)->get();
+            foreach ($package->inventory as $inventory){
+                $inventory->inventory_name = inventory::where('inventory_id','=',$inventory->inventory_id)->first()->inventory_name;
+            }
+            $inv_items = PackageInventory::where('package_id','=',$package->package_id)->select('inventory_id')->get();
+            $inv_items = $inv_items->toArray();
+
+            $avail_foods = Items::whereNotIn('item_id',$food_items)->get();
+            $avail_invs = inventory::whereNotIn('inventory_id',$inv_items)->get();
+        }
+        else{
+            $avail_foods = Items::all();
+            $avail_invs = inventory::all();
+        }
+        return view('customizePackage',['venue_price'=>($event->venue == null ? null:$venue_cost_table[$event->venue]),'user_id'=>$client_id,'package'=>$package,'event'=>$event,'avail_foods'=>$avail_foods,'avail_invs'=>$avail_invs]);
     }
 
     /**
@@ -116,9 +170,26 @@ class SelectPackageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function summary($event_id)
     {
-        //
+        //inventory items //food items
+        $client_id = Auth::id();
+        $event = Event::where('event_id','=',$event_id)->first();
+
+        $event->formatted_day = date("M jS, Y", strtotime($event->event_start));
+        $event->formatted_start = date("H:i", strtotime($event->event_start));
+        $event->formatted_end = date("H:i", strtotime($event->event_start));
+
+        $package = PackageModel::where('package_id','>=',$event->package_id)->first();
+        $food_items =PackageItem::where('package_id','=',$package->package_id)->select('item_id')->get();
+        $food_items =$food_items->toArray();
+        $package->foods = Items::whereIn('item_id',$food_items)->get();
+        $package->inventory = PackageInventory::where('package_id','=',$package->package_id)->get();
+        foreach ($package->inventory as $inventory){
+            $inventory->inventory_name = inventory::where('inventory_id','=',$inventory->inventory_id)->first()->inventory_name;
+        }
+        return view('bookingsummary',['package'=>$package,'event'=>$event,'user_id'=>$client_id]);
+
     }
 
     /**

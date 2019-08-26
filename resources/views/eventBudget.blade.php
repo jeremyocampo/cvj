@@ -104,7 +104,7 @@
         let personnel_assigned_ids = [@foreach($event->personnels as $personnel)'{{$personnel->employee_id}}',@endforeach];
         let all_personnel = [@foreach($all_personnels as $personnel)'{{$personnel->employee_id}}',@endforeach];
         function get_avail_personnel(event_id){
-            $.get("avail_personnels/"+event_id, function(data, status){
+            $.get("/avail_personnels/"+event_id, function(data, status){
                 console.log("Data: " + data + "\nStatus: " + status);
                 $("#personnel_table").empty().append("<tr><th>First Name</th><th>Last Name</th></tr>");
 
