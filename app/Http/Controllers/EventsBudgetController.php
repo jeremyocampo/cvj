@@ -49,7 +49,7 @@ class EventsBudgetController extends Controller
             $budget_check = EventBudget::where('event_id', '=',$event->event_id)->first();
             $client = Client::where('client_id','=',$event->client_id)->first();
 
-            $event->client_name = $client->client_FN ." ".$client->client_LN;
+            $event->client_name = $client->client_name;
             $event->total_budget = $budget_check == null? 0 : $budget_check->total_budget;
             $event->formatted_day = date("M jS, Y", strtotime($event->event_start));
             $event->formatted_start = date("H:i", strtotime($event->event_start));
@@ -61,11 +61,17 @@ class EventsBudgetController extends Controller
             //$this->send_email($event->client_name,'leebet16@gmail.com',$event->event_name,'Caterie Confirmation');
             $event->total_spent = $budget_check->spent_buffer;
             $event->budget_id=$budget_check->id;
+            
             $employees=EmployeeEventSchedule::select('employee_id')->where('event_id','=',$event->event_id)->get();
-            $event->personnels=Employee::whereIn('employee_id',$employees)->get();
-            foreach(EventBudgetItem::where('event_budget_id','=',$budget_check->id)->get() as $budget_item) {
-                $event->total_spent += $budget_item->actual_amount;
+
+            if($employees != null){
+                
+                $event->personnels=Employee::whereIn('employee_id',$employees)->get();
+                foreach(EventBudgetItem::where('event_budget_id','=',$budget_check->id)->get() as $budget_item) {
+                    $event->total_spent += $budget_item->actual_amount;
+                }
             }
+            
 
         }
         $all_personnels = array();

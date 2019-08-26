@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Open+Sans">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> --}}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style type="text/css">
 body {
@@ -180,13 +180,13 @@ h2::after {
 			$(this).toggleClass("fa-heart fa-heart-o");
 		});
 	});	
-</script>
+</script> --}}
 
 </head>
 <body>
 <div class="container">
 	<div class="row">
-		<div class="col-md-12">
+		{{-- <div class="col-md-12">
 			<h2>Default <b>Packages</b></h2>
 			<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="0">
 			<!-- Carousel indicators -->
@@ -206,88 +206,15 @@ h2::after {
 									<br>									
 									<p class="totalpax"><b>Minimum 100 pax </b></p>
 									<p class="price"> <b>107,000 - 150,000</b></p>
-									<a href="#" id = "viewdetails" class="btn btn-primary">View Details</a>
+									<button type="button" id = "viewdetails" class="btn btn-primary" data-toggle="modal" data-target="#edit-modal">View Details</button>
 									<br>
 								</div>						
 							</div>
 						</div>
-
-						<div class="col-sm-3">
-							<div class="thumb-wrapper">
-									<div class="thumb-content">
-									<h4> Grand Wedding Package B</h4>									
-									<p class="totalpax"><b>Minimum 100 pax </b></p>
-									<p class="price"> <b>107,000 - 150,000</b></p>
-									<a href="#" id = "viewdetails" class="btn btn-primary">View Details</a>
-									<br>
-								</div>						
-							</div>
-						</div>
-
-						<div class="col-sm-3">
-								<div class="thumb-wrapper">
-										<div class="thumb-content">
-										<h4> Grand Wedding Package C</h4>									
-										<p class="totalpax"><b>Minimum 100 pax </b></p>
-										<p class="price"> <b>107,000 - 150,000</b></p>
-										<a href="#" id = "viewdetails" class="btn btn-primary">View Details</a>
-									</div>						
-								</div>
-							</div>
-
-						<div class="col-sm-3">
-							<div class="thumb-wrapper">
-									<div class="thumb-content">
-									<h4> Grand Debut Package A</h4>									
-									<p class="totalpax"><b>Minimum 100 pax </b></p>
-									<p class="price"> <b>107,000 - 150,000</b></p>
-									<a href="#" id = "viewdetails" class="btn btn-primary">View Details</a>
-									<br>
-								</div>						
-							</div>
-						</div>
-
-						<div class="col-sm-3">
-								<div class="thumb-wrapper">
-										<div class="thumb-content">
-										<h4> Grand Debut Package B</h4>									
-										<p class="totalpax"><b>Minimum 100 pax </b></p>
-										<p class="price"> <b>107,000 - 150,000</b></p>
-										<a href="#" id = "viewdetails" class="btn btn-primary">View Details</a>
-										<br>
-									</div>						
-								</div>
-							</div>
-
-						<div class="col-sm-3">
-								<div class="thumb-wrapper">
-										<div class="thumb-content">
-										<h4> Grand Debut Package C</h4>									
-										<p class="totalpax"><b>Minimum 100 pax </b></p>
-										<p class="price"> <b>107,000 - 150,000</b></p>
-										<a href="#" id = "viewdetails" class="btn btn-primary">View Details</a>
-									</div>						
-								</div>
-							</div>
-						
-							<div class="col-sm-3">
-									<div class="thumb-wrapper">
-											<div class="thumb-content">
-											<h4> Grand Wedding Package A</h4>									
-											<p class="totalpax"><b>Minimum 100 pax </b></p>
-											<p class="price"> <b>107,000 - 150,000</b></p>
-											<a href="#" id = "viewdetails" class="btn btn-primary">View Details</a>
-										</div>						
-									</div>
-								</div>
-							
-						
+						@endforeach
 					</div>
 				</div>
-			</div>
-
-
-						
+			</div>		
 			<!-- Carousel controls -->
 			<a class="carousel-control left carousel-control-prev" href="#myCarousel" data-slide="prev">
 				<i class="fa fa-angle-left"></i>
@@ -296,7 +223,7 @@ h2::after {
 				<i class="fa fa-angle-right"></i>
 			</a>
 		</div>
-		</div>
+		</div> --}}
 	</div>
 </div>
 </body>

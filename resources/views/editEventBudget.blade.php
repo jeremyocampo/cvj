@@ -2,11 +2,11 @@
     {{csrf_field()}}
     <div class="row" style="margin-top: 4vh;margin-bottom: 2vh;">
         <div class="col-md-4">
-            @if($event_lock!=false)
+            {{-- @if($event_lock!=false) --}}
                 <button class="btn btn-icon btn-3 btn-secondary" id="edit_item_btn" onclick="edit_items()" type="button">
                     <i class="fa fa-edit fa-lg"></i>  Edit Budget
                 </button>
-            @endif
+            {{-- @endif --}}
         </div>
         <div class="col-md-4">
             <center>

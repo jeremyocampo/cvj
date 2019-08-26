@@ -49,6 +49,7 @@ class SelectPackageController extends Controller
     public function store(Request $request)
     {
         //chosen_invs,inv_qty,chosen_dishes,
+        // dd($request);
         $package = new PackageModel();
 
         $package->package_name = $request->input("package_name");
@@ -97,7 +98,7 @@ class SelectPackageController extends Controller
         $event->package_id = $request->input('package_id');
         $event->save();
 
-        return redirect('/summary/'.$event->event_id);
+        return redirect('selectpackages/'.$request->input("event_id"))->with('success', 'Custom Package Created!');
     }
 
     /**
@@ -121,9 +122,60 @@ class SelectPackageController extends Controller
             $e_inv->esku = $inv_inv->sku;
             $e_inv->status = $inv_inv->status;
             $e_inv->save();
+
+        // $package_inventory = DB::table('event_inventory')
+        // ->
+        // ->update([
+        // ]);
+        // $package_inventory = new PackageInventory();
+        // $inv = inventory::where('inventory_id','=',$request->get("chosen_invs")[$i])->first();
+
+        // $package_inventory->package_id = $package->package_id;
+        // $package_inventory->inventory_id = $inv->inventory_id;
+        // $package_inventory->category_id = $inv->category;
+        // $package_inventory->rent_cost = $inv->rental_cost;
+        // $package_inventory->quantity = $request->get("inv_qty")[$i];
+
+        // $package_inventory->save();
+        // $package->price += $package_inventory->rent_cost * $package_inventory->quantity;
+
+
+        /*
+        $appetizersSelected = array();
+        //FOR APPETIZERS
+        for ($i = 0; $i < 6; $i++){
+            $tempName = "appetizer".$i;
+            if ($request->input($tempName)!=null){
+                array_push($appetizersSelected, $request->input($tempName));
+            }
+        }
+
+        dd($appetizersSelected);
+
+        // $client = null;
+        // $packages = 
+        
+        $items = new PackageModel();
+        $items->item_name = $request->$appetizersSelected[0];
+        if($request->input('custom') != ""){
+            $items->package_id = 2;
         }
 
         return redirect('/summary/'.$event->event_id);
+       
+        //$inventory->last_modified = Carbon::now();
+        $items->save();
+
+        $success = "Packages Selected!";
+        return redirect('/summary', compact('client', 'packages', 'success'));
+        
+        
+        // return redirect('/summary')
+        // ->with('success', "Packages Selected!")
+        // ->with('client', $client)
+        // ->with('packages', $packages);
+*/
+        return redirect('/home')->with('success', 'Event Package Selected');
     }
 
     /**

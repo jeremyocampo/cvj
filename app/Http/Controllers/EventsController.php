@@ -39,9 +39,66 @@ class EventsController extends Controller
         // $event->save();
 
         // get all future events on a calendar
-        $events = Event::get();
-        return view('eventsDash', ['events' => $events]);
+        
 
+        // update existing event
+        // $firstEvent = $events->first();
+        // $firstEvent->name = 'updated name';
+        // $firstEvent->save();
+
+        // $firstEvent->update(['name' => 'updated again']);
+
+        // // create a new event
+        // Event::create([
+        // 'name' => 'A new event',
+        // 'startDateTime' => Carbon\Carbon::now(),
+        // 'endDateTime' => Carbon\Carbon::now()->addHour(),
+        // ]);
+
+        // // delete an event
+        // $event->delete();
+        // dd($events);
+
+        //Gets events from google calendar
+        // $events = Event::get();
+
+        //Gets events from Database
+        $eventPending = DB::table('event')
+        // ->join('reserve_venue','event.reservation_id','=','reserve_venue.reservation_id')
+        ->join('event_status_ref', 'event.status', '=', 'event_status_ref.status_id')
+        ->select('*')
+        ->where('event.status', '<', '2')
+        ->get();
+
+        $eventApproved = DB::table('event')
+        // ->join('reserve_venue','event.reservation_id','=','reserve_venue.reservation_id')
+        ->join('event_status_ref', 'event.status', '=', 'event_status_ref.status_id')
+        ->select('*')
+        ->where('event.status', '>', '1')
+        ->get();
+
+        $date = Carbon::now();
+        // dd($date);
+
+        // $check = (Carbon::parse($date)->gt($event[0]->event_start));
+        $upcomingPendingEvents = array();
+        $upcomingApprovedEvents = array();
+
+        foreach($eventPending as $i){
+            if(Carbon::parse($i->event_start)->format('Y-m-d') >= $date->subDay()->format('Y-m-d')){
+                array_push($upcomingPendingEvents, $i);
+            }
+        }
+
+        foreach($eventApproved as $b){
+            if(Carbon::parse($b->event_start)->format('Y-m-d') >= $date->subDay()->format('Y-m-d')){
+                array_push($upcomingApprovedEvents, $b);
+            }
+        }
+        // dd($eventEndString);
+
+        return view('eventsDash', ['pendingEvents' => $upcomingPendingEvents, 'events' => $upcomingApprovedEvents]);
+        // return view('eventsDash');
     }
 
     /**
@@ -80,6 +137,14 @@ class EventsController extends Controller
     public function show($id)
     {
         //
+        $event = DB::table('event')
+        ->join('reserve_venue','event.reservation_id','=','reserve_venue.reservation_id')
+        ->join('event_status_ref', 'event.status', '=', 'event_status_ref.status_id')
+        ->select('*')
+        ->where('event.status', '<', '2')
+        ->get();
+
+        return view('viewEventDeets');
     }
 
     /**

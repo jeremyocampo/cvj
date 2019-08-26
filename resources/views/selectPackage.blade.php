@@ -1,4 +1,4 @@
-
+ 
 @extends('layouts.app')
 @section('content')
 @include('layouts.headers.inventoryCard1')
@@ -71,12 +71,11 @@
                                     <span class="input-group-text">₱</span>
                                 </div>
                                 <input type="Number" step="any" id="filter_price" class="form-control" onkeyup="filter_price()" PLACEHOLDER="Place your budget for event here.">
-
                             </div>
                             <div class="row" id="package_row">
                                 @foreach($packages as $package)
                                     @if($package->package_client_id == null or $package->package_client_id == $user_id)
-                                            <div class="col-md-4 package_card" style="margin-bottom: 4vh" value="{{$package->price}}">
+                                            <div class="col-md-3 package_card" style="margin-bottom: 4vh" value="{{$package->price}}">
                                                 <div class="card" style="width: 18rem;">
                                                     @if($package->package_client_id == $user_id)
                                                         <span class="badge badge-pill badge-success" style="background-color: green;color:white;position:absolute;top:65%;left:50%;">USER CUSTOM PACKAGE</span>
@@ -84,10 +83,10 @@
                                                     <img class="card-img-top" src="{{asset($package->package_img_url)}}" style="height: 25vh;width: 100%vw" alt="">
                                                     <div class="card-body">
                                                         <h3 class="card-title" style="margin-bottom: 0;"><a href="#"
-                                                                                            package-id="{{$package->package_id}}"
-                                                                                            data-food="@foreach($package->foods as $food){{$food->item_name}},{{asset($food->item_image)}}|@endforeach"
-                                                                                            data-inventory="@foreach($package->inventory as $inv){{$inv->inventory_name}},{{$inv->quantity}}|@endforeach"
-                                                                                            data-toggle="modal" data-target="#exampleModal" onclick="show_package(this)">{{$package->package_name}}</a></h3>
+                                                                package-id="{{$package->package_id}}"
+                                                                data-food="@foreach($package->foods as $food){{$food->item_name}},{{asset($food->item_image)}}|@endforeach"
+                                                                data-inventory="@foreach($package->inventory as $inv){{$inv->inventory_name}},{{$inv->quantity}}|@endforeach"
+                                                                data-toggle="modal" data-target="#exampleModal" onclick="show_package(this)">{{$package->package_name}}</a></h3>
                                                         <div>
                                                             <span style="display: inline-block">PHP</span> <b style="display: inline-block">{{number_format($package->price,2)}}</b>
                                                             <small>~ {{$package->suggested_pax}} pax</small>

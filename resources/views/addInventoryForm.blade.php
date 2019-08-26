@@ -63,7 +63,7 @@
 								<div class="col-md-3 mb-3"></div>
 								<div class="col-md-9 mb-3">
 									<label class="form-label">Size</label>
-									<select id="color" name="Size" class="form-control" placeholder="Size" required>
+									<select id="color" name="size" class="form-control" placeholder="Size" required>
 											<option value = 0 selected disabled>Please Select a Size</option>
 											<option value=1>Small</option>
 											<option value=2>Medium</option>

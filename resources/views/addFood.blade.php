@@ -32,39 +32,50 @@
 								<div class="col-md-4 mb-3">
                                     <label class="form-label">Item Price (Php)</label>
 									{{ Form::number('price', '',['class' => 'form-control', 'placeholder' => 'Item Price' , 'type' => 'number' , 'min' => 1 , 'step' => 0.01] )}}
-                                </div>
-								<div class="col-md-12">
-									<div class="set-form">
-                                        <table id="myTable" class="table table-bordered">
-                                          <tr>
-                                            <th>Question</th>
-                                            <th>Answer</th>
-                                          </tr>
-                                          <tr>
-                                            <td>
-                                              <textarea name="Question" placeholder="Question" th:field="${questionAnswerSet.question}" id="question" style="resize: none; width: 100%;"></textarea>
-                                            </td>
-                                            <td>
-                                              <textarea name="Answer" placeholder="Answer" th:field="${questionAnswerSet.answer}" id="answer" style="resize: none; width: 100%;"></textarea>
-                                            </td>
-                                          </tr>
-                                        </table>
-                                        <div class="col-md-12 mt-3">
-                                            <div class="text-center">
-                                                <input type="button" id="more_fields" onclick="add_fields();" value="+ Add Row" class="btn btn-secondary" />
-                                            </div>
-                                        </div>
+								</div>
+
+								
+								<div class="col-md-12 mb-3">
+									<button class="btn btn-sm btn-block btn-success" type="button" id="more_fields" onclick="add_a_row();" value="" class="btn btn-secondary">+ Add Ingredient</button>
+								</div>
+
+								<div class="table-responsive mb-2" >
+								
+									
+								<table class="table  align-items-center table-hover  mb-3" id="myTable" >
+											<thead>
+												<tr>
+													<th>Question</th>
+													<th>Answer</th>
+													<th>Action</th>
+												</tr>
+											</thead>
+											<tbody>
+											{{-- <tr>
+												<td>
+												<input type="text" name="itemName" placeholder="Item Name"  id="item_name1" class="form-control">
+												</td>
+												<td>
+													<input type="number" name="qty" placeholder="Item Quantity"  id="item_qty1" class="form-control">
+												</td>
+												<td>
+													<button > hi</button>
+												</td>
+											</tr> --}}
+											</tbody>
+										</table>
+								</div>
 								</div>
 							</div>
-						</div>
+					
 						<div class="card-footer text-muted">
 								{{-- @foreach($subcategoryIds as $subcategoryId)
 									<p>{{$subcategoryId}}</p>
 								@endforeach --}}
 
 								<div class="text-right">
-								
-								{{ Form::submit('Add Item', ['class' => 'btn btn-success']) }}
+								<button></button>
+								{{-- {{ Form::submit('Add Item', ['class' => 'btn btn-success']) }} --}}
 								<a href="{{ url('inventory')}}" class="btn btn-default">Back</a>
 								{{-- {{Form::hidden('_method', 'PUT')}} --}} 
 								</div>
@@ -76,41 +87,41 @@
 </div>
 @endsection
 
-<script>
-	function getSelected(){
 
-		// // get references to select list and display text box
-		// var sel = document.getElementById('category');
-		// var el = document.getElementById('display');
 
-		// function getSelectedOption(sel) {
-		// 	var opt;
-		// 	for ( var i = 0, len = sel.options.length; i < len; i++ ) {
-		// 		opt = sel.options[i];
-		// 		if ( opt.selected === true ) {
-		// 			break;
-		// 		}
-		// 	}
-		// 	return opt;
+	
+	<script>
+		var x = 1;
+		function add_a_row(){
+			if(x>=1){
+				// var row = $("<tr id='appndd_tr'><td><input type='date' id='select_product' class='form-control'></td><td><input type='number' id='quentity'></td><td><input type='date' id='price' class='form-control'></td><td><textarea id='address'></textarea></td><td><br/><button type='button' onclick='remove_row()' class='btn btn-wide btn-danger'>Remove</button></td></tr>");
+				
+               	// var row = $('<tr id="appndd_tr"><td><input type="text" name="itemName" placeholder="Item Name"  id="item_name1" class="form-control"></td><td><input type="number" name="qty" placeholder="Item Quantity"  id="item_qty1" class="form-control"></td><td><br/><button type="button" onclick="remove_row()" class="btn btn-wide btn-danger">Remove</button></td></tr>');
+				
+				// var row = $('<tr id="appndd_tr"><td><input type="text" name="itemName" placeholder="Item Name"  id="item_name1" class="form-control"></td><td><input type="number" name="qty" placeholder="Item Quantity"  id="item_qty1" class="form-control"></td><td><br/><button type="button" onclick="remove_row()" class="btn btn-wide btn-danger">Remove</button></td></tr>');
+				
+
+				var row = $('<tr id="appndd_tr"><td><select id="color" name="rawMatItem" class="form-control" placeholder="Raw Material Item" required><option value="0" selected disabled>Please Select an Ingredient</option><br> @foreach($joinedTable as $i) <br><option id="category-{{ $i->ingredient_id }}" value="{{ $i->ingredient_id }}">{{ $i->name}}</option><br>@endforeach<br></select></td><td><input type="number" name="qty" placeholder="Item Quantity"  id="item_qty1" class="form-control"></td><td><br/><button type="button" onclick="remove_row()" class="btn btn-wide btn-danger">Remove</button></td></tr>');
+				row.append().prependTo("#myTable");
+				x++;
+			}
 		}
 
-		// assign onclick handlers to the buttons
-		// document.getElementById('showVal').onclick = function () {
-		// 	el.value = sel.value;    
-		// }
-	}
-	$('#selectField').change(function(){
-    if($('#selectField').val() == 'N'){
-        $('#secondaryInput').hide();
-    } else {
-        $('#secondaryInput').show();
-	}
-	});
+		function remove_row(){
+			$('#appndd_tr').remove();
+			x = x-1;
+		}
 
-    function add_fields() {    
-        document.getElementById("myTable").insertRow(-1).innerHTML = 
-        '<tr><td><input class="form-control" name="ingredientName" placeholder="Question" th:field="${questionAnswerSet.question}"></textarea></td><td><input class="form-control" name="quantity" placeholder ="Answer" field="${questionAnswerSet.answer}"></textarea></td ><td><input class="form-control" name="price" placeholder="Price" disabled></td></tr>';
-    }
+		var trArray = [];
+		$('#tbPermission tr').each(function () {
+			var tr =$(this).text();  //get current tr's text
+			var tdArray = [];
+			$(this).find('td').each(function () {
+				var td = $(this).text();  //get current td's text
+				var items = {}; //create an empty object
+				items[tr] = td; // add elements to object 
+				tdArray.push(items); //push the object to array
+			});    
+		});
+	</script>
 
-
-</script>
