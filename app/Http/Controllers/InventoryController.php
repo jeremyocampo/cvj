@@ -74,7 +74,7 @@ class InventoryController extends Controller
             $quantity = $request->input('quantity');
             $threshold  = $request->input('threshold');
 
-            $minTh = $quantity/2;
+            $minTh = $quantity*.10;
             $minP = 1.00;
         
             $this->validate($request, [
@@ -107,8 +107,11 @@ class InventoryController extends Controller
             $inventory->color = $request->input('color');
             $inventory->threshold = $request->input('threshold');
             $inventory->price = $request->input('price');
+            $inventory->size = $request->input('size');
             $inventory->save();
             
+            // dd($inventory);
+
             return redirect('/inventory')->with('success', 'Item Added!');
         
     }

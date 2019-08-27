@@ -49,7 +49,12 @@
                                         @endif
                                     </td>
                                     <td>
-                                        Items are overspent.
+                                        @if( ($event->total_budget - $event->total_spent) >= 0)
+                                            <p> Items are in budget.</p>
+                                        @else
+                                            <p> Items are overspent.</p>
+                                        @endif
+                                       
                                     </td>
                                     <td>
                                         <a href="/event_budgets/view/{{$event->event_id}}">
@@ -104,7 +109,7 @@
         let personnel_assigned_ids = [@foreach($event->personnels as $personnel)'{{$personnel->employee_id}}',@endforeach];
         let all_personnel = [@foreach($all_personnels as $personnel)'{{$personnel->employee_id}}',@endforeach];
         function get_avail_personnel(event_id){
-            $.get("avail_personnels/"+event_id, function(data, status){
+            $.get("/avail_personnels/"+event_id, function(data, status){
                 console.log("Data: " + data + "\nStatus: " + status);
                 $("#personnel_table").empty().append("<tr><th>First Name</th><th>Last Name</th></tr>");
 
@@ -123,7 +128,7 @@
             <div class="modal-content">
                     {{csrf_field()}}
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add New Budget Template</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Assign Employee to Event</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

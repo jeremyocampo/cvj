@@ -24,23 +24,11 @@
                                 </div>
                                 </div>
                             </div>
-                            <div class="col text-right">
-                                {{-- <a href="inventory/create" class="btn btn-sm btn-primary">Add Item</a> --}}
-                                
-                            </div>
+                            <div class="col text-right"> </div>
                             <div class="col text-left">
-                                {{-- <div class="row"> --}}
-                                    <div class="col-xs-5">
-                                {{-- <input class="form-control" id="myInput" type="search" onkeyup="searchTable()" style="background: transparent;" placeholder="Search Item Here"> --}}
-                                <input class="form-control" id="myInput" type="search" onkeyup="searchTable()" style="background: transparent;" placeholder="Search Item Here">
-                                    </div>
-                                    {{-- <div class="col-xs-2">
-                                        &nbsp; &nbsp;
-                                    </div> --}}
-                                    {{-- <div class="col-xs-3">
-                                    <button type="button" class="btn btn-md btn-block" onclick="seachTable()">Search</button>
-                                    </div> --}}
-                                {{-- </div> --}}
+                                <div class="col-xs-5"> 
+                                    <input class="form-control" id="myInput" type="search" onkeyup="searchTable()" style="background: transparent;" placeholder="Search Item Here">
+                                </div>
                             </div>
                         </div>
                         <div class="row">
@@ -61,22 +49,7 @@
                                 @endif
                             </div>
                         </div>
-                        {{-- {!! Form::open(['action' => 'InventoryController@selectType', 'method' => 'POST']) !!}
-                        <div class="col-md-4">
-                            <select name="itemType" id="itemType" class="form-control">
-                                <option disabled selected value="">- Please Select an Option -</option>
-                                <option value="cen">Centerpiece</option>
-                                <option value="lin">Linen</option>
-                                <option value="flo">Flower</option>
-                                <option value="tab">Table</option>
-                                <option value="cha">Chair</option>
-                                <option value="ute">Utensils</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                                {{ Form::submit('Add Item', ['class' => 'btn btn-success']) }}
-                        </div>
-                        {!! Form::close() !!} --}}
+                       
                     </div>
                     <div class="card-body">
 

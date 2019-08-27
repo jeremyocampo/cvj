@@ -32,7 +32,7 @@ class InventoryHomeController extends Controller
         $criticalInventory = DB::select('select * from cvjdb.inventory where quantity <= threshold;');
 
         $event = DB::table('event')
-        ->join('reserve_venue','event.reservation_id','=','reserve_venue.reservation_id')
+        // ->join('reserve_venue','event.reservation_id','=','reserve_venue.reservation_id')
         ->select('*')
         ->get();
 

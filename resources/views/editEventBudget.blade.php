@@ -2,11 +2,11 @@
     {{csrf_field()}}
     <div class="row" style="margin-top: 4vh;margin-bottom: 2vh;">
         <div class="col-md-4">
-            @if($event_lock!=false)
+            {{-- @if($event_lock!=false) --}}
                 <button class="btn btn-icon btn-3 btn-secondary" id="edit_item_btn" onclick="edit_items()" type="button">
                     <i class="fa fa-edit fa-lg"></i>  Edit Budget
                 </button>
-            @endif
+            {{-- @endif --}}
         </div>
         <div class="col-md-4">
             <center>
@@ -65,7 +65,7 @@
                 </div>
 
                 <div id="budget_amt_col" class="col-md-2 marg_top">
-                        <label>Total Amount Spent</label>
+                        <label>Total Spent</label>
                         {{-- @foreach($budget->budget_items as $budget_item)
                             <input type="number" name="old_vals[]" step="any" style="display: inline-block;" class="item_amts form-control budg_item" placeholder="0.0" value="{{$budget_item->budget_amount}}" disabled>
                         @endforeach --}}
