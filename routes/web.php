@@ -89,3 +89,4 @@ Route::resource('returnInventory','ReturnInventoryController');
 Auth::routes();
 
 Route::resource('confirmevents', 'ConfirmEventsController');
+Route::resource('addpackages', 'BookEventController');

@@ -96,7 +96,7 @@ class SelectPackageController extends Controller
         }
         $package->save();
         $event->package_id = $request->input('package_id');
-        $event->package_id = $package->package_id');
+        $event->package_id = $package->package_id;
         $event->save();
 
         return redirect('selectpackages/'.$request->input("event_id"))->with('success', 'Custom Package Created!');
@@ -178,6 +178,7 @@ class SelectPackageController extends Controller
 */
         return redirect('/home')->with('success', 'Event Package Selected');
     }
+}
 
     /**
      * Display the specified resource.
@@ -185,6 +186,7 @@ class SelectPackageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    
     public function show($event_id, $package_id=null)
     {
         $package = null;
