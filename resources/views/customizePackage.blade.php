@@ -97,7 +97,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-4"><label>Number of Attendants</label></div>
-                                            <div class="col-md-8"><input name="suggested_pax" class=" form-control"  type="number" value="{{$event->totalpax}}" readonly></div>
+                                            <div class="col-md-8"><input name="suggested_pax" class=" form-control" id="totalpax" onchange="calibrate_pax(this)" type="number" value="@if($package != null) {{$package->price}} @else 50 @endif" @if($package != null) readonly @endif></div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -106,6 +106,9 @@
                                         </div>
                                         <div>
                                             <label>Inventory Total: P<span id="inv_total_text">...</span></label>
+                                        </div>
+                                        <div>
+                                            <label>Venue Cost: P<span id="venue">{{$venue_price}}</span></label>
                                         </div>
                                         <hr style="margin: 0;">
                                         <h3 style="margin-top: 0;">Total Package Price: <span id="total_package_price"></span></h3>
@@ -116,9 +119,9 @@
                                 {{csrf_field()}}
                                 <input type="hidden" value="{{$event->event_id}}" name="event_id">
                                 <input type="hidden" value="{{$user_id}}" name="client_id">
+                                <input type="hidden" value="{{$venue_price}}" name="venue_price">
                                 <div class="row">
                                     <div class="col-md-6">
-
                                         <div class="col" style="margin-bottom: 2vh;">
                                             <h3 class="mb-0" style="display: inline">Package Dishes</h3>
                                             <a style="display: inline;color:white" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#dishesModal">+ Add Dishes</a>
@@ -185,7 +188,8 @@
 </div>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 <script>
-    let total_pax = {{$event->totalpax}};
+    let total_pax =  @if($package != null) {{$package->price}} @else 50 @endif;
+    let venue = {{$venue_price}};
     let inv_subtotal = 0;
     let food_subtotal = 0;
     $(document).ready(function () {
@@ -274,10 +278,18 @@
         $("#food_total_text").html(parseFloat(food_subtotal).toFixed(2));
 
     }
+    function calibrate_pax(obj) {
+        if($(obj).val()<50){
+            alert('Minimum pax is for 50 persons.');
+            $(obj).val(50);
+        }
+        total_pax = $(obj).val();
+        compute_total_package_price();
+    }
     function compute_total_package_price(){
         compute_inv_qtys();
         compute_food_total();
-        $("#total_package_price").html('P'+(parseFloat(inv_subtotal)+parseFloat(food_subtotal)));
+        $("#total_package_price").html('P'+(venue+parseFloat(inv_subtotal)+parseFloat(food_subtotal)));
     }
 </script>
 @endsection

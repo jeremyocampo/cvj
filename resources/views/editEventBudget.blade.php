@@ -65,7 +65,7 @@
                 </div>
 
                 <div id="budget_amt_col" class="col-md-2 marg_top">
-                        <label>Total Amount Spent</label>
+                        <label>Total Spent</label>
                         {{-- @foreach($budget->budget_items as $budget_item)
                             <input type="number" name="old_vals[]" step="any" style="display: inline-block;" class="item_amts form-control budg_item" placeholder="0.0" value="{{$budget_item->budget_amount}}" disabled>
                         @endforeach --}}

@@ -41,7 +41,7 @@ Route::post('event_budgets/','EventsBudgetController@create')->name("post.event_
 
 //Personnel API
 Route::get('avail_personnels/{event_id}','EventsBudgetController@get_available_personnel')->name("get.personnels");
-Route::get('add_personnel/{emp_id}/{event_id}','EventsBudgetController@save_personnel')->name("get.personnels");
+Route::get('add_personnel/{emp_id}/{event_id}','EventsBudgetController@save_personnel')->name("post.personnels");
 
 //Gmail API
 Route::get('send_mail','MailController@index');
@@ -64,6 +64,8 @@ Route::get('admin/routes', 'AdminController@admin')->middleware('admin');
 // Route::resource('cal','gCalendarController');
 // Route::get('oauth', 'gCalendarController@oauth');
 
+Route::get('summary/{event_id}', 'SelectPackageController@summary');
+
 
 //Rosette's Routes
 Route::resource('bookevent', 'BookEventController');
@@ -82,3 +84,14 @@ Route::resource('returnInventory','ReturnInventoryController');
 Auth::routes();
 
 Route::resource('confirmevents', 'ConfirmEventsController');
+Route::resource('expenseReports', 'ExpenseReportsController');
+Route::resource('quotationReports', 'QuotationReportsController');
+
+Route::get('qr-code-g', function () {
+    \QrCode::size(500)
+              ->format('png')
+              ->generate('ItSolutionStuff.com', public_path('images/qrcode.png'));
+      
+    return view('qrCode');
+
+});

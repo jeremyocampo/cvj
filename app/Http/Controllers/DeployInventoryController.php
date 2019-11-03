@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Requests;
 use Carbon\Carbon;
 use Faker\Generator as Faker;
+use App\PackageInventory;
 
 class DeployInventoryController extends Controller
 {
@@ -137,7 +138,8 @@ class DeployInventoryController extends Controller
 
         // dd($event, $eventPackages, $eventItems);
 
-        return view('viewEventDeploy',[ 'event' => $event, 'package' => $eventPackages, 'packageA' => $eventItems]);
+        // return view('viewEventDeploy',[ 'event' => $event, 'package' => $eventPackages, 'packageA' => $eventItems]);
+        return view('viewEventDeploy');
 
     }
 
@@ -164,33 +166,36 @@ class DeployInventoryController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $event = DB::table('event')
-        // ->join('reserve_venue','event.reservation_id','=','reserve_venue.reservation_id')
-        // ->join('event_status_ref', 'event.status', '=', 'event_status_ref.status_id')
-        ->join('package', 'event.package_id', '=', 'package.package_id')
-        // ->join('package_inventory', 'package.package_id','=', 'package_inventory.package_id')
-        // ->join('inventory', 'package_inventory.inventory_id', '=', 'inventory.inventory_id')
-        ->select('*')
-        ->where('event.event_id', '=', (int)$id)
+        // $event = DB::table('event')
+    
+        // ->join('package', 'event.package_id', '=', 'package.package_id')
+        
+        // ->select('*')
+        // ->where('event.event_id', '=', (int)$id)
+       
+        // ->update([
+        //     'status' => 4,
+        // ]);
+
+      
+        // $event = DB::table('event')
+        // ->where('event.event_id', '=', (int)$id)
         // ->get();
-        // dd($event);
-        ->update([
-            'status' => 4,
-        ]);
 
-        $packages = DB::table('package')
-        ->join('package_inventory', 'package.package_id', '=', 'package_inventory.package_id')
-        ->join('inventory', 'package_inventory.inventory_id', '=', 'inventory.inventory_id')
-        // ->join('package_item', 'package.package_id', '=', 'package_item.package_id')
-        ->select('*')
-        // ->where('')
-        ->update([
+      
+        // foreach (DB::table('package_inventory')->where('package_id','=',$event->package_id)->get() as $inv){
+        //     $e_inv = new EventInventory();
+        //     $inv_inv = inventory::where('inventory_id','=',$inv->inventory_id);
+        //     $e_inv->event_id = $event->event_id;
+        //     $e_inv->inventory_id = $inv->inventory_id;
+        //     $e_inv->qty = $inv->quantity;
+        //     $e_inv->rent_price = $inv->rent_cost;
+        //     $e_inv->esku = $inv_inv->sku;
+        //     $e_inv->status = "Borrowed";
+        //     $e_inv->save();
+        // }
 
-        ]);
-
-
-
-        return redirect('/deploy')->with('success', 'Event Inventory has been deployed!');
+        return redirect('/deploy')->with('success', 'Inventory has been deployed!');
 
     }
 

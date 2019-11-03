@@ -5,7 +5,7 @@
 @include('layouts.headers.inventoryCard1')
 <div class="container-fluid mt--7">
 	<div class="card-body">
-		<div class="col-xl-8 mb-5 mb-xl-0">
+		<div class="col-xl-12 mb-5 mb-xl-0">
 				<div class="card shadow">
 						<div class="card-header">
                             {{-- {!! Form::open(['action' => 'InventoryController@return', 'method' => 'POST']) !!} --}}
@@ -35,7 +35,7 @@
                                 <div class="table-responsive mb-3">
                                     <!-- Projects table -->
                                     
-                                    <table class="table align-items-center table-flush">
+                                    <table class="table ">
                                             <thead class="thead-light">
                                                 <tr>
                                                     <th scope="col">Event Name</th>
@@ -46,20 +46,20 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($events as $i)
-                                                @if($i->status > 0)
                                                 <tr>
-                                                    <td>{{ $i->event_name }}</td>
-                                                    <td>{{ $i->venue }}</td>
-                                                    <td>{{ Carbon\Carbon::parse($i->event_start)->format('F j, Y g:i a') }}</td>
-                                                    <td>{{ Carbon\Carbon::parse($i->event_end)->format('F j, Y g:i a') }}</td>
+                                                    <td>Jeremy's Birthday Bash</td>
+                                                    <td>CVJ Catering Ground Floor</td>
+                                                    <td>March 25, 2020</td>
+                                                    <td>March 25, 2020</td>
                                                     <td>
-                                                            <a class="" href="{{ url('deploy/'.$i->event_id) }}" >
-                                                                {{-- <i class="ni ni-zoom-split-in"></i> --}}
-                                                                <button class="btn btn-block btn-sm">Deploy Inventory</button>
-                                                                {{-- <span>{{ __('View Event Details') }}</span> --}}
+                                                            <a href="{{ url('deploy/1') }}" class="btn btn-sm">
+                                                                <i class="ni ni-zoom-split-in"></i>
+                                                                <span>{{ __('View Event Details') }}</span>
                                                             </a>
-                                                            {{-- <div class="dropdown">
+
+                                                    </td>
+                                                    {{-- <td class="popup">
+                                                            <div class="dropdown">
                                                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                                     Action
                                                                 </button>
@@ -68,26 +68,40 @@
                                                                         <h6 class="text-overflow m-0">{{ __('Please Select an Action!') }}</h6>
                                                                     </div>
                                                                     <div class="dropdown-divider"></div>
-                                                                    <a href="{{ url('returnInventory/'.$i->event_id) }}" class="dropdown-item">
+                                                                    <a href="{{ url('deploy/1') }}" class="dropdown-item">
                                                                         <i class="ni ni-zoom-split-in"></i>
                                                                         <span>{{ __('View Event Details') }}</span>
                                                                     </a>
-                                                                    <a href="" class="dropdown-item" onclick="event.preventDefault();
-                                                                        document.getElementById('delete-form-{{ $i->event_name }}').submit();">
-                                                                        <i class="ni ni-fat-remove"></i>
-                                                                        <span>{{ __('Remove from Inventory') }}</span>
-                                                                        {!! Form::open(['action' => ['InventoryController@destroy', $i->event_name], 'method' => 'POST', 'id' => 'delete-form-'.$i->inventory_id]) !!}
-                                                                            {{ Form::hidden('_method','DELETE')}}
-                                                                        {!! Form::close() !!}
+                    
+                                                                    <a href="{{ url('deploy/1/edit')}}" class="dropdown-item">
+                                                                        <i class="ni ni-fat-add"></i>
+                                                                        <span>{{ __('Replenish Item') }}</span>
                                                                     </a>
+                                                                    
+                                                                    
                                                                 </div>
-                                                            </div> --}}
+                                                            </div>
+                                                            
+                                                        </td> --}}
+                                                </tr>
+                                                {{-- @foreach ($events as $i)
+                                                @if($i->status > 0)
+                                                <tr>
+                                                    <td>{{ $i->event_name }}</td>
+                                                    <td>{{ $i->venue }}</td>
+                                                    <td>{{ Carbon\Carbon::parse($i->event_start)->format('F j, Y g:i a') }}</td>
+                                                    <td>{{ Carbon\Carbon::parse($i->event_end)->format('F j, Y g:i a') }}</td>
+                                                    <td>
+                                                            <a class="" href="{{ url('deploy/'.$i->event_id) }}" >
+                                                                <button class="btn btn-block btn-sm">Deploy Inventory</button>
+                                                            </a>
+                                                           
                                                         </td>
                                                     
                                                 </tr>
                                                 
                                                 @endif
-                                                @endforeach
+                                                @endforeach --}}
                                             </tbody>
                                         </table>
                                         
@@ -104,7 +118,7 @@
                         </div>
 		{!! Form::close() !!}
 		</div>
-		</div>
+        </div>
 	</div>
 </div>
 @endsection

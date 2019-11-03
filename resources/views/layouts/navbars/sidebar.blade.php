@@ -126,11 +126,11 @@
                                 <i class="ni ni-tv-2 text-primary"></i> {{ __('Dashboard') }}
                             </a>
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a class="nav-link" href="{{ url('events') }}">
                                 <i class="ni ni-calendar-grid-58 text-yellow"></i> {{ __('Events') }}
                             </a>
-                        </li>
+                        </li> --}}
                         <li class="nav-item">
                             <a class="nav-link" href="#navbar-dashboards" data-toggle="collapse" role="" aria-expanded="false" aria-controls="">
                                 <i class="ni ni-collection text-red"></i>
@@ -155,12 +155,31 @@
                                             <i class="ni ni-archive-2 text-purple"></i>Inventory Return</a>
                                     </li>
                                     <li class="nav-item">
-                                            <a href="{{ url('outsource') }}" class="nav-link">
-                                                <i class="ni ni-calendar-grid-58 text-yellow"></i>Outsource Items</a>
-                                        </li>
+                                        <a href="{{ url('outsource') }}" class="nav-link">
+                                            <i class="ni ni-calendar-grid-58 text-yellow"></i>Outsource Items</a>
+                                    </li>
                                 </ul>
                             </div>
                         </li>
+
+                        <li class="nav-item">
+                                <a class="nav-link" href="#navbar-dashboards1" data-toggle="collapse" role="" aria-expanded="false" aria-controls="">
+                                    <i class="ni ni-collection text-red"></i>
+                                    <span class="nav-link-text">Manage Reports</span>
+                                </a>
+                                <div class="collapse" id="navbar-dashboards1" style>
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a href="{{ url('expenseReports') }}" class="nav-link">
+                                                    <i class="ni ni-bullet-list-67 text-blue"></i>View Event Expense Reports</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ url('quotationReports') }}" class="nav-link">
+                                                <i class="ni ni-bullet-list-67 text-blue"></i>View Event Qutation Reports</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
                         <!-- <li class="nav-item">
                             <a class="nav-link" href="{{ url('inventory/create') }}">
                                 <i class="ni ni-collection text-red"></i> {{ __('Add Inventory') }}
