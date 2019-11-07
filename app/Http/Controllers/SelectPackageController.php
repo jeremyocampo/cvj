@@ -50,6 +50,7 @@ class SelectPackageController extends Controller
     public function store(Request $request)
     {
         //chosen_invs,inv_qty,chosen_dishes,
+        // dd($request);
         $package = new PackageModel();
 
         $package->package_name = $request->input("package_name");
@@ -124,7 +125,20 @@ class SelectPackageController extends Controller
             $e_inv->save();
         }
 
-        return redirect('/summary/'.$event->event_id);
+       
+        //$inventory->last_modified = Carbon::now();
+        //$items->save();
+
+        $success = "Packages Selected!";
+        return redirect('/summary', compact('client', 'packages', 'success'));
+        
+        
+        // return redirect('/summary')
+        // ->with('success', "Packages Selected!")
+        // ->with('client', $client)
+        // ->with('packages', $packages);
+*/
+        return redirect('/home')->with('success', 'Event Package Selected');
     }
 
     /**
