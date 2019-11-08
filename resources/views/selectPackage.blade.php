@@ -35,7 +35,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-small btn-secondary" data-dismiss="modal">Close</button>
                 <a id="customize_package_url" href="{{route('customize_package',$event->event_id)}}/" class="btn btn-small btn-primary">
-                    <i class="fa fa-cart-plus"></i> Create Custom Package</a>
+                    <i class="fa fa-cart-plus"></i> Choose Package With Additions</a>
                 <form action="{{route('post.selectpackages')}}" method="POST">
                     {{csrf_field()}}
                     <input type="hidden" value="{{$event->event_id}}" name="event_id">
@@ -75,7 +75,7 @@
                             <div class="row" id="package_row">
                                 @foreach($packages as $package)
                                     @if($package->package_client_id == null or $package->package_client_id == $user_id)
-                                            <div class="col-md-3 package_card" style="margin-bottom: 4vh" value="{{$package->price}}">
+                                            <div class="col-md-4 package_card" style="margin-bottom: 4vh" value="{{$package->price}}">
                                                 <div class="card" style="width: 18rem;">
                                                     @if($package->package_client_id == $user_id)
                                                         <span class="badge badge-pill badge-success" style="background-color: green;color:white;position:absolute;top:65%;left:50%;">USER CUSTOM PACKAGE</span>

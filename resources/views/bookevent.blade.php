@@ -75,7 +75,7 @@
                            <div class="col-md-5 mb-3">
                                 <label class = "datetime"> Event Date <font color="red">*</font></label>
                                    {{-- {{ Form::date('eventStartDate', '', ['class' => 'form-control', 'placeholder' => 'Date of Event', 'required' => 'true', 'min' => date("Y-m-d H:i:s")]) }}  --}}
-                               <input type="date" name="eventStartDate" onchange="checkdates()" class="form-control" placeholder="Start date" id="eventStartDate">
+                               <input type="date" min="{{$min_val_date}}" name="eventStartDate" onchange="checkdates()" class="form-control" placeholder="Start date" id="eventStartDate">
                                <p id="invalid_msg" class="small" style="color: #ff5153;display: none;">This date is already overbooked. Please consider booking another day or cancel booking event.</p>
                            </div>
 
@@ -83,11 +83,11 @@
                                <div class="row">
                                    <div class="col-md-6">
                                     <label class = "datetime"> Start Time <font color="red">*</font></label>
-                                       <input type="time" name="startTime" onchange="checkdates()" class="form-control" id="eventStartTime">
+                                       <input type="time" name="startTime"  class="form-control" id="eventStartTime">
                                    </div>
                                    <div class="col-md-6">
                                        <label class = "datetime"> End Time <font color="red">*</font></label>
-                                       <input type="time" name="endTime" onchange="checkdates()" class="form-control"  id="eventEndTime">
+                                       <input type="time" name="endTime"  class="form-control"  id="eventEndTime">
                                    </div>
                                </div>
                            </div>
@@ -98,7 +98,8 @@
                             </div>
 
                            {{-- by 50s, 60s, 70, 80s etcc.. --}}
-                           <div class="col-md-4 mb-3"> 
+                           <div class="col-md-4 mb-3">
+                               <!--
                                <label class = "form-label"> Number of Attendees <font color="red">*</font></label>
                                <select name="totalPax" class = "form-control" >
                                     <option selected disabled>Please Select Number of Attendees</option>
@@ -107,22 +108,25 @@
                                     <option value=100> 100 </option>
                                     <option value=101> more than 100 </option>
                                 </select>
+                                -->
                             </div>
 
                             <div class="col-md-5 mb-3"> 
                                 <label class = "form-label"> Venue <font color="red" >*</font></label>
-                                <select name="venue" class = "form-control" onchange="venue_select()" form = "bookevent" id="location" value="0">
-                                     <option value="0" selected disabled>Please Select Location</option>
-                                         <option value="CVJ Clubhouse Ground Floor"> CVJ Clubhouse Ground Floor </option>
-                                         <option value="CVJ Clubhouse Second Floor"> CVJ Clubhouse Second Floor </option>
-                                         <option value="CVJ Clubhouse Third Floor"> CVJ Clubhouse Third Floor </option>
-                                         <option value="4"> Off-Premise </option>
+
+
+                                <select name="venue" class = "form-control" onchange="venue_select()" id="location">
+                                     <option selected disabled>Please Select Location</option>
+                                     <option value="CVJ Clubhouse Ground Floor"> CVJ Clubhouse Ground Floor </option>
+                                     <option value="CVJ Clubhouse Second Floor"> CVJ Clubhouse Second Floor </option>
+                                     <option value="CVJ Clubhouse Third Floor"> CVJ Clubhouse Third Floor </option>
+                                     <option value="4"> Off-Premise </option>
                                  </select>
                              </div>
                             <div class="col-md-4 mb-3">
                                     <div id="address_div" style="display: none">
                                         <label class = "form-label" id="eventvenueL"> Address <font color="red" id="eventvenueA"></font></label>
-                                        {{ Form::text('eventvenue', '', ['class' => 'form-control', 'placeholder' => 'Venue Address', 'required' => 'false', 'id' => 'eventvenue'])}}
+                                        <input type="text" class="form-control" PLACEHOLDER="Venue address" id="eventvenue" name="eventvenue">
                                     </div>
                             </div>
                             <div class="col-md-5 mb-3"> <label class = "form-label"> Others </label>
@@ -170,7 +174,7 @@
         //if 2 dates are not null, check AJAX
         var start = document.getElementById('eventStartDate');
 
-        if(start !== null && $("#eventStartTime").val() !== "" && $("#eventEndTime").val() !== ""){
+        if(start !== null){
             console.log(start.value);
             console.log($("#eventStartTime").val());
             console.log($("#eventEndTime").val());

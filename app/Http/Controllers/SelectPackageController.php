@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Event;
 use App\EventInventory;
+use App\EventModel;
 use App\events;
 use App\inventory;
 use App\Items;
@@ -25,7 +26,9 @@ class SelectPackageController extends Controller
     {
         $event = Event::where('event_id','=',$event_id)->first();
         $client_id = Auth::id();
-        $packages = PackageModel::where('suggested_pax','>=',$event->totalpax)->get();
+        //$packages = PackageModel::where('suggested_pax','>=',$event->totalpax)->get();
+        $packages = PackageModel::all();
+
         error_log("looged_user: ".$client_id);
         foreach ($packages as $package){
             $food_items =PackageItem::where('package_id','=',$package->package_id)->select('item_id')->get();
@@ -43,9 +46,9 @@ class SelectPackageController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     *
+     * CREATING CUSTOMIZED PACKAGE
      */
     public function store(Request $request)
     {
@@ -59,8 +62,11 @@ class SelectPackageController extends Controller
         $package->suggested_pax = $request->input("suggested_pax");
         $package->price = $request->input("venue_price");
         $package->save();
-        error_log("saved: ".$package);
 
+        $event = EventModel::where('event_id','=',$request->input('event_id'))->first();
+
+        error_log("event_selected: ".$event->event_id);
+        error_log("saved: ".$package);
         error_log("saved: ".$package->package_id);
 
         for($i=0; $i<count($request->input("chosen_invs"));$i++){
@@ -95,8 +101,8 @@ class SelectPackageController extends Controller
             $package->price += $package_item->computed_cost;
         }
         $package->save();
-        $event = events::where('event_id','=',$request->input('event_id'))->first();
-        $event->package_id = $request->input('package_id');
+        error_log("event ID: ".$request->input('event_id'));
+        $event->package_id = $package->package_id;
         $event->save();
 
         return redirect('/summary/'.$event->event_id);
@@ -124,21 +130,7 @@ class SelectPackageController extends Controller
             $e_inv->status = $inv_inv->status;
             $e_inv->save();
         }
-
-       
-        //$inventory->last_modified = Carbon::now();
-        //$items->save();
-
-        $success = "Packages Selected!";
-        return redirect('/summary', compact('client', 'packages', 'success'));
-        
-        
-        // return redirect('/summary')
-        // ->with('success', "Packages Selected!")
-        // ->with('client', $client)
-        // ->with('packages', $packages);
-*/
-        return redirect('/home')->with('success', 'Event Package Selected');
+        return redirect('/summary/'.$event->event_id);
     }
 
     /**

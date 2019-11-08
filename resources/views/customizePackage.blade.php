@@ -85,7 +85,7 @@
 		<div class="col-xl-12 mb-5 mb-xl-0">
 				<div class="card shadow">
 
-                    <form method="post" action="{{route('post.selectpackages')}}">
+                    <form method="post" action="{{route('post.customize_package')}}">
 						<div class="card-header border-0">
 
                             <center style="margin-bottom: 2.5vh;"><h2 class="mb-0" >Customize Package</h2></center>

@@ -45,8 +45,8 @@ class BookEventController extends Controller
             // ->join('package','event.package_id','=','package.package_id')
             // ->join('event','package.package_id','=','event.package_id')
             ->get();
-
-        return view('bookevent', ['client' => $client, 'packages' => $packages]);
+        $min_val_day = Carbon::now()->addMonths(2)->format('Y-m-d');
+        return view('bookevent', ['client' => $client, 'packages' => $packages,'min_val_date'=>$min_val_day]);
     }
 
     
@@ -93,10 +93,9 @@ class BookEventController extends Controller
     $today = Carbon::now('+8:00');
 
     $eventDate =  Carbon::parse($request->input('eventStartDate'));
-    $eventEnd = Carbon::parse($request->input('eventEndDate'))->format('Y-m-d');
+//    $eventEnd = Carbon::parse($request->input('eventEndDate'))->format('Y-m-d');
 
-    $daysBefore = $eventDate->subDay(90)->format('Y-m-d');
-
+    //$daysBefore = $eventDate->subDay(90)->format('Y-m-d');
     $daysBefore1 = $today->addDay(90)->format("Y-m-d");
 
     // $errors = '';
@@ -124,29 +123,30 @@ class BookEventController extends Controller
     $this->validate($request, [
         'eventName'                 => 'required',
         'eventType'                 => 'required',
-        'eventStartDate'            => 'required|after_or_equal:'.$daysBefore1,
-        'eventEndDate'              => 'required|after:eventStartDate',
+    //    'eventStartDate'            => 'required|after_or_equal:'.$daysBefore1,
+    //    'eventEndDate'              => 'required|after:eventStartDate',
         'theme'                     => 'required|min:1',
-        'totalPax'                  => 'required',
+    //    'totalPax'                  => 'required',
         'others'                    => '',
-        'venue'                    => 'sometimes|required',
+        'venue'                    => 'required',
         
     ],[
         'eventName'             => 'Please Input a valid Event Name',
         'eventType'             => 'Please Input a valid Event Type',
         'eventStartDate'        => 'Please Input a valid Event Start Date',
-        'eventEndDate'          => 'Please Input a valid Event End Date',
+    //    'eventEndDate'          => 'Please Input a valid Event End Date',
         'theme'                 => 'Please Input a valid Theme',
-        'totalPax'              => 'Please Input a valid Number of Attendees',
+    //    'totalPax'              => 'Please Input a valid Number of Attendees',
         'others'                => 'Please Input a valid Description',
         'venue'                => 'Please Input a valid Venue',
     ]);
 
-    $startDateTime = Carbon::parse($request->input('eventStartDate'));
-    $endDateTime = Carbon::parse($request->input('eventEndDate'));
+    $startDateTime = Carbon::parse($request->input('eventStartDate')." ".$request->input('startTime'));
+    $endDateTime = Carbon::parse($request->input('eventStartDate')." ".$request->input('endTime'));
 
     
-
+    error_log("awit: ".$request->input('venue'));
+    error_log("awit: ".$request->input('theme'));
     $event = new EventModel([
         'event_name' => $request->input('eventName'),
         'event_type' => $request->input('eventType'),
@@ -154,14 +154,14 @@ class BookEventController extends Controller
         'event_start' => $startDateTime,
         'event_end' => $endDateTime,
         'theme' => $request->input('theme'),
-        'totalpax' => $request->input('totalPax'),
+        'totalpax' => null,
         'others' => $request->input('others'),
         'client_id' => $clientID,
         'status' => 1,
 
     ]);
   
-    
+    $event->venue = $request->input('venue');
     $email = auth()->user()->email;
 
     // $emailAdd = $email[0]->email; 
@@ -169,22 +169,24 @@ class BookEventController extends Controller
     // dd($email);
 
     // dd($startDateTime);
-
+    /* commenting google events for now.
     $gevent = new Event;
     $gevent->name =  $request->input('eventName');
     $gevent->startDateTime =  $startDateTime;
     $gevent->endDateTime = $endDateTime;
     $gevent->location = $request->input('venue');
-    $gevent->maxAttendees = $request->input('totalPax');
+    //$gevent->maxAttendees = $request->input('totalPax');
     $gevent->addAttendee(['email' => $email]);
 
     // dd($gevent);
     $event->save();
     $gevent->save();
+    */
 
+    $event->save();
     
 
-    self::send_email(auth()->user()->name,"jeremy_ocampojr@dlsu.edu.ph", $request->input('eventName'));
+    //self::send_email(auth()->user()->name,"jeremy_ocampojr@dlsu.edu.ph", $request->input('eventName'));
     
     return redirect('/selectpackages/' . $event->event_id)
     ->with('success', "Event details saved!");
