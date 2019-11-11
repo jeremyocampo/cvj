@@ -23,7 +23,7 @@
                         </table>
                     </div>
                     <div class="col-md-6">
-                        <b>Items</b>
+                        <b>Items & Misc</b>
                         <table class="table">
                             <tbody id="item_tbl">
                             <td></td>
@@ -34,7 +34,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-small btn-secondary" data-dismiss="modal">Close</button>
-                <a id="customize_package_url" href="{{route('customize_package',$event->event_id)}}/" class="btn btn-small btn-primary">
+                <a id="customize_package_url" href="{{route('customize_package',$event->event_id)}}/" class="btn btn-small btn-success">
                     <i class="fa fa-cart-plus"></i> Choose Package With Additions</a>
                 <form action="{{route('post.selectpackages')}}" method="POST">
                     {{csrf_field()}}
@@ -55,7 +55,7 @@
 								<div class="row align-items-center">
 									<div class="col">
 										<h3 class="mb-0" style="display: inline">Select Packages</h3>
-                                        <a  style="display: inline" class="btn btn-sm btn-primary" href="{{route('customize_package',$event->event_id)}}/">+ New Customized Package</a>
+                                        <a  style="display: inline" class="btn btn-sm btn-primary" href="{{route('customize_package',$event->event_id)}}/">+ Create New Package</a>
 									</div>
 									<div class="col alight-items-right">
 										{{-- <h4>Last Replenished: {{$items[0]->last_modified}}</h4> --}}

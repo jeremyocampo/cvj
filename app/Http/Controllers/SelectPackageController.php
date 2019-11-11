@@ -185,7 +185,7 @@ class SelectPackageController extends Controller
 
         $event->formatted_day = date("M jS, Y", strtotime($event->event_start));
         $event->formatted_start = date("H:i", strtotime($event->event_start));
-        $event->formatted_end = date("H:i", strtotime($event->event_start));
+        $event->formatted_end = date("H:i", strtotime($event->event_end));
 
         $package = PackageModel::where('package_id','>=',$event->package_id)->first();
         $food_items =PackageItem::where('package_id','=',$package->package_id)->select('item_id')->get();
@@ -196,6 +196,35 @@ class SelectPackageController extends Controller
             $inventory->inventory_name = inventory::where('inventory_id','=',$inventory->inventory_id)->first()->inventory_name;
         }
         return view('bookingsummary',['package'=>$package,'event'=>$event,'user_id'=>$client_id]);
+
+    }
+    public function test_page1($event_id, $package_id=null)
+    {
+        $package = null;
+        $venue_cost_table = array("CVJ Clubhouse Ground Floor"=>15000,
+            "CVJ Clubhouse Second Floor"=>20000,
+            "CVJ Clubhouse Third Floor"=>22000
+        );
+        $event = events::where('event_id','=',$event_id)->first();
+        $client_id = Auth::id();
+        if($package_id != null){
+            $package = PackageModel::where('package_id','=',$package_id)->first();
+            $food_items =PackageItem::where('package_id','=',$package->package_id)->select('item_id')->get();
+            $food_items =$food_items->toArray();
+            $package->foods = Items::whereIn('item_id',$food_items)->get();
+            $package->inventory = PackageInventory::where('package_id','=',$package->package_id)->get();
+            foreach ($package->inventory as $inventory){
+                $inventory->inventory_name = inventory::where('inventory_id','=',$inventory->inventory_id)->first()->inventory_name;
+            }
+
+            $avail_foods = Items::whereNotIn('item_id',$food_items)->get();
+        }
+        else{
+            $avail_foods = Items::all();
+        }
+        $avail_invs = inventory::all();
+
+        return view('prototype_views/customizePackageTest',['venue_price'=>($event->venue == null ? null:$venue_cost_table[$event->venue]),'user_id'=>$client_id,'package'=>$package,'event'=>$event,'avail_foods'=>$avail_foods,'avail_invs'=>$avail_invs]);
 
     }
 

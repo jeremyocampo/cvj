@@ -3,11 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="acb9a2cb-0c91-4cfe-98e9-5d7151ab0887" name="Default Changelist" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/BookEventController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/BookEventController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/SelectPackageController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/SelectPackageController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/bookevent.blade.php" afterPath="$PROJECT_DIR$/resources/views/bookevent.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/customizePackage.blade.php" afterPath="$PROJECT_DIR$/resources/views/customizePackage.blade.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/selectPackage.blade.php" afterPath="$PROJECT_DIR$/resources/views/selectPackage.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/web.php" afterPath="$PROJECT_DIR$/routes/web.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -104,156 +102,173 @@
     <favorites_list name="cvj" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="cvjdb.users" pinned="false" current-in-tab="false">
-        <entry file="dbDummy://dbtable:/11b9e3/5cbb29b8-6af1-4c84-9557-6e7cf1a9e9d0/cvjdb.users">
-          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-            <state>
-              <filtering enabled="true" />
-            </state>
-          </provider>
-          <provider editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SelectPackageController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/SelectPackageController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="328">
-              <caret line="109" column="0" lean-forward="true" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="bookevent.blade.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/bookevent.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-66">
-              <caret line="117" column="91" lean-forward="false" selection-start-line="117" selection-start-column="86" selection-end-line="117" selection-end-column="91" />
-              <folding>
-                <element signature="e#5003#5040#0#HTML" expanded="true" />
-                <element signature="e#8234#8255#0#HTML" expanded="true" />
-                <element signature="e#9039#9094#0#HTML" expanded="true" />
-                <marker date="1573223186000" expanded="false" signature="11512:12766" ph="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="selectPackage.blade.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/selectPackage.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="131">
-              <caret line="49" column="0" lean-forward="false" selection-start-line="103" selection-start-column="8" selection-end-line="103" selection-end-column="23" />
-              <folding>
-                <marker date="1573222456000" expanded="true" signature="6887:6911" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="customizePackage.blade.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/customizePackage.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="197">
-              <caret line="90" column="103" lean-forward="true" selection-start-line="90" selection-start-column="103" selection-end-line="90" selection-end-column="103" />
-              <folding>
-                <marker date="1573226793000" expanded="true" signature="12677:12704" ph="..." />
-                <marker date="1573226793000" expanded="true" signature="13017:13041" ph="..." />
-                <marker date="1573226793000" expanded="true" signature="13445:13472" ph="..." />
-                <marker date="1573226793000" expanded="true" signature="13823:13834" ph="..." />
-                <marker date="1573226793000" expanded="true" signature="14302:14329" ph="..." />
-                <marker date="1573226793000" expanded="true" signature="14536:14560" ph="..." />
-                <marker date="1573226793000" expanded="true" signature="14990:15017" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="cvjdb.package" pinned="false" current-in-tab="true">
-        <entry file="dbDummy://dbtable:/11b9e3/5cbb29b8-6af1-4c84-9557-6e7cf1a9e9d0/cvjdb.package">
-          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-            <state>
-              <filtering enabled="true" />
-            </state>
-          </provider>
-          <provider editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="cvjdb.package_item" pinned="false" current-in-tab="false">
-        <entry file="dbDummy://dbtable:/11b9e3/5cbb29b8-6af1-4c84-9557-6e7cf1a9e9d0/cvjdb.package_item">
-          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-            <state>
-              <filtering enabled="true" />
-            </state>
-          </provider>
-          <provider editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="cvjdb.package_inventory" pinned="false" current-in-tab="false">
-        <entry file="dbDummy://dbtable:/11b9e3/5cbb29b8-6af1-4c84-9557-6e7cf1a9e9d0/cvjdb.package_inventory">
-          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-            <state>
-              <filtering enabled="true" />
-            </state>
-          </provider>
-          <provider editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="cvjdb.event" pinned="false" current-in-tab="false">
-        <entry file="dbDummy://dbtable:/11b9e3/5cbb29b8-6af1-4c84-9557-6e7cf1a9e9d0/cvjdb.event">
-          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-            <state>
-              <filtering enabled="true" />
-            </state>
-          </provider>
-          <provider editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="web.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/web.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="186">
-              <caret line="78" column="95" lean-forward="false" selection-start-line="78" selection-start-column="73" selection-end-line="78" selection-end-column="95" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <splitter split-orientation="horizontal" split-proportion="0.56891704">
+      <split-first>
+        <leaf>
+          <file leaf-file-name="customizePackageTest.blade.php" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/resources/views/prototype_views/customizePackageTest.blade.php">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="360">
+                  <caret line="327" column="37" lean-forward="true" selection-start-line="327" selection-start-column="37" selection-end-line="327" selection-end-column="37" />
+                  <folding>
+                    <element signature="e#89#2088#0#HTML" expanded="false" />
+                    <element signature="e#2089#4005#0#HTML" expanded="false" />
+                    <element signature="e#4212#4234#0#HTML" expanded="true" />
+                    <element signature="e#4649#4677#0#HTML" expanded="true" />
+                    <element signature="e#4884#4970#0#HTML" expanded="true" />
+                    <element signature="e#5035#5057#0#HTML" expanded="true" />
+                    <marker date="1573490031000" expanded="true" signature="13084:13111" ph="..." />
+                    <marker date="1573490031000" expanded="true" signature="13456:13480" ph="..." />
+                    <marker date="1573490031000" expanded="true" signature="13956:13983" ph="..." />
+                    <marker date="1573490031000" expanded="true" signature="14358:14369" ph="..." />
+                    <marker date="1573490031000" expanded="true" signature="14917:14944" ph="..." />
+                    <marker date="1573490031000" expanded="true" signature="15175:15199" ph="..." />
+                    <marker date="1573490031000" expanded="true" signature="15717:15744" ph="..." />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="selectPackage.blade.php" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/resources/views/selectPackage.blade.php">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="192">
+                  <caret line="57" column="179" lean-forward="true" selection-start-line="57" selection-start-column="179" selection-end-line="57" selection-end-column="179" />
+                  <folding>
+                    <marker date="1573490472000" expanded="true" signature="6890:6914" ph="..." />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="bookingsummary.blade.php" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/resources/views/bookingsummary.blade.php">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="-309">
+                  <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="customizePackage.blade.php" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/resources/views/customizePackage.blade.php">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="-2640">
+                  <caret line="87" column="79" lean-forward="false" selection-start-line="87" selection-start-column="79" selection-end-line="87" selection-end-column="79" />
+                  <folding>
+                    <marker date="1573489197000" expanded="true" signature="12677:12704" ph="..." />
+                    <marker date="1573489197000" expanded="true" signature="13017:13041" ph="..." />
+                    <marker date="1573489197000" expanded="true" signature="13445:13472" ph="..." />
+                    <marker date="1573489197000" expanded="true" signature="13823:13834" ph="..." />
+                    <marker date="1573489197000" expanded="true" signature="14302:14329" ph="..." />
+                    <marker date="1573489197000" expanded="true" signature="14536:14560" ph="..." />
+                    <marker date="1573489197000" expanded="true" signature="14990:15017" ph="..." />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="cvjdb.package" pinned="false" current-in-tab="false">
+            <entry file="dbDummy://dbtable:/11b9e3/5cbb29b8-6af1-4c84-9557-6e7cf1a9e9d0/cvjdb.package">
+              <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+                <state>
+                  <filtering enabled="true" />
+                </state>
+              </provider>
+              <provider editor-type-id="text-editor">
+                <state relative-caret-position="0">
+                  <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="cvjdb.package_item" pinned="false" current-in-tab="false">
+            <entry file="dbDummy://dbtable:/11b9e3/5cbb29b8-6af1-4c84-9557-6e7cf1a9e9d0/cvjdb.package_item">
+              <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+                <state>
+                  <filtering enabled="true" />
+                </state>
+              </provider>
+              <provider editor-type-id="text-editor">
+                <state relative-caret-position="0">
+                  <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="cvjdb.package_inventory" pinned="false" current-in-tab="false">
+            <entry file="dbDummy://dbtable:/11b9e3/5cbb29b8-6af1-4c84-9557-6e7cf1a9e9d0/cvjdb.package_inventory">
+              <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+                <state>
+                  <filtering enabled="true" />
+                </state>
+              </provider>
+              <provider editor-type-id="text-editor">
+                <state relative-caret-position="0">
+                  <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="cvjdb.event" pinned="false" current-in-tab="false">
+            <entry file="dbDummy://dbtable:/11b9e3/5cbb29b8-6af1-4c84-9557-6e7cf1a9e9d0/cvjdb.event">
+              <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+                <state>
+                  <filtering enabled="true" />
+                </state>
+              </provider>
+              <provider editor-type-id="text-editor">
+                <state relative-caret-position="0">
+                  <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="web.php" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/routes/web.php">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="437">
+                  <caret line="78" column="54" lean-forward="true" selection-start-line="78" selection-start-column="54" selection-end-line="78" selection-end-column="54" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf>
+          <file leaf-file-name="web.php" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/routes/web.php">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="719">
+                  <caret line="77" column="76" lean-forward="false" selection-start-line="77" selection-start-column="76" selection-end-line="77" selection-end-column="76" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="SelectPackageController.php" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/app/Http/Controllers/SelectPackageController.php">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="437">
+                  <caret line="225" column="0" lean-forward="true" selection-start-line="225" selection-start-column="0" selection-end-line="225" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>template</find>
-      <find>Choose</find>
-      <find>new custom</find>
-      <find>select</find>
-      <find>form</find>
       <find>Login</find>
       <find>exampleModal</find>
       <find>New Cus</find>
@@ -277,8 +292,13 @@
       <find>number of A</find>
       <find>eventvenue</find>
       <find>postsele</find>
-      <find>venue</find>
       <find>customize_route</find>
+      <find>Items</find>
+      <find>summary</find>
+      <find>show</find>
+      <find>Create</find>
+      <find>venue</find>
+      <find>target</find>
     </findStrings>
     <replaceStrings>
       <replace>event_budget_template</replace>
@@ -299,7 +319,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/argon-dashboard-laravel-master/src/argon-stubs/resources/views/users/create.blade.php" />
         <option value="$PROJECT_DIR$/resources/sdf/index.blade.php" />
         <option value="$PROJECT_DIR$/resources/eventCosting/index.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/event_costing/index.blade.php" />
@@ -344,12 +363,13 @@
         <option value="$PROJECT_DIR$/resources/views/bookingsummary.blade.php" />
         <option value="$PROJECT_DIR$/.env" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/EventsBudgetController.php" />
-        <option value="$PROJECT_DIR$/routes/web.php" />
-        <option value="$PROJECT_DIR$/resources/views/selectPackage.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/bookevent.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/BookEventController.php" />
+        <option value="$PROJECT_DIR$/routes/web.php" />
         <option value="$PROJECT_DIR$/resources/views/customizePackage.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/SelectPackageController.php" />
+        <option value="$PROJECT_DIR$/resources/views/prototype_views/customizePackageTest.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/selectPackage.blade.php" />
       </list>
     </option>
   </component>
@@ -474,8 +494,10 @@
     </include_path>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="width" value="1440" />
-    <option name="height" value="900" />
+    <option name="x" value="-1920" />
+    <option name="y" value="77" />
+    <option name="width" value="1920" />
+    <option name="height" value="1058" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -618,21 +640,20 @@
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="com.intellij.database.dataSource.DataSourceTemplate" value="MySQL" />
     <property name="SearchEverywhereHistoryKey" value="inventoryA&#9;FILE&#9;file:///Applications/XAMPP/xamppfiles/htdocs/cvj/resources/views/layouts/inventoryApp.blade.php&#10;debug&#9;ACTION&#9;ActivateDebugToolWindow&#10;xdeb&#9;null&#9;null" />
-    <property name="FullScreen" value="true" />
     <property name="settings.editor.selected.configurable" value="web-ide.project.structure" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/resources/views" />
-      <recent name="$PROJECT_DIR$/resources/sdf" />
-      <recent name="$PROJECT_DIR$/resources/eventCosting" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/views/prototype_views" />
       <recent name="$PROJECT_DIR$/app" />
       <recent name="$PROJECT_DIR$/resources/views" />
       <recent name="$PROJECT_DIR$/app/Http/Controllers" />
       <recent name="$PROJECT_DIR$/script_changes" />
-      <recent name="$PROJECT_DIR$/resources/views/event_costing" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/views" />
+      <recent name="$PROJECT_DIR$/resources/sdf" />
+      <recent name="$PROJECT_DIR$/resources/eventCosting" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -750,25 +771,24 @@
       <workItem from="1572933150978" duration="3416000" />
       <workItem from="1573022425072" duration="15000" />
       <workItem from="1573022735678" duration="134000" />
-      <workItem from="1573022895693" duration="15968000" />
+      <workItem from="1573022895693" duration="28017000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="191567000" />
+    <option name="totallyTimeSpent" value="203616000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
-    <editor active="true" />
+    <frame x="-1920" y="77" width="1920" height="1058" extended-state="6" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23032904" sideWeight="0.49355432" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12193823" sideWeight="0.49355432" order="3" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.101573676" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12087327" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329602" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24920128" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4154229" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3287234" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39925373" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19456366" sideWeight="0.50644565" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -822,7 +842,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" />
     <entry file="file://$PROJECT_DIR$/app/PackageItem.php" />
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/EventsCostingController.php" />
     <entry file="file://$PROJECT_DIR$/app/Items.php" />
@@ -852,7 +871,6 @@
     <entry file="dbDummy://dbtable:/11b9e3/5cbb29b8-6af1-4c84-9557-6e7cf1a9e9d0/cvjdb.employee_event_schedule" />
     <entry file="dbDummy://dbtable:/11b9e3/5cbb29b8-6af1-4c84-9557-6e7cf1a9e9d0/cvjdb.event_budget_item" />
     <entry file="file://$PROJECT_DIR$/resources/views/editEventBudget.blade.php" />
-    <entry file="file://$PROJECT_DIR$/resources/views/bookingsummary.blade.php" />
     <entry file="dbSrc:///11b9e3/577a34cb-8e9e-4b24-869a-5ab5a55a0b04/schema/new_cvjdb/view/vwbudget.sql" />
     <entry file="dbDummy://dbtable:/11b9e3/577a34cb-8e9e-4b24-869a-5ab5a55a0b04/new_cvjdb.tbluser" />
     <entry file="dbDummy://dbtable:/11b9e3/5cbb29b8-6af1-4c84-9557-6e7cf1a9e9d0/cvjdb.recipe" />
@@ -863,7 +881,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.env" />
     <entry file="dbDummy://dbtable:/11b9e3/577a34cb-8e9e-4b24-869a-5ab5a55a0b04/new_cvjdb.tblservices" />
     <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/577a34cb-8e9e-4b24-869a-5ab5a55a0b04/console_1.sql">
       <provider selected="true" editor-type-id="text-editor">
@@ -901,25 +918,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/BookEventController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-62">
-          <caret line="132" column="7" lean-forward="true" selection-start-line="132" selection-start-column="7" selection-end-line="132" selection-end-column="7" />
-          <folding>
-            <element signature="e#40#68#0#PHP" expanded="false" />
-            <element signature="e#1915#2006#0#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/web.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="78" column="95" lean-forward="false" selection-start-line="78" selection-start-column="73" selection-end-line="78" selection-end-column="95" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/bookevent.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-66">
@@ -930,6 +928,53 @@
             <element signature="e#9039#9094#0#HTML" expanded="true" />
             <marker date="1573223186000" expanded="false" signature="11512:12766" ph="{...}" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbtable:/11b9e3/5cbb29b8-6af1-4c84-9557-6e7cf1a9e9d0/cvjdb.package_inventory">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.env">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="29" column="15" lean-forward="false" selection-start-line="29" selection-start-column="15" selection-end-line="29" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/bookingsummary.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-309">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/BookEventController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="178" column="46" lean-forward="true" selection-start-line="178" selection-start-column="46" selection-end-line="178" selection-end-column="46" />
+          <folding>
+            <element signature="e#1915#2006#0#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/web.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="78" column="54" lean-forward="true" selection-start-line="78" selection-start-column="54" selection-end-line="78" selection-end-column="54" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -946,54 +991,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/selectPackage.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="131">
-          <caret line="49" column="0" lean-forward="false" selection-start-line="103" selection-start-column="8" selection-end-line="103" selection-end-column="23" />
-          <folding>
-            <marker date="1573222456000" expanded="true" signature="6887:6911" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/customizePackage.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="90" column="103" lean-forward="true" selection-start-line="90" selection-start-column="103" selection-end-line="90" selection-end-column="103" />
-          <folding>
-            <marker date="1573226793000" expanded="true" signature="12677:12704" ph="..." />
-            <marker date="1573226793000" expanded="true" signature="13017:13041" ph="..." />
-            <marker date="1573226793000" expanded="true" signature="13445:13472" ph="..." />
-            <marker date="1573226793000" expanded="true" signature="13823:13834" ph="..." />
-            <marker date="1573226793000" expanded="true" signature="14302:14329" ph="..." />
-            <marker date="1573226793000" expanded="true" signature="14536:14560" ph="..." />
-            <marker date="1573226793000" expanded="true" signature="14990:15017" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/SelectPackageController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="328">
-          <caret line="109" column="0" lean-forward="true" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="dbDummy://dbtable:/11b9e3/5cbb29b8-6af1-4c84-9557-6e7cf1a9e9d0/cvjdb.package_item">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="dbDummy://dbtable:/11b9e3/5cbb29b8-6af1-4c84-9557-6e7cf1a9e9d0/cvjdb.package_inventory">
       <provider editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -1016,6 +1014,62 @@
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
           <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/customizePackage.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2640">
+          <caret line="87" column="79" lean-forward="false" selection-start-line="87" selection-start-column="79" selection-end-line="87" selection-end-column="79" />
+          <folding>
+            <marker date="1573489197000" expanded="true" signature="12677:12704" ph="..." />
+            <marker date="1573489197000" expanded="true" signature="13017:13041" ph="..." />
+            <marker date="1573489197000" expanded="true" signature="13445:13472" ph="..." />
+            <marker date="1573489197000" expanded="true" signature="13823:13834" ph="..." />
+            <marker date="1573489197000" expanded="true" signature="14302:14329" ph="..." />
+            <marker date="1573489197000" expanded="true" signature="14536:14560" ph="..." />
+            <marker date="1573489197000" expanded="true" signature="14990:15017" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/SelectPackageController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="225" column="0" lean-forward="true" selection-start-line="225" selection-start-column="0" selection-end-line="225" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/prototype_views/customizePackageTest.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="327" column="37" lean-forward="true" selection-start-line="327" selection-start-column="37" selection-end-line="327" selection-end-column="37" />
+          <folding>
+            <element signature="e#89#2088#0#HTML" expanded="false" />
+            <element signature="e#2089#4005#0#HTML" expanded="false" />
+            <element signature="e#4212#4234#0#HTML" expanded="true" />
+            <element signature="e#4649#4677#0#HTML" expanded="true" />
+            <element signature="e#4884#4970#0#HTML" expanded="true" />
+            <element signature="e#5035#5057#0#HTML" expanded="true" />
+            <marker date="1573490031000" expanded="true" signature="13084:13111" ph="..." />
+            <marker date="1573490031000" expanded="true" signature="13456:13480" ph="..." />
+            <marker date="1573490031000" expanded="true" signature="13956:13983" ph="..." />
+            <marker date="1573490031000" expanded="true" signature="14358:14369" ph="..." />
+            <marker date="1573490031000" expanded="true" signature="14917:14944" ph="..." />
+            <marker date="1573490031000" expanded="true" signature="15175:15199" ph="..." />
+            <marker date="1573490031000" expanded="true" signature="15717:15744" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/selectPackage.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="57" column="179" lean-forward="true" selection-start-line="57" selection-start-column="179" selection-end-line="57" selection-end-column="179" />
+          <folding>
+            <marker date="1573490472000" expanded="true" signature="6890:6914" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
