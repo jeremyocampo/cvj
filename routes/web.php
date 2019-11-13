@@ -34,6 +34,7 @@ Route::resource('event_costing','EventsCostingController');
 //Event Budget Template
 Route::get('event_budget_template','EventsBudgetTemplateController@index')->name("event_budget_template");
 Route::post('event_budget_template','EventsBudgetTemplateController@store')->name('post.event_budget_template');
+
 //Event Budget
 Route::get('event_budgets','EventsBudgetController@index')->name("event_budgets");
 Route::get('event_budgets/view/{event_id}','EventsBudgetController@show')->name("get.event_budgets");
@@ -49,6 +50,8 @@ Route::get('email/{send_name}/{send_email}/{subject}','MailController@send_email
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('outsource', 'OutsourcingController');
 Route::resource('ingredient', 'IngredientController');
 Route::resource('food', 'FoodController');
 Route::resource('users', 'UsersController');
@@ -66,6 +69,11 @@ Route::get('summary/{event_id}', 'SelectPackageController@summary');
 
 //Rosette's Routes
 Route::resource('bookevent', 'BookEventController');
+Route::resource('eventdashboard','EventsHomeDashboard');
+Route::resource('confirmevents', 'ConfirmEventsController');
+
+Route::get('date_range', 'DateRangeController@index');
+
 
 Route::get('selectpackages/{event_id}', 'SelectPackageController@index')->name('get.selectpackages');
 Route::post('postselectpackages/', 'SelectPackageController@create')->name('post.selectpackages');
@@ -81,6 +89,7 @@ Route::resource('returnInventory','ReturnInventoryController');
 Auth::routes();
 
 Route::resource('confirmevents', 'ConfirmEventsController');
+<<<<<<< HEAD
 Route::resource('expenseReports', 'ExpenseReportsController');
 Route::resource('quotationReports', 'QuotationReportsController');
 
@@ -92,3 +101,6 @@ Route::get('qr-code-g', function () {
     return view('qrCode');
 
 });
+=======
+Route::resource('addpackages', 'BookEventController');
+>>>>>>> b203cd1e4bb3d01d86603daa470b7b64be3046b3

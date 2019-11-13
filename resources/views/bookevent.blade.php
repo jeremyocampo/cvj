@@ -76,6 +76,7 @@
                                    {{-- {{ Form::date('eventStartDate', '', ['class' => 'form-control', 'placeholder' => 'Date of Event', 'required' => 'true', 'min' => date("Y-m-d H:i:s")]) }}  --}}
                                    <input type="datetime-local" name="eventStartDate" class="form-control" placeholder="Start date" id="eventStartDate">
                             </div>
+                           
 
                            <div class="col-md-4 mb-3">
                                 <label class = "form-label"> Event End Date <font color="red">*</font></label>

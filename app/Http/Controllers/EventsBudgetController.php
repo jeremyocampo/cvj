@@ -61,10 +61,22 @@ class EventsBudgetController extends Controller
             //$this->send_email($event->client_name,'leebet16@gmail.com',$event->event_name,'Caterie Confirmation');
             $event->total_spent = $budget_check->spent_buffer;
             $event->budget_id=$budget_check->id;
+<<<<<<< HEAD
             $employees=EmployeeEventSchedule::select('employee_id')->where('event_id','=',$event->event_id)->get();
             $event->personnels=Employee::whereIn('employee_id',$employees)->get();
             foreach(EventBudgetItem::where('event_budget_id','=',$budget_check->id)->get() as $budget_item) {
                 $event->total_spent += $budget_item->actual_amount;
+=======
+            
+            $employees=EmployeeEventSchedule::select('employee_id')->where('event_id','=',$event->event_id)->get();
+
+            if($employees != null){
+                
+                $event->personnels=Employee::whereIn('employee_id',$employees)->get();
+                foreach(EventBudgetItem::where('event_budget_id','=',$budget_check->id)->get() as $budget_item) {
+                    $event->total_spent += $budget_item->actual_amount;
+                }
+>>>>>>> b203cd1e4bb3d01d86603daa470b7b64be3046b3
             }
             
 

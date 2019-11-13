@@ -49,7 +49,7 @@ class ConfirmEventsController extends Controller
         ->select('*')
         ->where('event.status', '=', '1')
         ->get();
-        // dd($eventdetails);
+         //dd($eventdetails);
         return view('confirmevents', [ 'eventdetails' => $eventdetails]);
 
     }
