@@ -89,7 +89,7 @@ Route::resource('returnInventory','ReturnInventoryController');
 Auth::routes();
 
 Route::resource('confirmevents', 'ConfirmEventsController');
-<<<<<<< HEAD
+
 Route::resource('expenseReports', 'ExpenseReportsController');
 Route::resource('quotationReports', 'QuotationReportsController');
 
@@ -99,8 +99,6 @@ Route::get('qr-code-g', function () {
               ->generate('ItSolutionStuff.com', public_path('images/qrcode.png'));
       
     return view('qrCode');
-
 });
-=======
+
 Route::resource('addpackages', 'BookEventController');
->>>>>>> b203cd1e4bb3d01d86603daa470b7b64be3046b3

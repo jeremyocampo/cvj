@@ -18,7 +18,7 @@
 											<select id="source" name="source" class="form-control" placeholder="Item Source" required>
 													<option value = 0 selected disabled>Please Select Item Source</option>
 													<option value = 1>Bought</option>
-													<option value = 2>Outsourced</option>
+													{{-- <option value = 2>Outsourced</option> --}}
 													<option value = 3>Alternative (Flowers Only)</option>
 											</select>
 											</div>
