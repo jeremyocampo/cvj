@@ -1,5 +1,5 @@
 
-@extends('layouts.inventoryApp')
+@extends('layouts.app')
 
 @section('content')
 @include('layouts.headers.inventoryCard1')
@@ -131,7 +131,7 @@
 												@endif
 											@endforeach 
 									</select>
-									{{ Form::hidden('categoryVal', $itemInfo[0]->category, ['class' => 'form-control', 'placeholder' => 'Category'] )}}
+									{{-- {{ Form::hidden('categoryVal', $itemInfo[0]->category, ['class' => 'form-control', 'placeholder' => 'Category'] )}} --}}
 								</div>
 								<div class="col-md-6 mb-3">
 									<label class="form-label">Size</label>
@@ -145,12 +145,9 @@
 												@endif
 											@endforeach 
 									</select>
-									{{ Form::hidden('categoryVal', $itemInfo[0]->category, ['class' => 'form-control', 'placeholder' => 'Category'] )}}
+									{{-- {{ Form::hidden('categoryVal', $itemInfo[0]->category, ['class' => 'form-control', 'placeholder' => 'Category'] )}} --}}
 								</div>
-								{{ Form::hidden('source', $itemInfo[0]->itemSource, ['class' => 'form-control', 'placeholder' => 'Category'] )}}
-								{{-- <div class="col-md-4">
-								<p>Current Quantity</p>
-								</div> --}}
+								{{-- {{ Form::hidden('source', $itemInfo[0]->itemSource, ['class' => 'form-control', 'placeholder' => 'Category'] )}} --}}
 								<div class="col-md-3">
 									<label class="form-label">Quantity</label>
 									{{ Form::number('quantity', $itemInfo[0]->quantity,['class' => 'form-control', 'placeholder' => 'Current Quantity'] )}}
