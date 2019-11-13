@@ -46,45 +46,19 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
+                                                {{-- <tr>
                                                     <td>Jeremy's Birthday Bash</td>
                                                     <td>CVJ Catering Ground Floor</td>
                                                     <td>March 25, 2020</td>
                                                     <td>March 25, 2020</td>
                                                     <td>
-                                                            <a href="{{ url('deploy/1') }}" class="btn btn-sm">
-                                                                <i class="ni ni-zoom-split-in"></i>
-                                                                <span>{{ __('View Event Details') }}</span>
-                                                            </a>
-
+                                                        <a href="{{ url('deploy/1') }}" class="btn btn-sm">
+                                                            <i class="ni ni-zoom-split-in"></i>
+                                                            <span>{{ __('View Event Details') }}</span>
+                                                        </a>
                                                     </td>
-                                                    {{-- <td class="popup">
-                                                            <div class="dropdown">
-                                                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                    Action
-                                                                </button>
-                                                                <div class="dropdown-menu dropdown-menu-arrow dropdown-menu">
-                                                                    <div class=" dropdown-header noti-title">
-                                                                        <h6 class="text-overflow m-0">{{ __('Please Select an Action!') }}</h6>
-                                                                    </div>
-                                                                    <div class="dropdown-divider"></div>
-                                                                    <a href="{{ url('deploy/1') }}" class="dropdown-item">
-                                                                        <i class="ni ni-zoom-split-in"></i>
-                                                                        <span>{{ __('View Event Details') }}</span>
-                                                                    </a>
-                    
-                                                                    <a href="{{ url('deploy/1/edit')}}" class="dropdown-item">
-                                                                        <i class="ni ni-fat-add"></i>
-                                                                        <span>{{ __('Replenish Item') }}</span>
-                                                                    </a>
-                                                                    
-                                                                    
-                                                                </div>
-                                                            </div>
-                                                            
-                                                        </td> --}}
-                                                </tr>
-                                                {{-- @foreach ($events as $i)
+                                                </tr> --}}
+                                                @foreach ($events as $i)
                                                 @if($i->status > 0)
                                                 <tr>
                                                     <td>{{ $i->event_name }}</td>
@@ -101,7 +75,7 @@
                                                 </tr>
                                                 
                                                 @endif
-                                                @endforeach --}}
+                                                @endforeach
                                             </tbody>
                                         </table>
                                         

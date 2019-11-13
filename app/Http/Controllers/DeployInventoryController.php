@@ -30,7 +30,8 @@ class DeployInventoryController extends Controller
         // ->join('reserve_venue','event.reservation_id','=','reserve_venue.reservation_id')
         ->join('event_status_ref', 'event.status', '=', 'event_status_ref.status_id')
         ->select('*')
-        ->where('event.status', '=', '3')
+        ->where('event.status', '=', 3)
+        ->where('event.status', '<', 6)
         ->get();
 
         $date = Carbon::now('+8:00');
@@ -100,18 +101,17 @@ class DeployInventoryController extends Controller
         $packages = DB::table('package')
         ->join('package_inventory', 'package.package_id', '=', 'package_inventory.package_id')
         ->join('inventory', 'package_inventory.inventory_id', '=', 'inventory.inventory_id')
+        ->join('category_ref','inventory.category','=','category_ref.category_no')
+        ->join('color','inventory.color','=','color.color_id')
         // ->join('package_item', 'package.package_id', '=', 'package_item.package_id')
         ->select('*')
         // ->where('')
         ->get();
 
-        $packagesA = DB::table('package')
-        ->join('package_inventory', 'package.package_id', '=', 'package_inventory.package_id')
-        // ->join('inventory', 'package_inventory.inventory_id', '=', 'inventory.inventory_id')
-        ->join('package_item', 'package.package_id', '=', 'package_item.package_id')
-        ->join('items', 'package_item.item_id', '=', 'items.item_id')
+        $employees = DB::table('employee')
         ->select('*')
-        // ->where('')
+        ->where('employee.employee_type', '=', 'Logistics')
+        ->where('employee.assigned_events', '<=', '5')
         ->get();
 
 
@@ -126,20 +126,21 @@ class DeployInventoryController extends Controller
                     array_push($eventPackages, $b);
                 }
             }
-            foreach($packagesA as $c){
-                if ($c->package_id == $package){
-                    array_push($eventItems, $c);
-                }
-            }
+            // foreach($packagesA as $c){
+            //     if ($c->package_id == $package){
+            //         array_push($eventItems, $c);
+            //     }
+            // }
         }
 
-
+        // dd($employees);
+        // dd($eventPackages);
         // dd($event, $packages);
 
         // dd($event, $eventPackages, $eventItems);
 
-        // return view('viewEventDeploy',[ 'event' => $event, 'package' => $eventPackages, 'packageA' => $eventItems]);
-        return view('viewEventDeploy');
+        return view('viewEventDeploy',[ 'event' => $event, 'package' => $eventPackages, 'employees' => $employees]);
+        // return view('viewEventDeploy');
 
     }
 
@@ -195,7 +196,7 @@ class DeployInventoryController extends Controller
         //     $e_inv->save();
         // }
 
-        return redirect('/deploy')->with('success', 'Inventory has been deployed!');
+        return redirect('/deploy')->with('success', 'Event Inventory has been deployed!');
 
     }
 
