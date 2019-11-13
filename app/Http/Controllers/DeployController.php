@@ -19,7 +19,14 @@ class DeployController extends Controller
     
     public function index()
     {
-        return view('deployInventory');
+        $event = DB::table('event')
+        // ->join('reserve_venue','event.reservation_id','=','reserve_venue.reservation_id')
+        ->select('*')
+        ->where('status', '<', 6)
+        ->get();
+        
+        return view('deployInventory',['events' => $event]);
+        
     }
 
     /**

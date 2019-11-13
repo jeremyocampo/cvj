@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Requests;
 use Carbon\Carbon;
 use Faker\Generator as Faker;
+use App\PackageInventory;
 
 class DeployInventoryController extends Controller
 {
@@ -25,15 +26,35 @@ class DeployInventoryController extends Controller
 
     public function index()
     {
-        $joinedTable = DB::table('event')
-            // ->join('category_ref','inventory.category','=','category_ref.id')
-            // ->join('inventory','category_ref.category_no','=','inventory.category')
-            ->join('inventory','event.inventory_id','=','inventory.inventory_id')
-            ->get();
-        //dd($joinedTable);
+        $eventInProgress = DB::table('event')
+        // ->join('reserve_venue','event.reservation_id','=','reserve_venue.reservation_id')
+        ->join('event_status_ref', 'event.status', '=', 'event_status_ref.status_id')
+        ->select('*')
+        ->where('event.status', '=', 3)
+        ->where('event.status', '<', 6)
+        ->get();
 
+        $date = Carbon::now('+8:00');
+        // dd($date);
+
+        // $check = (Carbon::parse($date)->gt($event[0]->event_start));
         
-        return view('deployInventory', ['events'  => $joinedTable]);
+       
+        $inprogress = array();
+
+        foreach($eventInProgress as $i){
+            // $twoDaysBefore = Carbon::parse($i->event_end)->format('Y-m-d')->subDay(2);
+
+            if($date->format('Y-m-d') == Carbon::parse($i->event_start)->format('Y-m-d')){
+                array_push($inprogress, $i);
+            }
+        }
+
+        // $joinedTable = DB::table('event')
+        // ->get();
+        // $eventPackages = DB::table('event');
+
+        return view('deployInventory', ['events'  => $inprogress ]);
     }
 
     /**
@@ -66,6 +87,61 @@ class DeployInventoryController extends Controller
     public function show($id)
     {
         //
+        // dd((int)$id);
+        $event = DB::table('event')
+        // ->join('reserve_venue','event.reservation_id','=','reserve_venue.reservation_id')
+        ->join('event_status_ref', 'event.status', '=', 'event_status_ref.status_id')
+        ->join('package', 'event.package_id', '=', 'package.package_id')
+        // ->join('package_inventory', 'package.package_id','=', 'package_inventory.package_id')
+        // ->join('inventory', 'package_inventory.inventory_id', '=', 'inventory.inventory_id')
+        ->select('*')
+        ->where('event.event_id', '=', (int)$id)
+        ->get();
+
+        $packages = DB::table('package')
+        ->join('package_inventory', 'package.package_id', '=', 'package_inventory.package_id')
+        ->join('inventory', 'package_inventory.inventory_id', '=', 'inventory.inventory_id')
+        ->join('category_ref','inventory.category','=','category_ref.category_no')
+        ->join('color','inventory.color','=','color.color_id')
+        // ->join('package_item', 'package.package_id', '=', 'package_item.package_id')
+        ->select('*')
+        // ->where('')
+        ->get();
+
+        $employees = DB::table('employee')
+        ->select('*')
+        ->where('employee.employee_type', '=', 'Logistics')
+        ->where('employee.assigned_events', '<=', '5')
+        ->get();
+
+
+        $eventPackages = array();
+        $eventItems = array();
+        
+        foreach($event as $i){
+            $package = $i->package_id;
+
+            foreach($packages as $b){
+                if ($b->package_id == $package){
+                    array_push($eventPackages, $b);
+                }
+            }
+            // foreach($packagesA as $c){
+            //     if ($c->package_id == $package){
+            //         array_push($eventItems, $c);
+            //     }
+            // }
+        }
+
+        // dd($employees);
+        // dd($eventPackages);
+        // dd($event, $packages);
+
+        // dd($event, $eventPackages, $eventItems);
+
+        return view('viewEventDeploy',[ 'event' => $event, 'package' => $eventPackages, 'employees' => $employees]);
+        // return view('viewEventDeploy');
+
     }
 
     /**
@@ -77,6 +153,8 @@ class DeployInventoryController extends Controller
     public function edit($id)
     {
         //
+        
+        
     }
 
     /**
@@ -89,6 +167,37 @@ class DeployInventoryController extends Controller
     public function update(Request $request, $id)
     {
         //
+        // $event = DB::table('event')
+    
+        // ->join('package', 'event.package_id', '=', 'package.package_id')
+        
+        // ->select('*')
+        // ->where('event.event_id', '=', (int)$id)
+       
+        // ->update([
+        //     'status' => 4,
+        // ]);
+
+      
+        // $event = DB::table('event')
+        // ->where('event.event_id', '=', (int)$id)
+        // ->get();
+
+      
+        // foreach (DB::table('package_inventory')->where('package_id','=',$event->package_id)->get() as $inv){
+        //     $e_inv = new EventInventory();
+        //     $inv_inv = inventory::where('inventory_id','=',$inv->inventory_id);
+        //     $e_inv->event_id = $event->event_id;
+        //     $e_inv->inventory_id = $inv->inventory_id;
+        //     $e_inv->qty = $inv->quantity;
+        //     $e_inv->rent_price = $inv->rent_cost;
+        //     $e_inv->esku = $inv_inv->sku;
+        //     $e_inv->status = "Borrowed";
+        //     $e_inv->save();
+        // }
+
+        return redirect('/deploy')->with('success', 'Event Inventory has been deployed!');
+
     }
 
     /**

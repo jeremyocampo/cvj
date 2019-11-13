@@ -25,21 +25,22 @@
     21 => 'Illuminate\\View\\ViewServiceProvider',
     22 => 'BeyondCode\\DumpServer\\DumpServerServiceProvider',
     23 => 'Fideloper\\Proxy\\TrustedProxyServiceProvider',
-    24 => 'Illuminate\\Notifications\\NexmoChannelServiceProvider',
-    25 => 'Illuminate\\Notifications\\SlackChannelServiceProvider',
-    26 => 'Laravel\\Tinker\\TinkerServiceProvider',
-    27 => 'Carbon\\Laravel\\ServiceProvider',
-    28 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
-    29 => 'LaravelFrontendPresets\\ArgonPreset\\ArgonPresetServiceProvider',
-    30 => 'Collective\\Html\\HtmlServiceProvider',
-    31 => 'Spatie\\GoogleCalendar\\GoogleCalendarServiceProvider',
-    32 => 'Collective\\Html\\HtmlServiceProvider',
-    33 => 'Milon\\Barcode\\BarcodeServiceProvider',
-    34 => 'Spatie\\GoogleCalendar\\GoogleCalendarServiceProvider',
-    35 => 'App\\Providers\\AppServiceProvider',
-    36 => 'App\\Providers\\AuthServiceProvider',
-    37 => 'App\\Providers\\EventServiceProvider',
-    38 => 'App\\Providers\\RouteServiceProvider',
+    24 => 'LaravelFrontendPresets\\ArgonPreset\\ArgonPresetServiceProvider',
+    25 => 'Illuminate\\Notifications\\NexmoChannelServiceProvider',
+    26 => 'Illuminate\\Notifications\\SlackChannelServiceProvider',
+    27 => 'Laravel\\Tinker\\TinkerServiceProvider',
+    28 => 'Collective\\Html\\HtmlServiceProvider',
+    29 => 'Carbon\\Laravel\\ServiceProvider',
+    30 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
+    31 => 'SimpleSoftwareIO\\QrCode\\QrCodeServiceProvider',
+    32 => 'Spatie\\GoogleCalendar\\GoogleCalendarServiceProvider',
+    33 => 'Collective\\Html\\HtmlServiceProvider',
+    34 => 'Milon\\Barcode\\BarcodeServiceProvider',
+    35 => 'Spatie\\GoogleCalendar\\GoogleCalendarServiceProvider',
+    36 => 'App\\Providers\\AppServiceProvider',
+    37 => 'App\\Providers\\AuthServiceProvider',
+    38 => 'App\\Providers\\EventServiceProvider',
+    39 => 'App\\Providers\\RouteServiceProvider',
   ),
   'eager' => 
   array (
@@ -55,10 +56,10 @@
     9 => 'Illuminate\\View\\ViewServiceProvider',
     10 => 'BeyondCode\\DumpServer\\DumpServerServiceProvider',
     11 => 'Fideloper\\Proxy\\TrustedProxyServiceProvider',
-    12 => 'Illuminate\\Notifications\\NexmoChannelServiceProvider',
-    13 => 'Illuminate\\Notifications\\SlackChannelServiceProvider',
-    14 => 'Carbon\\Laravel\\ServiceProvider',
-    15 => 'LaravelFrontendPresets\\ArgonPreset\\ArgonPresetServiceProvider',
+    12 => 'LaravelFrontendPresets\\ArgonPreset\\ArgonPresetServiceProvider',
+    13 => 'Illuminate\\Notifications\\NexmoChannelServiceProvider',
+    14 => 'Illuminate\\Notifications\\SlackChannelServiceProvider',
+    15 => 'Carbon\\Laravel\\ServiceProvider',
     16 => 'Spatie\\GoogleCalendar\\GoogleCalendarServiceProvider',
     17 => 'Milon\\Barcode\\BarcodeServiceProvider',
     18 => 'Spatie\\GoogleCalendar\\GoogleCalendarServiceProvider',
@@ -171,11 +172,12 @@
     'validator' => 'Illuminate\\Validation\\ValidationServiceProvider',
     'validation.presence' => 'Illuminate\\Validation\\ValidationServiceProvider',
     'command.tinker' => 'Laravel\\Tinker\\TinkerServiceProvider',
-    'NunoMaduro\\Collision\\Contracts\\Provider' => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
     'html' => 'Collective\\Html\\HtmlServiceProvider',
     'form' => 'Collective\\Html\\HtmlServiceProvider',
     'Collective\\Html\\HtmlBuilder' => 'Collective\\Html\\HtmlServiceProvider',
     'Collective\\Html\\FormBuilder' => 'Collective\\Html\\HtmlServiceProvider',
+    'NunoMaduro\\Collision\\Contracts\\Provider' => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
+    'qrcode' => 'SimpleSoftwareIO\\QrCode\\QrCodeServiceProvider',
   ),
   'when' => 
   array (
@@ -218,10 +220,13 @@
     'Laravel\\Tinker\\TinkerServiceProvider' => 
     array (
     ),
+    'Collective\\Html\\HtmlServiceProvider' => 
+    array (
+    ),
     'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider' => 
     array (
     ),
-    'Collective\\Html\\HtmlServiceProvider' => 
+    'SimpleSoftwareIO\\QrCode\\QrCodeServiceProvider' => 
     array (
     ),
   ),

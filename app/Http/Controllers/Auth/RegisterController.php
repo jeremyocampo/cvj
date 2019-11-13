@@ -7,6 +7,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\DB;
+use Session;
+use App\Client;
 
 class RegisterController extends Controller
 {
@@ -28,7 +31,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/login';
+    protected $redirectTo = '/bookevent';
 
     /**
      * Create a new controller instance.
@@ -52,6 +55,9 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:3', 'confirmed'],
+            'tel_no' => ['string'],
+            'mob_no' => ['string'],
+            'address' => ['string'],
         ]);
     }
 
@@ -63,10 +69,33 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $cli = DB::table('users')
+        ->orderBy('id','desc')
+        ->first();
+
+        $id = $cli->id+1;
+
+        Client::create([
+            'client_name' => $data['name'],
+            'email' => $data['email'],
+            // 'userType' => $data['userType'],
+            'tel_no' => $data['tel_no'],
+            'mob_no' => $data['mob_no'],
+            'address' => $data['address'],
+            'user_id' => $id,
+        ]);
+        
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            // 'userType' => $data['userType'],
+            'tel_no' => $data['tel_no'],
+            'mob_no' => $data['mob_no'],
+            'address' => $data['address'],
+            'status' => 'Pending',
+            'userType' => 5,
         ]);
+        
     }
 }
