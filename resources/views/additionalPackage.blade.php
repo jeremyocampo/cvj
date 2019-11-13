@@ -146,7 +146,8 @@
 		<div class="col-xl-12 mb-5 mb-xl-0">
 				<div class="card shadow">
 
-                    <form method="post" action="{{route('post.customize_package')}}">
+                    <form method="post" action="{{route('post.create_with_additions')}}">
+
 						<div class="card-header border-0">
                             <center style="margin-bottom: 5.5vh;"><h2 class="mb-0" >Input Additionals</h2></center>
 								<div class="row">
@@ -157,7 +158,6 @@
                                                 <span data-toggle="modal" data-target="#pckModal">
                                                     <a href="#" data-toggle="tooltip"  data-placement="top" title="View Package Inclusions"> <i class="fa fa-eye"></i> {{$package->package_name}}</a></div>
                                                 </span>
-
                                         </div>
                                         <div class="row">
                                             <div class="col-md-4"><label>Package Price: </label></div>
@@ -181,7 +181,7 @@
                                 <input type="hidden" value="{{$event->event_id}}" name="event_id">
                                 <input type="hidden" value="{{$user_id}}" name="client_id">
                                 <input type="hidden" value="{{$venue_price}}" name="venue_price">
-                                <input type="hidden" value="{{$package->package_id}}" name="parent_package_id">
+                                <input type="hidden" value="{{$package->package_id}}" name="package_id">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="col" style="margin-bottom: 2vh;">

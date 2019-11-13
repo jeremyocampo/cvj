@@ -88,7 +88,7 @@
                     <form method="post" action="{{route('post.customize_package')}}">
 						<div class="card-header border-0">
 
-                            <center style="margin-bottom: 2.5vh;"><h2 class="mb-0" >Customize Package</h2></center>
+                            <center style="margin-bottom: 4.5vh;"><h2 class="mb-0" >Create New Package</h2></center>
 								<div class="row">
 									<div class="col-md-6">
                                         <div class="row" style="margin-bottom: 2.5vh;">
@@ -97,7 +97,25 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-4"><label>Number of Attendants</label></div>
-                                            <div class="col-md-8"><input name="suggested_pax" class=" form-control" id="totalpax" onchange="calibrate_pax(this)" type="number" value="@if($package != null) {{$package->price}} @else 50 @endif" @if($package != null) readonly @endif></div>
+                                            <div class="col-md-8">
+                                                <select name="suggested_pax" class = "form-control" >
+                                                    <option value="50"> 50 </option>
+                                                    <option value="70"> 70 </option>
+                                                    <option value="80"> 80 </option>
+                                                    <option value="100"> 100 </option>
+                                                    <option value="150"> 150 </option>
+                                                    <option value="200"> 200 </option>
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                        <div class="row" style="margin-top: 2vh">
+                                            <div class="col-md-4"><label>Markup Percent</label></div>
+                                            <div class="col-md-8"><input name="markup" class=" form-control" id="markup" onchange="calibrate_pax(this)" type="number" value=""></div>
+                                        </div>
+                                        <div class="row" style="margin-top: 2vh">
+                                            <div class="col-md-4"><label>Package Price</label></div>
+                                            <div class="col-md-8"><input name="package_price" class=" form-control" id="package_price" onchange="calibrate_pax(this)" type="number" value=""></div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -111,7 +129,7 @@
                                             <label>Venue Cost: P<span id="venue">{{$venue_price}}</span></label>
                                         </div>
                                         <hr style="margin: 0;">
-                                        <h3 style="margin-top: 0;">Total Package Price: <span id="total_package_price"></span></h3>
+                                        <h3 style="margin-top: 0;">Total Package Suggested Price: <span id="total_package_price"></span></h3>
                                     </div>
 								</div>
 						</div>

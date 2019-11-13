@@ -77,8 +77,13 @@ Route::resource('bookevent', 'BookEventController');
 
 Route::get('selectpackages/{event_id}', 'SelectPackageController@index')->name('get.selectpackages');
 Route::post('postselectpackages/', 'SelectPackageController@create')->name('post.selectpackages');
+
+Route::get('additional_package/{event_id}/{package_id?}', 'SelectPackageController@additional_package')->name('additional_package');
 Route::get('customize_package/{event_id}/{package_id?}', 'SelectPackageController@show')->name('customize_package');
+
 Route::post('customize_package', 'SelectPackageController@store')->name('post.customize_package');
+Route::post('create_with_additions', 'SelectPackageController@create_with_additions')->name('post.create_with_additions');
+
 Route::resource('clientregister', 'ClientRegisterController');
 
 Route::resource('inventoryDash', 'InventoryHomeController');
