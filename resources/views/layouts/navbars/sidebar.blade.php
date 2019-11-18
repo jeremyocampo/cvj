@@ -158,6 +158,10 @@
                                         <a href="{{ url('outsource') }}" class="nav-link">
                                             <i class="ni ni-calendar-grid-58 text-yellow"></i>Outsource Items</a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a href="{{ url('archive') }}" class="nav-link">
+                                            <i class="ni ni-archive-2 text-red"></i> Archive</a>
+                                    </li>
                                 </ul>
                             </div>
                         </li>

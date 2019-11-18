@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateInventoryBarcodesTable extends Migration
+class UpdateInventorySoftDeletes extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateInventoryBarcodesTable extends Migration
      */
     public function up()
     {
-        Schema::create('inventory_barcodes', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('itemName');
-            $table->string('category');
-            $table->int('quantity');
-            $table->string('barcode');
+        //
+
+        Schema::table('inventory', function (Blueprint $table){
+
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateInventoryBarcodesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('inventory_barcodes');
+        //
     }
 }

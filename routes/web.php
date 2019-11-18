@@ -22,6 +22,9 @@ Route::put('profile', ['as' => 'profile.update', 'uses' => 'ProfileController@up
 // Route::get('inventory/view/{$id}', 'InventoryController@updateInfo');
 // Route::get('inventory/deploy', 'InventoryController@deploy');
 Route::resource('inventory','InventoryController');
+Route::get('updateInventory/{id}', 'InventoryController@editRecord');
+Route::get('archive', 'InventoryController@archive');
+Route::get('recover/{id}', 'InventoryController@recover');
 Route::resource('deploy','DeployInventoryController');
 Route::resource('events', 'EventsController');
 Route::resource('calendar', 'Calendar');
