@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Client;
 use App\Employee;
 use App\EmployeeEventSchedule;
 use App\Event;
@@ -31,10 +32,11 @@ class QuotationController extends Controller
         //inventory items //food items
         $client_id = Auth::id();
         $event = Event::where('event_id','=',$event_id)->first();
-
+        $client = Client::where('client_id','=',$event->client_id)->first();
+        $is_off_premise = $event->venue == "Off-Premise";
         $event->formatted_day = date("M jS, Y", strtotime($event->event_start));
-        $event->formatted_start = date("H:i", strtotime($event->event_start));
-        $event->formatted_end = date("H:i", strtotime($event->event_end));
+        $event->formatted_start = date("g:i A", strtotime($event->event_start));
+        $event->formatted_end = date("g:i A", strtotime($event->event_end));
 
         $package = PackageModel::where('package_id','>=',$event->package_id)->first();
         $food_items =PackageItem::where('package_id','=',$package->package_id)->select('item_id')->get();
@@ -67,9 +69,9 @@ class QuotationController extends Controller
         foreach ($package->inventory as $inventory){
             $inventory->inventory_name = inventory::where('inventory_id','=',$inventory->inventory_id)->first()->inventory_name;
         }
-        return view('bookingsummary',
-            ['package'=>$package,'event'=>$event,'user_id'=>$client_id,
-                'additional_count'=>$additional_count,'additional_dishes'=>$event_dishes,
+        return view('client_quotation',
+            ['package'=>$package,'event'=>$event,'user_id'=>$client_id,'client'=>$client,
+                'additional_count'=>$additional_count,'additional_dishes'=>$event_dishes, 'is_off_premise'=>$is_off_premise,
                 'additional_invs'=>$event_inventories,'staff_count'=>count($employees_id),'staff_cost'=>$total_staff_cost]);
     }
 
@@ -78,10 +80,9 @@ class QuotationController extends Controller
         //inventory items //food items
         $client_id = Auth::id();
         $event = Event::where('event_id','=',$event_id)->first();
-
         $event->formatted_day = date("M jS, Y", strtotime($event->event_start));
-        $event->formatted_start = date("H:i", strtotime($event->event_start));
-        $event->formatted_end = date("H:i", strtotime($event->event_end));
+        $event->formatted_start = date("g:i A", strtotime($event->event_start));
+        $event->formatted_end = date("g:i A", strtotime($event->event_end));
 
         $package = PackageModel::where('package_id','>=',$event->package_id)->first();
         $food_items =PackageItem::where('package_id','=',$package->package_id)->select('item_id')->get();
@@ -102,7 +103,7 @@ class QuotationController extends Controller
             $total_staff_cost += 800; //dummy calculation of wages per day or gig.
         }
 
-
+        error_log("cleint: ".$client);
         foreach ($event_inventories as $inventory){
             $inventory->inventory_name = inventory::where('inventory_id','=',$inventory->inventory_id)->first()->inventory_name;
 
@@ -114,8 +115,8 @@ class QuotationController extends Controller
         foreach ($package->inventory as $inventory){
             $inventory->inventory_name = inventory::where('inventory_id','=',$inventory->inventory_id)->first()->inventory_name;
         }
-        return view('bookingsummary',
-            ['package'=>$package,'event'=>$event,'user_id'=>$client_id,
+        return view('company_quotation',
+            ['package'=>$package,'event'=>$event,'user_id'=>$client_id,'client'=>$client,
                 'additional_count'=>$additional_count,'additional_dishes'=>$event_dishes,
                 'additional_invs'=>$event_inventories,'staff_count'=>count($employees_id),'staff_cost'=>$total_staff_cost]);
     }

@@ -180,7 +180,7 @@
                     @endif
 
                     <hr>
-                    <center><a class="btn btn-lg btn-primary" href="/home">Confirm Booking</a> <a class="btn btn-lg btn-primary" href="/client_quotation/{{$event->event_id}}"><i class="fa fa-eye"></i> Preview Quotation</a></center>
+                    <center><a class="btn btn-lg btn-primary" href="/home">Confirm Booking</a> <a class="btn btn-lg btn-primary" href="/home"><i class="fa fa-eye"></i> Preview Quotation</a></center>
                 </div>
             </div>
         </div>

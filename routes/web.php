@@ -73,7 +73,9 @@ Route::get('admin/routes', 'AdminController@admin')->middleware('admin');
 
 Route::get('summary/{event_id}', 'SelectPackageController@summary');
 
-Route::get('client_quotation/{event_id}', 'SelectPackageController@summary');
+Route::get('client_quotation/{event_id}', 'QuotationController@client_quotation')->name('client_quotation');
+
+Route::get('company_quotation/{event_id}', 'QuotationController@company_quotation')->name('company_quotation');
 //Dummy Test URLS: For Frontend prototyping
 Route::get('test_page1/{event_id}/{package_id?}', 'SelectPackageController@test_page1')->name('test_page1');
 
