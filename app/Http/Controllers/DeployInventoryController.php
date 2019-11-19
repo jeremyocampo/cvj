@@ -33,16 +33,23 @@ class DeployInventoryController extends Controller
         $eventInProgress = DB::table('event')
         // ->join('reserve_venue','event.reservation_id','=','reserve_venue.reservation_id')
         ->join('event_status_ref', 'event.status', '=', 'event_status_ref.status_id')
+        // ->join('deployed_inventory','event.event_id','=','deployed_inventory.event_deployed')
         ->select('*')
         ->where('event.status', '=', 3)
         ->where('event.status', '<', 6)
+        // ->where('deployed_inventory.date_deployed','=', null)
         ->get();
 
-        // dd($eventInProgress);
+        dd($eventInProgress);
 
-        $eventsDep = DB::table('event')
-        ->join('deployed_inventory', 'event.event_id', '=', 'deployed_inventory.event_deployed')
+
+        $eventsDep = DB::table('deployed_inventory')
+        ->join('event','deployed_inventory.event_deployed','=','event.event_id')
+        // ->groupBy('deployed_inventory.event_deployed')
+        // ->where('event_id', '=', 'event_deployed')
+
         ->get();
+
 
         $date = Carbon::now('+8:00');
 
@@ -50,10 +57,11 @@ class DeployInventoryController extends Controller
         $inprogress = array();
         $deployed = array();
 
-        foreach($eventsDep as $h){
+        foreach($eventsDep->unique('event_id') as $h){
             array_push($deployed, $h);
         }
 
+        dd($deployed);
         foreach($eventInProgress as $i){
             // $twoDaysBefore = Carbon::parse($i->event_end)->format('Y-m-d')->subDay(2);
 
