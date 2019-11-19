@@ -137,7 +137,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-										<tr>
+										{{-- <tr>
 												<td>Ikea Chair</td>
 												<td>White</td>
 												<td> {!! QrCode::size(200)->generate("Item-Name: Ikea Chair, Item-Category: Chair, Color: White, Quantity: 55, Event-Name: Jeremy's Birthday Bash"); !!}</td>
@@ -166,8 +166,8 @@
 														<input type="number" value=0  readonly class="form-control qtyReturn" name="qtyReturned[]" id="qtyReturn9876543210123">
 													</div>
 												</td>
-										</tr>
-                                        {{-- @foreach ($borrowedItems as $i)
+										</tr> --}}
+                                        @foreach ($borrowedItems as $i)
                                         @if($i->status > 0)
                                         <tr id="row{{ $i->esku }}" class="success">
                                             
@@ -194,7 +194,7 @@
 											</td>
                                         </tr>
                                         @endif
-                                        @endforeach --}}
+                                        @endforeach
                                     </tbody>
                                 </table>
                         </div>

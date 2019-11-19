@@ -22,6 +22,9 @@ Route::put('profile', ['as' => 'profile.update', 'uses' => 'ProfileController@up
 // Route::get('inventory/view/{$id}', 'InventoryController@updateInfo');
 // Route::get('inventory/deploy', 'InventoryController@deploy');
 Route::resource('inventory','InventoryController');
+Route::get('updateInventory/{id}', 'InventoryController@editRecord');
+Route::get('archive', 'InventoryController@archive');
+Route::get('recover/{id}', 'InventoryController@recover');
 Route::resource('deploy','DeployInventoryController');
 Route::resource('events', 'EventsController');
 Route::resource('calendar', 'Calendar');
@@ -89,4 +92,16 @@ Route::resource('returnInventory','ReturnInventoryController');
 Auth::routes();
 
 Route::resource('confirmevents', 'ConfirmEventsController');
+
+Route::resource('expenseReports', 'ExpenseReportsController');
+Route::resource('quotationReports', 'QuotationReportsController');
+
+Route::get('qr-code-g', function () {
+    \QrCode::size(500)
+              ->format('png')
+              ->generate('ItSolutionStuff.com', public_path('images/qrcode.png'));
+      
+    return view('qrCode');
+});
+
 Route::resource('addpackages', 'BookEventController');
