@@ -91,9 +91,9 @@
             <div class="modal-body">
                 <div style="margin-bottom: 2.5vh">
                     <h3 class="modal-title" id="pckModalLabel">{{$package->package_name}}</h3>
-                    <h5 class="modal-title" id="pckModalLabel">[{{$event->venue}}] {{$event->event_detailsAddded}}</h5>
+                    <h5 class="modal-title" id="pckModalLabel">[{{$event->venue}}] {{$event->event_detailsAdded}}</h5>
 
-                    <h5 class="modal-title" id="pckModalLabel">~ {{$event->suggested_pax}} pax</h5>
+                    <h5 class="modal-title" id="pckModalLabel">~ {{$package->suggested_pax}} pax</h5>
                     <hr style="text-align: left;width: 35%;margin-left: 0;margin-top: 5px;margin-bottom: 5px;">
                     <h4 class="modal-title" id="pckModalLabel" style="color: #ff8d00">₱ {{number_format($package->price,2)}}</h4>
                 </div>
@@ -174,7 +174,7 @@
                                             <label>Additional Items & Misc Total: P<span id="inv_total_text">...</span></label>
                                         </div>
                                         <hr style="margin: 0;">
-                                        <h3 style="margin-top: 0;">Total Amount: <span id="total_package_price"></span></h3>
+                                        <h3 style="margin-top: 0;">Sub Total Amount: <span id="total_package_price"></span></h3>
                                     </div>
 								</div>
 						</div>
@@ -229,7 +229,7 @@
 </div>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
         <script>
-            let total_pax = 50 {{--#where to get number of attendees?  @if($package != null) {{$package->price}} @else 50 @endif --}};
+            let total_pax = {{$package->suggested_pax}} {{--#where to get number of attendees?  @if($package != null) {{$package->price}} @else 50 @endif --}};
             let package_price = {{$package->price}};
             let inv_subtotal = 0;
             let food_subtotal = 0;

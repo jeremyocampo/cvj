@@ -45,42 +45,44 @@ class EventsBudgetController extends Controller
         //$send_name, $send_email, $subject
 
         $events = Event::All();
-        foreach($events as $event){
-            $budget_check = EventBudget::where('event_id', '=',$event->event_id)->first();
-            $client = Client::where('client_id','=',$event->client_id)->first();
+        foreach($events as $event) {
+            $budget_check = EventBudget::where('event_id', '=', $event->event_id)->first();
+            $client = Client::where('client_id', '=', $event->client_id)->first();
 
             $event->client_name = $client->client_name;
-            $event->total_budget = $budget_check == null? 0 : $budget_check->total_budget;
+            $event->total_budget = $budget_check == null ? 0 : $budget_check->total_budget;
             $event->formatted_day = date("M jS, Y", strtotime($event->event_start));
             $event->formatted_start = date("H:i", strtotime($event->event_start));
             $event->formatted_end = date("H:i", strtotime($event->event_start));
             //$event->budget = $budget_check == null? null : $budget_check;
-            if($budget_check == null) {
-               $budget_check = $this->createAutomatedBudget($event->event_id);
+            if ($budget_check == null) {
+                $budget_check = $this->createAutomatedBudget($event->event_id);
             }
             //$this->send_email($event->client_name,'leebet16@gmail.com',$event->event_name,'Caterie Confirmation');
             $event->total_spent = $budget_check->spent_buffer;
-            $event->budget_id=$budget_check->id;
-            $employees=EmployeeEventSchedule::select('employee_id')->where('event_id','=',$event->event_id)->get();
-            $event->personnels=Employee::whereIn('employee_id',$employees)->get();
-            foreach(EventBudgetItem::where('event_budget_id','=',$budget_check->id)->get() as $budget_item) {
+            $event->budget_id = $budget_check->id;
+            $employees = EmployeeEventSchedule::select('employee_id')->where('event_id', '=', $event->event_id)->get();
+            $event->personnels = Employee::whereIn('employee_id', $employees)->get();
+            foreach (EventBudgetItem::where('event_budget_id', '=', $budget_check->id)->get() as $budget_item) {
                 $event->total_spent += $budget_item->actual_amount;
 
-            $employees=EmployeeEventSchedule::select('employee_id')->where('event_id','=',$event->event_id)->get();
+                $employees = EmployeeEventSchedule::select('employee_id')->where('event_id', '=', $event->event_id)->get();
 
-            if($employees != null){
-                
-                $event->personnels=Employee::whereIn('employee_id',$employees)->get();
-                foreach(EventBudgetItem::where('event_budget_id','=',$budget_check->id)->get() as $budget_item) {
-                    $event->total_spent += $budget_item->actual_amount;
+                if ($employees != null) {
+
+                    $event->personnels = Employee::whereIn('employee_id', $employees)->get();
+                    foreach (EventBudgetItem::where('event_budget_id', '=', $budget_check->id)->get() as $budget_item) {
+                        $event->total_spent += $budget_item->actual_amount;
+                    }
                 }
-            }
-            
 
+
+            }
         }
         $all_personnels = array();
         return view('eventBudget',['events'=>$events,'all_personnels'=>$all_personnels]);
     }
+
     public function get_available_personnel($event_id){
         $event = Event::where('event_id','=',$event_id)->first();
         $employees=EmployeeEventSchedule::select('employee_id')->where('event_id','=',$event->event_id)->get();
@@ -306,13 +308,5 @@ class EventsBudgetController extends Controller
     public static function getPackage_by_Id($id){
         return $supplier = PackageModel::where('package_id', '=',$id)->first();
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
 
 }

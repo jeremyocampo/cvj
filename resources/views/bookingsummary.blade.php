@@ -19,13 +19,17 @@
                                             <small>Event Name</small><br>
                                             <label class="form-label">{{$event->event_name}}</label>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <small>Event Type</small><br>
                                             <label class="form-label">{{$event->event_type}}</label>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <small>Event Theme</small><br>
                                             <label class="form-label">{{$event->theme}}</label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <small>Package Pax</small><br><center>
+                                                <label class="form-label">{{$package->suggested_pax}}</label></center>
                                         </div>
                                     </div>
                                 </li>
@@ -38,20 +42,22 @@
                                             </label>
                                         </div>
                                         <div class="col-md-6">
-                                            <small>Estimated Number of Attendees</small><br>
-                                            <label class="form-label">{{$package->suggested_pax}}</label>
+                                            <small>Venue</small><br>
+                                            <label class="form-label">[{{$event->venue}}] {{$event->event_detailsAdded}}</label>
                                         </div>
                                     </div>
                                 </li>
                                 <li class="list-group-item">
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <small>Other Details</small><br>
                                             <label class="form-label">{{$event->others}}</label>
                                         </div>
-                                        <div class="col-md-6">
-                                            <small>Venue</small><br>
-                                            <label class="form-label">[{{$event->venue}}] {{$event->event_detailsAdded}}</label>
+                                        <div class="col-md-4">
+                                            <small>Assigned Staff Count</small><br>
+                                            <label class="form-label">{{$staff_count}}</label>
+                                        </div>
+                                        <div class="col-md-4">
                                         </div>
                                     </div>
                                 </li>
@@ -107,6 +113,10 @@
                                     <div>
                                         <span style="display: inline-block">PHP</span> <b style="display: inline-block">{{number_format($package->price,2)}}</b>
                                     </div>
+                                    <h5 style="margin-bottom: 0.1vh;margin-top:1vh;">Staffing Cost</h5>
+                                    <div>
+                                        <span style="display: inline-block">PHP</span> <b style="display: inline-block">{{number_format($staff_cost,2)}}</b>
+                                    </div>
                                     @if($additional_count != 0)
                                         <h5 style="margin-bottom: 0.1vh;margin-top:1vh;">Total Additionals</h5>
                                         <div>
@@ -116,7 +126,7 @@
                                         <hr>
                                         <h4 style="margin-bottom: 0.1vh">Total Price</h4>
                                         <div>
-                                            <span style="display: inline-block">PHP</span> <b style="display: inline-block">{{number_format($event->total_amount_due,2)}}</b>
+                                            <span style="display: inline-block">PHP</span> <b style="display: inline-block">{{number_format($event->total_amount_due + $staff_cost,2)}}</b>
                                         </div>
                                 </div>
                             </div>
@@ -170,7 +180,7 @@
                     @endif
 
                     <hr>
-                    <center><a class="btn btn-lg btn-primary" href="/home">Confirm Booking</a></center>
+                    <center><a class="btn btn-lg btn-primary" href="/home">Confirm Booking</a> <a class="btn btn-lg btn-primary" href="/home"><i class="fa fa-eye"></i> Preview Quotation</a></center>
                 </div>
             </div>
         </div>

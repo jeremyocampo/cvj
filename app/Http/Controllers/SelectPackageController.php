@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Employee;
+use App\EmployeeEventSchedule;
 use App\Event;
 use App\EventDishes;
 use App\EventInventory;
@@ -280,6 +282,7 @@ class SelectPackageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function summary($event_id)
     {
         //inventory items //food items
@@ -301,8 +304,18 @@ class SelectPackageController extends Controller
 
         $additional_count = $event_inventories->count() + $event_dishes->count();
 
+        $employees_id = EmployeeEventSchedule::where("event_id",'=',$event_id)->get();
+        $total_staff_cost = 0;
+
+        foreach($employees_id as $employee_id){
+            $emp = Employee::where('employee_id','=',$employee_id)->first();
+            $total_staff_cost += 800; //dummy calculation of wages per day or gig.
+        }
+
+
         foreach ($event_inventories as $inventory){
-            $event_inventories->inventory_name = inventory::where('inventory_id','=',$inventory->inventory_id)->first()->inventory_name;
+            $inventory->inventory_name = inventory::where('inventory_id','=',$inventory->inventory_id)->first()->inventory_name;
+
         }
         foreach ($event_dishes as $dish){
             $dish->item_name = Items::where('item_id','=',$dish->item_id)->first()->item_name;
@@ -311,7 +324,10 @@ class SelectPackageController extends Controller
         foreach ($package->inventory as $inventory){
             $inventory->inventory_name = inventory::where('inventory_id','=',$inventory->inventory_id)->first()->inventory_name;
         }
-        return view('bookingsummary',['package'=>$package,'event'=>$event,'user_id'=>$client_id,'additional_count'=>$additional_count,'additional_dishes'=>$event_dishes,'additional_invs'=>$event_inventories]);
+        return view('bookingsummary',
+            ['package'=>$package,'event'=>$event,'user_id'=>$client_id,
+             'additional_count'=>$additional_count,'additional_dishes'=>$event_dishes,
+             'additional_invs'=>$event_inventories,'staff_count'=>count($employees_id),'staff_cost'=>$total_staff_cost]);
     }
     public function test_page1($event_id, $package_id=null)
     {
@@ -346,7 +362,8 @@ class SelectPackageController extends Controller
         $package = null;
         $venue_cost_table = array("CVJ Clubhouse Ground Floor"=>15000,
             "CVJ Clubhouse Second Floor"=>20000,
-            "CVJ Clubhouse Third Floor"=>22000
+            "CVJ Clubhouse Third Floor"=>22000,
+            "Off-Premise"=>null
         );
         $event = events::where('event_id','=',$event_id)->first();
         $client_id = Auth::id();
@@ -367,7 +384,7 @@ class SelectPackageController extends Controller
         }
         $avail_invs = inventory::all();
 
-        return view('additionalPackage',['venue_price'=>($event->venue == null ? null:$venue_cost_table[$event->venue]),'user_id'=>$client_id,'package'=>$package,'event'=>$event,'avail_foods'=>$avail_foods,'avail_invs'=>$avail_invs]);
+        return view('additionalPackage',['venue_price'=>$venue_cost_table[$event->venue],'user_id'=>$client_id,'package'=>$package,'event'=>$event,'avail_foods'=>$avail_foods,'avail_invs'=>$avail_invs]);
 
     }
 

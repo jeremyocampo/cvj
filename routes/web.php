@@ -72,6 +72,8 @@ Route::get('admin/routes', 'AdminController@admin')->middleware('admin');
 // Route::get('oauth', 'gCalendarController@oauth');
 
 Route::get('summary/{event_id}', 'SelectPackageController@summary');
+
+Route::get('client_quotation/{event_id}', 'SelectPackageController@summary');
 //Dummy Test URLS: For Frontend prototyping
 Route::get('test_page1/{event_id}/{package_id?}', 'SelectPackageController@test_page1')->name('test_page1');
 
