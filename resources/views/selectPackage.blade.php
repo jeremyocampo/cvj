@@ -39,7 +39,7 @@
                 <form action="{{route('post.selectpackages')}}" method="POST">
                     {{csrf_field()}}
                     <input type="hidden" value="{{$event->event_id}}" name="event_id">
-                    <input type="hidden" id="package_id" value="{{$package->package_id}}" name="package_id">
+                    <input type="hidden" id="package_id" value="" name="package_id">
                     <button type="submit"  class="btn btn-small btn-primary">
                     <i class="fa fa-cart-arrow-down"></i> Choose Package</button>
                 </form>

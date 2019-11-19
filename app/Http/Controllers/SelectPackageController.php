@@ -49,9 +49,9 @@ class SelectPackageController extends Controller
     /**
      *
      *
-     * CREATING CUSTOMIZED PACKAGE
+     * CREATE NEW PACKAGE
      */
-    public function store(Request $request)
+    public function create(Request $request)
     {
         //chosen_invs,inv_qty,chosen_dishes,
         // dd($request);
@@ -61,7 +61,7 @@ class SelectPackageController extends Controller
         $package->package_client_id = $request->input("client_id");
         $package->package_img_url = 'img/default.jpg';
         $package->suggested_pax = $request->input("suggested_pax");
-        $package->price = $request->input("venue_price");
+        $package->price = $request->input("package_price");
         $package->save();
 
         $event = EventModel::where('event_id','=',$request->input('event_id'))->first();
@@ -81,7 +81,7 @@ class SelectPackageController extends Controller
             $package_inventory->quantity = $request->get("inv_qty")[$i];
 
             $package_inventory->save();
-            $package->price += $package_inventory->rent_cost * $package_inventory->quantity;
+            //$package->price += $package_inventory->rent_cost * $package_inventory->quantity;
 
             $e_inv = new EventInventory();
             $e_inv->event_id = $request->input("event_id");
@@ -100,7 +100,7 @@ class SelectPackageController extends Controller
             $package_item->item_id = $itn->item_id;
             $package_item->computed_cost = $itn->unit_cost * $package->suggested_pax;
             $package_item->save();
-            $package->price += $package_item->computed_cost;
+            //$package->price += $package_item->computed_cost;
 
             $e_dsh = new EventDishes();
             $e_dsh->event_id = $request->input("event_id");
@@ -112,24 +112,29 @@ class SelectPackageController extends Controller
         $package->save();
         error_log("event ID: ".$request->input('event_id'));
         $event->package_id = $package->package_id;
+
         $event->total_amount_due = $request->input('package_price');
+        if($event->venue == 'Off-Premise'){
+            $event->total_amount_due = $event->total_amount_due * 1.15;
+        }
         $event->save();
 
         return redirect('/summary/'.$event->event_id);
     }
-
     /**
-     * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     *
+     * SELECT PACKAGE
      */
-    public function create(Request $request)
+    public function select(Request $request)
     {
         $event = events::where('event_id','=',$request->input('event_id'))->first();
         $event->package_id = $request->input('package_id');
         $package = PackageModel::where('package_id','=',$event->package_id)->first();
         $event->total_amount_due = $package->price;
+        if($event->venue == 'Off-Premise'){
+            $event->total_amount_due = $event->total_amount_due * 1.15;
+        }
         $event->save();
         foreach (PackageInventory::where('package_id','=',$event->package_id)->get() as $inv){
             $e_inv = new EventInventory();
@@ -154,6 +159,82 @@ class SelectPackageController extends Controller
 
         return redirect('/summary/'.$event->event_id);
     }
+    /**
+     *
+     *
+     * SELECT PACKAGE with Additions
+     */
+    public function create_with_additions(Request $request)
+    {
+        //chosen_invs,inv_qty,chosen_dishes
+        $event = events::where('event_id','=',$request->input('event_id'))->first();
+        $event->package_id = $request->input('package_id');
+        $event->save();
+        $package = PackageModel::where('package_id','=',$request->input('package_id'))->first();
+        $tot = 0;
+        // load selected package contents to event ref tables
+        foreach (PackageInventory::where('package_id','=',$event->package_id)->get() as $inv){
+            $e_inv = new EventInventory();
+            $inv_inv = inventory::where('inventory_id','=',$inv->inventory_id)->first();
+            $e_inv->event_id = $event->event_id;
+            $e_inv->inventory_id = $inv->inventory_id;
+            $e_inv->qty = $inv->quantity;
+            $e_inv->rent_price = $inv->rent_cost;
+
+            //$tot += $e_inv->qty * $e_inv->rent_price;
+
+            $e_inv->esku = $inv_inv->sku;
+            $e_inv->status = $inv_inv->status;
+            $e_inv->is_addition = false;
+            $e_inv->save();
+        }
+        foreach (PackageItem::where('package_id','=',$event->package_id)->get() as $itm){
+            $e_dsh = new EventDishes();
+            $e_dsh->event_id = $event->event_id;
+            $e_dsh->item_id = $itm->item_id;
+            $e_dsh->total_price = $itm->computed_cost;
+            //$tot += $e_dsh->total_price;
+            $e_dsh->is_addition = false;
+            $e_dsh->save();
+        }
+        // load additionals to event ref tables
+        for($i=0; $i<count($request->input("chosen_invs"));$i++){
+            $inv = inventory::where('inventory_id','=',$request->get("chosen_invs")[$i])->first();
+            $e_inv = new EventInventory();
+
+            $e_inv->event_id = $event->event_id;
+            $e_inv->inventory_id = $inv->inventory_id;
+            $e_inv->qty = $request->get("inv_qty")[$i];
+            $e_inv->rent_price = $inv->rental_cost;
+            $e_inv->esku = $inv->sku;
+            $e_inv->status = $inv->status;
+            $e_inv->is_addition = true;
+            $e_inv->save();
+
+            $tot += $e_inv->qty * $e_inv->rent_price;
+        }
+        for($i=0; $i<count($request->input("chosen_dishes"));$i++){
+            $itn = Items::where('item_id','=',$request->get("chosen_dishes")[$i])->first();
+            $e_dsh = new EventDishes();
+
+            $e_dsh->event_id = $request->input("event_id");
+            $e_dsh->item_id = $itn->item_id;
+            $e_dsh->total_price = $itn->unit_cost * $package->suggested_pax;
+            $e_dsh->is_addition = true;
+            $e_dsh->save();
+
+            $tot += $e_dsh->total_price;
+        }
+        $tot += $package->price;
+        $event->total_amount_due = $tot;
+        if($event->venue == 'Off-Premise'){
+            $event->total_amount_due = $event->total_amount_due * 1.15;
+        }
+        $event->save();
+
+
+        return redirect('/summary/'.$event->event_id);
+    }
 
     /**
      * Display the specified resource.
@@ -166,7 +247,8 @@ class SelectPackageController extends Controller
         $package = null;
         $venue_cost_table = array("CVJ Clubhouse Ground Floor"=>15000,
                                   "CVJ Clubhouse Second Floor"=>20000,
-                                  "CVJ Clubhouse Third Floor"=>22000
+                                  "CVJ Clubhouse Third Floor"=>22000,
+                                    "Off-Premise"=>null
                                   );
         $event = events::where('event_id','=',$event_id)->first();
         $client_id = Auth::id();
@@ -189,7 +271,7 @@ class SelectPackageController extends Controller
             $avail_foods = Items::all();
             $avail_invs = inventory::all();
         }
-        return view('customizePackage',['venue_price'=>($event->venue == null ? null:$venue_cost_table[$event->venue]),'user_id'=>$client_id,'package'=>$package,'event'=>$event,'avail_foods'=>$avail_foods,'avail_invs'=>$avail_invs]);
+        return view('customizePackage',['venue_price'=>($venue_cost_table[$event->venue]),'user_id'=>$client_id,'package'=>$package,'event'=>$event,'avail_foods'=>$avail_foods,'avail_invs'=>$avail_invs]);
     }
 
     /**
@@ -287,73 +369,6 @@ class SelectPackageController extends Controller
 
         return view('additionalPackage',['venue_price'=>($event->venue == null ? null:$venue_cost_table[$event->venue]),'user_id'=>$client_id,'package'=>$package,'event'=>$event,'avail_foods'=>$avail_foods,'avail_invs'=>$avail_invs]);
 
-    }
-    public function create_with_additions(Request $request)
-    {
-        //chosen_invs,inv_qty,chosen_dishes
-        $event = events::where('event_id','=',$request->input('event_id'))->first();
-        $event->package_id = $request->input('package_id');
-        $event->save();
-        $package = PackageModel::where('package_id','=',$request->input('package_id'))->first();
-        $tot = 0;
-        // load selected package contents to event ref tables
-        foreach (PackageInventory::where('package_id','=',$event->package_id)->get() as $inv){
-            $e_inv = new EventInventory();
-            $inv_inv = inventory::where('inventory_id','=',$inv->inventory_id)->first();
-            $e_inv->event_id = $event->event_id;
-            $e_inv->inventory_id = $inv->inventory_id;
-            $e_inv->qty = $inv->quantity;
-            $e_inv->rent_price = $inv->rent_cost;
-
-            //$tot += $e_inv->qty * $e_inv->rent_price;
-
-            $e_inv->esku = $inv_inv->sku;
-            $e_inv->status = $inv_inv->status;
-            $e_inv->is_addition = false;
-            $e_inv->save();
-        }
-        foreach (PackageItem::where('package_id','=',$event->package_id)->get() as $itm){
-            $e_dsh = new EventDishes();
-            $e_dsh->event_id = $event->event_id;
-            $e_dsh->item_id = $itm->item_id;
-            $e_dsh->total_price = $itm->computed_cost;
-            //$tot += $e_dsh->total_price;
-            $e_dsh->is_addition = false;
-            $e_dsh->save();
-        }
-        // load additionals to event ref tables
-        for($i=0; $i<count($request->input("chosen_invs"));$i++){
-            $inv = inventory::where('inventory_id','=',$request->get("chosen_invs")[$i])->first();
-            $e_inv = new EventInventory();
-
-            $e_inv->event_id = $event->event_id;
-            $e_inv->inventory_id = $inv->inventory_id;
-            $e_inv->qty = $request->get("inv_qty")[$i];
-            $e_inv->rent_price = $inv->rental_cost;
-            $e_inv->esku = $inv->sku;
-            $e_inv->status = $inv->status;
-            $e_inv->is_addition = true;
-            $e_inv->save();
-
-            $tot += $e_inv->qty * $e_inv->rent_price;
-        }
-        for($i=0; $i<count($request->input("chosen_dishes"));$i++){
-            $itn = Items::where('item_id','=',$request->get("chosen_dishes")[$i])->first();
-            $e_dsh = new EventDishes();
-
-            $e_dsh->event_id = $request->input("event_id");
-            $e_dsh->item_id = $itn->item_id;
-            $e_dsh->total_price = $itn->unit_cost * $package->suggested_pax;
-            $e_dsh->is_addition = true;
-            $e_dsh->save();
-
-            $tot += $e_dsh->total_price;
-        }
-        $tot += $package->price;
-        $event->total_amount_due = $tot;
-        $event->save();
-
-        return redirect('/summary/'.$event->event_id);
     }
 
     /**

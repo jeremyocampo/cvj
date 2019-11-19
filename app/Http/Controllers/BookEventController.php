@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Employee;
+use App\EmployeeEventSchedule;
 use Illuminate\Http\Request;
 
 //DB Callings
@@ -160,10 +162,15 @@ class BookEventController extends Controller
         'status' => 1,
 
     ]);
-  
+    $event->event_detailsAdded = $request->input('eventvenue');
     $event->venue = $request->input('venue');
+    $event->is_holiday = $request->input('is_holiday');
+
+
+
     $email = auth()->user()->email;
 
+    // G EVENT TEMPORARILY SUSPENDED
     // $emailAdd = $email[0]->email; 
     
     // dd($email);
@@ -184,7 +191,18 @@ class BookEventController extends Controller
     */
 
     $event->save();
-    
+    //error_log("data: ".$request->input("emps"));
+
+    for($i=0; $i<count($request->input("emps"));$i++){
+        error_log("data: ".$request->input("emps")[$i]);
+
+        $sched = new EmployeeEventSchedule();
+        $sched->employee_id= $request->get("emps")[$i];
+        $sched->event_id= $event->event_id;
+        $sched->event_date_time = $event->event_start;
+        $sched->save();
+
+    }
 
     //self::send_email(auth()->user()->name,"jeremy_ocampojr@dlsu.edu.ph", $request->input('eventName'));
     
@@ -207,7 +225,27 @@ class BookEventController extends Controller
     {
         //
     }
-
+    public function get_available_personnel_on_date($date){
+        $employees = Employee::all();
+        $avail_personnel = array();
+        error_log($employees);
+        foreach($employees as $employee){
+            $has_event = EmployeeEventSchedule::whereDate('event_date_time','=',$date)->where('employee_id','=',$employee->employee_id)->first();
+            if($has_event == null){
+                array_push($avail_personnel,array("emp_id"=>$employee->employee_id,"fn"=>$employee->employee_FN,"ln"=>$employee->employee_LN));
+            }
+        }
+        return Response::json($avail_personnel);
+    }
+    public function save_personnel($personnel_id,$event_id){
+        $sched = new EmployeeEventSchedule();
+        $event = Event::where('event_id','=',$event_id)->first();
+        $sched->employee_id= $personnel_id;
+        $sched->event_id= $event_id;
+        $sched->event_date_time = $event->event_start;
+        $sched->save();
+        return redirect('event_budgets');
+    }
     /**
      * Show the form for editing the specified resource.
      *

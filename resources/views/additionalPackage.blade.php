@@ -91,7 +91,9 @@
             <div class="modal-body">
                 <div style="margin-bottom: 2.5vh">
                     <h3 class="modal-title" id="pckModalLabel">{{$package->package_name}}</h3>
-                    <h5 class="modal-title" id="pckModalLabel">{{$event->venue}}</h5>
+                    <h5 class="modal-title" id="pckModalLabel">[{{$event->venue}}] {{$event->event_detailsAddded}}</h5>
+
+                    <h5 class="modal-title" id="pckModalLabel">~ {{$event->suggested_pax}} pax</h5>
                     <hr style="text-align: left;width: 35%;margin-left: 0;margin-top: 5px;margin-bottom: 5px;">
                     <h4 class="modal-title" id="pckModalLabel" style="color: #ff8d00">₱ {{number_format($package->price,2)}}</h4>
                 </div>

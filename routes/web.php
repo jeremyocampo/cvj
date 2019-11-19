@@ -42,6 +42,7 @@ Route::post('event_budgets/','EventsBudgetController@create')->name("post.event_
 //Personnel API
 Route::get('avail_personnels/{event_id}','EventsBudgetController@get_available_personnel')->name("get.personnels");
 Route::get('add_personnel/{emp_id}/{event_id}','EventsBudgetController@save_personnel')->name("post.personnels");
+Route::get('avail_personnels_on_date/{date}','BookEventController@get_available_personnel_on_date')->name("get.personnel_date");
 
 //Bookevent API
 Route::get('check_valid_date/{startDate}','BookEventController@checkDateValidity')->name("get.checkdatevalid");
@@ -76,12 +77,12 @@ Route::get('test_page1/{event_id}/{package_id?}', 'SelectPackageController@test_
 Route::resource('bookevent', 'BookEventController');
 
 Route::get('selectpackages/{event_id}', 'SelectPackageController@index')->name('get.selectpackages');
-Route::post('postselectpackages/', 'SelectPackageController@create')->name('post.selectpackages');
+Route::post('postselectpackages/', 'SelectPackageController@select')->name('post.selectpackages');
 
 Route::get('additional_package/{event_id}/{package_id?}', 'SelectPackageController@additional_package')->name('additional_package');
 Route::get('customize_package/{event_id}/{package_id?}', 'SelectPackageController@show')->name('customize_package');
 
-Route::post('customize_package', 'SelectPackageController@store')->name('post.customize_package');
+Route::post('customize_package', 'SelectPackageController@create')->name('post.customize_package');
 Route::post('create_with_additions', 'SelectPackageController@create_with_additions')->name('post.create_with_additions');
 
 Route::resource('clientregister', 'ClientRegisterController');

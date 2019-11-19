@@ -96,12 +96,8 @@
                                     </table>
                                 </div>
                             </div>
-
-
-
                         </div>
                         <div class="col-md-4">
-
                             <div class="row">
                                 <div class="card" style="width: 18rem;">
                                 <img class="card-img-top" src="{{asset($package->package_img_url)}}" style="height: 25vh;width: 100%vw" alt="">
@@ -116,7 +112,6 @@
                                         <div>
                                             <span style="display: inline-block">PHP</span> <b style="display: inline-block">{{number_format($event->total_amount_due - $package->price,2)}}</b>
                                         </div>
-
                                     @endif
                                         <hr>
                                         <h4 style="margin-bottom: 0.1vh">Total Price</h4>
@@ -126,10 +121,8 @@
                                 </div>
                             </div>
                             </div>
-
                         </div>
                     </div>
-
                     <hr style="border-top: dotted 1px;">
                     @if($additional_count != 0)
 

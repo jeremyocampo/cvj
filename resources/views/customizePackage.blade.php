@@ -111,7 +111,7 @@
                                         </div>
                                         <div class="row" style="margin-top: 2vh">
                                             <div class="col-md-4"><label>Markup Percent</label></div>
-                                            <div class="col-md-8"><input name="markup" class=" form-control" id="markup" onchange="calibrate_pax(this)" type="number" value=""></div>
+                                            <div class="col-md-8"><input name="markup" class=" form-control" id="markup" style="width: 95%;display: inline" onkeyup="compute_total_package_price()" type="number" value=""><p style="display: inline">  %</p></div>
                                         </div>
                                         <div class="row" style="margin-top: 2vh">
                                             <div class="col-md-4"><label>Package Price</label></div>
@@ -126,10 +126,12 @@
                                             <label>Inventory Total: P<span id="inv_total_text">...</span></label>
                                         </div>
                                         <div>
-                                            <label>Venue Cost: P<span id="venue">{{$venue_price}}</span></label>
+                                            <label>Venue Cost: <span id="venue">@if($venue_price == null) Additional 15% of Total Package Price @else P {{$venue_price}} @endif </span></label>
                                         </div>
                                         <hr style="margin: 0;">
-                                        <h3 style="margin-top: 0;">Total Package Suggested Price: <span id="total_package_price"></span></h3>
+                                        <h4 style="margin-top: 0;">Total Package Suggested Price: <span id="total_package_price"></span></h4>
+                                        <!-- <small style="margin-top: 0;" id="perhead"></small> -->
+
                                     </div>
 								</div>
 						</div>
@@ -207,7 +209,7 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 <script>
     let total_pax =  @if($package != null) {{$package->price}} @else 50 @endif;
-    let venue = {{$venue_price}};
+    let venue = @if($venue_price == null) 0 {{$venue_price}} @endif{{$venue_price}};
     let inv_subtotal = 0;
     let food_subtotal = 0;
     $(document).ready(function () {
@@ -219,6 +221,11 @@
         console.log($(".inv_qty"));
     });
     */
+    function calibrate_suggested_price(total_package_price) {
+       const markup_perc = $("#markup").val()/100;
+       let markup_multiplier = 1 + markup_perc;
+       return parseFloat(total_package_price * markup_multiplier);
+    }
     function select_food(obj) {
         let data_arr = $(obj).attr('data-food').split(',');
         let str ='<tr id="food_row_'+data_arr[0]+'"><input type="hidden" name="chosen_dishes[]" value="'+data_arr[0]+'">';
@@ -232,6 +239,9 @@
         $('#mod_food_row_'+data_arr[0]).remove();
 
         compute_total_package_price();
+    }
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
     function select_inv(obj) {
         let data_arr = $(obj).attr('data-inv').split(',');
@@ -307,7 +317,8 @@
     function compute_total_package_price(){
         compute_inv_qtys();
         compute_food_total();
-        $("#total_package_price").html('P'+(venue+parseFloat(inv_subtotal)+parseFloat(food_subtotal)));
+
+        $("#total_package_price").html('P '+numberWithCommas(calibrate_suggested_price(venue+parseFloat(inv_subtotal)+parseFloat(food_subtotal))));
     }
 </script>
 @endsection
