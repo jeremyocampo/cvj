@@ -182,8 +182,6 @@ class InventoryController extends Controller
         ->join('inventory','category_ref.category_no','=','inventory.category')
         ->get();
 
-
-
         return view('replenishInventory', ['items' => $item, 'category' => $category]);
     }
 
