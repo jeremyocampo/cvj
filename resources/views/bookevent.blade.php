@@ -74,9 +74,15 @@
                            <div class="col-md-5 mb-3">
                                 <label class = "datetime"> Event Date <font color="red">*</font></label>
                                    {{-- {{ Form::date('eventStartDate', '', ['class' => 'form-control', 'placeholder' => 'Date of Event', 'required' => 'true', 'min' => date("Y-m-d H:i:s")]) }}  --}}
+<<<<<<< HEAD
                                <input type="date" min="{{$min_val_date}}" name="eventStartDate" onchange="checkdates()" class="form-control" placeholder="Start date" id="eventStartDate">
                                <p id="invalid_msg" class="small" style="color: #ff5153;display: none;">This date is already overbooked. Please consider booking another day or cancel booking event.</p>
                            </div>
+=======
+                                   <input type="datetime-local" name="eventStartDate" class="form-control" placeholder="Start date" id="eventStartDate">
+                            </div>
+                           
+>>>>>>> a43d99f72cc9066bea320e09687a9d6ea192f4c5
 
                            <div class="col-md-4 mb-3">
                                <div class="row">

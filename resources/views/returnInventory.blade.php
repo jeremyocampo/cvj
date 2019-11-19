@@ -5,7 +5,7 @@
 @include('layouts.headers.inventoryCard1')
 <div class="container-fluid mt--7">
 	<div class="card-body">
-		<div class="col-xl-8 mb-5 mb-xl-0">
+		<div class="col-xl-12 mb-5 mb-xl-0">
 				<div class="card shadow">
 						<div class="card-header">
                             {{-- {!! Form::open(['action' => 'InventoryController@return', 'method' => 'POST']) !!} --}}
@@ -47,7 +47,20 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($events as $i)
+                                                <tr>
+                                                    <td>Jeremy's Birthday Bash</td>
+                                                    <td>CVJ Catering Ground Floor</td>
+                                                    <td>March 25, 2020</td>
+                                                    <td>March 25, 2020</td>
+                                                    <td>Complete</td>
+                                                    <td>
+                                                        <a href="{{url('returnInventory/1')}}" class="btn btn-small">
+                                                            <i class="ni ni-zoom-split-in"></i>
+                                                            <span>{{ __('Return Deployed Items') }}</span>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                {{-- @foreach ($events as $i)
                                                 @if($i->status > 0)
                                                 <tr>
                                                     <td>{{ $i->event_name }}</td>
@@ -59,36 +72,14 @@
                                                         <a class="" href="{{ url('returnInventory/'.$i->event_id) }}" >
                                                             
                                                             <button class="btn btn-block btn-sm"><i class="ni ni-zoom-split-in"></i> &nbsp; View Event Details</button>
-                                                            {{-- <span>{{ __('View Event Details') }}</span> --}}
+                                                            
                                                         </a>
-                                                        {{-- <div class="dropdown">
-                                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                Action
-                                                            </button>
-                                                            <div class="dropdown-menu dropdown-menu-arrow dropdown-menu">
-                                                                <div class=" dropdown-header noti-title">
-                                                                    <h6 class="text-overflow m-0">{{ __('Please Select an Action!') }}</h6>
-                                                                </div>
-                                                                <div class="dropdown-divider"></div>
-                                                                <a href="{{ url('returnInventory/'.$i->event_id) }}" class="dropdown-item">
-                                                                    <i class="ni ni-zoom-split-in"></i>
-                                                                    <span>{{ __('View Event Details') }}</span>
-                                                                </a>
-                                                                <a href="" class="dropdown-item" onclick="event.preventDefault();
-                                                                    document.getElementById('delete-form-{{ $i->event_name }}').submit();">
-                                                                    <i class="ni ni-fat-remove"></i>
-                                                                    <span>{{ __('Remove from Inventory') }}</span>
-                                                                    {!! Form::open(['action' => ['InventoryController@destroy', $i->event_name], 'method' => 'POST', 'id' => 'delete-form-'.$i->inventory_id]) !!}
-                                                                        {{ Form::hidden('_method','DELETE')}}
-                                                                    {!! Form::close() !!}
-                                                                </a>
-                                                            </div>
-                                                        </div> --}}
+                                                        
                                                     </td>
                                                 </tr>
                                                 
                                                 @endif
-                                                @endforeach
+                                                @endforeach --}}
                                             </tbody>
                                         </table>
                                 </div>
@@ -101,7 +92,7 @@
                                     {{-- {{Form::hidden('_method', 'PUT')}} --}}
                             </div>
                         </div>
-		{!! Form::close() !!}
+		{{-- {!! Form::close() !!} --}}
 		</div>
 		</div>
 	</div>

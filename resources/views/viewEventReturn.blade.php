@@ -48,7 +48,7 @@
 									{{-- <div class="row"> --}}
 										<div class="col-xs-5">
 									{{-- <input class="form-control" id="myInput" type="search" onkeyup="searchTable()" style="background: transparent;" placeholder="Search Item Here"> --}}
-									<input class="form-control" id="barcodeInput" type="number" onkeyup="checkBarcode(this)" style="background: transparent;" placeholder="Input Barcode Here" autofocus>
+									<input class="form-control" id="barcodeInput" type="number" onkeyup="checkBarcode(this)" style="background: transparent;" placeholder="Input Qr Code Here" autofocus>
 										</div>
 										{{-- <div class="col-xs-2">
 											&nbsp; &nbsp;
@@ -79,7 +79,7 @@
 							</div>
 						   
 						</div>
-						{!! Form::open(['action' => ['ReturnInventoryController@update', $borrowedItems[0]->event_id], 'method' => 'POST' ,'id' => 'barcodeForm']) !!}
+						{{-- {!! Form::open(['action' => ['ReturnInventoryController@update', $borrowedItems[0]->event_id], 'method' => 'POST' ,'id' => 'barcodeForm']) !!} --}}
 					<div class="card-body">
 		
 							<div class="row">
@@ -87,25 +87,25 @@
 									<div class="col-xl-4">
 										{{-- <label class="text-muted">Event Name: {{$borrowedItems[0]->event_name}}</label> --}}
 										<label class="form-label">Event Name</label>
-										{{ Form::text('itemName', $borrowedItems[0]->event_name,['class' => 'form-control', 'disabled'] )}}
+										{{-- {{ Form::text('itemName', $borrowedItems[0]->event_name,['class' => 'form-control', 'disabled'] )}} --}}
 									</div>
 									<div class="col-xl-4">
 											{{-- <label class="text-muted">Event Name: {{$borrowedItems[0]->event_name}}</label> --}}
 											<label class="form-label">Client Name</label>
-											{{ Form::text('itemName', $borrowedItems[0]->client_name,['class' => 'form-control', 'disabled'] )}}
+											{{-- {{ Form::text('itemName', $borrowedItems[0]->client_name,['class' => 'form-control', 'disabled'] )}} --}}
 										</div>
 									<div class="col-xl-4">
 											<label class="form-label">Date Borrowed</label>
-											{{ Form::text('itemName', $borrowedItems[0]->event_start,['class' => 'form-control', 'disabled'] )}}
+											{{-- {{ Form::text('itemName', $borrowedItems[0]->event_start,['class' => 'form-control', 'disabled'] )}} --}}
 									</div>
 									<div class="col-xl-4">
 										{{-- <label class="text-muted">Date Due: {{$borrowedItems[0]->event_end}}</label> --}}
 										<label class="form-label">Date Due</label>
-										{{ Form::text('itemName', $borrowedItems[0]->event_end,['class' => 'form-control', 'disabled'] )}}
+										{{-- {{ Form::text('itemName', $borrowedItems[0]->event_end,['class' => 'form-control', 'disabled'] )}} --}}
 									</div>
 									<div class="col-xl-12">
-											<label class="form-label">Venue</label>
-											{{ Form::text('itemName', $borrowedItems[0]->venue,['class' => 'form-control', 'disabled'] )}}
+										<label class="form-label">Venue</label>
+											{{-- {{ Form::text('itemName', $borrowedItems[0]->venue,['class' => 'form-control', 'disabled'] )}} --}}
 									</div>
 									
 									<div class="col-xl-4">
@@ -137,7 +137,37 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($borrowedItems as $i)
+										<tr>
+												<td>Ikea Chair</td>
+												<td>White</td>
+												<td> {!! QrCode::size(200)->generate("Item-Name: Ikea Chair, Item-Category: Chair, Color: White, Quantity: 55, Event-Name: Jeremy's Birthday Bash"); !!}</td>
+												<td>20 Php</td>
+												<td>55 Piece(s)</td>
+												<td>1,100 Php</td>
+												<td>
+													<div class="col-xl-4">
+														<label class="form-label">Qty to Return</label>
+														<input type="hidden" class="invID" name="invIDs[]" value="1" id="inventory-1">
+														<input type="number" value=0  readonly class="form-control qtyReturn" name="qtyReturned[]" id="qtyReturn9876543210123">
+													</div>
+												</td>
+										</tr>
+										<tr>
+												<td>Ikea Chair</td>
+												<td>White</td>
+												<td> {!! QrCode::size(200)->generate("Item-Name: Ikea Chair, Item-Category: Chair, Color: White, Quantity: 55, Event-Name: Jeremy's Birthday Bash"); !!}</td>
+												<td>20 Php</td>
+												<td>55 Piece(s)</td>
+												<td>1,100 Php</td>
+												<td>
+													<div class="col-xl-4">
+														<label class="form-label">Qty to Return</label>
+														<input type="hidden" class="invID" name="invIDs[]" value="1" id="inventory-1">
+														<input type="number" value=0  readonly class="form-control qtyReturn" name="qtyReturned[]" id="qtyReturn9876543210123">
+													</div>
+												</td>
+										</tr>
+                                        {{-- @foreach ($borrowedItems as $i)
                                         @if($i->status > 0)
                                         <tr id="row{{ $i->esku }}" class="success">
                                             
@@ -164,7 +194,7 @@
 											</td>
                                         </tr>
                                         @endif
-                                        @endforeach
+                                        @endforeach --}}
                                     </tbody>
                                 </table>
                         </div>

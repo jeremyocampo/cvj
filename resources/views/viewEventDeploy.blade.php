@@ -5,7 +5,8 @@
 @include('layouts.headers.inventoryCard1')
 <div class="container-fluid mt--7">
 	<div class="card-body">
-		<div class="col-xl-8 mb-5 mb-xl-0">
+		<div class="col-xl-10 mb-5 mb-xl-0">
+                {{-- <div class="row"> alternate lang para tight --}}
 				<div class="card shadow">
 						<div class="card-header">
                             {{-- {!! Form::open(['action' => 'InventoryController@return', 'method' => 'POST']) !!} --}}
@@ -31,7 +32,8 @@
                                 </div>
                             </div>
                         </div>
-                        {!! Form::open(['action' => ['DeployInventoryController@update', $event[0]->event_id], 'method' => 'POST']) !!}
+                        {{-- {!! Form::open(['action' => ['DeployInventoryController@update', $event[0]->event_id], 'method' => 'POST']) !!} --}}
+                        {!! Form::open(['action' => ['DeployInventoryController@update', 1], 'method' => 'POST']) !!}
                         <!-- Modal -->
                         <div id="myModal" class="modal fade" role="dialog">
                                 <div class="modal-dialog">
@@ -42,6 +44,7 @@
                                       <div class="row">
                                           <div >
                                               <h2 class="modal-title">Are you sure you want to continue?</h4>
+
                                           </div>
                                       
                                       </div>
@@ -61,91 +64,96 @@
 						<div class="card-body">
                                 <div class="table-responsive mb-3">
                                     <!-- Projects table -->
-                                    
-                                    <table class="table align-items-center table-flush">
-                                            <thead class="thead-light">
-                                                <tr>
-                                                    <th scope="col">Event Name</th>
-                                                    <th scope="col">Venue</th>
-                                                    <th scope="col">Borrow Date/Time</th>
-                                                    <th scope="col">Return Date/Time</th>
-                                                    <th scope="col">Package</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($event as $i)
+                                    <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-5 mb-5">
+                                            <div class="row">
+                                                <div class="col-md-12 mb-7">
+                                            @foreach ($event as $i)
                                                 @if($i->status > 0)
-                                                <tr>
-                                                    <td>{{ $i->event_name }}</td>
-                                                    <td>{{ $i->venue }}</td>
-                                                    <td>{{ Carbon\Carbon::parse($i->event_start)->format('F j, Y g:i a') }}</td>
-                                                    <td>{{ Carbon\Carbon::parse($i->event_end)->format('F j, Y g:i a') }}</td>
-                                                    <td>{{ $i->package_name }} </td>
-                                                    
-                                                </tr>
-                                                
+                                                    <label> Event Name </label><input class="form-control" type="text" disabled value="{{ $i->event_name }}">
+                                                    <label> Venue </label> <input class="form-control" type="text" disabled value="{{ $i->venue }}">
+                                                    <label> Date </label> <input class="form-control" type="text" disabled value="{{ Carbon\Carbon::parse($i->event_start)->format('F j, Y      g:i a') }}"> 
+                                                    <label> Package </label><input class="form-control" type="text" disabled value="{{ $i->package_name }}"> 
                                                 @endif
-                                                @endforeach
-                                            </tbody>
-                                        </table>
+                                            @endforeach
+                                            </div>
+                                            <div class="col-md-12 mb-3">
+                                                Assigned Personel In-charge: 
+                                                <select class="form-control">
+                                                    <option disabled selected > -Please Assign an Employee- </option>
+                                                    @foreach($employees as $a)
+                                                        <option value="{{ $a->employee_id}}"> {{$a->employee_FN}} {{$a->employee_LN}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-7">
                                         <table class="table table-bordered align-items-center table-flush mb-4" id="myTable">
                                             <thead class="thead-light">
                                                 <tr>
-                                                    {{-- <th>Event ID</th> --}}
                                                     <th>Item Name</th>
+                                                    <th>Category</th>
+                                                    <th>Color</th>
                                                     <th>Barcode</th>
                                                     <th>Quantity</th>
-                                                    
-                                                    {{-- <th>Description</th> --}}
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($package as $i)
-    
-                                               
-                                                
-                                                <tr>
-                                                    {{-- <td> {{ $i->id}}</td> --}}
-                                                    <td> {{ $i->inventory_name }}</td>
-                                                    <td> {!!'<img src="data:image/png;base64,' . DNS1D::getBarcodePNG("".$i->sku, "C128A",2,44,array(1,1,1), true) . '" alt="barcode"   />' !!}</td>
-                                                    {{-- <td> {{ $i->rental_cost }}</td> --}}
-                                                    <td> - </td>
-                                                {{-- <td> {{ $i->description }}</td> --}}
+                                                {{-- <tr>
+                                                    <td>Ikea Chair</td>
+                                                    <td>Chair</td>
+                                                    <td>White</td>
+                                                    <td> {!! QrCode::size(200)->generate("Item-Name: Ikea Chair, Item-Category: Chair, Color: White, Quantity: 55, Event-Name: Jeremy's Birthday Bash"); !!}</td>
+                                                    <td>55 Piece(s)</td>
                                                 </tr>
-                                                {{-- @endif --}}
+                                                <tr>
+                                                    <td>Ikea Table</td>
+                                                    <td>Table</td>
+                                                    <td>White</td>
+                                                    <td> {!! QrCode::size(200)->generate("Item-Name: Ikea Table, Item-Category: Table, Color: White, Quantity: 8, Event-Name: Jeremy's Birthday Bash"); !!}</td>
+                                                    <td>8 Piece(s)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Table Cloth</td>
+                                                    <td>Linen</td>
+                                                    <td>Gray</td>
+                                                    <td> {!! QrCode::size(200)->generate("Item-Name: Table Cloth, Item-Category: Linen, Color: Gray, Quantity: 8, Event-Name: Jeremy's Birthday Bash"); !!}</td>
+                                                    <td>8 Piece(s)</td>
+                                                </tr> --}}
+                                                @foreach ($package as $i)
+                                                <tr>
+                                                    <td> {{ $i->inventory_name }}</td>
+                                                    <td> {{ $i->category_name}} </td>
+                                                    <td> {{ $i->color_name}} </td>
+                                                    <td> {!!'<img src="data:image/png;base64,' . DNS1D::getBarcodePNG("".$i->sku, "C128A",2,44,array(1,1,1), true) . '" alt="barcode"   />' !!}</td>
+                                                    <td> {{ $i->qty }}</td>
+                                                </tr>
                                                 @endforeach
                                             </tbody>
                                         </table>
-                                        <table class="table table-bordered align-items-center table-flush mb-4" id="myTable">
+                                        </div>
+                                    
+                                    </div>
+                                </div>
+                                        {{-- <table class="table table-bordered align-items-center table-flush mb-4" id="myTable">
                                             <thead class="thead-light">
                                                 <tr>
-                                                    {{-- <th>Event ID</th> --}}
                                                     <th>Food Name</th>
-                                                    {{-- <th>Price</th> --}}
                                                     <th>Quantity</th>
-                                                    
-                                                    {{-- <th>Description</th> --}}
-                                                    {{-- <th>Total Cost</th> --}}
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                @foreach ($packageA as $i)
-    
-                                               
-                                                
+                                            <tbody> --}}
+                                                {{-- @foreach ($packageA as $i)
                                                 <tr>
-                                                    {{-- <td> {{ $i->id}}</td> --}}
                                                     <td> {{ $i->item_name }}</td>
-                                                    {{-- <td> {!!'<img src="data:image/png;base64,' . DNS1D::getBarcodePNG("".$i->sku, "C128A",2,44,array(1,1,1), true) . '" alt="barcode"   />' !!}</td> --}}
-                                                    {{-- <td> {{ $i->unit_cost }}</td> --}}
                                                     <td> {{ $i->quantity }}</td>
-                                                    {{-- <td> {{ ($i->unit_cost) * ($i->quantity) }}</td> --}}
-                                                {{-- <td> {{ $i->description }}</td> --}}
                                                 </tr>
-                                                {{-- @endif --}}
-                                                @endforeach
-                                            </tbody>
-                                        </table>
+                                                @endforeach --}}
+                                            {{-- </tbody>
+                                        </table> --}}
                                 </div>
 
                                 
@@ -153,14 +161,15 @@
                         <div class="card-footer text-muted">
                             <div class="text-right">
                                     <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">Deploy</button>
-                                    <a href="{{ url('inventory')}}" class="btn btn-default">Back</a>
+                                    <a href="{{ url('deploy')}}" class="btn btn-default">Back</a>
                                     {{-- {{Form::hidden('_method', 'PUT')}} --}}
                             </div>
                         </div>
                         {{Form::hidden('_method', 'PUT')}}
 		{!! Form::close() !!}
 		</div>
-		</div>
+        </div>
+        
 	</div>
 </div>
 @endsection

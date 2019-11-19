@@ -65,6 +65,15 @@ class EventsBudgetController extends Controller
             $event->personnels=Employee::whereIn('employee_id',$employees)->get();
             foreach(EventBudgetItem::where('event_budget_id','=',$budget_check->id)->get() as $budget_item) {
                 $event->total_spent += $budget_item->actual_amount;
+
+            $employees=EmployeeEventSchedule::select('employee_id')->where('event_id','=',$event->event_id)->get();
+
+            if($employees != null){
+                
+                $event->personnels=Employee::whereIn('employee_id',$employees)->get();
+                foreach(EventBudgetItem::where('event_budget_id','=',$budget_check->id)->get() as $budget_item) {
+                    $event->total_spent += $budget_item->actual_amount;
+                }
             }
             
 
