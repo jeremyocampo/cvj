@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\event;
+use App\deployed_inventory;
+use App\inventory;
 use App\categoryRef;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests;
@@ -26,6 +28,8 @@ class DeployInventoryController extends Controller
 
     public function index()
     {
+        $query = DB::table('deployed_inventory')->get();
+
         $eventInProgress = DB::table('event')
         // ->join('reserve_venue','event.reservation_id','=','reserve_venue.reservation_id')
         ->join('event_status_ref', 'event.status', '=', 'event_status_ref.status_id')
@@ -34,13 +38,21 @@ class DeployInventoryController extends Controller
         ->where('event.status', '<', 6)
         ->get();
 
-        $date = Carbon::now('+8:00');
-        // dd($date);
+        // dd($eventInProgress);
 
-        // $check = (Carbon::parse($date)->gt($event[0]->event_start));
-        
-       
+        $eventsDep = DB::table('event')
+        ->join('deployed_inventory', 'event.event_id', '=', 'deployed_inventory.event_deployed')
+        ->get();
+
+        $date = Carbon::now('+8:00');
+
+    //    dd($date);
         $inprogress = array();
+        $deployed = array();
+
+        foreach($eventsDep as $h){
+            array_push($deployed, $h);
+        }
 
         foreach($eventInProgress as $i){
             // $twoDaysBefore = Carbon::parse($i->event_end)->format('Y-m-d')->subDay(2);
@@ -53,8 +65,9 @@ class DeployInventoryController extends Controller
         // $joinedTable = DB::table('event')
         // ->get();
         // $eventPackages = DB::table('event');
+        // dd($eventsDep);
 
-        return view('deployInventory', ['events'  => $inprogress ]);
+        return view('deployInventory', ['events'  => $inprogress, 'eventsDep' => $eventsDep ]);
     }
 
     /**
@@ -76,6 +89,69 @@ class DeployInventoryController extends Controller
     public function store(Request $request)
     {
         //
+
+        $this->validate($request, [
+            'employeeAssigned'      => 'required|numeric|min:1',
+        ],[
+            'employeeAssigned.required'      => 'Please Assign an Employee for Deployment.',
+            'employeeAssigned.numeric'      => 'Please Assign an Employee for Deployment.',
+            'employeeAssigned.min'      => 'Please Assign an Employee for Deployment.',
+        ]);
+
+        $eventID = $request->input('event_id');
+
+        $packages = DB::table('event')
+        ->join('package', 'event.package_id','=','package.package_id')
+        ->join('package_inventory', 'package.package_id', '=', 'package_inventory.package_id')
+        ->join('inventory', 'package_inventory.inventory_id', '=', 'inventory.inventory_id')
+        ->select('*')
+        ->where('event.event_id', '=', $eventID)
+        ->get();
+
+        // dd($packages);
+
+        // $deploy_inventory = new deployed_inventory();
+
+        $inventory = DB::table('inventory')
+        ->get();
+        
+        // $differences = array();
+        foreach($packages as $i){
+            $deploy_inventory = new deployed_inventory();
+            $deploy_inventory->event_deployed = $i->event_id;
+            $deploy_inventory->inventory_deployed = $i->inventory_id;
+            $deploy_inventory->quantity = $i->qty;
+            $deploy_inventory->employee_assigned = $request->input('employeeAssigned');
+            $deploy_inventory->barcode = $i->sku;
+            $deploy_inventory->save();
+
+            $newQuantity = DB::table('inventory')
+            ->select('*')
+            ->where('inventory_id','=',$i->inventory_id)
+            ->get();
+
+            $difference = $newQuantity[0]->quantity - $i->qty;
+            
+            // array_push($differences, $difference);
+            // dd($difference);
+
+            $item = DB::table('inventory')
+            ->where('inventory_id', '=', $i->inventory_id)
+            ->update([
+                'quantity'      => $difference,
+            ]);
+            
+        }
+
+        // dd($differences);
+
+        
+        
+        // dd($inventory);
+
+        return redirect('/deploy')->with('success', 'Event Items Deployed!');
+
+
     }
 
     /**
@@ -105,15 +181,17 @@ class DeployInventoryController extends Controller
         ->join('color','inventory.color','=','color.color_id')
         // ->join('package_item', 'package.package_id', '=', 'package_item.package_id')
         ->select('*')
+        // ->orderBy('inventory_id','DESC')
         // ->where('')
         ->get();
+
+        // dd($packages);
 
         $employees = DB::table('employee')
         ->select('*')
         ->where('employee.employee_type', '=', 'Logistics')
-        ->where('employee.assigned_events', '<=', '5')
+        // ->where('employee.assigned_events', '<=', '5')
         ->get();
-
 
         $eventPackages = array();
         $eventItems = array();
