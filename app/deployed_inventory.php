@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class deployed_inventory extends Model
 {
     //
-    public $primaryKey = 'inventory_deployed';
+    protected $primaryKey = 'inventory_deployed';
     //public $incrementing = false;
-    public $table = 'deployed_inventory';
-    public $timestamps = false;
-    public $fillable = [
+    protected $table = 'deployed_inventory';
+    protected $timestamps = false;
+    protected $fillable = [
     	'event_deployed', 'inventory_deployed','quantity', 'date_deployed', 'employee_assigned', 'barcode'
     ];
 }
