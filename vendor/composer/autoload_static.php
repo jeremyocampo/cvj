@@ -564,11 +564,7 @@ class ComposerStaticInit4c112a600ae008acd516bf943812b1ed
         'App\\Http\\Controllers\\EventsBudgetTemplateController' => __DIR__ . '/../..' . '/app/Http/Controllers/EventsBudgetTemplateController.php',
         'App\\Http\\Controllers\\EventsController' => __DIR__ . '/../..' . '/app/Http/Controllers/EventsController.php',
         'App\\Http\\Controllers\\EventsCostingController' => __DIR__ . '/../..' . '/app/Http/Controllers/EventsCostingController.php',
-<<<<<<< HEAD
-        'App\\Http\\Controllers\\ExpenseReportsController' => __DIR__ . '/../..' . '/app/Http/Controllers/ExpenseReportsController.php',
-=======
         'App\\Http\\Controllers\\EventsHomeDashboard' => __DIR__ . '/../..' . '/app/Http/Controllers/EventsHomeDashboard.php',
->>>>>>> b203cd1e4bb3d01d86603daa470b7b64be3046b3
         'App\\Http\\Controllers\\FoodController' => __DIR__ . '/../..' . '/app/Http/Controllers/FoodController.php',
         'App\\Http\\Controllers\\GoogleCalendarController' => __DIR__ . '/../..' . '/app/Http/Controllers/GoogleCalendarController.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
@@ -582,10 +578,6 @@ class ComposerStaticInit4c112a600ae008acd516bf943812b1ed
         'App\\Http\\Controllers\\PagesController' => __DIR__ . '/../..' . '/app/Http/Controllers/PagesController.php',
         'App\\Http\\Controllers\\ProfileController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProfileController.php',
         'App\\Http\\Controllers\\PurchaseInventoryController' => __DIR__ . '/../..' . '/app/Http/Controllers/PurchaseInventoryController.php',
-<<<<<<< HEAD
-        'App\\Http\\Controllers\\QuotationReportsController' => __DIR__ . '/../..' . '/app/Http/Controllers/QuotationReportsController.php',
-=======
->>>>>>> b203cd1e4bb3d01d86603daa470b7b64be3046b3
         'App\\Http\\Controllers\\ReturnInventoryController' => __DIR__ . '/../..' . '/app/Http/Controllers/ReturnInventoryController.php',
         'App\\Http\\Controllers\\Roset' => __DIR__ . '/../..' . '/app/Http/Controllers/Roset.php',
         'App\\Http\\Controllers\\SelectPackageController' => __DIR__ . '/../..' . '/app/Http/Controllers/SelectPackageController.php',
@@ -606,10 +598,7 @@ class ComposerStaticInit4c112a600ae008acd516bf943812b1ed
         'App\\Http\\Requests\\ProfileRequest' => __DIR__ . '/../..' . '/app/Http/Requests/ProfileRequest.php',
         'App\\Http\\Requests\\UserRequest' => __DIR__ . '/../..' . '/app/Http/Requests/UserRequest.php',
         'App\\InventoryCategory' => __DIR__ . '/../..' . '/app/InventoryCategory.php',
-<<<<<<< HEAD
-=======
         'App\\InventoryModel' => __DIR__ . '/../..' . '/app/InventoryModel.php',
->>>>>>> b203cd1e4bb3d01d86603daa470b7b64be3046b3
         'App\\Items' => __DIR__ . '/../..' . '/app/Items.php',
         'App\\Mail\\SendMailable' => __DIR__ . '/../..' . '/app/Mail/SendMailable.php',
         'App\\OutsourcedItem' => __DIR__ . '/../..' . '/app/OutsourcedItem.php',
@@ -633,11 +622,6 @@ class ComposerStaticInit4c112a600ae008acd516bf943812b1ed
         'App\\inventory' => __DIR__ . '/../..' . '/app/inventory.php',
         'App\\inventoryBarcode' => __DIR__ . '/../..' . '/app/inventoryBarcode.php',
         'App\\letsgo' => __DIR__ . '/../..' . '/app/letsgo.php',
-<<<<<<< HEAD
-        'App\\outsource' => __DIR__ . '/../..' . '/app/outource.php',
-        'App\\outsource_item' => __DIR__ . '/../..' . '/app/outsource_item.php',
-=======
->>>>>>> b203cd1e4bb3d01d86603daa470b7b64be3046b3
         'App\\payment' => __DIR__ . '/../..' . '/app/payment.php',
         'App\\userModel' => __DIR__ . '/../..' . '/app/userModel.php',
         'BaconQrCode\\Common\\AbstractEnum' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/BaconQrCode/Common/AbstractEnum.php',

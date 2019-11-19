@@ -31,9 +31,27 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    @if(session()->has('success'))
+                                        <br>
+                                        <div class="alert alert-success" role="alert">
+                                            <button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">x</span></button>
+                                            {{ session()->get('success') }}<br>
+                                        </div>
+                                    @endif
+                                    @if(session()->has('deleted'))
+                                        <br>
+                                        <div class="alert alert-danger" role="alert">
+                                            <button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">x</span></button>
+                                            {{ session()->get('deleted') }}<br>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
                         </div>
                         {{-- {!! Form::open(['action' => ['DeployInventoryController@update', $event[0]->event_id], 'method' => 'POST']) !!} --}}
-                        {!! Form::open(['action' => ['DeployInventoryController@update', 1], 'method' => 'POST']) !!}
+                        {!! Form::open(['action' => ['DeployInventoryController@store'], 'method' => 'POST']) !!}
                         <!-- Modal -->
                         <div id="myModal" class="modal fade" role="dialog">
                                 <div class="modal-dialog">
@@ -43,7 +61,7 @@
                                     <div class="modal-header">
                                       <div class="row">
                                           <div >
-                                              <h2 class="modal-title">Are you sure you want to continue?</h4>
+                                              <h2 class="modal-title">Are you sure you want to continue?</h2>
 
                                           </div>
                                       
@@ -54,7 +72,7 @@
                                       <p>Some text in the modal.</p>
                                     </div> --}}
                                     <div class="modal-footer">
-                                      {{ Form::submit('Confirm Changes', ['class' => 'btn btn-success']) }}
+                                      {{ Form::submit('Deploy Items', ['class' => 'btn btn-success']) }}
                                       <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                                     </div>
                                   </div>
@@ -71,16 +89,21 @@
                                                 <div class="col-md-12 mb-7">
                                             @foreach ($event as $i)
                                                 @if($i->status > 0)
+                                                    <input type="hidden" name="event_id" id="event_id" value="{{ $i->event_id }}">
                                                     <label> Event Name </label><input class="form-control" type="text" disabled value="{{ $i->event_name }}">
+                                                    <input type="hidden" class="form-control" value="{{ $i->event_name }}" name="event_name" id="event_name"></form>
                                                     <label> Venue </label> <input class="form-control" type="text" disabled value="{{ $i->venue }}">
+                                                    <input type="hidden" class="form-control" value="{{ $i->venue }}" name="qty" id="qty"></form>
                                                     <label> Date </label> <input class="form-control" type="text" disabled value="{{ Carbon\Carbon::parse($i->event_start)->format('F j, Y      g:i a') }}"> 
+                                                    <input type="hidden" class="form-control" value="{{ $i->event_start }}" name="event_start" id="qty"></form>
                                                     <label> Package </label><input class="form-control" type="text" disabled value="{{ $i->package_name }}"> 
+                                                    <input type="hidden" class="form-control" value="{{ $i->package_name }}" name="package_name" id="package_name"></form>
                                                 @endif
                                             @endforeach
                                             </div>
                                             <div class="col-md-12 mb-3">
                                                 Assigned Personel In-charge: 
-                                                <select class="form-control">
+                                                <select class="form-control" name="employeeAssigned" required>
                                                     <option disabled selected > -Please Assign an Employee- </option>
                                                     @foreach($employees as $a)
                                                         <option value="{{ $a->employee_id}}"> {{$a->employee_FN}} {{$a->employee_LN}}</option>
@@ -89,7 +112,6 @@
                                             </div>
                                             </div>
                                         </div>
-
                                         <div class="col-md-7">
                                         <table class="table table-bordered align-items-center table-flush mb-4" id="myTable">
                                             <thead class="thead-light">
@@ -125,11 +147,15 @@
                                                 </tr> --}}
                                                 @foreach ($package as $i)
                                                 <tr>
+                                                    <input type="hidden" name="item_id{{ $i->inventory_id}}" id="item_id" value="{{ $i->inventory_id}}">
                                                     <td> {{ $i->inventory_name }}</td>
+                                                <input type="hidden" class="form-control" value="{{ $i->inventory_name }}" name="inventory_name{{$i->inventory_id}}" id="inventory_name"></form>
                                                     <td> {{ $i->category_name}} </td>
                                                     <td> {{ $i->color_name}} </td>
                                                     <td> {!!'<img src="data:image/png;base64,' . DNS1D::getBarcodePNG("".$i->sku, "C128A",2,44,array(1,1,1), true) . '" alt="barcode"   />' !!}</td>
+                                                    <input type="hidden" class="form-control" value=" {{$i->sku}}" name="barcode" id="barcode"></form>
                                                     <td> {{ $i->qty }}</td>
+                                                    <input type="hidden" class="form-control" value="{{ $i->qty }}" name="qty" id="qty"></form> 
                                                 </tr>
                                                 @endforeach
                                             </tbody>
@@ -162,10 +188,9 @@
                             <div class="text-right">
                                     <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">Deploy</button>
                                     <a href="{{ url('deploy')}}" class="btn btn-default">Back</a>
-                                    {{-- {{Form::hidden('_method', 'PUT')}} --}}
                             </div>
                         </div>
-                        {{Form::hidden('_method', 'PUT')}}
+                        {{-- {{Form::hidden('_method', 'PUT')}} --}}
 		{!! Form::close() !!}
 		</div>
         </div>

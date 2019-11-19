@@ -99,11 +99,7 @@ class SelectPackageController extends Controller
         $event->package_id = $package->package_id;
         $event->save();
 
-<<<<<<< HEAD
-        return redirect('/summary/'.$event->event_id);
-=======
         return redirect('selectpackages/'.$request->input("event_id"))->with('success', 'Custom Package Created!');
->>>>>>> b203cd1e4bb3d01d86603daa470b7b64be3046b3
     }
 
     /**
@@ -127,11 +123,6 @@ class SelectPackageController extends Controller
             $e_inv->esku = $inv_inv->sku;
             $e_inv->status = $inv_inv->status;
             $e_inv->save();
-<<<<<<< HEAD
-        }
-
-        return redirect('/summary/'.$event->event_id);
-=======
 
         // $package_inventory = DB::table('event_inventory')
         // ->
@@ -186,7 +177,6 @@ class SelectPackageController extends Controller
         // ->with('packages', $packages);
 */
         return redirect('/home')->with('success', 'Event Package Selected');
->>>>>>> b203cd1e4bb3d01d86603daa470b7b64be3046b3
     }
 }
 
