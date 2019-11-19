@@ -104,8 +104,6 @@ Auth::routes();
 
 Route::resource('confirmevents', 'ConfirmEventsController');
 
-<<<<<<< HEAD
-=======
 Route::resource('expenseReports', 'ExpenseReportsController');
 Route::resource('quotationReports', 'QuotationReportsController');
 
@@ -118,4 +116,3 @@ Route::get('qr-code-g', function () {
 });
 
 Route::resource('addpackages', 'BookEventController');
->>>>>>> a43d99f72cc9066bea320e09687a9d6ea192f4c5
