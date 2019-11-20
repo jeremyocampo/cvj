@@ -451,7 +451,7 @@ class Gate implements GateContract
      * @param  string  $ability
      * @param  array  $arguments
      * @param  bool  $result
-     * @return bool|null
+     * @return void
      */
     protected function callAfterCallbacks($user, $ability, array $arguments, $result)
     {

@@ -1,5 +1,6 @@
-@extends('layouts.app', ['class' => 'bg-default'])
+@extends('layouts.inventoryApp', ['class' => 'bg-default'])
 
+@section('content')
     @include('layouts.headers.guest')
     
     <div class="container mt--8 pb-5">
@@ -82,3 +83,4 @@
             </div>
         </div>
     </div>
+@endsection

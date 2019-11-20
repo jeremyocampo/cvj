@@ -87,15 +87,15 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('bookevent') }}">
-                        <i class="ni ni-calendar-grid-58 text-yellow"></i> {{ __('Book Event') }}
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('inventory') }}">
-                        <i class="ni ni-collection text-red"></i> {{ __('Inventory Management') }}
+                        <i class="ni ni-calendar-grid-58 text-yellow"></i> {{ __('TEST NYETA') }}
                     </a>
                 </li>
                 {{-- <li class="nav-item">
+                    <a class="nav-link" href="{{ url('inventory') }}">
+                        <i class="ni ni-collection text-red"></i> {{ __('Inventory Management') }}
+                    </a>
+                </li> --}}
+                <li class="nav-item">
                     <a class="nav-link" href="#navbar-dashboards" data-toggle="collapse" role="" aria-expanded="false" aria-controls="">
                         <i class="ni ni-collection text-red"></i>
                         <span class="nav-link-text">Manage Inventory</span>
@@ -114,23 +114,23 @@
                                 <a href="{{ url('inventory/return') }}" class="nav-link">
                                     <i class="ni ni-archive-2 text-purple"></i>Inventory Return</a>
                             </li>
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a href="{{ url('inventory/create') }}" class="nav-link">
                                 Add to Inventory</a>
-                            </li>
-                            <li class="nav-item">
+                            </li> --}}
+                            {{-- <li class="nav-item">
                                 <a href="/inventory" class="nav-link">
                                 Alternative
                                 </a>
-                            </li>
+                            </li> --}}
                         </ul>
                     </div>
-                </li> --}}
-                {{-- <!-- <li class="nav-item">
+                </li>
+                <!-- <li class="nav-item">
                     <a class="nav-link" href="{{ url('inventory/create') }}">
                         <i class="ni ni-collection text-red"></i> {{ __('Add Inventory') }}
                     </a>
-                </li> --> --}}
+                </li> -->
                 
                 <li class="nav-item">
                     <a href="http://cvj.test:3000/logout" class="nav-link" onclick="event.preventDefault();

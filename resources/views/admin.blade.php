@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.InvApp')
 @section('content')
 
 <div class="row">

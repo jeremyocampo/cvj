@@ -56,7 +56,7 @@ class Router implements RegistrarContract, BindingRegistrar
     /**
      * The currently dispatched route instance.
      *
-     * @var \Illuminate\Routing\Route|null
+     * @var \Illuminate\Routing\Route
      */
     protected $current;
 
@@ -1040,7 +1040,7 @@ class Router implements RegistrarContract, BindingRegistrar
     /**
      * Get the currently dispatched route instance.
      *
-     * @return \Illuminate\Routing\Route|null
+     * @return \Illuminate\Routing\Route
      */
     public function current()
     {

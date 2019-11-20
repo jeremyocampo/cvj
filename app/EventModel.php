@@ -7,24 +7,26 @@ use Illuminate\Database\Eloquent\Model;
 class EventModel extends Model
 {
     //
-    public $primaryKey = 'event_id';
+    public $primaryKey = 'event_name';
     public $table = 'event';
     public $timestamps = false;
     public $fillable = [
         'event_name', 
-        'client_id', 
         'reservation_id', 
-        'event_start', 
-        'event_end',
+        'client_id', 
+        'event_date_time', 
         'event_type',
         'theme', 
+        'centerpiece', 
+        'flowers',
+        'linencolor',
+        'chair',
+        'table',
         'others',
         'totalpax',
         'package_id',
-        'status',
-        'event_detailesAdded',
-        'inventory_id',
-        'client_id',
+        'priceperhead',
+        'status'
     ];
 
 }
