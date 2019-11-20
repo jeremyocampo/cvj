@@ -23,24 +23,23 @@
     19 => 'Illuminate\\Translation\\TranslationServiceProvider',
     20 => 'Illuminate\\Validation\\ValidationServiceProvider',
     21 => 'Illuminate\\View\\ViewServiceProvider',
-    22 => 'BeyondCode\\DumpServer\\DumpServerServiceProvider',
-    23 => 'Fideloper\\Proxy\\TrustedProxyServiceProvider',
-    24 => 'LaravelFrontendPresets\\ArgonPreset\\ArgonPresetServiceProvider',
-    25 => 'Illuminate\\Notifications\\NexmoChannelServiceProvider',
-    26 => 'Illuminate\\Notifications\\SlackChannelServiceProvider',
-    27 => 'Laravel\\Tinker\\TinkerServiceProvider',
-    28 => 'Collective\\Html\\HtmlServiceProvider',
-    29 => 'Carbon\\Laravel\\ServiceProvider',
+    22 => 'Carbon\\Laravel\\ServiceProvider',
+    23 => 'SimpleSoftwareIO\\QrCode\\QrCodeServiceProvider',
+    24 => 'Fideloper\\Proxy\\TrustedProxyServiceProvider',
+    25 => 'LaravelFrontendPresets\\ArgonPreset\\ArgonPresetServiceProvider',
+    26 => 'Laravel\\Tinker\\TinkerServiceProvider',
+    27 => 'Collective\\Html\\HtmlServiceProvider',
+    28 => 'Spatie\\GoogleCalendar\\GoogleCalendarServiceProvider',
+    29 => 'BeyondCode\\DumpServer\\DumpServerServiceProvider',
     30 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
-    31 => 'SimpleSoftwareIO\\QrCode\\QrCodeServiceProvider',
-    32 => 'Spatie\\GoogleCalendar\\GoogleCalendarServiceProvider',
-    33 => 'Collective\\Html\\HtmlServiceProvider',
-    34 => 'Milon\\Barcode\\BarcodeServiceProvider',
-    35 => 'Spatie\\GoogleCalendar\\GoogleCalendarServiceProvider',
-    36 => 'App\\Providers\\AppServiceProvider',
-    37 => 'App\\Providers\\AuthServiceProvider',
-    38 => 'App\\Providers\\EventServiceProvider',
-    39 => 'App\\Providers\\RouteServiceProvider',
+    31 => 'Collective\\Html\\HtmlServiceProvider',
+    32 => 'Milon\\Barcode\\BarcodeServiceProvider',
+    33 => 'Spatie\\GoogleCalendar\\GoogleCalendarServiceProvider',
+    34 => 'SimpleSoftwareIO\\QrCode\\QrCodeServiceProvider',
+    35 => 'App\\Providers\\AppServiceProvider',
+    36 => 'App\\Providers\\AuthServiceProvider',
+    37 => 'App\\Providers\\EventServiceProvider',
+    38 => 'App\\Providers\\RouteServiceProvider',
   ),
   'eager' => 
   array (
@@ -54,19 +53,17 @@
     7 => 'Illuminate\\Pagination\\PaginationServiceProvider',
     8 => 'Illuminate\\Session\\SessionServiceProvider',
     9 => 'Illuminate\\View\\ViewServiceProvider',
-    10 => 'BeyondCode\\DumpServer\\DumpServerServiceProvider',
+    10 => 'Carbon\\Laravel\\ServiceProvider',
     11 => 'Fideloper\\Proxy\\TrustedProxyServiceProvider',
     12 => 'LaravelFrontendPresets\\ArgonPreset\\ArgonPresetServiceProvider',
-    13 => 'Illuminate\\Notifications\\NexmoChannelServiceProvider',
-    14 => 'Illuminate\\Notifications\\SlackChannelServiceProvider',
-    15 => 'Carbon\\Laravel\\ServiceProvider',
+    13 => 'Spatie\\GoogleCalendar\\GoogleCalendarServiceProvider',
+    14 => 'BeyondCode\\DumpServer\\DumpServerServiceProvider',
+    15 => 'Milon\\Barcode\\BarcodeServiceProvider',
     16 => 'Spatie\\GoogleCalendar\\GoogleCalendarServiceProvider',
-    17 => 'Milon\\Barcode\\BarcodeServiceProvider',
-    18 => 'Spatie\\GoogleCalendar\\GoogleCalendarServiceProvider',
-    19 => 'App\\Providers\\AppServiceProvider',
-    20 => 'App\\Providers\\AuthServiceProvider',
-    21 => 'App\\Providers\\EventServiceProvider',
-    22 => 'App\\Providers\\RouteServiceProvider',
+    17 => 'App\\Providers\\AppServiceProvider',
+    18 => 'App\\Providers\\AuthServiceProvider',
+    19 => 'App\\Providers\\EventServiceProvider',
+    20 => 'App\\Providers\\RouteServiceProvider',
   ),
   'deferred' => 
   array (
@@ -171,13 +168,13 @@
     'translation.loader' => 'Illuminate\\Translation\\TranslationServiceProvider',
     'validator' => 'Illuminate\\Validation\\ValidationServiceProvider',
     'validation.presence' => 'Illuminate\\Validation\\ValidationServiceProvider',
+    'qrcode' => 'SimpleSoftwareIO\\QrCode\\QrCodeServiceProvider',
     'command.tinker' => 'Laravel\\Tinker\\TinkerServiceProvider',
     'html' => 'Collective\\Html\\HtmlServiceProvider',
     'form' => 'Collective\\Html\\HtmlServiceProvider',
     'Collective\\Html\\HtmlBuilder' => 'Collective\\Html\\HtmlServiceProvider',
     'Collective\\Html\\FormBuilder' => 'Collective\\Html\\HtmlServiceProvider',
     'NunoMaduro\\Collision\\Contracts\\Provider' => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
-    'qrcode' => 'SimpleSoftwareIO\\QrCode\\QrCodeServiceProvider',
   ),
   'when' => 
   array (
@@ -217,6 +214,9 @@
     'Illuminate\\Validation\\ValidationServiceProvider' => 
     array (
     ),
+    'SimpleSoftwareIO\\QrCode\\QrCodeServiceProvider' => 
+    array (
+    ),
     'Laravel\\Tinker\\TinkerServiceProvider' => 
     array (
     ),
@@ -224,9 +224,6 @@
     array (
     ),
     'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider' => 
-    array (
-    ),
-    'SimpleSoftwareIO\\QrCode\\QrCodeServiceProvider' => 
     array (
     ),
   ),

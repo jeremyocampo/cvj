@@ -199,10 +199,9 @@ h2::after {
 			<div class="carousel-inner">
 				<div class="item carousel-item active">
 					<div class="row">
-						@foreach()
 						<div class="col-sm-3">
 							<div class="thumb-wrapper">
-								<div class="thumb-content">
+									<div class="thumb-content">
 									<h4> Grand Wedding Package A</h4>
 									<br>									
 									<p class="totalpax"><b>Minimum 100 pax </b></p>

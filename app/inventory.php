@@ -3,10 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class inventory extends Model
 {
     //
+
+    use SoftDeletes;
+
     public $primaryKey = 'inventory_id';
     //public $incrementing = false;
     public $table = 'inventory';
