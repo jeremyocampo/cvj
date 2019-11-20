@@ -40,16 +40,50 @@ class DeployInventoryController extends Controller
         // ->where('deployed_inventory.date_deployed','=', null)
         ->get();
 
-        dd($eventInProgress);
+        // dd($eventInProgress);
 
 
-        $eventsDep = DB::table('deployed_inventory')
-        ->join('event','deployed_inventory.event_deployed','=','event.event_id')
-        // ->groupBy('deployed_inventory.event_deployed')
-        // ->where('event_id', '=', 'event_deployed')
-
+         $eventsDep = DB::table('event')
+        ->join('deployed_inventory','event.event_id','=','deployed_inventory.event_deployed')
+        ->select('event.event_id','event.event_name','event.event_start','event.venue','deployed_inventory.date_deployed')
+        // ->groupBy('event.event_id')
         ->get();
 
+        $eventA = DB::table('event')
+        ->select('*')
+        ->get();
+
+        $eventB = DB::table('deployed_inventory')
+        ->select('*')
+        ->get();
+
+        $actuallyDeployed = array();
+
+        $countA = count($eventA);
+        $countB = count($eventB);
+
+        for($i=0;$i<$countA;$i++) 
+        {
+            for($j=1;$j<$countB;$j++){
+                if($eventA[$i]->event_id == $eventB[$j]->event_deployed && $eventB[$j-1]->event_deployed != $eventB[$j]->event_deployed)
+                {
+                    array_push($actuallyDeployed,$eventA[$i]);
+                }
+            }
+        }
+
+        dd($actuallyDeployed);
+        // foreach($eventA as $i){
+        //     foreach($eventB as $j){
+
+        //     }
+        // }
+
+
+
+
+
+        dd($eventsDep);
 
         $date = Carbon::now('+8:00');
 
@@ -61,7 +95,7 @@ class DeployInventoryController extends Controller
             array_push($deployed, $h);
         }
 
-        dd($deployed);
+        // dd($deployed);
         foreach($eventInProgress as $i){
             // $twoDaysBefore = Carbon::parse($i->event_end)->format('Y-m-d')->subDay(2);
 
