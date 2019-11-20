@@ -120,6 +120,12 @@ class EventsController extends Controller
     public function store(Request $request)
     {
         //
+        // create a new event
+        // Event::create([
+        // 'name' => 'A new event',
+        // 'startDateTime' => Carbon\Carbon::now(),
+        // 'endDateTime' => Carbon\Carbon::now()->addHour(),
+        // ]);
     }
 
     /**
@@ -150,6 +156,7 @@ class EventsController extends Controller
     public function edit($id)
     {
         //
+
     }
 
     /**
@@ -162,6 +169,12 @@ class EventsController extends Controller
     public function update(Request $request, $id)
     {
         //
+        // update existing event
+        // $firstEvent = $events->first();
+        // $firstEvent->name = 'updated name';
+        // $firstEvent->save();
+
+        // $firstEvent->update(['name' => 'updated again']);
     }
 
     /**
@@ -173,5 +186,8 @@ class EventsController extends Controller
     public function destroy($id)
     {
         //
+        // // delete an event
+        // $event->delete();
+        // dd($events);
     }
 }
