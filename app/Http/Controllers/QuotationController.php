@@ -60,21 +60,26 @@ class QuotationController extends Controller
             $emp = Employee::where('employee_id','=',$employee_id)->first();
             $total_staff_cost += 800; //dummy calculation of wages per day or gig.
         }
-
+        $add_inv_total = 0;
         foreach ($event_inventories as $inventory){
             $inventory->inventory_name = inventory::where('inventory_id','=',$inventory->inventory_id)->first()->inventory_name;
-
+            $add_inv_total += $inventory->qty * $inventory->rent_price;
         }
+        $add_dish_total = 0;
         foreach ($event_dishes as $dish){
             $dish->item_name = Items::where('item_id','=',$dish->item_id)->first()->item_name;
+            $add_dish_total += $dish->total_price;
         }
 
         foreach ($package->inventory as $inventory){
             $inventory->inventory_name = inventory::where('inventory_id','=',$inventory->inventory_id)->first()->inventory_name;
         }
+        error_log("dish: ".$add_dish_total);
+        error_log("inv: ".$add_inv_total);
         return view('client_quotation',
             ['package'=>$package,'event'=>$event,'user_id'=>$client_id,'client'=>$client,
-                'additional_count'=>$additional_count,'additional_dishes'=>$event_dishes, 'is_off_premise'=>$is_off_premise,
+                'additional_count'=>$additional_count,'add_dish_total'=>$add_dish_total,'add_inv_total'=>$add_inv_total,
+                'additional_dishes'=>$event_dishes, 'is_off_premise'=>$is_off_premise,
                 'additional_invs'=>$event_inventories,'staff_count'=>count($employees_id),'staff_cost'=>$total_staff_cost]);
     }
 
