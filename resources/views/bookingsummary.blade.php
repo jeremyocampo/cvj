@@ -135,7 +135,6 @@
                     </div>
                     <hr style="border-top: dotted 1px;">
                     @if($additional_count != 0)
-
                         <h3>Additions <i class="fa fa-cart-plus"></i></h3>
                         <div class="row">
                             <div class="col-md-6">
