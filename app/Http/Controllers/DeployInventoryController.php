@@ -28,88 +28,75 @@ class DeployInventoryController extends Controller
 
     public function index()
     {
-        $query = DB::table('deployed_inventory')->get();
-
-        $eventInProgress = DB::table('event')
-        // ->join('reserve_venue','event.reservation_id','=','reserve_venue.reservation_id')
-        ->join('event_status_ref', 'event.status', '=', 'event_status_ref.status_id')
-        // ->join('deployed_inventory','event.event_id','=','deployed_inventory.event_deployed')
-        ->select('*')
-        ->where('event.status', '=', 3)
-        ->where('event.status', '<', 6)
-        // ->where('deployed_inventory.date_deployed','=', null)
-        ->get();
-
-        // dd($eventInProgress);
-
-
          $eventsDep = DB::table('event')
         ->join('deployed_inventory','event.event_id','=','deployed_inventory.event_deployed')
-        ->select('event.event_id','event.event_name','event.event_start','event.venue','deployed_inventory.date_deployed')
-        // ->groupBy('event.event_id')
-        ->get();
-
-        $eventA = DB::table('event')
-        ->select('*')
-        ->get();
-
-        $eventB = DB::table('deployed_inventory')
-        ->select('*')
+        ->select('event.event_id')
+        ->groupBy('event.event_id')
         ->get();
 
         $actuallyDeployed = array();
 
-        $countA = count($eventA);
-        $countB = count($eventB);
-
-        for($i=0;$i<$countA;$i++) 
+        foreach($eventsDep as $a)
         {
-            for($j=1;$j<$countB;$j++){
-                if($eventA[$i]->event_id == $eventB[$j]->event_deployed && $eventB[$j-1]->event_deployed != $eventB[$j]->event_deployed)
-                {
-                    array_push($actuallyDeployed,$eventA[$i]);
-                }
-            }
+            $eventsActuallyDeployed = DB::table('event')
+            ->select('*')
+            ->where('event.event_id', '=', $a->event_id)
+            ->first();
+
+            array_push($actuallyDeployed, $eventsActuallyDeployed);
         }
-
-        dd($actuallyDeployed);
-        // foreach($eventA as $i){
-        //     foreach($eventB as $j){
-
-        //     }
-        // }
-
-
-
-
-
-        dd($eventsDep);
 
         $date = Carbon::now('+8:00');
 
-    //    dd($date);
         $inprogress = array();
-        $deployed = array();
 
-        foreach($eventsDep->unique('event_id') as $h){
-            array_push($deployed, $h);
+        $eventInProgress = DB::table('event')
+        ->join('event_status_ref', 'event.status', '=', 'event_status_ref.status_id')
+        ->select('*')
+        ->where('event.status', '=', 3)
+        ->where('event.status', '<', 6)
+        ->orderBy('event_start', 'ASC')
+        ->get();
+
+        // dd(count($eventsDep) > 0);
+
+        if(count($eventsDep) != 0)
+        {
+            foreach($eventInProgress as $k)
+            {
+                foreach($eventsDep as $g)
+                {
+                    if($k->event_id != $g->event_id )
+                    {
+                        array_push($inprogress, $k);
+                    }
+                }
+            }
+        } 
+        else
+        {
+            
         }
-
-        // dd($deployed);
-        foreach($eventInProgress as $i){
-            // $twoDaysBefore = Carbon::parse($i->event_end)->format('Y-m-d')->subDay(2);
-
-            if($date->format('Y-m-d') == Carbon::parse($i->event_start)->format('Y-m-d')){
+        foreach($eventInProgress as $i)
+        {
+            
+            if($date->format('Y-m-d') == Carbon::parse($i->event_start)->format('Y-m-d'))
+            {
                 array_push($inprogress, $i);
             }
         }
+        
+        // dd($inprogress);
+        // dd(Carbon::parse($eventInProgress[2]->event_start)->format('Y-m-d'));
+        // dd($date->format('Y-m-d') == Carbon::parse($eventInProgress[2]->event_start)->format('Y-m-d'));
 
-        // $joinedTable = DB::table('event')
-        // ->get();
-        // $eventPackages = DB::table('event');
-        // dd($eventsDep);
+        
 
-        return view('deployInventory', ['events'  => $inprogress, 'eventsDep' => $eventsDep ]);
+        
+
+        
+
+        return view('deployInventory', ['events'  => $inprogress, 'eventsDep' => $actuallyDeployed ]);
     }
 
     /**

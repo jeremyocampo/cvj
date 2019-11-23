@@ -129,11 +129,8 @@
                                                     <td>{{ Carbon\Carbon::parse($i->event_start)->format('F j, Y g:i a') }}</td>
                                                     {{-- <td>{{}}</td> --}}
                                                     <td>
-                                                            <a class="" href="{{ url('deploy/'.$i->event_id) }}" >
-                                                                <button class="btn btn-block btn-sm">Deploy Inventory</button>
-                                                            </a>
-                                                           
-                                                        </td>
+                                                        Deployed
+                                                    </td>
                                                     
                                                 </tr>
                                                 

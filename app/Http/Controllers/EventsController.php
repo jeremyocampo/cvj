@@ -27,42 +27,7 @@ class EventsController extends Controller
     }
     public function index()
     {
-        //create a new event
-        // $event = new Event;
-
-        // $event->name = 'A new event';
-        // $event->startDateTime = Carbon\Carbon::now();
-        // $event->endDateTime = Carbon\Carbon::now()->addHour();
-        // $event->addAttendee(['email' => 'youremail@gmail.com']);
-        // $event->addAttendee(['email' => 'anotherEmail@gmail.com']);
-
-        // $event->save();
-
-        // get all future events on a calendar
-        
-
-        // update existing event
-        // $firstEvent = $events->first();
-        // $firstEvent->name = 'updated name';
-        // $firstEvent->save();
-
-        // $firstEvent->update(['name' => 'updated again']);
-
-        // // create a new event
-        // Event::create([
-        // 'name' => 'A new event',
-        // 'startDateTime' => Carbon\Carbon::now(),
-        // 'endDateTime' => Carbon\Carbon::now()->addHour(),
-        // ]);
-
-        // // delete an event
-        // $event->delete();
-        // dd($events);
-
-        //Gets events from google calendar
-        // $events = Event::get();
-
-        //Gets events from Database
+       
         $eventPending = DB::table('event')
         // ->join('reserve_venue','event.reservation_id','=','reserve_venue.reservation_id')
         ->join('event_status_ref', 'event.status', '=', 'event_status_ref.status_id')
