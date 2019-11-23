@@ -18,14 +18,6 @@
                                         <div class="col">
                                         </div>
                                         <div class="col">
-                                            {{-- <div class="custom-control custom-checkbox">
-                                                <label class="form-label">Status</label> <label class="text-muted">(optional)</label>
-                                                <select class="form-control" name="status" id="status">
-    x                                                <option selected disabled value=0>Please Select a status</option>
-                                                    <option value="1">Mark as Lost</option>
-                                                    <option value="2">Mark as Damaged</option>
-                                                </select>
-                                            </div> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -59,30 +51,16 @@
                                                     <th scope="col">Event Name</th>
                                                     <th scope="col">Venue</th>
                                                     <th scope="col">Event Date/Time</th>
-                                                    {{-- <th scope="col">Return Date/Time</th> --}}
                                                     <th scope="col">Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {{-- <tr>
-                                                    <td>Jeremy's Birthday Bash</td>
-                                                    <td>CVJ Catering Ground Floor</td>
-                                                    <td>March 25, 2020</td>
-                                                    <td>March 25, 2020</td>
-                                                    <td>
-                                                        <a href="{{ url('deploy/1') }}" class="btn btn-sm">
-                                                            <i class="ni ni-zoom-split-in"></i>
-                                                            <span>{{ __('View Event Details') }}</span>
-                                                        </a>
-                                                    </td>
-                                                </tr> --}}
                                                 @foreach ($events as $i)
                                                 @if($i->status > 0)
                                                 <tr>
                                                     <td>{{ $i->event_name }}</td>
                                                     <td>{{ $i->venue }}</td>
                                                     <td>{{ Carbon\Carbon::parse($i->event_start)->format('F j, Y g:i a') }}</td>
-                                                    {{-- <td>{{ Carbon\Carbon::parse($i->event_end)->format('F j, Y g:i a') }}</td> --}}
                                                     <td>
                                                         <a class="" href="{{ url('deploy/'.$i->event_id) }}" >
                                                             <button class="btn btn-block btn-sm">Deploy Inventory</button>
@@ -109,18 +87,6 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {{-- <tr>
-                                                    <td>Jeremy's Birthday Bash</td>
-                                                    <td>CVJ Catering Ground Floor</td>
-                                                    <td>March 25, 2020</td>
-                                                    <td>March 25, 2020</td>
-                                                    <td>
-                                                        <a href="{{ url('deploy/1') }}" class="btn btn-sm">
-                                                            <i class="ni ni-zoom-split-in"></i>
-                                                            <span>{{ __('View Event Details') }}</span>
-                                                        </a>
-                                                    </td>
-                                                </tr> --}}
                                                 @foreach ($eventsDep as $i)
                                                 @if($i->status > 0)
                                                 <tr>

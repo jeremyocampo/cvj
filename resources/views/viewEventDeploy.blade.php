@@ -6,7 +6,6 @@
 <div class="container-fluid mt--7">
 	<div class="card-body">
 		<div class="col-xl-10 mb-5 mb-xl-0">
-                {{-- <div class="row"> alternate lang para tight --}}
 				<div class="card shadow">
 						<div class="card-header">
                             {{-- {!! Form::open(['action' => 'InventoryController@return', 'method' => 'POST']) !!} --}}
@@ -130,20 +129,6 @@
                                                     <td>White</td>
                                                     <td> {!! QrCode::size(200)->generate("Item-Name: Ikea Chair, Item-Category: Chair, Color: White, Quantity: 55, Event-Name: Jeremy's Birthday Bash"); !!}</td>
                                                     <td>55 Piece(s)</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Ikea Table</td>
-                                                    <td>Table</td>
-                                                    <td>White</td>
-                                                    <td> {!! QrCode::size(200)->generate("Item-Name: Ikea Table, Item-Category: Table, Color: White, Quantity: 8, Event-Name: Jeremy's Birthday Bash"); !!}</td>
-                                                    <td>8 Piece(s)</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Table Cloth</td>
-                                                    <td>Linen</td>
-                                                    <td>Gray</td>
-                                                    <td> {!! QrCode::size(200)->generate("Item-Name: Table Cloth, Item-Category: Linen, Color: Gray, Quantity: 8, Event-Name: Jeremy's Birthday Bash"); !!}</td>
-                                                    <td>8 Piece(s)</td>
                                                 </tr> --}}
                                                 @foreach ($package as $i)
                                                 <tr>
@@ -164,22 +149,6 @@
                                     
                                     </div>
                                 </div>
-                                        {{-- <table class="table table-bordered align-items-center table-flush mb-4" id="myTable">
-                                            <thead class="thead-light">
-                                                <tr>
-                                                    <th>Food Name</th>
-                                                    <th>Quantity</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody> --}}
-                                                {{-- @foreach ($packageA as $i)
-                                                <tr>
-                                                    <td> {{ $i->item_name }}</td>
-                                                    <td> {{ $i->quantity }}</td>
-                                                </tr>
-                                                @endforeach --}}
-                                            {{-- </tbody>
-                                        </table> --}}
                                 </div>
 
                                 
