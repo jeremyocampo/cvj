@@ -304,7 +304,7 @@ class SelectPackageController extends Controller
         $event->formatted_start = date("H:i", strtotime($event->event_start));
         $event->formatted_end = date("H:i", strtotime($event->event_end));
 
-        $package = PackageModel::where('package_id','>=',$event->package_id)->first();
+        $package = PackageModel::where('package_id','=',$event->package_id)->first();
         $food_items =PackageItem::where('package_id','=',$package->package_id)->select('item_id')->get();
         $food_items =$food_items->toArray();
         $package->foods = Items::whereIn('item_id',$food_items)->get();

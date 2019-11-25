@@ -70,6 +70,7 @@ Route::get('admin/routes', 'AdminController@admin')->middleware('admin');
 
 // Route::resource('cal','gCalendarController');
 // Route::get('oauth', 'gCalendarController@oauth');
+Route::get('list_events', 'EventsController@list_events')->name('list_events');
 
 Route::get('summary/{event_id}', 'SelectPackageController@summary');
 
@@ -86,7 +87,9 @@ Route::resource('confirmevents', 'ConfirmEventsController');
 
 Route::get('date_range', 'DateRangeController@index');
 
+Route::get('/download/storage/public/{file}', 'FileController@download');
 
+Route::post('upload_deposit_slip', 'FileController@upload_event_forms')->name('file_upload');
 Route::get('selectpackages/{event_id}', 'SelectPackageController@index')->name('get.selectpackages');
 Route::post('postselectpackages/', 'SelectPackageController@select')->name('post.selectpackages');
 
