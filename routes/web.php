@@ -89,7 +89,7 @@ Route::get('date_range', 'DateRangeController@index');
 
 Route::get('/download/storage/public/{file}', 'FileController@download');
 
-Route::post('upload_deposit_slip', 'FileController@upload_event_forms')->name('file_upload');
+Route::post('upload_event_forms', 'FileController@upload_event_forms')->name('file_upload');
 Route::get('selectpackages/{event_id}', 'SelectPackageController@index')->name('get.selectpackages');
 Route::post('postselectpackages/', 'SelectPackageController@select')->name('post.selectpackages');
 
