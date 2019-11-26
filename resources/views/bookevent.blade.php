@@ -185,7 +185,7 @@
         var text2 = document.getElementById("eventvenueA");
         text.hidden = (sel.value != "4");
         text1.hidden = (sel.value != "4");
-        text2.hidden = (sel.value != "4");
+        text2.hidden = (sel.value != "4");  
         text1.disabled = (sel.value != "4");
         text2.disabled = (sel.value != "4");
         sel.disabled = (text.value != '');

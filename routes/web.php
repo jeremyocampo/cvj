@@ -81,6 +81,8 @@ Route::get('customize_package/{event_id}/{package_id?}', 'SelectPackageControlle
 Route::post('customize_package', 'SelectPackageController@store')->name('post.customize_package');
 Route::resource('clientregister', 'ClientRegisterController');
 
+Route::resource('addpackages', 'AddPackageController');
+
 Route::resource('inventoryDash', 'InventoryHomeController');
 
 Route::get('/send/email', 'HomeController@mail');
@@ -89,3 +91,14 @@ Route::resource('returnInventory','ReturnInventoryController');
 Auth::routes();
 
 Route::resource('confirmevents', 'ConfirmEventsController');
+
+//Earl Routes
+Route::get('/earl', function() {
+    return view ('earl');
+});
+
+Route::get('/accountexecutive',function() {
+    return view ('accountexecutiveDashboard');
+});
+
+Route::get('/employees', 'earlEmployeeController@index');

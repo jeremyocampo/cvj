@@ -44,7 +44,7 @@ class AddPackageController extends Controller
     }
 
 
-    function insert(Request $request)
+    public function insert(Request $request)
     {
 
         if($request->ajax())
