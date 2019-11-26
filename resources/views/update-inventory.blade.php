@@ -1,0 +1,141 @@
+@extends('layouts.app')
+
+@section('content')
+    @include('layouts.headers.inventoryCard1')
+    <div class="container-fluid mt--7">
+        <div class="card-body">
+            <div class="col-xl-12 mb-5 mb-xl-0">
+                <div class="card shadow">
+                    {!! Form::open(['action' => 'InventoryController@store', 'method' => 'POST', 'autocomplete' =>'off']) !!}
+                    <div class="card-header">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h1 class="">Add Item to Inventory</h1>
+                            </div>
+                            <div class="col-md-4 " >
+                                {{-- <label class="form-label">Item Source</label> --}}
+                                <div align="right">
+                                    <select id="source" name="source" class="form-control" placeholder="Item Source" required>
+                                        <option value = 0 selected disabled>Please Select Item Source</option>
+                                        <option value = 1>Bought</option>
+                                        {{-- <option value = 2>Outsourced</option> --}}
+                                        <option value = 3>Alternative (Flowers Only)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body border-0">
+
+                        @foreach($errors->all() as $error)
+                            <div class="alert alert-danger" role="alert">
+                                <button type = button data-dismiss="alert" class="close"><span aria-hidden="true">x</span></button>
+                                {{ $error }}<br>
+                            </div>
+
+                        @endforeach
+
+
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label">Item Name</label>
+                                <input class="form-control" name="itemName" value="{{ $inventory->inventory_name }}" />
+                            </div>
+                            <div class="col-md-9 mb-3">
+                                <label class="form-label">Category</label>
+                                <select id="category" name="category" class="form-control" onchange="filterDropdown()" required>
+                                    <option value = 0 selected disabled>Please Select a Category</option>
+                                    @foreach ($categories as $category)
+                                        <option id="category-{{$category->category_no}}" value="{{ $category->category_no }}">{{ $category->category_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-3 mb-3"></div>
+                            <div class="col-md-9 mb-3">
+                                <label class="form-label">Color</label>
+                                <select id="color" name="color" class="form-control" required>
+                                    <option value = 0 selected disabled>Please Select a Color</option>
+                                    @foreach ($colors as $color)
+                                        <option id="category-{{ $color->color_id }}" value="{{ $color->color_id }}">{{ $color->color_name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-3 mb-3"></div>
+                            <div class="col-md-9 mb-3">
+                                <label class="form-label">Size</label>
+                                <select id="color" name="size" class="form-control" placeholder="Size" required>
+                                    <option value = 0 selected disabled>Please Select a Size</option>
+                                    <option value=1>Small</option>
+                                    <option value=2>Medium</option>
+                                    <option value=3>Large</option>
+                                    <option value=4>Extra Large</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 mb-3"></div>
+                            <div class="col-md-5 mb-3">
+                                <label class="form-label">Item Quantity</label>
+                                {{ Form::number('quantity', '',['class' => 'form-control', 'placeholder' => 'Starting Quantity'] )}}
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Item Threshold</label>
+                                {{ Form::number('threshold', '',['class' => 'form-control', 'placeholder' => 'Minimum Threshold'] )}}
+                            </div>
+                            <div class="col-md-3"></div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Item Price (Php)</label>
+                                {{ Form::number('price', '',['class' => 'form-control', 'placeholder' => 'Item Price' , 'type' => 'number' , 'min' => 1 , 'step' => 0.01] )}}
+                            </div>
+                            <div class="col-md-4">
+                                <label>
+                                    Shelf Life
+                                </label>
+                                <input type="text" class="form-control" name="shelf_life" placeholder="Shelf Life" required />
+                            </div>
+                            <div class="col-md-4">
+                                <label>Returnable Item</label>
+                                <select class="form-control" name="returnable_item" required>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Suppliers</label>
+                                <select class="form-control" name="supplier_id" required>
+                                    @foreach($suppliers as $supplier)
+                                        <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-muted">
+                        {{-- @foreach($subcategoryIds as $subcategoryId)
+                            <p>{{$subcategoryId}}</p>
+                        @endforeach --}}
+
+                        <div class="text-right">
+
+                            {{ Form::submit('Add Item', ['class' => 'btn btn-success']) }}
+                            <a href="{{ url('inventory')}}" class="btn btn-default">Back</a>
+                            {{-- {{Form::hidden('_method', 'PUT')}} --}}
+                        </div>
+                    </div>
+                    {!! Form::close() !!}
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
+<script>
+
+    $('#selectField').change(function(){
+        if($('#selectField').val() == 'N'){
+            $('#secondaryInput').hide();
+        } else {
+            $('#secondaryInput').show();
+        }
+    });
+
+
+</script>
