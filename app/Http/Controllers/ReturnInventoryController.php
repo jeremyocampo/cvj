@@ -113,8 +113,6 @@ class ReturnInventoryController extends Controller
             }
         }
         return view('viewEventReturn',[ 'event' => $event, 'package' => $eventPackages, 'employees' => $employees]);
-        // return view('viewEventDeploy');
-        // return view('viewEventReturn', ['event' => $borrowedItems ]);
     }
 
     /**
