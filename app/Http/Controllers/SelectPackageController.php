@@ -39,7 +39,14 @@ class SelectPackageController extends Controller
             $package->foods = Items::whereIn('item_id',$food_items)->get();
             $package->inventory = PackageInventory::where('package_id','=',$package->package_id)->get();
             foreach ($package->inventory as $inventory){
-                $inventory->inventory_name = inventory::where('inventory_id','=',$inventory->inventory_id)->first()->inventory_name;
+                $inv = inventory::where('inventory_id','=',$inventory->inventory_id)->first();
+                $inventory->inventory_name = $inv->inventory_name;
+                $inventory->inv_avail =$inventory->is_inventory_available();
+                error_log("package_id_nm: ".$package->package_id.$package->package_name);
+                error_log($inventory->inventory_name.": ".$inventory->is_inventory_available());
+                error_log("p_inv_qty: ".$inventory->quantity);
+                error_log("inv_qty ".$inv->quantity);
+
             }
             //$package->inventory = inventory::whereIn('inventory_id',$inv_items)->get();
 
@@ -117,6 +124,7 @@ class SelectPackageController extends Controller
 
         $event->total_amount_due = $request->input('package_price');
         if($event->venue == 'Off-Premise'){
+            $event->off_premise_amount = $event->total_amount_due * 0.15;
             $event->total_amount_due = $event->total_amount_due * 1.15;
         }
         $event->save();
@@ -134,7 +142,9 @@ class SelectPackageController extends Controller
         $event->package_id = $request->input('package_id');
         $package = PackageModel::where('package_id','=',$event->package_id)->first();
         $event->total_amount_due = $package->price;
+
         if($event->venue == 'Off-Premise'){
+            $event->off_premise_amount = $event->total_amount_due * 0.15;
             $event->total_amount_due = $event->total_amount_due * 1.15;
         }
         $event->save();
@@ -230,6 +240,7 @@ class SelectPackageController extends Controller
         $tot += $package->price;
         $event->total_amount_due = $tot;
         if($event->venue == 'Off-Premise'){
+            $event->off_premise_amount = $event->total_amount_due * 0.15;
             $event->total_amount_due = $event->total_amount_due * 1.15;
         }
         $event->save();
@@ -293,7 +304,7 @@ class SelectPackageController extends Controller
         $event->formatted_start = date("H:i", strtotime($event->event_start));
         $event->formatted_end = date("H:i", strtotime($event->event_end));
 
-        $package = PackageModel::where('package_id','>=',$event->package_id)->first();
+        $package = PackageModel::where('package_id','=',$event->package_id)->first();
         $food_items =PackageItem::where('package_id','=',$package->package_id)->select('item_id')->get();
         $food_items =$food_items->toArray();
         $package->foods = Items::whereIn('item_id',$food_items)->get();

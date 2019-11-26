@@ -70,11 +70,11 @@ Route::get('admin/routes', 'AdminController@admin')->middleware('admin');
 
 // Route::resource('cal','gCalendarController');
 // Route::get('oauth', 'gCalendarController@oauth');
+Route::get('list_events', 'EventsController@list_events')->name('list_events');
 
 Route::get('summary/{event_id}', 'SelectPackageController@summary');
 
 Route::get('client_quotation/{event_id}', 'QuotationController@client_quotation')->name('client_quotation');
-
 Route::get('company_quotation/{event_id}', 'QuotationController@company_quotation')->name('company_quotation');
 //Dummy Test URLS: For Frontend prototyping
 Route::get('test_page1/{event_id}/{package_id?}', 'SelectPackageController@test_page1')->name('test_page1');
@@ -87,7 +87,9 @@ Route::resource('confirmevents', 'ConfirmEventsController');
 
 Route::get('date_range', 'DateRangeController@index');
 
+Route::get('/download/storage/public/{file}', 'FileController@download');
 
+Route::post('upload_event_forms', 'FileController@upload_event_forms')->name('file_upload');
 Route::get('selectpackages/{event_id}', 'SelectPackageController@index')->name('get.selectpackages');
 Route::post('postselectpackages/', 'SelectPackageController@select')->name('post.selectpackages');
 

@@ -271,6 +271,12 @@
                             <i class="ni ni-calendar-grid-58 text-yellow"></i> {{ __('Create Booking') }}
                         </a>
                     </li>
+
+                     <li class="nav-item">
+                         <a class="nav-link" href="{{ url('list_events') }}">
+                             <i class="ni ni-calendar-grid-58 text-green"></i> List Events
+                         </a>
+                     </li>
                     <li class="nav-item">
                         <a href="http://cvj.test:3000/logout" class="nav-link" onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();">

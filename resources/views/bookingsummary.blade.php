@@ -113,10 +113,7 @@
                                     <div>
                                         <span style="display: inline-block">PHP</span> <b style="display: inline-block">{{number_format($package->price,2)}}</b>
                                     </div>
-                                    <h5 style="margin-bottom: 0.1vh;margin-top:1vh;">Staffing Cost</h5>
-                                    <div>
-                                        <span style="display: inline-block">PHP</span> <b style="display: inline-block">{{number_format($staff_cost,2)}}</b>
-                                    </div>
+
                                     @if($additional_count != 0)
                                         <h5 style="margin-bottom: 0.1vh;margin-top:1vh;">Total Additionals</h5>
                                         <div>
@@ -126,7 +123,7 @@
                                         <hr>
                                         <h4 style="margin-bottom: 0.1vh">Total Price</h4>
                                         <div>
-                                            <span style="display: inline-block">PHP</span> <b style="display: inline-block">{{number_format($event->total_amount_due + $staff_cost,2)}}</b>
+                                            <span style="display: inline-block">PHP</span> <b style="display: inline-block">{{number_format($event->total_amount_due ,2)}}</b>
                                         </div>
                                 </div>
                             </div>
@@ -135,7 +132,6 @@
                     </div>
                     <hr style="border-top: dotted 1px;">
                     @if($additional_count != 0)
-
                         <h3>Additions <i class="fa fa-cart-plus"></i></h3>
                         <div class="row">
                             <div class="col-md-6">

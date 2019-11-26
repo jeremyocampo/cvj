@@ -23,7 +23,6 @@
                     <div class="row" style="width: 100%">
                         <div style="display: inline;width: 100%;">
                             <img src="{{ asset('argon') }}/img/brand/cvj.png" style="float:left" class="navbar-brand-img img-responsive" alt="..." height="100vh" width="175vw">
-
                             <small><b>CVJ Catering</b></small><br>
                             <small>2nd Floor CVJ Clubhouse, 870 Eagle Street</small><br>
                             <small>New Marikina Subdivision, Marikina City</small><br>
@@ -32,7 +31,7 @@
                     </div>
                     <div class="row" style="margin-top: 6vh;">
                         <div class="card-body" style="margin: 0;">
-                            <center >Quotation for <b>{{$client->client_name}}</b><br>
+                            <center >Client Event Quotation for <b>{{$client->client_name}}</b><br>
                                 <small> {{$event->formatted_day}} ~ {{$package->suggested_pax}} pax</small><br>
                                 <small>[{{$event->venue}}] {{$event->event_detailsAdded}} </small><br>
                                 <small>Event Time: {{$event->formatted_start}} to {{$event->formatted_end}}</small>
@@ -60,7 +59,7 @@
                             <i>Additionals:</i>
                                 <ul>
                                 @foreach($additional_dishes as $food)
-                                        <li>{{$food->item_name}} - P {{number_format($food->total_price,2)}}</li>
+                                        <li>{{$food->item_name}} for {{$package->suggested_pax}} pax- P {{number_format($food->total_price,2)}}</li>
 
                                 @endforeach
                                 </ul>
@@ -89,13 +88,10 @@
                         <div>
                             <h4 style="display: inline-block;margin-bottom: 0.1vh;margin-top:1vh;">Package Price :</h4> <span style="display: inline-block">PHP</span> <b style="display: inline-block">{{number_format($package->price,2)}}</b>
                         </div>
-                        <div>
-                            <h4 style="display: inline-block;margin-bottom: 0.1vh;margin-top:1vh;">Staffing Cost :</h4> <span style="display: inline-block">PHP</span> <b style="display: inline-block">{{number_format($staff_cost,2)}}</b>
-                        </div>
                         @if($additional_count != 0)
                             <div>
                                 <h4 style="display: inline-block;margin-bottom: 0.1vh;margin-top:1vh;">Total Additionals :</h4>
-                                <span style="display: inline-block">PHP</span> <b style="display: inline-block">{{number_format($event->total_amount_due - $package->price,2)}}</b>
+                                <span style="display: inline-block">PHP</span> <b style="display: inline-block">{{number_format($add_dish_total + $add_inv_total,2)}}</b>
                             </div>
                         @endif
                         @if($is_off_premise)
@@ -104,7 +100,7 @@
                         <br>
                         <u> Amount Due:
                             <div>
-                                <span style="display: inline-block">PHP</span> <b style="display: inline-block">{{number_format($event->total_amount_due + $staff_cost,2)}}</b>
+                                <span style="display: inline-block">PHP</span> <b style="display: inline-block">{{number_format($event->total_amount_due,2)}}</b>
                             </div>
                         </u>
                     </div>
