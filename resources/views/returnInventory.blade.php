@@ -32,68 +32,61 @@
                             </div>
 						</div>
 						<div class="card-body">
-                                <div class="table-responsive mb-3">
-                                    <!-- Projects table -->
-                                    
-                                    <table class="table align-items-center table-flush">
-                                            <thead class="thead-light">
-                                                <tr>
-                                                    <th scope="col">Event Name</th>
-                                                    <th scope="col">Venue</th>
-                                                    <th scope="col">Borrow Date/Time</th>
-                                                    <th scope="col">Return Date/Time</th>
-                                                    <th scope="col">Status</th>
-                                                    <th scope="col">Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>Jeremy's Birthday Bash</td>
-                                                    <td>CVJ Catering Ground Floor</td>
-                                                    <td>March 25, 2020</td>
-                                                    <td>March 25, 2020</td>
-                                                    <td>Complete</td>
-                                                    <td>
-                                                        <a href="{{url('returnInventory/1')}}" class="btn btn-small">
-                                                            <i class="ni ni-zoom-split-in"></i>
-                                                            <span>{{ __('Return Deployed Items') }}</span>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                                {{-- @foreach ($events as $i)
-                                                @if($i->status > 0)
-                                                <tr>
-                                                    <td>{{ $i->event_name }}</td>
-                                                    <td>{{ $i->venue }}</td>
-                                                    <td>{{ Carbon\Carbon::parse($i->event_start)->format('F j, Y g:i a') }}</td>
-                                                    <td>{{ Carbon\Carbon::parse($i->event_end)->format('F j, Y g:i a') }}</td>
-                                                    <td>{{ $i->status_name}} </td>
-                                                    <td>
-                                                        <a class="" href="{{ url('returnInventory/'.$i->event_id) }}" >
-                                                            
-                                                            <button class="btn btn-block btn-sm"><i class="ni ni-zoom-split-in"></i> &nbsp; View Event Details</button>
-                                                            
-                                                        </a>
-                                                        
-                                                    </td>
-                                                </tr>
-                                                
-                                                @endif
-                                                @endforeach --}}
-                                            </tbody>
-                                        </table>
-                                </div>
-
-                                
-                                </div>
+                            <div class="table-responsive mb-3">
+                                <!-- Projects table -->
+                                <table class="table align-items-center table-flush">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th scope="col">Event Name</th>
+                                            <th scope="col">Venue</th>
+                                            <th scope="col">Borrow Date/Time</th>
+                                            {{-- <th scope="col">Return Date/Time</th> --}}
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{-- <tr>
+                                            <td>Jeremy's Birthday Bash</td>
+                                            <td>CVJ Catering Ground Floor</td>
+                                            <td>March 25, 2020</td>
+                                            <td>March 25, 2020</td>
+                                            <td>Complete</td>
+                                            <td>
+                                                <a href="{{url('returnInventory/1')}}" class="btn btn-small">
+                                                    <i class="ni ni-zoom-split-in"></i>
+                                                    <span>{{ __('Return Deployed Items') }}</span>
+                                                </a>
+                                            </td>
+                                        </tr> --}}
+                                        @foreach ($events as $i)
+                                        @if($i->status > 0)
+                                        <tr>
+                                            <td>{{ $i->event_name }}</td>
+                                            <td>{{ $i->venue }}</td>
+                                            <td>{{ Carbon\Carbon::parse($i->event_start)->format('F j, Y g:i a') }}</td>
+                                            {{-- <td>{{ Carbon\Carbon::parse($i->event_end)->format('F j, Y g:i a') }}</td> --}}
+                                            <td>{{ $i->status_name}} </td>
+                                            <td>
+                                                <a class="" href="{{ url('returnInventory/'.$i->event_id) }}" >
+                                                    <button class="btn btn-block btn-sm"><i class="ni ni-zoom-split-in"></i> &nbsp; Return Event Inventory</button>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        @endif
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                         <div class="card-footer text-muted">
                             <div class="text-right">
                                     <a href="{{ url('inventory')}}" class="btn btn-secondary">Back to View Inventory</a>
                                     {{-- {{Form::hidden('_method', 'PUT')}} --}}
                             </div>
                         </div>
-		{{-- {!! Form::close() !!} --}}
-		</div>
+		        {{-- {!! Form::close() !!} --}}
+		    </div>
 		</div>
 	</div>
 </div>

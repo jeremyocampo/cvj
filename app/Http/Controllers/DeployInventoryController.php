@@ -28,7 +28,7 @@ class DeployInventoryController extends Controller
 
     public function index()
     {
-         $eventsDep = DB::table('event')
+        $eventsDep = DB::table('event')
         ->join('deployed_inventory','event.event_id','=','deployed_inventory.event_deployed')
         ->select('event.event_id')
         ->groupBy('event.event_id')
@@ -41,6 +41,7 @@ class DeployInventoryController extends Controller
             $eventsActuallyDeployed = DB::table('event')
             ->select('*')
             ->where('event.event_id', '=', $a->event_id)
+            ->join('event_status_ref','event.status', '=', 'event_status_ref.status_id')
             ->first();
 
             array_push($actuallyDeployed, $eventsActuallyDeployed);
@@ -58,8 +59,6 @@ class DeployInventoryController extends Controller
         ->orderBy('event_start', 'ASC')
         ->get();
 
-        // dd(count($eventsDep) > 0);
-
         if(count($eventsDep) != 0)
         {
             foreach($eventInProgress as $k)
@@ -68,33 +67,24 @@ class DeployInventoryController extends Controller
                 {
                     if($k->event_id != $g->event_id )
                     {
-                        array_push($inprogress, $k);
+                        if($date->format('Y-m-d') == Carbon::parse($k->event_start)->format('Y-m-d'))
+                        {
+                            array_push($inprogress, $k);
+                        }
                     }
                 }
             }
-        } 
+        }
         else
         {
-            
-        }
-        foreach($eventInProgress as $i)
-        {
-            
-            if($date->format('Y-m-d') == Carbon::parse($i->event_start)->format('Y-m-d'))
+            foreach($eventInProgress as $k)
             {
-                array_push($inprogress, $i);
+                if($date->format('Y-m-d') == Carbon::parse($k->event_start)->format('Y-m-d'))
+                {
+                    array_push($inprogress, $k);
+                }
             }
         }
-        
-        // dd($inprogress);
-        // dd(Carbon::parse($eventInProgress[2]->event_start)->format('Y-m-d'));
-        // dd($date->format('Y-m-d') == Carbon::parse($eventInProgress[2]->event_start)->format('Y-m-d'));
-
-        
-
-        
-
-        
 
         return view('deployInventory', ['events'  => $inprogress, 'eventsDep' => $actuallyDeployed ]);
     }
@@ -129,6 +119,12 @@ class DeployInventoryController extends Controller
 
         $eventID = $request->input('event_id');
 
+        $event = DB::table('event')
+        ->where('event_id', '=', $eventID)
+        ->update([
+            'status'      => 4,
+        ]);
+
         $packages = DB::table('event')
         ->join('package', 'event.package_id','=','package.package_id')
         ->join('package_inventory', 'package.package_id', '=', 'package_inventory.package_id')
@@ -137,14 +133,9 @@ class DeployInventoryController extends Controller
         ->where('event.event_id', '=', $eventID)
         ->get();
 
-        // dd($packages);
-
-        // $deploy_inventory = new deployed_inventory();
-
         $inventory = DB::table('inventory')
         ->get();
         
-        // $differences = array();
         foreach($packages as $i){
             $deploy_inventory = new deployed_inventory();
             $deploy_inventory->event_deployed = $i->event_id;
@@ -159,28 +150,19 @@ class DeployInventoryController extends Controller
             ->where('inventory_id','=',$i->inventory_id)
             ->get();
 
-            $difference = $newQuantity[0]->quantity - $i->qty;
+            $differenceQty = $newQuantity[0]->quantity - $i->qty;
+            $differenceLife = $newQuantity[0]->shelf_life - 1;
             
-            // array_push($differences, $difference);
-            // dd($difference);
-
             $item = DB::table('inventory')
             ->where('inventory_id', '=', $i->inventory_id)
             ->update([
-                'quantity'      => $difference,
+                'quantity'      => $differenceQty,
+                'shelf_life'    => $differenceLife,
             ]);
             
         }
 
-        // dd($differences);
-
-        
-        
-        // dd($inventory);
-
         return redirect('/deploy')->with('success', 'Event Items Deployed!');
-
-
     }
 
     /**

@@ -42,73 +42,63 @@
                             </div>
 						</div>
 						<div class="card-body">
-                                <div class="table-responsive mb-3">
-                                    <!-- Projects table -->
-                                    <h1>Undeployed Events Happening today</h1>
-                                    <table class="table ">
-                                            <thead class="thead-light">
-                                                <tr>
-                                                    <th scope="col">Event Name</th>
-                                                    <th scope="col">Venue</th>
-                                                    <th scope="col">Event Date/Time</th>
-                                                    <th scope="col">Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($events as $i)
-                                                @if($i->status > 0)
-                                                <tr>
-                                                    <td>{{ $i->event_name }}</td>
-                                                    <td>{{ $i->venue }}</td>
-                                                    <td>{{ Carbon\Carbon::parse($i->event_start)->format('F j, Y g:i a') }}</td>
-                                                    <td>
-                                                        <a class="" href="{{ url('deploy/'.$i->event_id) }}" >
-                                                            <button class="btn btn-block btn-sm">Deploy Inventory</button>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                                @endif
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                        
-                                </div>
-
-                                <div class="table-responsive mb-3">
-                                    <!-- Projects table -->
-                                    <h1>Deployed Events</h1>
-                                    <table class="table mb-3">
-                                            <thead class="thead-light">
-                                                <tr>
-                                                    <th scope="col">Event Name</th>
-                                                    <th scope="col">Venue</th>
-                                                    <th scope="col">Event Date/Time</th>
-                                                    <th scope="col">Status</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($eventsDep as $i)
-                                                @if($i->status > 0)
-                                                <tr>
-                                                    <td>{{ $i->event_name }}</td>
-                                                    <td>{{ $i->venue }}</td>
-                                                    <td>{{ Carbon\Carbon::parse($i->event_start)->format('F j, Y g:i a') }}</td>
-                                                    {{-- <td>{{}}</td> --}}
-                                                    <td>
-                                                        Deployed
-                                                    </td>
-                                                    
-                                                </tr>
-                                                
-                                                @endif
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                        
-                                </div>
-
-                                
-                                </div>
+                            <div class="table-responsive mb-3">
+                                <!-- Projects table -->
+                                <h1>Undeployed Events Happening today</h1>
+                                <table class="table ">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th scope="col">Event Name</th>
+                                            <th scope="col">Venue</th>
+                                            <th scope="col">Event Date/Time</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($events as $i)
+                                        @if($i->status > 0)
+                                        <tr>
+                                            <td>{{ $i->event_name }}</td>
+                                            <td>{{ $i->venue }}</td>
+                                            <td>{{ Carbon\Carbon::parse($i->event_start)->format('F j, Y g:i a') }}</td>
+                                            <td>
+                                                <a class="" href="{{ url('deploy/'.$i->event_id) }}" >
+                                                    <button class="btn btn-block btn-sm">Deploy Inventory</button>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        @endif
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="table-responsive mb-3">
+                                <!-- Projects table -->
+                                <h1>Deployed Events</h1>
+                                <table class="table mb-3">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th scope="col">Event Name</th>
+                                            <th scope="col">Venue</th>
+                                            <th scope="col">Event Date/Time</th>
+                                            <th scope="col">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($eventsDep as $i)
+                                        @if($i->status > 0)
+                                        <tr>
+                                            <td>{{ $i->event_name }}</td>
+                                            <td>{{ $i->venue }}</td>
+                                            <td>{{ Carbon\Carbon::parse($i->event_start)->format('F j, Y g:i a') }}</td>
+                                            <td>{{ $i->status_name}}</td>
+                                        </tr>
+                                        @endif
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                         <div class="card-footer text-muted">
                             <div class="text-right">
                                     {{-- <a href="{{ url('deploy')}}" class="btn btn-success">Deploy</a> --}}

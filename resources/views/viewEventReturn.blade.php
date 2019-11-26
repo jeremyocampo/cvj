@@ -87,24 +87,29 @@
 									<div class="col-xl-4">
 										{{-- <label class="text-muted">Event Name: {{$borrowedItems[0]->event_name}}</label> --}}
 										<label class="form-label">Event Name</label>
+										<p>{{ $event->event_name}}</p>
 										{{-- {{ Form::text('itemName', $borrowedItems[0]->event_name,['class' => 'form-control', 'disabled'] )}} --}}
 									</div>
-									<div class="col-xl-4">
-											{{-- <label class="text-muted">Event Name: {{$borrowedItems[0]->event_name}}</label> --}}
+									{{-- <div class="col-xl-4">
+											<label class="text-muted">Event Name: {{$borrowedItems[0]->event_name}}</label>
 											<label class="form-label">Client Name</label>
-											{{-- {{ Form::text('itemName', $borrowedItems[0]->client_name,['class' => 'form-control', 'disabled'] )}} --}}
-										</div>
+											<p>{{ }}</p>
+											{{ Form::text('itemName', $borrowedItems[0]->client_name,['class' => 'form-control', 'disabled'] )}}
+									</div> --}}
 									<div class="col-xl-4">
 											<label class="form-label">Date Borrowed</label>
+											<p>{{ $event->date_start}}</p>
 											{{-- {{ Form::text('itemName', $borrowedItems[0]->event_start,['class' => 'form-control', 'disabled'] )}} --}}
 									</div>
 									<div class="col-xl-4">
 										{{-- <label class="text-muted">Date Due: {{$borrowedItems[0]->event_end}}</label> --}}
 										<label class="form-label">Date Due</label>
+										<p>{{ }}</p>
 										{{-- {{ Form::text('itemName', $borrowedItems[0]->event_end,['class' => 'form-control', 'disabled'] )}} --}}
 									</div>
 									<div class="col-xl-12">
 										<label class="form-label">Venue</label>
+										<p>{{ }}</p>
 											{{-- {{ Form::text('itemName', $borrowedItems[0]->venue,['class' => 'form-control', 'disabled'] )}} --}}
 									</div>
 									
@@ -137,7 +142,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-										<tr>
+										{{-- <tr>
 												<td>Ikea Chair</td>
 												<td>White</td>
 												<td> {!! QrCode::size(200)->generate("Item-Name: Ikea Chair, Item-Category: Chair, Color: White, Quantity: 55, Event-Name: Jeremy's Birthday Bash"); !!}</td>
@@ -166,35 +171,35 @@
 														<input type="number" value=0  readonly class="form-control qtyReturn" name="qtyReturned[]" id="qtyReturn9876543210123">
 													</div>
 												</td>
-										</tr>
-                                        {{-- @foreach ($borrowedItems as $i)
-                                        @if($i->status > 0)
-                                        <tr id="row{{ $i->esku }}" class="success">
+										</tr> --}}
+                                        @foreach ($package as $i)
+                                        {{-- @if($i->status > 0) --}}
+                                        <tr id="row{{ $i->sku }}" class="success">
                                             
 											<td>{{ $i->inventory_name }}</td>
 											<td>{{ $i->color_name }}</td>
 											<td>
 												<div id="barcode-{!! $i->inventory_id !!}" value="{!! "toPrint-" . $i->inventory_id!!}">
-													{!!'<img src="data:image/png;base64,' . DNS1D::getBarcodePNG("".$i->esku, "C128A",2,44,array(1,1,1), true) . '" alt="barcode"   />' !!}
-													<br>{{$i->esku}}
+													{!!'<img src="data:image/png;base64,' . DNS1D::getBarcodePNG("".$i->sku, "C128A",2,44,array(1,1,1), true) . '" alt="barcode"   />' !!}
+													<br>{{$i->sku}}
 												</div>	
 											</td>
 											<td>{{ $i->rental_cost}} </td>
 											<td>
 												{{ $i->qty }}
-												<input hidden type="text" value="{{ $i->qty}}" id="qty{{ $i->esku }}">
+												<input hidden type="text" value="{{ $i->qty}}" id="qty{{ $i->sku }}">
 											</td>
 											<td> {{ $i->rental_cost * $i->qty }} </td>
 											<td>
 												<div class="col-xl-4">
 													<label class="form-label">Qty to Return</label>
 													<input type="hidden" class="invID" name="invIDs[]" value="{{ $i->inventory_id }}" id="inventory-{{ $i->inventory_id }}">
-													<input type="number" value=0  readonly class="form-control qtyReturn" name="qtyReturned[]" id="qtyReturn{{ $i->esku }}">
+													<input type="number" value=0  readonly class="form-control qtyReturn" name="qtyReturned[]" id="qtyReturn{{ $i->sku }}">
 												</div>
 											</td>
                                         </tr>
-                                        @endif
-                                        @endforeach --}}
+                                        {{-- @endif --}}
+                                        @endforeach
                                     </tbody>
                                 </table>
                         </div>
