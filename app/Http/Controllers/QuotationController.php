@@ -94,6 +94,7 @@ class QuotationController extends Controller
         $event->formatted_day = date("M jS, Y", strtotime($event->event_start));
         $event->formatted_start = date("g:i A", strtotime($event->event_start));
         $event->formatted_end = date("g:i A", strtotime($event->event_end));
+        $event->day_name = date("l", strtotime($event->event_start));
 
         $package = PackageModel::where('package_id','>=',$event->package_id)->first();
         $food_items =PackageItem::where('package_id','=',$package->package_id)->select('item_id')->get();
@@ -147,6 +148,7 @@ class QuotationController extends Controller
         $event->formatted_day = date("M jS, Y", strtotime($event->event_start));
         $event->formatted_start = date("g:i A", strtotime($event->event_start));
         $event->formatted_end = date("g:i A", strtotime($event->event_end));
+        $event->day_name = date("D", strtotime($event->event_start));
 
         $total_dish_cost = 0;
         $total_inv_cost = 0;

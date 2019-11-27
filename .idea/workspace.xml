@@ -3,18 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="acb9a2cb-0c91-4cfe-98e9-5d7151ab0887" name="Default Changelist" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/BookEventController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/BookEventController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/EventsController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/EventsController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/QuotationController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/QuotationController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/SelectPackageController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/SelectPackageController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/bookevent.blade.php" afterPath="$PROJECT_DIR$/resources/views/bookevent.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/client_quotation.blade.php" afterPath="$PROJECT_DIR$/resources/views/client_quotation.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/company_quotation.blade.php" afterPath="$PROJECT_DIR$/resources/views/company_quotation.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/customizePackage.blade.php" afterPath="$PROJECT_DIR$/resources/views/customizePackage.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/layouts/navbars/navs/auth.blade.php" afterPath="$PROJECT_DIR$/resources/views/layouts/navbars/navs/auth.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/layouts/navbars/sidebar.blade.php" afterPath="$PROJECT_DIR$/resources/views/layouts/navbars/sidebar.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/listevents.blade.php" afterPath="$PROJECT_DIR$/resources/views/listevents.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/web.php" afterPath="$PROJECT_DIR$/routes/web.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/client_reservation.blade.php" afterPath="$PROJECT_DIR$/resources/views/client_reservation.blade.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -256,35 +246,62 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="web.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/web.php">
+      <file leaf-file-name="client_reservation.blade.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/resources/views/client_reservation.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="73" column="89" lean-forward="false" selection-start-line="73" selection-start-column="89" selection-end-line="73" selection-end-column="89" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="bookevent.blade.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/bookevent.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="409">
-              <caret line="105" column="28" lean-forward="false" selection-start-line="105" selection-start-column="28" selection-end-line="113" selection-end-column="37" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SelectPackageController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/SelectPackageController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="93" column="57" lean-forward="false" selection-start-line="93" selection-start-column="57" selection-end-line="93" selection-end-column="57" />
+            <state relative-caret-position="331">
+              <caret line="106" column="35" lean-forward="false" selection-start-line="106" selection-start-column="35" selection-end-line="106" selection-end-column="35" />
               <folding>
-                <element signature="e#40#57#0#PHP" expanded="true" />
-                <element signature="e#13136#15480#0#PHP" expanded="false" />
-                <element signature="e#15485#16962#0#PHP" expanded="false" />
+                <element signature="e#1456#1511#0#HTML" expanded="true" />
+                <element signature="e#1748#1813#0#HTML" expanded="true" />
+                <element signature="e#1982#2001#0#HTML" expanded="true" />
+                <element signature="e#2044#2083#0#HTML" expanded="true" />
+                <element signature="e#2156#2247#0#HTML" expanded="true" />
+                <element signature="e#2339#2377#0#HTML" expanded="true" />
+                <element signature="e#2431#2522#0#HTML" expanded="true" />
+                <element signature="e#2653#2672#0#HTML" expanded="true" />
+                <element signature="e#2715#2753#0#HTML" expanded="true" />
+                <element signature="e#2809#2900#0#HTML" expanded="true" />
+                <element signature="e#3017#3056#0#HTML" expanded="true" />
+                <element signature="e#3123#3214#0#HTML" expanded="true" />
+                <element signature="e#3380#3399#0#HTML" expanded="true" />
+                <element signature="e#3442#3480#0#HTML" expanded="true" />
+                <element signature="e#3539#3630#0#HTML" expanded="true" />
+                <element signature="e#3719#3758#0#HTML" expanded="true" />
+                <element signature="e#3825#3916#0#HTML" expanded="true" />
+                <element signature="e#4117#4136#0#HTML" expanded="true" />
+                <element signature="e#4179#4218#0#HTML" expanded="true" />
+                <element signature="e#4291#4382#0#HTML" expanded="true" />
+                <element signature="e#4500#4519#0#HTML" expanded="true" />
+                <element signature="e#4562#4601#0#HTML" expanded="true" />
+                <element signature="e#4661#4752#0#HTML" expanded="true" />
+                <element signature="e#4865#4884#0#HTML" expanded="true" />
+                <element signature="e#4927#4966#0#HTML" expanded="true" />
+                <element signature="e#5031#5122#0#HTML" expanded="true" />
+                <element signature="e#5208#5246#0#HTML" expanded="true" />
+                <element signature="e#5302#5393#0#HTML" expanded="true" />
+                <element signature="e#6177#6216#0#HTML" expanded="true" />
+                <element signature="e#6247#6286#0#HTML" expanded="true" />
+                <element signature="e#6343#6381#0#HTML" expanded="true" />
+                <element signature="e#6419#6510#0#HTML" expanded="true" />
+                <element signature="e#6584#6622#0#HTML" expanded="true" />
+                <element signature="e#6653#6692#0#HTML" expanded="true" />
+                <element signature="e#6743#6781#0#HTML" expanded="true" />
+                <element signature="e#6819#6910#0#HTML" expanded="true" />
+                <element signature="e#6984#7022#0#HTML" expanded="true" />
+                <element signature="e#7053#7092#0#HTML" expanded="true" />
+                <element signature="e#7134#7172#0#HTML" expanded="true" />
+                <element signature="e#7210#7301#0#HTML" expanded="true" />
+                <element signature="e#7385#7420#0#HTML" expanded="true" />
+                <element signature="e#7451#7490#0#HTML" expanded="true" />
+                <element signature="e#7541#7632#0#HTML" expanded="true" />
+                <element signature="e#7670#7708#0#HTML" expanded="true" />
+                <element signature="e#7745#7836#0#HTML" expanded="true" />
+                <element signature="e#7908#7927#0#HTML" expanded="true" />
+                <element signature="e#7958#7997#0#HTML" expanded="true" />
+                <element signature="e#8034#8073#0#HTML" expanded="true" />
+                <element signature="e#8150#8188#0#HTML" expanded="true" />
+                <element signature="e#8225#8264#0#HTML" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -293,84 +310,11 @@
       <file leaf-file-name="QuotationController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/QuotationController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="366">
-              <caret line="141" column="21" lean-forward="false" selection-start-line="141" selection-start-column="21" selection-end-line="141" selection-end-column="31" />
+            <state relative-caret-position="390">
+              <caret line="96" column="34" lean-forward="false" selection-start-line="96" selection-start-column="34" selection-end-line="96" selection-end-column="34" />
               <folding>
                 <element signature="e#628#3531#0#PHP" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="selectPackage.blade.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/selectPackage.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="585">
-              <caret line="39" column="36" lean-forward="false" selection-start-line="39" selection-start-column="36" selection-end-line="39" selection-end-column="36" />
-              <folding>
-                <marker date="1574443340000" expanded="true" signature="6898:6922" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="console_5.sql" pinned="false" current-in-tab="true">
-        <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/5cbb29b8-6af1-4c84-9557-6e7cf1a9e9d0/console_5.sql">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="list_packages.blade.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/list_packages.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="191">
-              <caret line="80" column="46" lean-forward="false" selection-start-line="80" selection-start-column="46" selection-end-line="80" selection-end-column="46" />
-              <folding>
-                <element signature="e#2097#2116#0#HTML" expanded="true" />
-                <marker date="1574786265000" expanded="true" signature="6857:6881" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="customizePackage.blade.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/customizePackage.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="549">
-              <caret line="122" column="57" lean-forward="false" selection-start-line="122" selection-start-column="57" selection-end-line="122" selection-end-column="57" />
-              <folding>
-                <marker date="1574786481000" expanded="true" signature="16021:16048" ph="..." />
-                <marker date="1574786481000" expanded="true" signature="16383:16407" ph="..." />
-                <marker date="1574786481000" expanded="true" signature="16919:16946" ph="..." />
-                <marker date="1574786481000" expanded="true" signature="17297:17308" ph="..." />
-                <marker date="1574786481000" expanded="true" signature="17776:17803" ph="..." />
-                <marker date="1574786481000" expanded="true" signature="18010:18034" ph="..." />
-                <marker date="1574786481000" expanded="true" signature="18464:18491" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="sidebar.blade.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/layouts/navbars/sidebar.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="174">
-              <caret line="277" column="26" lean-forward="false" selection-start-line="277" selection-start-column="26" selection-end-line="277" selection-end-column="26" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="auth.blade.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/layouts/navbars/navs/auth.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="25" column="75" lean-forward="false" selection-start-line="25" selection-start-column="75" selection-end-line="25" selection-end-column="75" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -413,9 +357,9 @@
       <find>customize</find>
       <find>u</find>
       <find>company</find>
+      <find>float</find>
       <find>user</find>
       <find>tem</find>
-      <find>float</find>
     </findStrings>
     <replaceStrings>
       <replace>event_budget_template</replace>
@@ -473,7 +417,6 @@
         <option value="$PROJECT_DIR$/resources/views/layouts/navbars/EventSidebar.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/bookingsummary.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/FileController.php" />
-        <option value="$PROJECT_DIR$/resources/views/client_reservation.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/EventsController.php" />
         <option value="$PROJECT_DIR$/resources/views/layouts/navbars/navs/auth.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/listevents.blade.php" />
@@ -482,12 +425,13 @@
         <option value="$PROJECT_DIR$/resources/views/bookevent.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/BookEventController.php" />
         <option value="$PROJECT_DIR$/routes/web.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/QuotationController.php" />
         <option value="$PROJECT_DIR$/resources/views/layouts/navbars/sidebar.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/list_packages.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/customizePackage.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/SelectPackageController.php" />
         <option value="$APPLICATION_CONFIG_DIR$/consoles/db/5cbb29b8-6af1-4c84-9557-6e7cf1a9e9d0/console_5.sql" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/QuotationController.php" />
+        <option value="$PROJECT_DIR$/resources/views/client_reservation.blade.php" />
       </list>
     </option>
   </component>
@@ -834,26 +778,27 @@
       <workItem from="1573022895693" duration="57886000" />
       <workItem from="1574082976145" duration="87000" />
       <workItem from="1574083467768" duration="13468000" />
-      <workItem from="1574140202157" duration="60159000" />
+      <workItem from="1574140202157" duration="64223000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="307199000" />
+    <option name="totallyTimeSpent" value="311263000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3283582" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3283582" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27181688" sideWeight="0.49355432" order="3" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Database" active="true" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1423462" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1423462" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292683" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329602" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20958512" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1977612" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1977612" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39925373" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19456366" sideWeight="0.50644565" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1221,19 +1166,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/client_reservation.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="32" column="37" lean-forward="false" selection-start-line="32" selection-start-column="37" selection-end-line="32" selection-end-column="37" />
-          <folding>
-            <element signature="e#1021#1057#0#HTML" expanded="false" />
-            <element signature="e#1514#1538#0#HTML" expanded="false" />
-            <element signature="e#1712#1730#0#HTML" expanded="false" />
-            <element signature="e#1899#1917#0#HTML" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/confirmevents.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-343">
@@ -1343,16 +1275,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/QuotationController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="366">
-          <caret line="141" column="21" lean-forward="false" selection-start-line="141" selection-start-column="21" selection-end-line="141" selection-end-column="31" />
-          <folding>
-            <element signature="e#628#3531#0#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/customizePackage.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="549">
@@ -1408,21 +1330,90 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/5cbb29b8-6af1-4c84-9557-6e7cf1a9e9d0/console_5.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/selectPackage.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="585">
-          <caret line="39" column="36" lean-forward="false" selection-start-line="39" selection-start-column="36" selection-end-line="39" selection-end-column="36" />
+        <state relative-caret-position="270">
+          <caret line="18" column="19" lean-forward="false" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="19" />
           <folding>
             <marker date="1574443340000" expanded="true" signature="6898:6922" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/5cbb29b8-6af1-4c84-9557-6e7cf1a9e9d0/console_5.sql">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/QuotationController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="390">
+          <caret line="96" column="34" lean-forward="false" selection-start-line="96" selection-start-column="34" selection-end-line="96" selection-end-column="34" />
+          <folding>
+            <element signature="e#628#3531#0#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/client_reservation.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="331">
+          <caret line="106" column="35" lean-forward="false" selection-start-line="106" selection-start-column="35" selection-end-line="106" selection-end-column="35" />
+          <folding>
+            <element signature="e#1456#1511#0#HTML" expanded="true" />
+            <element signature="e#1748#1813#0#HTML" expanded="true" />
+            <element signature="e#1982#2001#0#HTML" expanded="true" />
+            <element signature="e#2044#2083#0#HTML" expanded="true" />
+            <element signature="e#2156#2247#0#HTML" expanded="true" />
+            <element signature="e#2339#2377#0#HTML" expanded="true" />
+            <element signature="e#2431#2522#0#HTML" expanded="true" />
+            <element signature="e#2653#2672#0#HTML" expanded="true" />
+            <element signature="e#2715#2753#0#HTML" expanded="true" />
+            <element signature="e#2809#2900#0#HTML" expanded="true" />
+            <element signature="e#3017#3056#0#HTML" expanded="true" />
+            <element signature="e#3123#3214#0#HTML" expanded="true" />
+            <element signature="e#3380#3399#0#HTML" expanded="true" />
+            <element signature="e#3442#3480#0#HTML" expanded="true" />
+            <element signature="e#3539#3630#0#HTML" expanded="true" />
+            <element signature="e#3719#3758#0#HTML" expanded="true" />
+            <element signature="e#3825#3916#0#HTML" expanded="true" />
+            <element signature="e#4117#4136#0#HTML" expanded="true" />
+            <element signature="e#4179#4218#0#HTML" expanded="true" />
+            <element signature="e#4291#4382#0#HTML" expanded="true" />
+            <element signature="e#4500#4519#0#HTML" expanded="true" />
+            <element signature="e#4562#4601#0#HTML" expanded="true" />
+            <element signature="e#4661#4752#0#HTML" expanded="true" />
+            <element signature="e#4865#4884#0#HTML" expanded="true" />
+            <element signature="e#4927#4966#0#HTML" expanded="true" />
+            <element signature="e#5031#5122#0#HTML" expanded="true" />
+            <element signature="e#5208#5246#0#HTML" expanded="true" />
+            <element signature="e#5302#5393#0#HTML" expanded="true" />
+            <element signature="e#6177#6216#0#HTML" expanded="true" />
+            <element signature="e#6247#6286#0#HTML" expanded="true" />
+            <element signature="e#6343#6381#0#HTML" expanded="true" />
+            <element signature="e#6419#6510#0#HTML" expanded="true" />
+            <element signature="e#6584#6622#0#HTML" expanded="true" />
+            <element signature="e#6653#6692#0#HTML" expanded="true" />
+            <element signature="e#6743#6781#0#HTML" expanded="true" />
+            <element signature="e#6819#6910#0#HTML" expanded="true" />
+            <element signature="e#6984#7022#0#HTML" expanded="true" />
+            <element signature="e#7053#7092#0#HTML" expanded="true" />
+            <element signature="e#7134#7172#0#HTML" expanded="true" />
+            <element signature="e#7210#7301#0#HTML" expanded="true" />
+            <element signature="e#7385#7420#0#HTML" expanded="true" />
+            <element signature="e#7451#7490#0#HTML" expanded="true" />
+            <element signature="e#7541#7632#0#HTML" expanded="true" />
+            <element signature="e#7670#7708#0#HTML" expanded="true" />
+            <element signature="e#7745#7836#0#HTML" expanded="true" />
+            <element signature="e#7908#7927#0#HTML" expanded="true" />
+            <element signature="e#7958#7997#0#HTML" expanded="true" />
+            <element signature="e#8034#8073#0#HTML" expanded="true" />
+            <element signature="e#8150#8188#0#HTML" expanded="true" />
+            <element signature="e#8225#8264#0#HTML" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

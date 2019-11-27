@@ -30,23 +30,49 @@
                             <small>Phone: +639002334125</small>
                         </div>
                     </center>
-                    <hr style="height: 5px">
+                    <hr style="border: none; border-bottom: 2px solid #2b2b2b;">
                     <div class="row" style="margin-top: 0vh;">
                         <div class="card-body" style="margin: 0;">
-                            <center><b>CONFIRMATION FOR A RESERVATION FOR A FOOD CATERING SERVICE</b><hr style="width: 50%">
+                            <center><b>CONFIRMATION FOR A RESERVATION FOR A FOOD CATERING SERVICE</b><hr style="border: none; border-bottom: 2px solid #2b2b2b;width: 50%">
                             </center>
                             <div style="margin-top:5vh">
                             <br>
-                                <label style="width:100%"> Date of Function/Event: <u>{{$event->formatted_day}} ({{$event->formatted_start}} to {{$event->formatted_end}})</u></label><br>
-                                <label><u>[{{$event->venue}}] {{$event->event_detailsAdded}}</u></label><br>
-                                <label>Event/Occasion: {{$event->event_name}}</label><br>
-                                <label>Name of Party: {{$event->event_type}}</label><br>
-                                <label>Catering Package: <b>{{$package->package_name}} </b> @if($additional_count != 0) <i>with additions</i> @endif</label><br>
-                                <label>Number of Reservation: {{$package->suggested_pax}} pax</label><br>
-                                <label>Signatory of Contract: {{$client->client_name}}</label><br>
-                                <label>Address: {{$client->address}}</label><br>
-                                <label>Contact Number: {{$client->mob_no}}</label><br>
-                                <label>Email: {{$client->email}}</label><br>
+                                <label style="width:100%;">
+                                    <div style="display:inline-block;width: 15%">Date of Function/Event: </div>
+                                    <div style="display:inline-block;width:40%;border-bottom:1px solid #000000; padding-bottom:0px;"><center>{{$event->formatted_day}} </center></div>
+                                    <div style="display:inline-block;width: 4%">Day: </div>
+                                    <div style="display:inline-block;width:37%;border-bottom:1px solid #000000; padding-bottom:0px;"> <center>{{$event->day_name}}</center></div>
+                                </label><br>
+
+                                <label style="width:100%;">
+                                    <div style="display:inline-block;width: 5%">Venue: </div>
+                                    <div style="display:inline-block;width:52%;border-bottom:1px solid #000000; padding-bottom:0px;"> <center>[{{$event->venue}}] {{$event->event_detailsAdded}}</center></div>
+                                    <div style="display:inline-block;width: 18%">Reservation Time: </div>
+                                    <div style="display:inline-block;width:21%;border-bottom:1px solid #000000; padding-bottom:0px;"> <center>{{$event->formatted_start}} to {{$event->formatted_end}}</center></div>
+                                </label><br>
+                                <label style="width:100%;">
+                                    <div style="display:inline-block;width: 9%">Occasion: </div>
+                                    <div style="display:inline-block;width:24%;border-bottom:1px solid #000000; padding-bottom:0px;"> <center>{{$event->event_type}}</center></div>
+                                    <div style="display:inline-block;width: 18%">Catering Package: </div>
+                                    <div style="display:inline-block;width:45%;border-bottom:1px solid #000000; padding-bottom:0px;"><center><b>{{$package->package_name}} </b> @if($additional_count != 0) <i>with additions</i> </center>@endif</div>
+                                </label><br>
+
+                                <label style="width:100%;">
+                                    <div style="display:inline-block;width: 20%">Signatory of Contract:  </div>
+                                    <div style="display:inline-block;width:77%;border-bottom:1px solid #000000; padding-bottom:0px;"> {{$client->client_name}}</div>
+                                </label><br>
+
+                                <label style="width:100%;">
+                                    <div style="display:inline-block;width: 15%">Address: : </div>
+                                    <div style="display:inline-block;width:82%;border-bottom:1px solid #000000; padding-bottom:0px;"> {{$client->address}}</div>
+                                </label><br>
+                                <label style="width:100%;">
+                                    <div style="display:inline-block;width: 18%">Contact Number: </div>
+                                    <div style="display:inline-block;width:35%;border-bottom:1px solid #000000; padding-bottom:0px;"> <center>{{$client->mob_no}}</center></div>
+                                    <div style="display:inline-block;width: 8%">Email: </div>
+                                    <div style="display:inline-block;width:35%;border-bottom:1px solid #000000; padding-bottom:0px;">{{$client->email}}</div>
+                                </label><br>
+
                             </div>
                             <br>
                             <label>Note / Terms of Payment</label><br>
@@ -61,10 +87,39 @@
                         </div>
                     </div>
                     <hr style="border-top: dotted 1px;">
-                    <small><i><fill here></i></small><br>
-                    <label>Conforme / Signature of Client: _____________________________________</label><br>
-                    <label>Name in Print: __________________________________________________</label><br>
-                    <label>Date:               _________________________________________________________ </label>
+                    <br>
+                    <label style="width: 100%;margin-bottom: 3vh;">
+                        <div style="display:inline-block;width: 25%">Signature of Client </div>
+                        <div style="display:inline-block;width: 8%">:</div>
+                        <div style="display:inline-block;width:50%;border-bottom:1px solid #000000; padding-bottom:0px;"> </div>
+                    </label><br><br>
+
+                    <label style="width: 100%;margin-bottom: 3vh">
+                        <div style="display:inline-block;width: 25%">Name in Print </div>
+                        <div style="display:inline-block;width: 8%">:</div>
+                        <div style="display:inline-block;width:50%;border-bottom:1px solid #000000; padding-bottom:0px;"> </div>
+                    </label><br><br>
+
+                    <label style="width: 100%;margin-bottom: 3vh">
+                        <div style="display:inline-block;width: 25%">Date </div>
+                        <div style="display:inline-block;width: 8%">:</div>
+                        <div style="display:inline-block;width:50%;border-bottom:1px solid #000000; padding-bottom:0px;"> </div>
+                    </label><br><br>
+
+                    <div class="row" style="margin-top:10vh;width: 100%">
+                        <div style="display:inline-block;width: 18%">Prepared By : </div>
+                        <div style="display:inline-block;width:35%;border-bottom:1px solid #000000; padding-bottom:0px;"> </div>
+                        <div style="display:inline-block;width: 8%"></div>
+                        <div style="display:inline-block;width:35%;border-bottom:1px solid #000000; padding-bottom:0px;"></div>
+                    </div>
+                    <div class="row" style="width: 100%">
+                        <div style="display:inline-block;width: 18%"></div>
+                        <div style="display:inline-block;width: 35%"><center>CVJ Banquet Coordinator</center></div>
+                        <div style="display:inline-block;width: 8%"></div>
+                        <div style="display:inline-block;width: 35%"><center>CVJ Operations Manager/Accounting - Finance</center></div>
+
+                    </div>
+
                 </div>
             </div>
         </div>
