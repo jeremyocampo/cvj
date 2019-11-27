@@ -83,6 +83,14 @@
                                 <li>Etits</li>
                                 <li>In Case of cancellation please contact ..</li>
                             </ul>
+                            <ul style="list-style-type: circle;margin-left: 7vw">
+                                <li>
+                                    awit one
+                                </li>
+                                <li>
+                                    awit one
+                                </li>
+                            </ul>
                             <!-- -->
                         </div>
                     </div>

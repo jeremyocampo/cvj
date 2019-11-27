@@ -86,19 +86,38 @@
 				<div class="card shadow">
 
                     <form method="post" action="{{route('post.customize_package')}}">
+                        @csrf
 						<div class="card-header border-0">
-
-                            <center style="margin-bottom: 4.5vh;"><h2 class="mb-0" >Create New Package</h2></center>
+                            <input type="hidden" name="package_id" value="@if($package != null) {{$package->package_id}} @else -1 @endif">
+                            <center style="margin-bottom: 4.5vh;"><h2 class="mb-0" >@if($package != null)Edit <b>{{$package->package_name}}</b> @else Create New Package @endif </h2></center>
 								<div class="row">
 									<div class="col-md-6">
                                         <div class="row" style="margin-bottom: 2.5vh;">
                                             <div class="col-md-4"><label>Package Name</label></div>
-                                            <div class="col-md-8"><input name="package_name" class=" form-control"   type="text" placeholder="Describe Package"></div>
+                                            <div class="col-md-8"><input name="package_name" class=" form-control" type="text" placeholder="Describe Package" value="{{$package->package_name}}"></div>
                                         </div>
+
                                         <div class="row">
-                                            <div class="col-md-4"><label>Number of Attendants</label></div>
+                                            <div class="col-md-4"><label>Event Type</label></div>
+                                            <div class="col-md-8">
+                                                <select name = "eventType"  id = "eventType" class = "form-control" required>
+                                                    @if($package != null)<option value="{{$package->event_type}}" selected> {{$package->event_type}} </option> @else
+                                                        <option disabled selected> - Please Select Event Type - </option> @endif
+                                                    <option value="Wedding"> Wedding </option>
+                                                    <option value="Birthday"> Birthday </option>
+                                                    <option value="Debut"> Debut </option>
+                                                    <option value="Business"> Business </option>
+                                                    <option value="Corporate"> Corporate </option>
+                                                    <option value="Others"> Others </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-md-4"><label>Suggested Pax</label></div>
                                             <div class="col-md-8">
                                                 <select name="suggested_pax" onchange="change_pax(this)" class  = "form-control" >
+                                                    @if($package != null)<option value="{{$package->suggested_pax}}" selected> {{$package->suggested_pax}} </option>@endif
                                                     <option value="50"> 50 </option>
                                                     <option value="70"> 70 </option>
                                                     <option value="80"> 80 </option>
@@ -109,41 +128,32 @@
 
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-4"><label>Event Type</label></div>
+
+                                        <div class="row" style="margin-top: 2vh">
+                                            <div class="col-md-4"><label>Package Description</label></div>
                                             <div class="col-md-8">
-                                                <select name = "eventType"  id = "eventType" class = "form-control" required>
-                                                    <option disabled selected> - Please Select Event Type - </option>
-                                                    <option value="Wedding"> Wedding </option>
-                                                    <option value="Birthday"> Birthday </option>
-                                                    <option value="Debut"> Debut </option>
-                                                    <option value="Business"> Business </option>
-                                                    <option value="Corporate"> Corporate </option>
-                                                    <option value="Others"> Others </option>
-                                                </select>
+                                                <textarea name="package_desc" class="form-control" placeholder="Describe package">@if($package != null){{$package->package_desc}} @endif</textarea>
                                             </div>
-                                        </div>
-                                        <div class="row" style="margin-top: 2vh">
-                                            <div class="col-md-4"><label>Markup Percent</label></div>
-                                            <div class="col-md-8"><input name="markup" class=" form-control" id="markup" style="width: 90%;display: inline" onkeyup="compute_total_package_price()" type="number" value="150"><p style="display: inline">  %</p></div>
-                                        </div>
-                                        <div class="row" style="margin-top: 2vh">
-                                            <div class="col-md-4"><label>Package Price</label></div>
-                                            <div class="col-md-8"><input name="package_price" class=" form-control" id="package_price" type="number" value=""></div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
+
+
+                                        <div class="row" style="margin-top: 2vh">
+                                            <div class="col-md-4"><label>Package Price</label></div>
+                                            <div class="col-md-8"><input name="package_price" class=" form-control" id="package_price" type="number" value="@if($package != null){{$package->price}}@endif"></div>
+                                        </div>
+                                        <div class="row" style="margin-top: 2vh">
+                                            <div class="col-md-4"><label>Markup Percent</label></div>
+                                            <div class="col-md-8"><input name="package_markup" class=" form-control" id="markup" style="width: 90%;display: inline" onkeyup="compute_total_package_price()" type="number" value="@if($package != null){{$package->package_desc}}@else 150 @endif"><p style="display: inline">  %</p></div>
+                                        </div>
+                                        <br>
                                         <div>
                                             <label>Dishes Total: P<span id="food_total_text">...</span></label>
                                         </div>
                                         <div>
                                             <label>Inventory Total: P<span id="inv_total_text">...</span></label>
                                         </div>
-                                        <!--
-                                        <div>
-                                            <label>Venue Cost: <span id="venue">@if($venue_price == null) Additional 15% of Total Package Price @else P {{$venue_price}} @endif </span></label>
-                                        </div>
-                                        -->
                                         <hr style="margin: 0;">
                                         <h4 style="margin-top: 0;">Total Package Suggested Price: <span id="total_package_price"></span></h4>
                                         <!-- <small style="margin-top: 0;" id="perhead"></small> -->
@@ -153,9 +163,7 @@
 						</div>
 						<div class="card-body border-0">
                                 {{csrf_field()}}
-                                <input type="hidden" value="{{$event->event_id}}" name="event_id">
                                 <input type="hidden" value="{{$user_id}}" name="client_id">
-                                <input type="hidden" value="{{$venue_price}}" name="venue_price">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="col" style="margin-bottom: 2vh;">
@@ -176,7 +184,7 @@
                                                         <td><a style="display: inline;color:white" class="food_item btn btn-sm btn-primary"
                                                                data-food="{{$food->item_id}},{{$food->item_name}},{{asset($food->item_image)}},{{$food->unit_cost}}"
                                                                onclick="remove_food(this)">-</a>   {{$food->item_name}}</td>
-                                                        <td>{{$food->unit_cost * $event->totalpax}} </td>
+                                                        <td>{{$food->unit_cost * $package->suggested_pax}} </td>
                                                         <td><img src="{{asset($food->item_image)}}" style="height: 10vh;width: 10vw"></td>
                                                     </tr>
                                                 @endforeach
@@ -216,15 +224,15 @@
                                 </div>
                                 <hr>
                                 <center>
-                                    <button type="submit" class="btn btn-sm btn-primary">Create and Choose Customized Package</button>
+                                    <button type="submit" class="btn btn-sm btn-primary">Confirm</button>
                                 </center>
                         </div>
                     </form>
 	  </div>
 </div>
 <script>
-    let total_pax =  50;
-    //let venue = @if($venue_price == null) 0 {{$venue_price}} @endif{{$venue_price}};
+
+    let total_pax = @if($package != null){{$package->suggested_pax}} @else 50 @endif;
     let inv_subtotal = 0;
     let food_subtotal = 0;
     $(document).ready(function () {

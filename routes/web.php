@@ -96,7 +96,7 @@ Route::get('selectpackages/{event_id}', 'SelectPackageController@index')->name('
 Route::post('postselectpackages/', 'SelectPackageController@select')->name('post.selectpackages');
 
 Route::get('additional_package/{event_id}/{package_id?}', 'SelectPackageController@additional_package')->name('additional_package');
-Route::get('customize_package/{event_id}/{package_id?}', 'SelectPackageController@show')->name('customize_package');
+Route::get('customize_package/{package_id?}', 'SelectPackageController@show')->name('customize_package');
 
 Route::post('customize_package', 'SelectPackageController@create')->name('post.customize_package');
 Route::post('create_with_additions', 'SelectPackageController@create_with_additions')->name('post.create_with_additions');

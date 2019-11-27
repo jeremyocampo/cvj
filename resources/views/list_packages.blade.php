@@ -48,7 +48,7 @@
 									<div class="col-md-12">
 										<h3 class="mb-0" style="display: inline">List of Packages</h3>
                                         @if($user->userType == 4)
-                                        <a  style="float:right" class="btn btn-sm btn-primary" href="/">+ Create New Package</a>
+                                        <a  style="float:right" class="btn btn-sm btn-primary" href="{{url('customize_package')}}">+ Create New Package</a>
 									    @endif
                                     </div>
 									<div class="col alight-items-right">
@@ -96,9 +96,9 @@
                                                         data-inventory="@foreach($package->inventory as $inv){{$inv->inventory_name}},{{$inv->quantity}},{{$inv->inv_avail}}|@endforeach"
                                                         onclick="show_package(this);" data-target="#exampleModal"><i class="fa fa-eye"></i> View Package</a>
                                                     <div class="dropdown-divider"></div>
-                                                    <a href="{{ url('inventory/create')}}" class="dropdown-item">
+                                                    <a href="{{ route('customize_package',$package->package_id)}}" class="dropdown-item">
                                                         <i class="fa fa-edit"></i>
-                                                        <span>Edit Package(testing)</span>
+                                                        <span>Edit Package</span>
                                                     </a>
                                                 </div>
                                             </div>

@@ -30,8 +30,8 @@ class SelectPackageController extends Controller
     {
         $event = Event::where('event_id','=',$event_id)->first();
         $client_id = Auth::id();
-        //$packages = PackageModel::where('suggested_pax','>=',$event->totalpax)->get();
-        $packages = PackageModel::all();
+        $packages = PackageModel::where('suggested_pax','>=',$event->totalpax)->where('event_type','=',$event->event_type)->get();
+        //$packages = PackageModel::all();
 
         error_log("looged_user: ".$client_id);
         foreach ($packages as $package){
@@ -92,6 +92,10 @@ class SelectPackageController extends Controller
         $package->suggested_pax = $request->input("suggested_pax");
         $package->price = $request->input("package_price");
         $package->event_type = $request->input("eventType");
+
+        $package->package_markup = $request->input("package_markup");
+
+        $package->package_desc = $request->input("package_desc");
         $package->save();
 
         $event = EventModel::where('event_id','=',$request->input('event_id'))->first();
@@ -276,15 +280,9 @@ class SelectPackageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($event_id, $package_id=null)
+    public function show( $package_id=null)
     {
         $package = null;
-        $venue_cost_table = array("CVJ Clubhouse Ground Floor"=>15000,
-            "CVJ Clubhouse Second Floor"=>20000,
-            "CVJ Clubhouse Third Floor"=>22000,
-            "Off-Premise"=>null
-        );
-        $event = events::where('event_id','=',$event_id)->first();
         $client_id = Auth::id();
         if($package_id != null){
             $package = PackageModel::where('package_id','=',$package_id)->first();
@@ -305,7 +303,7 @@ class SelectPackageController extends Controller
             $avail_foods = Items::all();
             $avail_invs = inventory::all();
         }
-        return view('customizePackage',['venue_price'=>($venue_cost_table[$event->venue]),'user_id'=>$client_id,'package'=>$package,'event'=>$event,'avail_foods'=>$avail_foods,'avail_invs'=>$avail_invs]);
+        return view('customizePackage',['user_id'=>$client_id,'package'=>$package,'avail_foods'=>$avail_foods,'avail_invs'=>$avail_invs]);
     }
 
     /**
