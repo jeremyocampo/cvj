@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Client;
 use App\Employee;
 use App\EmployeeEventSchedule;
+use App\events;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -12,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\EventModel;
 use App\Http\Requests;
+use App\ClientAccountModel;
 use Session;
 use Response;
 use Spatie\GoogleCalendar\Event;
@@ -51,24 +53,23 @@ class BookEventController extends Controller
             ->get();
         $min_val_day = Carbon::now()->addMonths(2)->format('Y-m-d');
 
-        error_log(self::send_email(auth()->user()->name,"leebet16@gmail.com", "Patorjackan.info"));
+        //error_log(self::send_email(auth()->user()->name,"leebet16@gmail.com", "Patorjackan.info"));
 
         return view('bookevent', ['client' => $client,'clients'=>$clients, 'packages' => $packages,'min_val_date'=>$min_val_day]);
 
     }
     public function add_client_ajax(Request $request){
-        $user = new User();
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
-        $user->password = $request->input('password');
-        $user->userType = $request->input('userType');
-        $user->verified = $request->input('verified');
-        $user->email_verified_at = $request->input('email_verified_at');
-        $user->tel_no = $request->input('tel_no');
-        $user->mob_no = $request->input('mob_no');
-        $user->address = $request->input('address');
-        $user->save();
-        return Response::json(['client_id' => $user->id]);
+        error_log("ajaxing client");
+        $client = new Client();
+        $client->client_name = $request->input('client_name');
+        $client->email = $request->input('email');
+        $client->tel_no = $request->input('tel_no');
+        $client->mob_no = $request->input('mob_no');
+        $client->address = $request->input('address');
+        $client->save();
+
+        error_log("done ejacc");
+        return Response::json(['client_id' => $client->client_id]);
     }
 
     
@@ -93,7 +94,36 @@ class BookEventController extends Controller
 
         return view('bookevent');
     }
+    public function editEventDetails($event_id)
+    {
+        $event = events::where('event_id','=',$event_id)->first();
+        $client = ClientAccountModel::where('client_id','=',$event->client_id)->first();
+        $emps = $event->get_employees();
 
+
+        $min_val_day = Carbon::now()->addMonths(2)->format('Y-m-d');
+        $format_start_day = date("Y-m-d", strtotime($event->event_start));
+        $start_time = date("H:i:s", strtotime($event->event_start));
+        $end_time = date("H:i:s", strtotime($event->event_end));
+        return view('editbookevent', ['client' => $client,'event'=>$event,
+            'emps' => $emps,'min_val_date'=>$min_val_day,
+            'event_day'=>$format_start_day,'start_time'=>$start_time,'end_time'=>$end_time]);
+    }
+    public function PosteditEventDetails($event_id)
+    {
+        $event = events::where('event_id','=',$event_id)->first();
+        $client = ClientAccountModel::where('client_id','=',$event->client_id)->first();
+        $emps = $event->get_employees();
+
+
+        $min_val_day = Carbon::now()->addMonths(2)->format('Y-m-d');
+        $format_start_day = date("Y-m-d", strtotime($event->event_start));
+        $start_time = date("H:i:s", strtotime($event->event_start));
+        $end_time = date("H:i:s", strtotime($event->event_end));
+        return view('editbookevent', ['client' => $client,'event'=>$event,
+            'emps' => $emps,'min_val_date'=>$min_val_day,
+            'event_day'=>$format_start_day,'start_time'=>$start_time,'end_time'=>$end_time]);
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -139,7 +169,6 @@ class BookEventController extends Controller
     //    'eventStartDate'            => 'required|after_or_equal:'.$daysBefore1,
     //    'eventEndDate'              => 'required|after:eventStartDate',
         'theme'                     => 'required|min:1',
-       'email'                  => 'required|email',
         'others'                    => '',
         'venue'                    => 'required',
         
@@ -183,18 +212,6 @@ class BookEventController extends Controller
     $event->totalpax = $request->input('attendees');
 
 
-    $email = auth()->user()->email;
-
-    $clientEmail = $request->input('email');
-    
-    $client = DB::table('client')
-    ->select('client_id')
-    ->where('client.email', '=', $clientEmail)
-    ->first();
-
-    $event->client_id = $client;
- 
-    dd($client);
 
     // G EVENT TEMPORARILY SUSPENDED
     // $emailAdd = $email[0]->email; 
@@ -351,7 +368,7 @@ class BookEventController extends Controller
         $data = array('event_confirm_mail'=>'monkaS', 'body' => 'monkey','client_name'=>$to_name,'event_name'=>$subject,);
         Mail::send('event_confirm_mail', $data, function($message) use ($to_name, $to_email, $subject) {
             $message->to($to_email, $to_name)
-                ->subject('Event '.$subject.' Booked!');
+                ->subject('Event'.$subject.' Booked!');
             $message->from('betbot.py@gmail.com','Caterie Bot');
             $message->attach(storage_path('app/uploads/1574702507_res.pdf'), array(
                     'as' => 'reservation.pdf',

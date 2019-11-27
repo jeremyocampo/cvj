@@ -84,11 +84,13 @@ Route::get('test_page1/{event_id}/{package_id?}', 'SelectPackageController@test_
 
 //Rosette's Routes
 Route::resource('bookevent', 'BookEventController');
+
 Route::resource('eventdashboard','EventsHomeDashboard');
 Route::resource('confirmevents', 'ConfirmEventsController');
 
 Route::get('date_range', 'DateRangeController@index');
 
+Route::get('bookevent/edit/{event_id}', 'BookEventController@editEventDetails')->name('edit.bookevent');
 Route::get('/download/storage/public/{file}', 'FileController@download');
 
 Route::post('upload_event_forms', 'FileController@upload_event_forms')->name('file_upload');
@@ -100,6 +102,10 @@ Route::get('customize_package/{package_id?}', 'SelectPackageController@show')->n
 
 Route::post('customize_package', 'SelectPackageController@create')->name('post.customize_package');
 Route::post('create_with_additions', 'SelectPackageController@create_with_additions')->name('post.create_with_additions');
+
+//ajax
+Route::post('add_client_ajax', 'BookEventController@add_client_ajax')->name('ajax.client_add');
+
 
 Route::resource('clientregister', 'ClientRegisterController');
 

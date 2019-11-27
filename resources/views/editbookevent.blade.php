@@ -5,70 +5,6 @@
 
 @section('content')
     @include('layouts.headers.eventsCard')
-    <div class="modal fade" id="newUserModal" tabindex="-1" style="width: 100%" role="dialog" aria-labelledby="dishesModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document" >
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="dishesModalLabel">Add New Client</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label">Client Name</label>
-                            <input type="text" name="client_name" id="client_name" value ="" placeholder="e.g: Juan Dela Cruz"  class="form-control">
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label">Email</label>
-                            <input type="email" name="email" id="email" value ="" placeholder="e.g: JuanDelaCruz@gmail.com"  class="form-control">
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label">Telephone Number</label>
-                            <input type="text" name="tel_no" id="tel_no" value ="" placeholder="e.g: 8011234"  class="form-control">
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label">Mobile Number</label>
-                            <input type="text" name="mob_no" id="mob_no" value ="" placeholder="e.g: 09171234567"  class="form-control">
-                        </div>
-                        <div class="col-md-12 mb-3">
-                            <label class="form-label">Address</label>
-                            <input type="text" name="address" id="address" value ="" placeholder="e.g: Leon Guinto, Taft Ave., Malate, Manila"  class="form-control">
-                        </div>
-
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-small btn-primary" onclick="add_new_client();" data-dismiss="modal">Add Client</button>
-                    <button type="button" class="btn btn-small btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-                <script>
-                    function add_new_client(){
-                        $.ajax({
-                            url: "{{route('ajax.client_add')}}",
-                            method: 'POST',
-                            data:{
-                                'client_name':$("#client_name").val(),
-                                'email':$("#email").val(),
-                                'tel_no':$("#tel_no").val(),
-                                'mob_no':$("#mob_no").val(),
-                                'address':$("#address").val(),
-                                '_token':'{{csrf_token()}}'
-                            },
-                            success: function(result){
-                                console.log(result);
-                                var str =  '<option value="'+result.client_id+'" selected>';
-                                str += $("#client_name").val();
-                                str += '</option>';
-                                $('#client_select').append(str);
-                                alert('client '+$("#client_name").val()+' added');
-                            }});
-                    }
-                </script>
-            </div>
-        </div>
-    </div>
 
     <div class="container-fluid mt--7">
         <div class="col-xl-12 mb-5">
@@ -77,6 +13,7 @@
                     <div class="row">
                         <div class="col-xs-12 col-md-12 col-md-4 mb-3">
                             {!! Form::open(['action' => 'BookEventController@store', 'method' => 'POST']) !!}
+                            <input type="hidden" name="event_id" value="{{$event->event_id}}">
                             <h1 class="">Book Event <br> </h1>
                         </div>
                     </div>
@@ -109,22 +46,15 @@
                     <div class="row">
                         <div class="col-md-5 mb-3">
                             <div>
-                            <label class = "form-label" style="display: inline"> Select Client <font color="red">*</font></label>
-                                <button type="button"style="border-radius: 50px;display: inline;padding: .75px;margin-bottom: .5rem;"  class="btn btn-primary" data-target="#newUserModal" data-tooltip="eut" data-toggle="modal"><i class="fa fa-user-alt"></i>+</button>
-
+                            <label class = "form-label" style="display: inline"> Client Name <font color="red">*</font></label>
                             </div>
-                            <select name = "client_id"  id = "client_select" class = "form-control" required>
-                                <option disabled selected> - Please Choose Client - </option>
-                                @foreach($clients as $client)
-                                    <option value="{{$client->client_id}}"> {{$client->client_name}} </option>
-                                @endforeach
-                            </select>
-
+                            <input type="text"  class="form-control"  readonly value="{{$client->client_name}}">
                         </div>
 
                         <div class="col-md-4 mb-3">
                             <label class = "form-label"> Estimated Attendees <font color="red">*</font></label>
                             <select name = "attendees"  id = "attendees" class = "form-control" required>
+                                <option value="{{$event->totalpax}}" selected> {{$event->totalpax}} </option>
                                 <option value="50"> 50 </option>
                                 <option value="70"> 70 </option>
                                 <option value="80"> 80 </option>
@@ -135,13 +65,13 @@
                         </div>
                         <div class="col-md-5 mb-3">
                             <label class = "form-label"> Event Name <font color="red">*</font></label>
-                            {{ Form::text('eventName', '', ['class' => 'form-control', 'placeholder' => 'Event Name', 'required' => 'true'])}}
+                            <input type="text"  name="eventName" class="form-control"  required value="{{$event->event_name}}">
                         </div>
 
                         <div class="col-md-4 mb-3">
                             <label class = "form-label"> Event Type <font color="red">*</font></label>
                             <select name = "eventType"  id = "eventType" class = "form-control" required>
-                                <option disabled selected> - Please Select Event Type - </option>
+                                <option value="{{$event->event_type}}" selected> {{$event->event_type}} </option>
                                 <option value="Wedding"> Wedding </option>
                                 <option value="Birthday"> Birthday </option>
                                 <option value="Debut"> Debut </option>
@@ -153,8 +83,7 @@
 
                         <div class="col-md-5 mb-3">
                             <label class = "datetime"> Event Date <font color="red">*</font></label>
-                            {{-- {{ Form::date('eventStartDate', '', ['class' => 'form-control', 'placeholder' => 'Date of Event', 'required' => 'true', 'min' => date("Y-m-d H:i:s")]) }}  --}}
-                            <input type="date" min="{{$min_val_date}}" name="eventStartDate" onchange="checkdates()" class="form-control" placeholder="Start date" id="eventStartDate">
+                            <input type="date" min="{{$min_val_date}}" name="eventStartDate" onchange="checkdates()" value="{{$event_day}}" class="form-control" placeholder="Start date" id="eventStartDate">
                             <p id="invalid_msg" class="small" style="color: #ff5153;display: none;">This date is already overbooked. Please consider booking another day or cancel booking event.</p>
                         </div>
 
@@ -162,31 +91,32 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <label class = "datetime"> Start Time <font color="red">*</font></label>
-                                    <input type="time" name="startTime"  class="form-control" id="eventStartTime" required>
+                                    <input type="time" name="startTime" value="{{$start_time}}" class="form-control" id="eventStartTime" required>
                                 </div>
                                 <div class="col-md-6">
                                     <label class = "datetime"> End Time <font color="red">*</font></label>
-                                    <input type="time" name="endTime"  class="form-control"  id="eventEndTime" required>
+                                    <input type="time" name="endTime"  value="{{$end_time}}" class="form-control"  id="eventEndTime" required>
                                 </div>
                             </div>
                         </div>
 
                         <div class="col-md-5 mb-3">
                             <label class = "form-label"> Event Theme <font color="red">*</font></label>
-                            {{ Form::text('theme', '', ['class' => 'form-control', 'placeholder' => 'Theme', 'required' => 'true'])}}
+                            <input type="text"  class="form-control"  value="{{$event->theme}}" required>
+
                         </div>
 
                         {{-- by 50s, 60s, 70, 80s etcc.. --}}
                         <div class="col-md-4 mb-3">
                             <label class = "form-label"> Is a Holiday<font color="red">*</font></label>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="is_holiday" id="exampleRadios1" value="0" checked>
+                                <input class="form-check-input" type="radio" name="is_holiday" id="exampleRadios1" value="0" @if($event->is_holiday ==0) checked @endif>
                                 <label class="form-check-label" for="exampleRadios1">
                                     No
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="is_holiday" id="exampleRadios2" value="1">
+                                <input class="form-check-input" type="radio" name="is_holiday" id="exampleRadios2" value="1" @if($event->is_holiday !=0) checked @endif>
                                 <label class="form-check-label" for="exampleRadios2">
                                     Yes
                                 </label>
@@ -196,7 +126,7 @@
                         <div class="col-md-5 mb-3">
                             <label class = "form-label"> Venue <font color="red" >*</font></label>
                             <select name="venue" class = "form-control" onchange="venue_select()" id="location" required>
-                                <option selected disabled>Please Select Location</option>
+                                <option value="{{$event->venue}}">{{$event->venue}}</option>
                                 <option value="CVJ Clubhouse Ground Floor"> CVJ Clubhouse Ground Floor </option>
                                 <option value="CVJ Clubhouse Second Floor"> CVJ Clubhouse Second Floor </option>
                                 <option value="CVJ Clubhouse Third Floor"> CVJ Clubhouse Third Floor </option>
@@ -204,19 +134,22 @@
                             </select>
                         </div>
                         <div class="col-md-4 mb-3">
-                            <div id="address_div" style="display: none">
+
+                            <div id="address_div" @if($event->venue != 'Off-Premise') style="display: none" @endif>
                                 <label class = "form-label" id="eventvenueL"> Address <font color="red" id="eventvenueA"></font></label>
-                                <input type="text" class="form-control" PLACEHOLDER="Venue address" id="eventvenue" name="eventvenue">
+                                <input type="text" class="form-control" PLACEHOLDER="Venue address" id="eventvenue" value="{{$event->event_detailsAdded}}" name="eventvenue">
                                 <p class="small" style="color: #ff8300;">Off-Premise Venues adds a 15 % Service Charge to the total amount due.</p>
                             </div>
                         </div>
                         <div class="col-md-5 mb-3"> <label class = "form-label"> Others </label>
-                            {{ Form::textarea('others', '', ['class' => 'form-control', 'placeholder' => 'Others (Optional)'])}}
+                            <textarea name="others" class="form-control" >{{$event->others}}</textarea>
                         </div>
-                        <div class="col-md-4 mb-3" id="emp_col" style="display: none;">
+                        <div class="col-md-4 mb-3" id="emp_col" style="display: block;">
                             <label class = "form-label"> Assign Personnel to Event</label>
                             <select class="js-example-basic-multiple" id="select_emps" onchange="dropdown_change_listener()" name="emps[]" style="width: 100%" multiple="multiple">
-
+                                @foreach($emps as $emp)
+                                    <option value="{{$emp->employee_id}}" selected>{{$emp->employee_FN}} {{$emp->employee_LN}}</option>
+                                @endforeach
                             </select>
                             <small>Minimum of 5 personnel in an event.</small>
                             <script>
@@ -225,13 +158,14 @@
                                         //maximumSelectionLength: 10,
                                     });
                                 });
+                                dropdown_change_listener();
                             </script>
                         </div>
                         <br>
                         <div class="col-md-12 mb-3">
                             <b id="warning_div" style="text-align: center;display: none;color: #ff4646"> Unable to proceed to next step. Please resolve the error.</b>
                             <div style="text-align:center;" id="submit_div">
-                                <button type="submit" id="sumbit_btn" class="btn btn-success" disabled>Next: Select Packages</button>
+                                <button type="button" id="sumbit_btn" class="btn btn-success" disabled>Confirm Changes</button>
                             </div>
                         </div>
                         {!! Form::close() !!}
@@ -306,7 +240,7 @@
         disp_avail_personnel(start.value);
         //show avail employees
     }
-    function disp_avail_personnel(date){
+    function xd_disp_avail_personnel(date){
         $.get("/avail_personnels_on_date/"+date, function(data, status){
             console.log("Data: " + data + "\nStatus: " + status);
             $("#select_emps").empty();

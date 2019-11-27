@@ -74,17 +74,10 @@ class SelectPackageController extends Controller
         return view('list_packages',['user'=>$user,'packages'=>$packages->reverse()]);
 
     }
-
-    /**
-     *
-     *
-     * CREATE NEW PACKAGE
-     */
-    public function create(Request $request)
+    public function edit_package(Request $request)
     {
-        //chosen_invs,inv_qty,chosen_dishes,
-        // dd($request);
-        $package = new PackageModel();
+        $package = PackageModel::where('package_id','=',$request->package_id)->first();
+        $package->reset_package_contents();
 
         $package->package_name = $request->input("package_name");
         $package->package_client_id = $request->input("client_id");
@@ -94,15 +87,10 @@ class SelectPackageController extends Controller
         $package->event_type = $request->input("eventType");
 
         $package->package_markup = $request->input("package_markup");
-
         $package->package_desc = $request->input("package_desc");
         $package->save();
 
-        $event = EventModel::where('event_id','=',$request->input('event_id'))->first();
-
-        error_log("event_selected: ".$event->event_id);
-        error_log("saved: ".$package);
-        error_log("saved: ".$package->package_id);
+        error_log("edit_saved: ".$package);
 
         for($i=0; $i<count($request->input("chosen_invs"));$i++){
             $package_inventory = new PackageInventory();
@@ -112,20 +100,9 @@ class SelectPackageController extends Controller
             $package_inventory->inventory_id = $inv->inventory_id;
             $package_inventory->category_id = $inv->category;
             $package_inventory->rent_cost = $inv->rental_cost;
-            $package_inventory->qty = $request->get("inv_qty")[$i];
+            $package_inventory->quantity = $request->get("inv_qty")[$i];
 
             $package_inventory->save();
-            //$package->price += $package_inventory->rent_cost * $package_inventory->quantity;
-
-            $e_inv = new EventInventory();
-            $e_inv->event_id = $request->input("event_id");
-            $e_inv->inventory_id = $inv->inventory_id;
-            $e_inv->qty = $request->get("inv_qty")[$i];
-            $e_inv->rent_price = $inv->rental_cost;
-            $e_inv->esku = $inv->inventory_id;
-            $e_inv->status = $inv->status;
-            $e_inv->is_addition = false;
-            $e_inv->save();
         }
         for($i=0; $i<count($request->input("chosen_dishes"));$i++){
             $package_item = new PackageItem();
@@ -133,28 +110,88 @@ class SelectPackageController extends Controller
             $package_item->package_id = $package->package_id;
             $package_item->item_id = $itn->item_id;
             $package_item->computed_cost = $itn->unit_cost * $package->suggested_pax;
-            $package_item->save();
-            //$package->price += $package_item->computed_cost;
 
-            $e_dsh = new EventDishes();
-            $e_dsh->event_id = $request->input("event_id");
-            $e_dsh->item_id = $itn->item_id;
-            $e_dsh->total_price = $package_item->computed_cost;
-            $e_dsh->is_addition = false;
-            $e_dsh->save();
+            $package_item->save();
         }
         $package->save();
-        error_log("event ID: ".$request->input('event_id'));
-        $event->package_id = $package->package_id;
+    }
+    /**
+     *
+     *
+     * CREATE NEW PACKAGE
+     */
+    public function create(Request $request)
+    {
+        //chosen_invs,inv_qty,chosen_dishes,
+        // dd($request);
+        if($request->input("package_id") == -1){
+            error_log("creating new package");
+            $package = new PackageModel();
 
-        $event->total_amount_due = $request->input('package_price');
-        if($event->venue == 'Off-Premise'){
-            $event->off_premise_amount = $event->total_amount_due * 0.15;
-            $event->total_amount_due = $event->total_amount_due * 1.15;
+            $package->package_name = $request->input("package_name");
+            $package->package_client_id = $request->input("client_id");
+            $package->package_img_url = 'img/default.jpg';
+            $package->suggested_pax = $request->input("suggested_pax");
+            $package->price = $request->input("package_price");
+            $package->event_type = $request->input("eventType");
+
+            $package->package_markup = $request->input("package_markup");
+            $package->package_desc = $request->input("package_desc");
+            $package->save();
+
+
+            error_log("saved: ".$package);
+            error_log("saved: ".$package->package_id);
+
+            for($i=0; $i<count($request->input("chosen_invs"));$i++){
+                $package_inventory = new PackageInventory();
+                $inv = inventory::where('inventory_id','=',$request->get("chosen_invs")[$i])->first();
+
+                $package_inventory->package_id = $package->package_id;
+                $package_inventory->inventory_id = $inv->inventory_id;
+                $package_inventory->category_id = $inv->category;
+                $package_inventory->rent_cost = $inv->rental_cost;
+                $package_inventory->quantity = $request->get("inv_qty")[$i];
+
+                $package_inventory->save();
+                //$package->price += $package_inventory->rent_cost * $package_inventory->quantity;
+                /*
+                $e_inv = new EventInventory();
+                $e_inv->event_id = $request->input("event_id");
+                $e_inv->inventory_id = $inv->inventory_id;
+                $e_inv->qty = $request->get("inv_qty")[$i];
+                $e_inv->rent_price = $inv->rental_cost;
+                $e_inv->esku = $inv->inventory_id;
+                $e_inv->status = $inv->status;
+                $e_inv->is_addition = false;
+                $e_inv->save();
+                */
+            }
+            for($i=0; $i<count($request->input("chosen_dishes"));$i++){
+                $package_item = new PackageItem();
+                $itn = Items::where('item_id','=',$request->get("chosen_dishes")[$i])->first();
+                $package_item->package_id = $package->package_id;
+                $package_item->item_id = $itn->item_id;
+                $package_item->computed_cost = $itn->unit_cost * $package->suggested_pax;
+                $package_item->save();
+                //$package->price += $package_item->computed_cost;
+                /*
+                $e_dsh = new EventDishes();
+                $e_dsh->event_id = $request->input("event_id");
+                $e_dsh->item_id = $itn->item_id;
+                $e_dsh->total_price = $package_item->computed_cost;
+                $e_dsh->is_addition = false;
+                $e_dsh->save();
+                */
+            }
+            $package->save();
+        }else{
+            error_log("editing package");
+            self::edit_package($request);
         }
-        $event->save();
 
-        return redirect('/summary/'.$event->event_id);
+
+        return redirect('/list_packages/');
     }
     /**
      *
