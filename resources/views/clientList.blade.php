@@ -94,7 +94,7 @@
                                                 <a href="" class="dropdown-item" onclick="event.preventDefault();
                                                     document.getElementById('delete-form-{{ $i->client_id }}').submit();">
                                                     <i class="ni ni-fat-remove"></i>
-                                                    <span>{{ __('Remove from client') }}</span>
+                                                    <span>{{ __('Temporarily Disable Client Reference') }}</span>
                                                     {!! Form::open(['action' => ['ClientController@destroy', $i->client_id], 'method' => 'POST', 'id' => 'delete-form-'.$i->client_id]) !!}
                                                         {{ Form::hidden('_method','DELETE')}}
                                                     {!! Form::close() !!}
