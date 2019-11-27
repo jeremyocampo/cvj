@@ -8,14 +8,23 @@
 
     <div class="container-fluid mt--7">
         <div class="col-xl-12 mb-5">
-            <div class="card shadow " >
+            <div class="card shadow" >
                 <div class="card-header ">
                     <div class="row">
-                        <div class="col-xs-12 mb-3">
+                        <div class="col-xs-12 col-md-12 col-md-4 mb-3">
+                            {!! Form::open(['action' => 'BookEventController@store', 'method' => 'POST']) !!}
                             <h1 class="">Book Event <br> </h1>
                         </div>
-                        <div class="col-xs-2">
+                        <div class="col-xs-5 col-md-5">
                             {{-- <p>for {{ $client[0]->client_name }}</p> --}}
+                            @if(is_null($client))
+                                <label class = "form-label"> Client Email Address <font color="red">*</font></label>
+                                <input type="text" class="form-control" name="email" placeholder="example: Client@gmail.com" required>
+                            @else
+                                <label class = "form-label"> for </label>
+                                <h3><b>{{ ' ' . $client->client_name . ' ' }}</b></h3>
+                                <input type="hidden" class="form-control" name="email" value="{{ $client->email }}">
+                            @endif
                         </div>
                     </div>
                     <div class="row">
@@ -36,7 +45,6 @@
                             @endif
                         </div>
                     </div>
-                    {!! Form::open(['action' => 'BookEventController@store', 'method' => 'POST']) !!}
                 </div>
                 <div class="card-body border-0">
                     @foreach($errors->all() as $error)
@@ -45,7 +53,6 @@
                             {{ $error }}<br>
                         </div>
                     @endforeach
-
                     <div class="row">
                         <div class="col-md-5 mb-3">
                             <label class = "form-label"> Event Name <font color="red">*</font></label>
@@ -148,7 +155,6 @@
                                 <button type="submit" id="sumbit_btn" class="btn btn-success" disabled>Next: Select Packages</button>
                             </div>
                         </div>
-
                         {!! Form::close() !!}
                     </div>
                 </div>
@@ -163,7 +169,7 @@
             </div>
         </div>
     </div>
-    </div>
+</div>
 @endsection
 
 @push('js')
