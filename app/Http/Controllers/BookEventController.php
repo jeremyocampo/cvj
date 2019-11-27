@@ -127,16 +127,7 @@ class BookEventController extends Controller
     //     $eventEnd =  Carbon::parse($request->input('eventEndDate'));
     // }
 
-    $userID = auth()->user()->id;
     
-    $clientID = DB::table('client')
-    ->select('client_id')
-    ->where('client.user_id', '=', $userID)
-    ->get();
-
-    $clientID = $clientID[0]->client_id;
- 
-    // dd($clientID);
 
     $this->validate($request, [
         'eventName'                 => 'required',
@@ -144,7 +135,7 @@ class BookEventController extends Controller
     //    'eventStartDate'            => 'required|after_or_equal:'.$daysBefore1,
     //    'eventEndDate'              => 'required|after:eventStartDate',
         'theme'                     => 'required|min:1',
-    //    'totalPax'                  => 'required',
+       'email'                  => 'required|email',
         'others'                    => '',
         'venue'                    => 'required',
         
@@ -154,7 +145,8 @@ class BookEventController extends Controller
         'eventStartDate'        => 'Please Input a valid Event Start Date',
     //    'eventEndDate'          => 'Please Input a valid Event End Date',
         'theme'                 => 'Please Input a valid Theme',
-    //    'totalPax'              => 'Please Input a valid Number of Attendees',
+       'email.required'              => 'Please Input a valid Client Email Address',
+       'email.email'            => 'Please Input a valid Client Email Address',
         'others'                => 'Please Input a valid Description',
         'venue'                => 'Please Input a valid Venue',
     ]);
@@ -165,6 +157,8 @@ class BookEventController extends Controller
     
     error_log("awit: ".$request->input('venue'));
     error_log("awit: ".$request->input('theme'));
+
+
     $event = new EventModel([
         'event_name' => $request->input('eventName'),
         'event_type' => $request->input('eventType'),
@@ -178,14 +172,25 @@ class BookEventController extends Controller
         'status' => 1,
 
     ]);
+
     $event->event_detailsAdded = $request->input('eventvenue');
     $event->venue = $request->input('venue');
     $event->is_holiday = $request->input('is_holiday');
     $event->totalpax = $request->input('attendees');
 
 
-
     $email = auth()->user()->email;
+
+    $clientEmail = $request->input('email');
+    
+    $client = DB::table('client')
+    ->select('client_id')
+    ->where('client.email', '=', $clientEmail)
+    ->first();
+
+    $event->client_id = $client;
+ 
+    dd($client);
 
     // G EVENT TEMPORARILY SUSPENDED
     // $emailAdd = $email[0]->email; 
@@ -241,7 +246,23 @@ class BookEventController extends Controller
     public function show($id)
     {
         //
+
+        $client = DB::table('client')
+        ->select('*')
+        ->where('client.client_id', '=', $id)
+        ->first();
+        
+        $packages = DB::table('package')
+            // ->join('package','event.package_id','=','package.package_id')
+            // ->join('event','package.package_id','=','event.package_id')
+            ->get();
+        $min_val_day = Carbon::now()->addMonths(2)->format('Y-m-d');
+
+        return view('bookevent', ['client' => $client, 'packages' => $packages,'min_val_date'=>$min_val_day]);
+
     }
+
+    
     public function get_available_personnel_on_date($date){
         $employees = Employee::all();
         $avail_personnel = array();

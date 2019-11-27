@@ -14,7 +14,7 @@
                             <div class="col">
                                 <div class="row">
                                 <div class="col-xs-5">
-                                    <h1 class="mb-0">Current Food In Inventory</h1>
+                                    <h1 class="mb-0">Food Items Available</h1>
                                 </div>
                                 <div class="col-xs-2">
                                         &nbsp;&nbsp;
@@ -73,9 +73,9 @@
                         <table class="table table-bordered align-items-center table-flush mb-4" id="myTable">
                             <thead class="thead-light">
                                 <tr>
-                                    <th >Item name</th>
-                                    <th>Size</th>
-                                    <th >Quantity</th>
+                                    <th >Dish Name</th>
+                                    <th>Unit Cost (per piece)</th>
+                                    <th >Unit Expense (per piece)</th>
                                     <th>Price</th>
                                     <th >Action</th>
                                 </tr>
@@ -84,8 +84,7 @@
                                 <?php  
 
                                 ?>
-                                @foreach ($joinedInventory as $i)
-                                @if($i->status > 0)
+                                @foreach ($dishes as $i)
                                 <tr>
                                     
                                     <td>
@@ -134,7 +133,6 @@
                                         {{-- <a class="btn btn-sm btn-primary" href="inventory/{{ $i->itemId }}/edit"> Replenish Item </a> mahaba--}} 
                                     </td>
                                 </tr>
-                                @endif
                                 @endforeach
                             </tbody>
                         </table>

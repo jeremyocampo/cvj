@@ -112,7 +112,7 @@ class SelectPackageController extends Controller
             $package_inventory->inventory_id = $inv->inventory_id;
             $package_inventory->category_id = $inv->category;
             $package_inventory->rent_cost = $inv->rental_cost;
-            $package_inventory->quantity = $request->get("inv_qty")[$i];
+            $package_inventory->qty = $request->get("inv_qty")[$i];
 
             $package_inventory->save();
             //$package->price += $package_inventory->rent_cost * $package_inventory->quantity;

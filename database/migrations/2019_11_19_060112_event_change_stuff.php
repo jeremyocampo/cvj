@@ -14,7 +14,7 @@ class EventChangeStuff extends Migration
     public function up()
     {
         Schema::table('event', function (Blueprint $table) {
-            $table->dropColumn('event_detailsAdded');
+            //$table->dropColumn('event_detailsAdded');
             $table->dropColumn('is_holiday');
             $table->text('event_detailsAdded')->nullable();
             $table->text('reservation_file_path')->nullable();
