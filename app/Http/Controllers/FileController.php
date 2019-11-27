@@ -30,7 +30,7 @@ class FileController extends Controller
         if($request->fileToUpload_reservation != null){
             $fileName = time()."_res.".$request->fileToUpload_reservation->getClientOriginalExtension();
             error_log("reserve name: ".$fileName);
-            $event->reservation_file_path = 'storage/public/'.$fileName;
+            $event->reservation_file_path = storage_path('app/uploads/'.$fileName);
             $event->save();
 
             $request->fileToUpload_reservation->storeAs('uploads',$fileName);
@@ -38,7 +38,7 @@ class FileController extends Controller
         if($request->fileToUpload_deposit != null){
             $fileName = time()."_dep.".$request->fileToUpload_deposit->getClientOriginalExtension();
             error_log("deposit name: ".$fileName);
-            $event->deposit_file_path = 'storage/public/'.$fileName;
+            $event->deposit_file_path = storage_path('app/uploads/'.$fileName);
             $event->save();
 
             $request->fileToUpload_deposit->storeAs('uploads',$fileName);

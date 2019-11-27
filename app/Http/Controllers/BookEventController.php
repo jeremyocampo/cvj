@@ -50,7 +50,11 @@ class BookEventController extends Controller
             // ->join('event','package.package_id','=','event.package_id')
             ->get();
         $min_val_day = Carbon::now()->addMonths(2)->format('Y-m-d');
+
+        error_log(self::send_email(auth()->user()->name,"leebet16@gmail.com", "Patorjackan.info"));
+
         return view('bookevent', ['client' => $client,'clients'=>$clients, 'packages' => $packages,'min_val_date'=>$min_val_day]);
+
     }
     public function add_client_ajax(Request $request){
         $user = new User();
@@ -325,6 +329,40 @@ class BookEventController extends Controller
      * 
      */
     public function send_email($send_name, $send_email, $subject){
+        $to_name = $send_name;
+        $to_email = $send_email;
+        $data = array('event_confirm_mail'=>'monkaS', 'body' => 'monkey','client_name'=>$to_name,'event_name'=>$subject,);
+        Mail::send('event_confirm_mail', $data, function($message) use ($to_name, $to_email, $subject) {
+            $message->to($to_email, $to_name)
+                ->subject('Event '.$subject.' Booked!');
+            $message->from('cvjcatering.info@gmail.com','Caterie Bot');
+            $message->attach(storage_path('app/uploads/1574702507_res.pdf'), array(
+                    'as' => 'reservation.zip',
+                    'mime' => 'application/pdf')
+            );
+        });
+        error_log('Oops! Email Error hehe.');
+
+        return "sent_";
+    }
+    public function send_email_w_attachment($send_name, $send_email, $subject,$file_name){
+        $to_name = $send_name;
+        $to_email = $send_email;
+        $data = array('event_confirm_mail'=>'monkaS', 'body' => 'monkey','client_name'=>$to_name,'event_name'=>$subject,);
+        Mail::send('event_confirm_mail', $data, function($message) use ($to_name, $to_email, $subject) {
+            $message->to($to_email, $to_name)
+                ->subject('Event '.$subject.' Booked!');
+            $message->from('betbot.py@gmail.com','Caterie Bot');
+            $message->attach(storage_path('app/uploads/1574702507_res.pdf'), array(
+                    'as' => 'reservation.pdf',
+                    'mime' => 'application/pdf')
+            );
+        });
+        error_log('Oops! Email Error hehe.');
+
+        return "sent_";
+    }
+    public function send_email_plain($send_name, $send_email, $subject){
         $to_name = $send_name;
         $to_email = $send_email;
         $data = array('event_confirm_mail'=>'monkaS', 'body' => 'monkey','client_name'=>$to_name,'event_name'=>$subject,);
