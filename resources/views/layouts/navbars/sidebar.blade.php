@@ -283,7 +283,7 @@
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{ url('client/create') }}" class="nav-link">
-                                        <i class="ni ni-bullet-list-67 text-blue"></i>Create Client Reference</a>
+                                        <i class="ni ni-single-02 text-blue"></i>Create Client Reference</a>
                                 </li>
                             </ul>
                         </div>

@@ -91,6 +91,10 @@
                                                     <i class="ni ni-zoom-split-in"></i>
                                                     <span>{{ __('Edit Client Details') }}</span>
                                                 </a>
+                                                <a href="{{ url('bookevent/'.$i->client_id) }}" class="dropdown-item">
+                                                    <i class="ni ni-calendar-grid-58"></i>
+                                                    <span>{{ __('Book Event') }}</span>
+                                                </a>
                                                 <a href="" class="dropdown-item" onclick="event.preventDefault();
                                                     document.getElementById('delete-form-{{ $i->client_id }}').submit();">
                                                     <i class="ni ni-fat-remove"></i>

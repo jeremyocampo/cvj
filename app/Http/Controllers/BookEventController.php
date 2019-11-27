@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Employee;
 use App\EmployeeEventSchedule;
 use Illuminate\Http\Request;
-use App\DB;
 
 //DB Callings
 use Illuminate\Support\Facades\DB;
@@ -225,7 +224,23 @@ class BookEventController extends Controller
     public function show($id)
     {
         //
+
+        $client = DB::table('client')
+        ->select('*')
+        ->where('client.client_id', '=', $id)
+        ->get();
+        
+        $packages = DB::table('package')
+            // ->join('package','event.package_id','=','package.package_id')
+            // ->join('event','package.package_id','=','event.package_id')
+            ->get();
+        $min_val_day = Carbon::now()->addMonths(2)->format('Y-m-d');
+
+        return view('bookevent', ['client' => $client, 'packages' => $packages,'min_val_date'=>$min_val_day]);
+
     }
+
+    
     public function get_available_personnel_on_date($date){
         $employees = Employee::all();
         $avail_personnel = array();

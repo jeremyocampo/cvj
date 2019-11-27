@@ -7,13 +7,10 @@
     @include('layouts.headers.eventsCard')
 
     <div class="container-fluid mt--7">
-        {{-- <div class="col-xl-8 mb-5 mb-xl-0"> --}}
         <div class="col-xl-12 mb-5">
             <div class="card shadow " >
                 <div class="card-header ">
-                    {{-- <div class="row align-items-center"> --}}
                     <div class="row">
-
                         <div class="col-xs-12 mb-3">
                             <h1 class="">Book Event <br> </h1>
                         </div>
@@ -39,10 +36,7 @@
                             @endif
                         </div>
                     </div>
-                    {{-- {!! Form::open('action' => ['BookEventController@store', 'method' => 'POST', 'id' => 'bookevent']) !!} --}}
                     {!! Form::open(['action' => 'BookEventController@store', 'method' => 'POST']) !!}
-                    {{-- <form action = "BookEventController@store" method = "POST"> --}}
-                    {{-- {{ csrf_field() }} --}}
                 </div>
                 <div class="card-body border-0">
                     @foreach($errors->all() as $error)
