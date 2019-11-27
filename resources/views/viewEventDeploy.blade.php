@@ -18,14 +18,6 @@
                                         <div class="col">
                                         </div>
                                         <div class="col">
-                                            {{-- <div class="custom-control custom-checkbox">
-                                                <label class="form-label">Status</label> <label class="text-muted">(optional)</label>
-                                                <select class="form-control" name="status" id="status">
-                                                    <option selected disabled value=0>Please Select a status</option>
-                                                    <option value="1">Mark as Lost</option>
-                                                    <option value="2">Mark as Damaged</option>
-                                                </select>
-                                            </div> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -53,31 +45,24 @@
                         {!! Form::open(['action' => ['DeployInventoryController@store'], 'method' => 'POST']) !!}
                         <!-- Modal -->
                         <div id="myModal" class="modal fade" role="dialog">
-                                <div class="modal-dialog">
-                              
-                                  <!-- Modal content-->
-                                  <div class="modal-content">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
                                     <div class="modal-header">
-                                      <div class="row">
-                                          <div >
-                                              <h2 class="modal-title">Are you sure you want to continue?</h2>
-
-                                          </div>
-                                      
-                                      </div>
-                                      
+                                        <div class="row">
+                                            <div >
+                                                <h2 class="modal-title">Are you sure you want to continue?</h2>
+                                            </div>
+                                        </div>
                                     </div>
-                                    {{-- <div class="modal-body">
-                                      <p>Some text in the modal.</p>
-                                    </div> --}}
+                                    <div class="modal-body">
+                                    </div>
                                     <div class="modal-footer">
-                                      {{ Form::submit('Deploy Items', ['class' => 'btn btn-success']) }}
-                                      <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                                        {{ Form::submit('Deploy Items', ['class' => 'btn btn-success']) }}
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                                     </div>
-                                  </div>
-                              
                                 </div>
-                              </div>
+                            </div>
+                        </div>
 						<div class="card-body">
                                 <div class="table-responsive mb-3">
                                     <!-- Projects table -->

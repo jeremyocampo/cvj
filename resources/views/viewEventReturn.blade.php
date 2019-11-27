@@ -80,43 +80,60 @@
 						   
 						</div>
 						{{-- {!! Form::open(['action' => ['ReturnInventoryController@update', $borrowedItems[0]->event_id], 'method' => 'POST' ,'id' => 'barcodeForm']) !!} --}}
-					<div class="card-body">
-		
+						{!! Form::open(['action' => ['ReturnInventoryController@store'], 'method' => 'POST']) !!}
+                        <!-- Modal -->
+                        <div id="myModal" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <div class="row">
+                                            <div >
+                                                <h2 class="modal-title">Are you sure you want to continue?</h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-body">
+                                    </div>
+                                    <div class="modal-footer">
+                                        {{ Form::submit('Return Items', ['class' => 'btn btn-success']) }}
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+						<div class="card-body">
 							<div class="row">
-									
-									<div class="col-xl-4">
-										{{-- <label class="text-muted">Event Name: {{$borrowedItems[0]->event_name}}</label> --}}
-										<label class="form-label">Event Name</label>
-										<p>{{ $event->event_name}}</p>
-										{{-- {{ Form::text('itemName', $borrowedItems[0]->event_name,['class' => 'form-control', 'disabled'] )}} --}}
-									</div>
-									{{-- <div class="col-xl-4">
-											<label class="text-muted">Event Name: {{$borrowedItems[0]->event_name}}</label>
-											<label class="form-label">Client Name</label>
-											<p>{{ }}</p>
-											{{ Form::text('itemName', $borrowedItems[0]->client_name,['class' => 'form-control', 'disabled'] )}}
-									</div> --}}
-									<div class="col-xl-4">
-											<label class="form-label">Date Borrowed</label>
-											<p>{{ $event->date_start}}</p>
-											{{-- {{ Form::text('itemName', $borrowedItems[0]->event_start,['class' => 'form-control', 'disabled'] )}} --}}
-									</div>
-									<div class="col-xl-4">
-										{{-- <label class="text-muted">Date Due: {{$borrowedItems[0]->event_end}}</label> --}}
-										<label class="form-label">Date Due</label>
+								<div class="col-xl-4">
+									@foreach($event as $event)
+									<input type="hidden" class="form-control" name="event_id" value="{{ $event->event_id}}">
+									<label class="form-label">Event Name</label>
+									<p>{{ $event->event_name }}</p>
+									<input type="hidden" class="form-control" name="event_name" value="{{ $event->event_name}}">
+								</div>
+								{{-- <div class="col-xl-4">
+										<label class="text-muted">Event Name: {{$borrowedItems[0]->event_name}}</label>
+										<label class="form-label">Client Name</label>
 										<p>{{ }}</p>
-										{{-- {{ Form::text('itemName', $borrowedItems[0]->event_end,['class' => 'form-control', 'disabled'] )}} --}}
+										{{ Form::text('itemName', $borrowedItems[0]->client_name,['class' => 'form-control', 'disabled'] )}}
+								</div> --}}
+								<div class="col-xl-4">
+										<label class="form-label">Date Borrowed</label>
+										<p>{{ $event->event_start}}</p>
+										<input type="hidden" class="form-control" name="event_start" value="{{ $event->event_start}}">
 									</div>
-									<div class="col-xl-12">
-										<label class="form-label">Venue</label>
-										<p>{{ }}</p>
-											{{-- {{ Form::text('itemName', $borrowedItems[0]->venue,['class' => 'form-control', 'disabled'] )}} --}}
-									</div>
+								<div class="col-xl-4">
+									{{-- <label class="form-label">Date Due</label>
+									<p>{{ }}</p> --}}
+								</div>
+								<div class="col-xl-12">
+									<label class="form-label">Venue</label>
+									<p>{{ $event->venue}}</p>
+									<input type="hidden" class="form-control" name="venue" value="{{ $event->venue}}">
+								</div>
+								<div class="col-xl-4">
 									
-									<div class="col-xl-4">
-										
-									</div>
-								
+								</div>
+								@endforeach
 						</div>
 						<div class="card-body border-0">
 							@foreach($errors->all() as $error)

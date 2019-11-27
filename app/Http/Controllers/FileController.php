@@ -14,6 +14,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendMailable;
 use App\userModel;
+// use public;
 
 class FileController extends Controller
 {
@@ -42,12 +43,8 @@ class FileController extends Controller
 
             $request->fileToUpload_deposit->storeAs('uploads',$fileName);
         }
-
-
         return redirect('list_events');
-
     }
-
     public function mail()
     {
         $mail = 'Oh hello this is you and i am you. He. He.';

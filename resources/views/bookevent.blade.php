@@ -18,7 +18,7 @@
                             <h1 class="">Book Event <br> </h1>
                         </div>
                         <div class="col-xs-2">
-                            <p>for {{ $client[0]->client_name }}</p>
+                            {{-- <p>for {{ $client[0]->client_name }}</p> --}}
                         </div>
                     </div>
                     <div class="row">

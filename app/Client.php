@@ -8,26 +8,11 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 class Client extends Model
 {
+    public $primaryKey = 'client_id';
     public $table = 'client';
-
-    // use Notifiable;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+    public $timestamps = false;
+    
     protected $fillable = [
         'client_name', 'email', 'tel_no', 'mob_no', 'address', 'user_id', 'updated_at', 'created_at' 
     ];
-
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    // protected $hidden = [
-    //     'password', 'remember_token',
-    // ];
-
 }

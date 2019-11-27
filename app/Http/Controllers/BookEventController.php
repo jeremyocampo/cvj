@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Employee;
 use App\EmployeeEventSchedule;
 use Illuminate\Http\Request;
+use App\DB;
 
 //DB Callings
 use Illuminate\Support\Facades\DB;
@@ -40,7 +41,7 @@ class BookEventController extends Controller
         
         $client = DB::table('client')
         ->select('*')
-        ->where('client.user_id', '=', auth()->user()->id)
+        ->where('client.client_id', '=', auth()->user()->id)
         ->get();
         
         $packages = DB::table('package')
