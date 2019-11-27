@@ -109,6 +109,20 @@
 
                                             </div>
                                         </div>
+                                        <div class="row">
+                                            <div class="col-md-4"><label>Event Type</label></div>
+                                            <div class="col-md-8">
+                                                <select name = "eventType"  id = "eventType" class = "form-control" required>
+                                                    <option disabled selected> - Please Select Event Type - </option>
+                                                    <option value="Wedding"> Wedding </option>
+                                                    <option value="Birthday"> Birthday </option>
+                                                    <option value="Debut"> Debut </option>
+                                                    <option value="Business"> Business </option>
+                                                    <option value="Corporate"> Corporate </option>
+                                                    <option value="Others"> Others </option>
+                                                </select>
+                                            </div>
+                                        </div>
                                         <div class="row" style="margin-top: 2vh">
                                             <div class="col-md-4"><label>Markup Percent</label></div>
                                             <div class="col-md-8"><input name="markup" class=" form-control" id="markup" style="width: 90%;display: inline" onkeyup="compute_total_package_price()" type="number" value="150"><p style="display: inline">  %</p></div>

@@ -74,7 +74,7 @@
                         </div>
                         <div class="row" style="margin-top: 6vh;">
                             <div class="card-body" style="margin: 0;">
-                                <center >Company Event Quotation for <b>{{$client->client_name}}</b><br>
+                                <center >Breakdown of Expenses for <b>{{$client->client_name}}</b><br>
                                     <small> {{$event->formatted_day}} ~ {{$package->suggested_pax}} pax</small><br>
                                     <small>[{{$event->venue}}] {{$event->event_detailsAdded}} </small><br>
                                     <small>Event Time: {{$event->formatted_start}} to {{$event->formatted_end}}</small>
@@ -230,13 +230,12 @@
                                 <h4 style="display: inline-block;margin-bottom: 0.1vh;margin-top:1vh;">Staffing Cost :</h4> <span style="display: inline-block">PHP</span> <b style="display: inline-block">{{number_format($staff_cost,2)}}</b>
                             </div>
                             @if($is_off_premise)
-
                                 <div>
                                     <h4 style="display: inline-block;margin-bottom: 0.1vh;margin-top:1vh;">Logistics Cost :</h4> <span style="display: inline-block">PHP</span> <b style="display: inline-block">{{number_format($extra_cost,2)}}</b>
                                 </div>
                             @endif
                             <br>
-                            <u> Amount Due:
+                            <u> Total Expected Expense:
                                 <div>
                                     <span style="display: inline-block">PHP</span> <b style="display: inline-block">{{number_format($total_cost,2)}}</b>
                                 </div>

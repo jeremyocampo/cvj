@@ -71,10 +71,12 @@ Route::get('admin/routes', 'AdminController@admin')->middleware('admin');
 // Route::resource('cal','gCalendarController');
 // Route::get('oauth', 'gCalendarController@oauth');
 Route::get('list_events', 'EventsController@list_events')->name('list_events');
+Route::get('list_packages', 'SelectPackageController@list_packages')->name('list_packages');
 
 Route::get('summary/{event_id}', 'SelectPackageController@summary');
 
 Route::get('client_quotation/{event_id}', 'QuotationController@client_quotation')->name('client_quotation');
+Route::get('client_reservation/{event_id}', 'QuotationController@client_reservation')->name('client_reservation');
 Route::get('company_quotation/{event_id}', 'QuotationController@company_quotation')->name('company_quotation');
 //Dummy Test URLS: For Frontend prototyping
 Route::get('test_page1/{event_id}/{package_id?}', 'SelectPackageController@test_page1')->name('test_page1');

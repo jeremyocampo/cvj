@@ -156,10 +156,7 @@
                                             <a  class="dropdown-item" href="#"  data-toggle="modal"
                                                res_dlink="{{$i->reservation_file_path}}" dep_dlink="{{$i->deposit_file_path}}" event_id="{{$i->event_id}}"
                                                onclick="open_files_modal(this);" data-target="#filesModal"><i class="fa fa-eye"></i> View Event Files</a>
-                                            <a href="#" class="dropdown-item">
-                                                <i class="ni ni-single-02"></i>
-                                                <span>Client Quotation</span>
-                                            </a>
+
 
                                             <style>
                                                 input[type="file"] {
@@ -182,10 +179,12 @@
                                                 <i class="ni ni-single-02"></i>
                                                 <span>Client Quotation</span>
                                             </a>
+                                            @if($user->userType == 4)
                                             <a href="{{ url('company_quotation/'.$i->event_id) }}" class="dropdown-item">
                                                 <i class="ni ni-shop"></i>
                                                 <span>Company Quotation</span>
                                             </a>
+                                            @endif
                                             <div class="dropdown-divider"></div>
                                             <a href="{{ url('events/'.$i->event_id) }}" class="dropdown-item">
                                                 <i class="ni ni-zoom-split-in"></i>

@@ -88,6 +88,7 @@
                         <div>
                             <h4 style="display: inline-block;margin-bottom: 0.1vh;margin-top:1vh;">Package Price :</h4> <span style="display: inline-block">PHP</span> <b style="display: inline-block">{{number_format($package->price,2)}}</b>
                         </div>
+
                         @if($additional_count != 0)
                             <div>
                                 <h4 style="display: inline-block;margin-bottom: 0.1vh;margin-top:1vh;">Total Additionals :</h4>
@@ -95,18 +96,26 @@
                             </div>
                         @endif
                         @if($is_off_premise)
-                            <small>(Off-Premise) + 15% Service Charge</small><br>
+                            <div>
+                                <h4 style="display: inline-block;margin-bottom: 0.1vh;margin-top:1vh;">Off-Premise Service Charge (15%) :</h4>
+                                <span style="display: inline-block">PHP</span> <b style="display: inline-block">{{number_format($event->off_premise_amount,2)}}</b>
+                            </div>
                         @endif
-                        <br>
+                        <div>
+                            <h4 style="display: inline-block;margin-bottom: 0.1vh;margin-top:1vh;">VAT Amount (12%) :</h4> <span style="display: inline-block">PHP</span> <b style="display: inline-block">{{number_format($event->total_amount_due*.12,2)}}</b>
+                        </div>
                         <u> Amount Due:
                             <div>
-                                <span style="display: inline-block">PHP</span> <b style="display: inline-block">{{number_format($event->total_amount_due,2)}}</b>
+                                <span style="display: inline-block">PHP</span> <b style="display: inline-block">{{number_format($event->total_amount_due*1.12,2)}}</b>
                             </div>
                         </u>
                     </div>
 
-
                 </div>
+                <center>
+                <a href="{{url('list_events')}}" class="form-control btn btn-primary btn-md" style="width: 20%">  View List of Events  <i class="fa fa-calendar"></i></a>
+                </center>
+                <br>
             </div>
         </div>
 <script>

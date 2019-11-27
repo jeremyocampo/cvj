@@ -10,6 +10,7 @@ use App\categoryRef;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests;
 use Carbon\Carbon;
+use App\User;
 use Faker\Generator as Faker;
 use Spatie\GoogleCalendar\Event;
 
@@ -173,7 +174,10 @@ class EventsController extends Controller
         }
         // dd($eventEndString);
 
-        return view('listevents', ['pendingEvents' => $upcomingPendingEvents, 'events' => $upcomingApprovedEvents]);
+        $user = User::where('id','=', auth()->user()->id)->first();
+
+
+        return view('listevents', ['user'=>$user,'pendingEvents' => $upcomingPendingEvents, 'events' => $upcomingApprovedEvents]);
         // return view('eventsDash');
     }
 

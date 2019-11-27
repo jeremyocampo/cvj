@@ -11,6 +11,7 @@ use App\EventModel;
 use App\events;
 use App\inventory;
 use App\Items;
+use App\User;
 use App\PackageInventory;
 use App\PackageItem;
 use Illuminate\Http\Request;
@@ -54,6 +55,25 @@ class SelectPackageController extends Controller
         return view('selectPackage',['packages'=>$packages->reverse(),'event'=>$event,'user_id'=>$client_id]);
 
     }
+    public function list_packages()
+    {
+        $packages = PackageModel::all();
+        foreach ($packages as $package){
+            $food_items =PackageItem::where('package_id','=',$package->package_id)->select('item_id')->get();
+            $food_items =$food_items->toArray();
+            $package->foods = Items::whereIn('item_id',$food_items)->get();
+            $package->inventory = PackageInventory::where('package_id','=',$package->package_id)->get();
+            foreach ($package->inventory as $inventory){
+                $inv = inventory::where('inventory_id','=',$inventory->inventory_id)->first();
+                $inventory->inventory_name = $inv->inventory_name;
+                $inventory->inv_avail =$inventory->is_inventory_available();
+            }
+            //$package->inventory = inventory::whereIn('inventory_id',$inv_items)->get();
+        }
+        $user = User::where('id','=',Auth::id())->first();
+        return view('list_packages',['user'=>$user,'packages'=>$packages->reverse()]);
+
+    }
 
     /**
      *
@@ -71,6 +91,7 @@ class SelectPackageController extends Controller
         $package->package_img_url = 'img/default.jpg';
         $package->suggested_pax = $request->input("suggested_pax");
         $package->price = $request->input("package_price");
+        $package->event_type = $request->input("eventType");
         $package->save();
 
         $event = EventModel::where('event_id','=',$request->input('event_id'))->first();

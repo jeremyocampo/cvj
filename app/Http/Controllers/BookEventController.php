@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Client;
 use App\Employee;
 use App\EmployeeEventSchedule;
+use App\User;
 use Illuminate\Http\Request;
 
 //DB Callings
@@ -42,13 +44,27 @@ class BookEventController extends Controller
         ->select('*')
         ->where('client.user_id', '=', auth()->user()->id)
         ->get();
-        
+        $clients = Client::all();
         $packages = DB::table('package')
             // ->join('package','event.package_id','=','package.package_id')
             // ->join('event','package.package_id','=','event.package_id')
             ->get();
         $min_val_day = Carbon::now()->addMonths(2)->format('Y-m-d');
-        return view('bookevent', ['client' => $client, 'packages' => $packages,'min_val_date'=>$min_val_day]);
+        return view('bookevent', ['client' => $client,'clients'=>$clients, 'packages' => $packages,'min_val_date'=>$min_val_day]);
+    }
+    public function add_client_ajax(Request $request){
+        $user = new User();
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->password = $request->input('password');
+        $user->userType = $request->input('userType');
+        $user->verified = $request->input('verified');
+        $user->email_verified_at = $request->input('email_verified_at');
+        $user->tel_no = $request->input('tel_no');
+        $user->mob_no = $request->input('mob_no');
+        $user->address = $request->input('address');
+        $user->save();
+        return Response::json(['client_id' => $user->id]);
     }
 
     
@@ -158,13 +174,14 @@ class BookEventController extends Controller
         'theme' => $request->input('theme'),
         'totalpax' => null,
         'others' => $request->input('others'),
-        'client_id' => $clientID,
+        'client_id' =>$request->input('client_id'),
         'status' => 1,
 
     ]);
     $event->event_detailsAdded = $request->input('eventvenue');
     $event->venue = $request->input('venue');
     $event->is_holiday = $request->input('is_holiday');
+    $event->totalpax = $request->input('attendees');
 
 
 

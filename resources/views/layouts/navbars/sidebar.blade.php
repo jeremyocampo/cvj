@@ -232,7 +232,7 @@
                 </ul>
             @endif
             @if(auth()->user()->userType == 4)
-                <!-- eventmanager Navigation -->
+                <!-- eventmanager Navigation/Operations Head? -->
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('home') }}">
@@ -259,7 +259,7 @@
                 </ul>
             @endif
             @if(auth()->user()->userType == 5)
-                 <!-- client Navigation -->
+                 <!-- Account Executive -->
                  <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('home') }}">
@@ -271,10 +271,14 @@
                             <i class="ni ni-calendar-grid-58 text-yellow"></i> {{ __('Create Booking') }}
                         </a>
                     </li>
-
                      <li class="nav-item">
                          <a class="nav-link" href="{{ url('list_events') }}">
                              <i class="ni ni-calendar-grid-58 text-green"></i> List Events
+                         </a>
+                     </li>
+                     <li class="nav-item">
+                         <a class="nav-link" href="{{ url('list_packages') }}">
+                             <i class="ni ni-calendar-grid-58 text-green"></i> (Temporary) Packages
                          </a>
                      </li>
                     <li class="nav-item">
