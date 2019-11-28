@@ -157,6 +157,10 @@
                                                res_dlink="{{$i->reservation_file_path}}" dep_dlink="{{$i->deposit_file_path}}" event_id="{{$i->event_id}}"
                                                onclick="open_files_modal(this);" data-target="#filesModal"><i class="fa fa-eye"></i> View Event Files</a>
 
+                                            <a href="{{ url('bookevent/edit/'.$i->event_id) }}" class="dropdown-item">
+                                                <i class="fa fa-edit"></i>
+                                                <span>Edit Event</span>
+                                            </a>
 
                                             <style>
                                                 input[type="file"] {

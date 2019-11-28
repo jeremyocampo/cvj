@@ -8,11 +8,13 @@
 
     <div class="container-fluid mt--7">
         <div class="col-xl-12 mb-5">
+
+            <form action="{{route('post.editevent')}}" method="POST">
+                @csrf
             <div class="card shadow" >
                 <div class="card-header ">
                     <div class="row">
                         <div class="col-xs-12 col-md-12 col-md-4 mb-3">
-                            {!! Form::open(['action' => 'BookEventController@store', 'method' => 'POST']) !!}
                             <input type="hidden" name="event_id" value="{{$event->event_id}}">
                             <h1 class="">Book Event <br> </h1>
                         </div>
@@ -92,7 +94,11 @@
 
                         <div class="col-md-5 mb-3">
                             <label class = "datetime"> Event Date <font color="red">*</font></label>
+                           <!--
                             <input type="date" min="{{$min_val_date}}" name="eventStartDate" onchange="checkdates()" value="{{$event_day}}" class="form-control" placeholder="Start date" id="eventStartDate">
+                            -->
+                            <input type="date" name="eventStartDate" onchange="checkdates()" value="{{$event_day}}" class="form-control" placeholder="Start date" id="eventStartDate">
+
                             <p id="invalid_msg" class="small" style="color: #ff5153;display: none;">This date is already overbooked. Please consider booking another day or cancel booking event.</p>
                         </div>
 
@@ -111,7 +117,7 @@
 
                         <div class="col-md-5 mb-3">
                             <label class = "form-label"> Event Theme <font color="red">*</font></label>
-                            <input type="text"  class="form-control"  value="{{$event->theme}}" required>
+                            <input type="text"  class="form-control" name="theme" value="{{$event->theme}}" required>
 
                         </div>
 
@@ -177,10 +183,9 @@
                         <div class="col-md-12 mb-3">
                             <b id="warning_div" style="text-align: center;display: none;color: #ff4646"> Unable to proceed to next step. Please resolve the error.</b>
                             <div style="text-align:center;" id="submit_div">
-                                <button type="button" id="sumbit_btn" class="btn btn-success">Confirm Changes</button>
+                                <button type="submit" id="sumbit_btn" class="btn btn-success">Confirm Changes</button>
                             </div>
                         </div>
-                        {!! Form::close() !!}
                     </div>
                 </div>
                 <script>
@@ -192,6 +197,7 @@
                     }
                 </script>
             </div>
+            </form>
         </div>
     </div>
 </div>

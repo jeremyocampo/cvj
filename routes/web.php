@@ -91,6 +91,8 @@ Route::resource('confirmevents', 'ConfirmEventsController');
 Route::get('date_range', 'DateRangeController@index');
 
 Route::get('bookevent/edit/{event_id}', 'BookEventController@editEventDetails')->name('edit.bookevent');
+Route::post('editevent', 'BookEventController@PosteditEventDetails')->name('post.editevent');
+
 Route::get('/download/storage/public/{file}', 'FileController@download');
 
 Route::post('upload_event_forms', 'FileController@upload_event_forms')->name('file_upload');

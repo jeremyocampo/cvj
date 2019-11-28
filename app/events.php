@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\EmployeeEventSchedule;
 use App\Employee;
+use App\EventInventory;
+use App\EventDishes;
 class events extends Model
 {
     //
@@ -27,15 +29,12 @@ class events extends Model
         'inventory_id',
         'client_id',
     ];
-    public function reset_event_contents(){
+    public function reset_event_employees(){
         // Code goes here
-        $p_inventories = PackageInventory::where('package_id','=',$this->package_id)->get();
-        $p_items = PackageItem::where('package_id','=',$this->package_id)->get();
-        foreach($p_inventories as $p_inventory){
-            $p_inventory->delete();
-        }
-        foreach ($p_items as $p_item){
-            $p_item->delete();
+        $event_scheds = EmployeeEventSchedule::where('event_id','=',$this->event_id)->get();
+
+        foreach ($event_scheds as $event_sched){
+            $event_sched->delete();
         }
 
         return true;
@@ -51,6 +50,32 @@ class events extends Model
             }
         }
         return $avail_personnel;
+    }
+    public function is_event_package_compatible(){
+        //will write criterion stuff.
+        $package = PackageModel::where('package_id','=',$this->package_id)->first();
+        if($this->totalpax > $package->suggested_pax || $this->event_type != $package->event_type){
+            return false;
+        }
+
+        return true;
+    }
+    public function discard_package(){
+        //removes event_inventory and event_dishes
+        $e_inventories = EventInventory::where('event_id','=',$this->event_id)->get();
+        $e_dishes = EventDishes::where('event_id','=',$this->event_id)->get();
+        foreach($e_inventories as $e_inventory){
+            $e_inventory->delete();
+        }
+        foreach ($e_dishes as $e_dish){
+            $e_dish->delete();
+        }
+        $this->package_id = null;
+        $this->total_amount_due = null;
+        $this->off_premise_amount = null;
+        $this->save();
+
+        return true;
     }
     public function get_employees(){
         // Code goes here

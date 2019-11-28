@@ -3,7 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="acb9a2cb-0c91-4cfe-98e9-5d7151ab0887" name="Default Changelist" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/client_reservation.blade.php" afterPath="$PROJECT_DIR$/resources/views/client_reservation.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/BookEventController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/BookEventController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/events.php" afterPath="$PROJECT_DIR$/app/events.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/editbookevent.blade.php" afterPath="$PROJECT_DIR$/resources/views/editbookevent.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/listevents.blade.php" afterPath="$PROJECT_DIR$/resources/views/listevents.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/web.php" afterPath="$PROJECT_DIR$/routes/web.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -302,18 +306,8 @@
       <file leaf-file-name="web.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/web.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="358">
-              <caret line="92" column="104" lean-forward="false" selection-start-line="92" selection-start-column="104" selection-end-line="92" selection-end-column="104" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="bookevent.blade.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/bookevent.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1550">
-              <caret line="123" column="0" lean-forward="true" selection-start-line="123" selection-start-column="0" selection-end-line="123" selection-end-column="0" />
+            <state relative-caret-position="136">
+              <caret line="93" column="90" lean-forward="false" selection-start-line="93" selection-start-column="90" selection-end-line="93" selection-end-column="90" />
               <folding />
             </state>
           </provider>
@@ -322,32 +316,10 @@
       <file leaf-file-name="editbookevent.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/editbookevent.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="416">
-              <caret line="101" column="32" lean-forward="true" selection-start-line="101" selection-start-column="32" selection-end-line="101" selection-end-column="32" />
+            <state relative-caret-position="232">
+              <caret line="119" column="91" lean-forward="false" selection-start-line="119" selection-start-column="91" selection-end-line="119" selection-end-column="91" />
               <folding>
-                <element signature="e#3615#3637#0#HTML" expanded="true" />
-                <element signature="e#3753#3775#0#HTML" expanded="true" />
-                <element signature="e#5196#5218#0#HTML" expanded="true" />
-                <element signature="e#5334#5356#0#HTML" expanded="true" />
-                <element signature="e#10156#10179#0#HTML" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="client_reservation.blade.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/resources/views/client_reservation.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="131">
-              <caret line="16" column="57" lean-forward="false" selection-start-line="16" selection-start-column="57" selection-end-line="16" selection-end-column="57" />
-              <folding>
-                <element signature="e#1494#1549#0#HTML" expanded="true" />
-                <element signature="e#1786#1851#0#HTML" expanded="true" />
-                <element signature="e#5753#5876#0#HTML" expanded="true" />
-                <element signature="e#7183#7231#0#HTML" expanded="true" />
-                <element signature="e#9367#9391#0#HTML" expanded="true" />
-                <element signature="e#9420#9475#0#HTML" expanded="true" />
-                <element signature="e#10644#10678#0#HTML" expanded="true" />
+                <element signature="e#395#1823#0#HTML" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -368,11 +340,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="events.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="listevents.blade.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/listevents.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="346">
+              <caret line="167" column="49" lean-forward="true" selection-start-line="167" selection-start-column="49" selection-end-line="167" selection-end-column="49" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="events.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/events.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="42" column="51" lean-forward="false" selection-start-line="42" selection-start-column="20" selection-end-line="42" selection-end-column="51" />
+            <state relative-caret-position="885">
+              <caret line="59" column="0" lean-forward="true" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
               <folding>
                 <element signature="e#23#62#0#PHP" expanded="true" />
               </folding>
@@ -383,8 +365,8 @@
       <file leaf-file-name="BookEventController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/BookEventController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="174">
-              <caret line="102" column="0" lean-forward="false" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
+            <state relative-caret-position="397">
+              <caret line="165" column="0" lean-forward="true" selection-start-line="165" selection-start-column="0" selection-end-line="165" selection-end-column="0" />
               <folding>
                 <element signature="e#40#55#0#PHP" expanded="true" />
               </folding>
@@ -403,9 +385,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>company</find>
-      <find>float</find>
-      <find>user</find>
       <find>tem</find>
       <find>$event</find>
       <find>venue_price</find>
@@ -431,8 +410,11 @@
       <find>Esti</find>
       <find>Next</find>
       <find>Est</find>
-      <find>personnel</find>
       <find>Warni</find>
+      <find>min</find>
+      <find>View Eve</find>
+      <find>theme</find>
+      <find>personnel</find>
     </findStrings>
     <replaceStrings>
       <replace>event_budget_template</replace>
@@ -485,7 +467,6 @@
         <option value="$PROJECT_DIR$/resources/views/bookingsummary.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/EventsController.php" />
         <option value="$PROJECT_DIR$/resources/views/layouts/navbars/navs/auth.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/listevents.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/client_quotation.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/company_quotation.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/layouts/navbars/sidebar.blade.php" />
@@ -500,11 +481,12 @@
         <option value="$PROJECT_DIR$/app/PackageItem.php" />
         <option value="$PROJECT_DIR$/app/PackageModel.php" />
         <option value="$PROJECT_DIR$/resources/views/bookevent.blade.php" />
-        <option value="$PROJECT_DIR$/routes/web.php" />
-        <option value="$PROJECT_DIR$/app/events.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/BookEventController.php" />
-        <option value="$PROJECT_DIR$/resources/views/editbookevent.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/client_reservation.blade.php" />
+        <option value="$PROJECT_DIR$/routes/web.php" />
+        <option value="$PROJECT_DIR$/resources/views/listevents.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/editbookevent.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/BookEventController.php" />
+        <option value="$PROJECT_DIR$/app/events.php" />
       </list>
     </option>
   </component>
@@ -938,12 +920,12 @@
       <workItem from="1574082976145" duration="87000" />
       <workItem from="1574083467768" duration="13468000" />
       <workItem from="1574140202157" duration="74954000" />
-      <workItem from="1574870233976" duration="6994000" />
+      <workItem from="1574870233976" duration="9577000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="328988000" />
+    <option name="totallyTimeSpent" value="331571000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -1015,13 +997,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/5cbb29b8-6af1-4c84-9557-6e7cf1a9e9d0/console_4.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="31" lean-forward="false" selection-start-line="2" selection-start-column="31" selection-end-line="2" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="dbDummy://dbtable:/11b9e3/5cbb29b8-6af1-4c84-9557-6e7cf1a9e9d0/cvjdb.event_dishes">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
@@ -1144,13 +1119,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="278">
           <caret line="102" column="29" lean-forward="false" selection-start-line="102" selection-start-column="29" selection-end-line="102" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/listevents.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="131">
-          <caret line="145" column="37" lean-forward="false" selection-start-line="145" selection-start-column="37" selection-end-line="211" selection-end-column="37" />
         </state>
       </provider>
     </entry>
@@ -1365,14 +1333,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/web.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="358">
-          <caret line="92" column="104" lean-forward="false" selection-start-line="92" selection-start-column="104" selection-end-line="92" selection-end-column="104" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/QuotationController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -1388,7 +1348,7 @@
         <state relative-caret-position="-3873">
           <caret line="109" column="61" lean-forward="true" selection-start-line="109" selection-start-column="61" selection-end-line="109" selection-end-column="61" />
           <folding>
-            <element signature="e#40#57#0#PHP" expanded="true" />
+            <element signature="e#40#57#0#PHP" expanded="false" />
             <element signature="e#14740#17084#0#PHP" expanded="false" />
             <element signature="e#17089#18566#0#PHP" expanded="false" />
           </folding>
@@ -1399,6 +1359,42 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1550">
           <caret line="123" column="0" lean-forward="true" selection-start-line="123" selection-start-column="0" selection-end-line="123" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/client_reservation.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="131">
+          <caret line="16" column="57" lean-forward="false" selection-start-line="16" selection-start-column="57" selection-end-line="16" selection-end-column="57" />
+          <folding>
+            <element signature="e#1494#1549#0#HTML" expanded="true" />
+            <element signature="e#1786#1851#0#HTML" expanded="true" />
+            <element signature="e#5753#5876#0#HTML" expanded="true" />
+            <element signature="e#7183#7231#0#HTML" expanded="true" />
+            <element signature="e#9367#9391#0#HTML" expanded="true" />
+            <element signature="e#9420#9475#0#HTML" expanded="true" />
+            <element signature="e#10644#10678#0#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/editEventBudget.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="17" column="20" lean-forward="true" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="20" />
+          <folding>
+            <element signature="n#style#0;n#form#0;n#!!top" expanded="true" />
+            <marker date="1573095651000" expanded="true" signature="7165:7186" ph="..." />
+            <marker date="1573095651000" expanded="true" signature="7370:7402" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/web.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="93" column="90" lean-forward="false" selection-start-line="93" selection-start-column="90" selection-end-line="93" selection-end-column="90" />
           <folding />
         </state>
       </provider>
@@ -1416,10 +1412,28 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/listevents.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="346">
+          <caret line="167" column="49" lean-forward="true" selection-start-line="167" selection-start-column="49" selection-end-line="167" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/editbookevent.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="232">
+          <caret line="119" column="91" lean-forward="false" selection-start-line="119" selection-start-column="91" selection-end-line="119" selection-end-column="91" />
+          <folding>
+            <element signature="e#395#1823#0#HTML" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/BookEventController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="102" column="0" lean-forward="false" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
+        <state relative-caret-position="397">
+          <caret line="165" column="0" lean-forward="true" selection-start-line="165" selection-start-column="0" selection-end-line="165" selection-end-column="0" />
           <folding>
             <element signature="e#40#55#0#PHP" expanded="true" />
           </folding>
@@ -1428,40 +1442,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/events.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="42" column="51" lean-forward="false" selection-start-line="42" selection-start-column="20" selection-end-line="42" selection-end-column="51" />
+        <state relative-caret-position="885">
+          <caret line="59" column="0" lean-forward="true" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
           <folding>
             <element signature="e#23#62#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/editbookevent.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="416">
-          <caret line="101" column="32" lean-forward="true" selection-start-line="101" selection-start-column="32" selection-end-line="101" selection-end-column="32" />
-          <folding>
-            <element signature="e#3615#3637#0#HTML" expanded="true" />
-            <element signature="e#3753#3775#0#HTML" expanded="true" />
-            <element signature="e#5196#5218#0#HTML" expanded="true" />
-            <element signature="e#5334#5356#0#HTML" expanded="true" />
-            <element signature="e#10156#10179#0#HTML" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/client_reservation.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="131">
-          <caret line="16" column="57" lean-forward="false" selection-start-line="16" selection-start-column="57" selection-end-line="16" selection-end-column="57" />
-          <folding>
-            <element signature="e#1494#1549#0#HTML" expanded="true" />
-            <element signature="e#1786#1851#0#HTML" expanded="true" />
-            <element signature="e#5753#5876#0#HTML" expanded="true" />
-            <element signature="e#7183#7231#0#HTML" expanded="true" />
-            <element signature="e#9367#9391#0#HTML" expanded="true" />
-            <element signature="e#9420#9475#0#HTML" expanded="true" />
-            <element signature="e#10644#10678#0#HTML" expanded="true" />
           </folding>
         </state>
       </provider>

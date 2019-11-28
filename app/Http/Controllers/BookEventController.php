@@ -110,20 +110,68 @@ class BookEventController extends Controller
             'emps_selected' => $emps_selected,'other_emps'=>$other_emp,'min_val_date'=>$min_val_day,
             'event_day'=>$format_start_day,'start_time'=>$start_time,'end_time'=>$end_time]);
     }
-    public function PosteditEventDetails($event_id)
+    public function PosteditEventDetails(Request $request)
     {
-        $event = events::where('event_id','=',$event_id)->first();
-        $client = ClientAccountModel::where('client_id','=',$event->client_id)->first();
-        $emps = $event->get_employees();
+        $event = events::where("event_id",'=',$request->input('event_id'))->first();
+
+        $startDateTime = Carbon::parse($request->input('eventStartDate')." ".$request->input('startTime'));
+        $endDateTime = Carbon::parse($request->input('eventStartDate')." ".$request->input('endTime'));
 
 
-        $min_val_day = Carbon::now()->addMonths(2)->format('Y-m-d');
-        $format_start_day = date("Y-m-d", strtotime($event->event_start));
-        $start_time = date("H:i:s", strtotime($event->event_start));
-        $end_time = date("H:i:s", strtotime($event->event_end));
-        return view('editbookevent', ['client' => $client,'event'=>$event,
-            'emps' => $emps,'min_val_date'=>$min_val_day,
-            'event_day'=>$format_start_day,'start_time'=>$start_time,'end_time'=>$end_time]);
+        $is_package_compat = $event->is_event_package_compatible();
+        $event->event_name = $request->input('eventName');
+        $event->event_type = $request->input('eventType');
+        $event->venue = $request->input('venue');
+        $event->event_start = $startDateTime;
+        $event->event_end = $endDateTime;
+        $event->venue = $request->input('venue');
+        $event->theme = $request->input('theme');
+        $event->others = $request->input('others');
+
+
+        $event->event_detailsAdded = $request->input('eventvenue');
+        $event->venue = $request->input('venue');
+        $event->is_holiday = $request->input('is_holiday');
+        $event->totalpax = $request->input('attendees');
+
+        $event->save();
+        $event->reset_event_employees();
+
+        for($i=0; $i<count($request->input("emps"));$i++){
+            error_log("data: ".$request->input("emps")[$i]);
+
+            $sched = new EmployeeEventSchedule();
+            $sched->employee_id= $request->get("emps")[$i];
+            $sched->event_id= $event->event_id;
+            $sched->event_date_time = $event->event_start;
+            $sched->save();
+        }
+
+        if (true == false){
+            $event->discard_package();
+        }
+
+/*
+        $event = new EventModel([
+            'event_name' => ,
+            'event_type' => $request->input('eventType'),
+            'venue' => $request->input('venue'),
+            'event_start' => $startDateTime,
+            'event_end' => $endDateTime,
+            'theme' => $request->input('theme'),
+            'totalpax' => null,
+            'others' => $request->input('others'),
+            'client_id' =>$request->input('client_id'),
+            'status' => 1,
+
+        ]);
+*/
+        //check if package is still compatible with event
+
+
+
+
+        return redirect('list_events');
     }
     /**
      * Store a newly created resource in storage.
@@ -245,7 +293,6 @@ class BookEventController extends Controller
         $sched->event_id= $event->event_id;
         $sched->event_date_time = $event->event_start;
         $sched->save();
-
     }
 
     //self::send_email(auth()->user()->name,"jeremy_ocampojr@dlsu.edu.ph", $request->input('eventName'));
