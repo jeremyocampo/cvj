@@ -98,7 +98,8 @@ class BookEventController extends Controller
     {
         $event = events::where('event_id','=',$event_id)->first();
         $client = ClientAccountModel::where('client_id','=',$event->client_id)->first();
-        $emps = $event->get_employees();
+        $emps_selected = $event->get_employees();
+        $other_emp =$event->get_available_personnel_on_date(date("Y-m-d", strtotime($event->event_start)));
 
 
         $min_val_day = Carbon::now()->addMonths(2)->format('Y-m-d');
@@ -106,7 +107,7 @@ class BookEventController extends Controller
         $start_time = date("H:i:s", strtotime($event->event_start));
         $end_time = date("H:i:s", strtotime($event->event_end));
         return view('editbookevent', ['client' => $client,'event'=>$event,
-            'emps' => $emps,'min_val_date'=>$min_val_day,
+            'emps_selected' => $emps_selected,'other_emps'=>$other_emp,'min_val_date'=>$min_val_day,
             'event_day'=>$format_start_day,'start_time'=>$start_time,'end_time'=>$end_time]);
     }
     public function PosteditEventDetails($event_id)
@@ -283,7 +284,7 @@ class BookEventController extends Controller
 
     }
 
-    
+
     public function get_available_personnel_on_date($date){
         $employees = Employee::all();
         $avail_personnel = array();

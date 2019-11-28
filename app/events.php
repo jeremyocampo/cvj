@@ -40,6 +40,18 @@ class events extends Model
 
         return true;
     }
+    public function get_available_personnel_on_date($date){
+        $employees = Employee::all();
+        $avail_personnel = array();
+
+        foreach($employees as $employee){
+            $has_event = EmployeeEventSchedule::whereDate('event_date_time','=',$date)->where('employee_id','=',$employee->employee_id)->first();
+            if($has_event == null){
+                array_push($avail_personnel,$employee);
+            }
+        }
+        return $avail_personnel;
+    }
     public function get_employees(){
         // Code goes here
         $employee_event_scheds = EmployeeEventSchedule::where('event_id','=',$this->event_id)->select('employee_id')->get();

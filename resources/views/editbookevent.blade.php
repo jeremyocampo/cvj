@@ -63,6 +63,10 @@
                                 <option value="200"> 200 </option>
                             </select>
                         </div>
+                        <div class="col-md-3 mb-2">
+                            <label style="color: #7c7c7c" class = "form-label"> Change Warning <font color="#adff2f">*</font></label><br>
+                            <small style="color: #7c7c7c"> Event's Package maybe discarded if <b>Estimated Attendees</b> is changed.</small>
+                        </div>
                         <div class="col-md-5 mb-3">
                             <label class = "form-label"> Event Name <font color="red">*</font></label>
                             <input type="text"  name="eventName" class="form-control"  required value="{{$event->event_name}}">
@@ -79,6 +83,11 @@
                                 <option value="Corporate"> Corporate </option>
                                 <option value="Others"> Others </option>
                             </select>
+                        </div>
+
+                        <div class="col-md-3 mb-2">
+                            <label style="color: #7c7c7c" class = "form-label"> Change Warning <font color="#adff2f">*</font></label><br>
+                            <small style="color: #7c7c7c"> Event's Package maybe discarded if <b>Event Type</b> is changed.</small>
                         </div>
 
                         <div class="col-md-5 mb-3">
@@ -147,9 +156,12 @@
                         <div class="col-md-4 mb-3" id="emp_col" style="display: block;">
                             <label class = "form-label"> Assign Personnel to Event</label>
                             <select class="js-example-basic-multiple" id="select_emps" onchange="dropdown_change_listener()" name="emps[]" style="width: 100%" multiple="multiple">
-                                @foreach($emps as $emp)
+                                @foreach($emps_selected as $emp)
                                     <option value="{{$emp->employee_id}}" selected>{{$emp->employee_FN}} {{$emp->employee_LN}}</option>
                                 @endforeach
+                                    @foreach($other_emps as $emp)
+                                        <option value="{{$emp->employee_id}}">{{$emp->employee_FN}} {{$emp->employee_LN}}</option>
+                                    @endforeach
                             </select>
                             <small>Minimum of 5 personnel in an event.</small>
                             <script>
@@ -165,7 +177,7 @@
                         <div class="col-md-12 mb-3">
                             <b id="warning_div" style="text-align: center;display: none;color: #ff4646"> Unable to proceed to next step. Please resolve the error.</b>
                             <div style="text-align:center;" id="submit_div">
-                                <button type="button" id="sumbit_btn" class="btn btn-success" disabled>Confirm Changes</button>
+                                <button type="button" id="sumbit_btn" class="btn btn-success">Confirm Changes</button>
                             </div>
                         </div>
                         {!! Form::close() !!}
@@ -188,7 +200,7 @@
 @push('js')
 
 <script>
-
+    var event_day = '{{$event_day}}';
     function dropdown_change_listener() {
         let len = $(".js-example-basic-multiple :selected").length;
         if (len >= 2){
@@ -212,7 +224,7 @@
         //if 2 dates are not null, check AJAX
         var start = document.getElementById('eventStartDate');
 
-        if(start !== null){
+        if(start !== null && start.value !== event_day){
             console.log(start.value);
             console.log($("#eventStartTime").val());
             console.log($("#eventEndTime").val());
