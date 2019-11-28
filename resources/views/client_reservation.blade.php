@@ -2,13 +2,7 @@
 @extends('layouts.app')
 @section('content')
 @include('layouts.headers.inventoryCard1')
-<style type="text/css" media="print">
-    @page{size:auto;margin:5mm}
-    @media print {
-        @page { margin: 0; }
-        body { margin: 1.6cm; }
-    }
-</style>
+
 <div class="container-fluid mt--7">
     <div class="card-body">
         <div class="col-xl-12 mb-5 mb-xl-0">
@@ -20,6 +14,12 @@
                 </div>
 
                 <div class="card-body border-0" id="printable">
+                    <style type="text/css" media="print">
+                        @media print {
+
+                            @page { size: legal}
+                        }
+                    </style>
                     <center>
                         <img src="{{ asset('argon') }}/img/brand/cvj.png" class="navbar-brand-img img-responsive" alt="..." height="100vh" width="175vw">
                         <br>
@@ -33,7 +33,7 @@
                     <hr style="border: none; border-bottom: 2px solid #2b2b2b;">
                     <div class="row" style="margin-top: 0vh;">
                         <div class="card-body" style="margin: 0;">
-                            <center><b>CONFIRMATION FOR A RESERVATION FOR A FOOD CATERING SERVICE</b><hr style="border: none; border-bottom: 2px solid #2b2b2b;width: 50%">
+                            <center><b>CONFIRMATION FOR A RESERVATION FOR A FOOD CATERING SERVICE</b><hr style="border: none; border-bottom: 1px solid #2b2b2b;width: 50%">
                             </center>
                             <div style="margin-top:5vh">
                             <br>
@@ -77,26 +77,49 @@
                             <br>
                             <label>Note / Terms of Payment</label><br>
                             <!-- Earl Please Encode Terms and Payment here-->
+                            <div style="
+                                  text-align: justify;
+                                  text-justify: inter-word;">
                             <ul>
-                                <li>Etits</li>
-                                <li>Etits</li>
-                                <li>Etits</li>
-                                <li>In Case of cancellation please contact ..</li>
+                                <li>
+                                    This form serves an official Confirmation of Reservation by the above client with CVJ FOOD Catering. With this confirmation form, Client is required to pay a reservation fee of Twetnty Thousand Pesos (P20,000.00). Reservation fee is deductible from the total contract price. Likewise, the reservation fee is non-refundable, non-transferable and non-consumable.
+                                </li>
+                                <li>
+                                    Other pertinent event details will be reflected on the Banquet Catering Contract after client finalizes party details. Client is required to finalize event details and sign the contract at least 2 month before the event date. This 50% payment is non-refundable, non-transferable, non-consumable.
+                                </li>
+                                <li>
+                                    Full Payment is settled 1 week before the event date.
+                                </li>
+                                <li>
+                                    Incase of cancellation, the following rules apply:
+                                </li>
                             </ul>
                             <ul style="list-style-type: circle;margin-left: 7vw">
                                 <li>
-                                    awit one
+                                    If the client decides to cancel reservation for whatever reason – 3 months or more than 2 months before the event date, the Twenty Thousand Pesos (P 20,000.00) reservation fee shall be retained and forfeited in favor of the CVJ Food Catering.
                                 </li>
                                 <li>
-                                    awit one
+                                    If the client decides to cancel reservation 2 months and or more than 1 month before the event date, a 50% payment (based on the balance amount of the availed package computation after the P 20,000.00 reservation fee) shall be paid by the client (If the client has not yet paid) or shall be retained (If client has settled the amount already) in favor of the CVJ.
+                                </li>
+                                <li>
+                                    If client decides to cancel reservation 1 month and or more than 2 weeks before the event date, a 70% payment (based on the balance amount of the availed package computation after the P 20,000.00 reservation fee) shall be paid by the client (if client has not done payment yet) or shall be retained (if client has settled the amount already) in favor of the CVJ.
+                                </li>
+                                <li>
+                                    If client decides to cancel 2 weeks or less before the event date, the client shall pay for the 80% of the balance amount of the availed package computation after the P 20,000.00 reservation fee.
+                                </li>
+                                <li>
+                                    If the cancellation is made at the date of the event, the client shall pay for the full amount of the contract price.
                                 </li>
                             </ul>
                             <!-- -->
+                            </div>
                         </div>
                     </div>
                     <hr style="border-top: dotted 1px;">
                     <br>
-                    <label style="width: 100%;margin-bottom: 3vh;">
+                    <br>
+                    <br style="margin-top:50px;">
+                    <label style="width: 100%;margin-top:10vh;margin-bottom: 3vh;">
                         <div style="display:inline-block;width: 25%">Signature of Client </div>
                         <div style="display:inline-block;width: 8%">:</div>
                         <div style="display:inline-block;width:50%;border-bottom:1px solid #000000; padding-bottom:0px;"> </div>
@@ -114,7 +137,7 @@
                         <div style="display:inline-block;width:50%;border-bottom:1px solid #000000; padding-bottom:0px;"> </div>
                     </label><br><br>
 
-                    <div class="row" style="margin-top:10vh;width: 100%">
+                    <div class="row" style="margin-top:5vh;width: 100%">
                         <div style="display:inline-block;width: 18%">Prepared By : </div>
                         <div style="display:inline-block;width:35%;border-bottom:1px solid #000000; padding-bottom:0px;"> </div>
                         <div style="display:inline-block;width: 8%"></div>

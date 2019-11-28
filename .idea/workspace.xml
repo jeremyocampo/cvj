@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="acb9a2cb-0c91-4cfe-98e9-5d7151ab0887" name="Default Changelist" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/editbookevent.blade.php" afterPath="$PROJECT_DIR$/resources/views/editbookevent.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/client_reservation.blade.php" afterPath="$PROJECT_DIR$/resources/views/client_reservation.blade.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -319,17 +319,35 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="editbookevent.blade.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="editbookevent.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/editbookevent.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="339">
-              <caret line="98" column="51" lean-forward="true" selection-start-line="98" selection-start-column="51" selection-end-line="98" selection-end-column="51" />
+            <state relative-caret-position="416">
+              <caret line="101" column="32" lean-forward="true" selection-start-line="101" selection-start-column="32" selection-end-line="101" selection-end-column="32" />
               <folding>
                 <element signature="e#3615#3637#0#HTML" expanded="true" />
                 <element signature="e#3753#3775#0#HTML" expanded="true" />
                 <element signature="e#5196#5218#0#HTML" expanded="true" />
                 <element signature="e#5334#5356#0#HTML" expanded="true" />
                 <element signature="e#10156#10179#0#HTML" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="client_reservation.blade.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/resources/views/client_reservation.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="131">
+              <caret line="16" column="57" lean-forward="false" selection-start-line="16" selection-start-column="57" selection-end-line="16" selection-end-column="57" />
+              <folding>
+                <element signature="e#1494#1549#0#HTML" expanded="true" />
+                <element signature="e#1786#1851#0#HTML" expanded="true" />
+                <element signature="e#5753#5876#0#HTML" expanded="true" />
+                <element signature="e#7183#7231#0#HTML" expanded="true" />
+                <element signature="e#9367#9391#0#HTML" expanded="true" />
+                <element signature="e#9420#9475#0#HTML" expanded="true" />
+                <element signature="e#10644#10678#0#HTML" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -474,7 +492,6 @@
         <option value="$APPLICATION_CONFIG_DIR$/consoles/db/5cbb29b8-6af1-4c84-9557-6e7cf1a9e9d0/console_5.sql" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/QuotationController.php" />
         <option value="$PROJECT_DIR$/resources/views/old_customizePackage.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/client_reservation.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/list_packages.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/FileController.php" />
         <option value="$PROJECT_DIR$/resources/views/customizePackage.blade.php" />
@@ -487,6 +504,7 @@
         <option value="$PROJECT_DIR$/app/events.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/BookEventController.php" />
         <option value="$PROJECT_DIR$/resources/views/editbookevent.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/client_reservation.blade.php" />
       </list>
     </option>
   </component>
@@ -920,12 +938,12 @@
       <workItem from="1574082976145" duration="87000" />
       <workItem from="1574083467768" duration="13468000" />
       <workItem from="1574140202157" duration="74954000" />
-      <workItem from="1574870233976" duration="6174000" />
+      <workItem from="1574870233976" duration="6994000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="328168000" />
+    <option name="totallyTimeSpent" value="328988000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -1168,13 +1186,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1756">
           <caret line="246" column="20" lean-forward="false" selection-start-line="246" selection-start-column="20" selection-end-line="246" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/client_reservation.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="407">
-          <caret line="85" column="62" lean-forward="false" selection-start-line="85" selection-start-column="62" selection-end-line="85" selection-end-column="62" />
         </state>
       </provider>
     </entry>
@@ -1427,14 +1438,30 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/editbookevent.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="98" column="51" lean-forward="true" selection-start-line="98" selection-start-column="51" selection-end-line="98" selection-end-column="51" />
+        <state relative-caret-position="416">
+          <caret line="101" column="32" lean-forward="true" selection-start-line="101" selection-start-column="32" selection-end-line="101" selection-end-column="32" />
           <folding>
             <element signature="e#3615#3637#0#HTML" expanded="true" />
             <element signature="e#3753#3775#0#HTML" expanded="true" />
             <element signature="e#5196#5218#0#HTML" expanded="true" />
             <element signature="e#5334#5356#0#HTML" expanded="true" />
             <element signature="e#10156#10179#0#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/client_reservation.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="131">
+          <caret line="16" column="57" lean-forward="false" selection-start-line="16" selection-start-column="57" selection-end-line="16" selection-end-column="57" />
+          <folding>
+            <element signature="e#1494#1549#0#HTML" expanded="true" />
+            <element signature="e#1786#1851#0#HTML" expanded="true" />
+            <element signature="e#5753#5876#0#HTML" expanded="true" />
+            <element signature="e#7183#7231#0#HTML" expanded="true" />
+            <element signature="e#9367#9391#0#HTML" expanded="true" />
+            <element signature="e#9420#9475#0#HTML" expanded="true" />
+            <element signature="e#10644#10678#0#HTML" expanded="true" />
           </folding>
         </state>
       </provider>
