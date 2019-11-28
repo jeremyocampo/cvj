@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="acb9a2cb-0c91-4cfe-98e9-5d7151ab0887" name="Default Changelist" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/BookEventController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/BookEventController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/events.php" afterPath="$PROJECT_DIR$/app/events.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/editbookevent.blade.php" afterPath="$PROJECT_DIR$/resources/views/editbookevent.blade.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -324,14 +322,14 @@
       <file leaf-file-name="editbookevent.blade.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/editbookevent.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="438">
-              <caret line="230" column="38" lean-forward="true" selection-start-line="230" selection-start-column="38" selection-end-line="230" selection-end-column="38" />
+            <state relative-caret-position="339">
+              <caret line="98" column="51" lean-forward="true" selection-start-line="98" selection-start-column="51" selection-end-line="98" selection-end-column="51" />
               <folding>
                 <element signature="e#3615#3637#0#HTML" expanded="true" />
                 <element signature="e#3753#3775#0#HTML" expanded="true" />
-                <element signature="e#5189#5211#0#HTML" expanded="true" />
-                <element signature="e#5327#5349#0#HTML" expanded="true" />
-                <element signature="e#10142#10165#0#HTML" expanded="true" />
+                <element signature="e#5196#5218#0#HTML" expanded="true" />
+                <element signature="e#5334#5356#0#HTML" expanded="true" />
+                <element signature="e#10156#10179#0#HTML" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -387,7 +385,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>u</find>
       <find>company</find>
       <find>float</find>
       <find>user</find>
@@ -417,6 +414,7 @@
       <find>Next</find>
       <find>Est</find>
       <find>personnel</find>
+      <find>Warni</find>
     </findStrings>
     <replaceStrings>
       <replace>event_budget_template</replace>
@@ -922,12 +920,12 @@
       <workItem from="1574082976145" duration="87000" />
       <workItem from="1574083467768" duration="13468000" />
       <workItem from="1574140202157" duration="74954000" />
-      <workItem from="1574870233976" duration="5831000" />
+      <workItem from="1574870233976" duration="6174000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="327825000" />
+    <option name="totallyTimeSpent" value="328168000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -1429,14 +1427,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/editbookevent.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="438">
-          <caret line="230" column="38" lean-forward="true" selection-start-line="230" selection-start-column="38" selection-end-line="230" selection-end-column="38" />
+        <state relative-caret-position="339">
+          <caret line="98" column="51" lean-forward="true" selection-start-line="98" selection-start-column="51" selection-end-line="98" selection-end-column="51" />
           <folding>
             <element signature="e#3615#3637#0#HTML" expanded="true" />
             <element signature="e#3753#3775#0#HTML" expanded="true" />
-            <element signature="e#5189#5211#0#HTML" expanded="true" />
-            <element signature="e#5327#5349#0#HTML" expanded="true" />
-            <element signature="e#10142#10165#0#HTML" expanded="true" />
+            <element signature="e#5196#5218#0#HTML" expanded="true" />
+            <element signature="e#5334#5356#0#HTML" expanded="true" />
+            <element signature="e#10156#10179#0#HTML" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -65,7 +65,7 @@
                         </div>
                         <div class="col-md-3 mb-2">
                             <label style="color: #7c7c7c" class = "form-label"> Change Warning <font color="#adff2f">*</font></label><br>
-                            <small style="color: #7c7c7c"> Event's Package maybe discarded if <b>Estimated Attendees</b> is changed.</small>
+                            <small style="color: #7c7c7c"> Event's Chosen Package maybe discarded if <b>Estimated Attendees</b> is changed.</small>
                         </div>
                         <div class="col-md-5 mb-3">
                             <label class = "form-label"> Event Name <font color="red">*</font></label>
@@ -87,7 +87,7 @@
 
                         <div class="col-md-3 mb-2">
                             <label style="color: #7c7c7c" class = "form-label"> Change Warning <font color="#adff2f">*</font></label><br>
-                            <small style="color: #7c7c7c"> Event's Package maybe discarded if <b>Event Type</b> is changed.</small>
+                            <small style="color: #7c7c7c"> Event's Chosen Package maybe discarded if <b>Event Type</b> is changed.</small>
                         </div>
 
                         <div class="col-md-5 mb-3">
