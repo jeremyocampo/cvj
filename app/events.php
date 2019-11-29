@@ -39,6 +39,11 @@ class events extends Model
 
         return true;
     }
+    public function package(){
+        // Code goes here
+
+        return PackageModel::where('package_id','=',$this->package_id)->first();
+    }
     public function get_available_personnel_on_date($date){
         $employees = Employee::all();
         $avail_personnel = array();
@@ -83,5 +88,51 @@ class events extends Model
         $emps = Employee::whereIn('employee_id',$employee_event_scheds)->get();
 
         return $emps;
+    }
+    public function get_analogous_event_model(){
+        $events_past = events::where('event_id','!=',$this->event_id)->where('package_id','=',$this->package_id)->get()->reverse();
+        if(count($events_past) != 0){
+            return $events_past[0];
+        }
+        return null;
+    }
+    public function event_budget_create(){
+        //create a budget.
+        $event_package = $this->package();
+        $is_analogous = $this->get_analogous_event_model() != null;
+        $budget = new EventBudget();
+        $budget->event_id = $this->event_id;
+        $budget->total_budget = 0;
+        $budget->save(); //still no buffer in budget.
+
+        $event_dishes = EventDishes::where('event_id','=',$this->event_id)->get();
+
+        //create food item
+        $budget_item = new EventBudgetItem();
+        $budget_item->event_budget_id = $budget->id;
+        $budget_item->item_name = "Food";
+        $budget_item->budget_amount = 0;
+        $budget_item->actual_amount = 0;
+        $budget_item->save();
+
+        //load foods
+        foreach ($event_dishes as $event_dish){
+            $event_dish_item =  $event_dish->get_item();
+            $event_budget_subitem = new EventBudgetSubItem();
+            $event_budget_subitem->item_name = $event_dish_item->item_name;
+            if($is_analogous == false){
+                $event_budget_subitem->budget_amount = $event_dish_item->unit_expense * $event_package->suggested_pax;
+            }
+            else{
+                //think about analingus later.
+            }
+            $event_budget_subitem->actual_amount = 0;
+            $budget_item->budget_amount += $event_budget_subitem->budget_amount;
+            $event_budget_subitem->save();
+        }
+
+        $budget->total_budget += $budget_item->budget_amount;
+        $budget->save();
+        //save
     }
 }

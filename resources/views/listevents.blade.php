@@ -151,7 +151,7 @@
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-arrow dropdown-menu">
                                             <div class=" dropdown-header noti-title">
-                                                <h6 class="text-overflow m-0">{{ __('Please Select an Action!') }}</h6>
+                                                <h6 class="text-overflow m-0">{{ __('Event Options:') }}</h6>
                                             </div>
                                             <a  class="dropdown-item" href="#"  data-toggle="modal"
                                                res_dlink="{{$i->reservation_file_path}}" dep_dlink="{{$i->deposit_file_path}}" event_id="{{$i->event_id}}"
@@ -173,8 +173,11 @@
                                                     cursor: pointer;
                                                 }
                                             </style>
-
                                             <div class="dropdown-divider"></div>
+
+                                            <div class=" dropdown-header noti-title">
+                                                <h6 class="text-overflow m-0">{{ __('Quotation Options:') }}</h6>
+                                            </div>
                                             <a href="{{ url('summary/'.$i->event_id) }}" class="dropdown-item">
                                                 <i class="ni ni-single-copy-04"></i>
                                                 <span>Event Summary</span>
@@ -183,6 +186,10 @@
                                                 <i class="ni ni-single-02"></i>
                                                 <span>Client Quotation</span>
                                             </a>
+                                            <a href="download/{{$i->reservation_file_path}}" class="dropdown-item">
+                                                <i class="ni ni-single-02"></i>
+                                                <span>Generate Reservation Form</span>
+                                            </a>
                                             @if($user->userType == 4)
                                             <a href="{{ url('company_quotation/'.$i->event_id) }}" class="dropdown-item">
                                                 <i class="ni ni-shop"></i>
@@ -190,6 +197,28 @@
                                             </a>
                                             @endif
                                             <div class="dropdown-divider"></div>
+
+                                            <div class=" dropdown-header noti-title">
+                                                <h6 class="text-overflow m-0">{{ __('Package Options:') }}</h6>
+                                            </div>
+
+                                            @if($i->package_id != null)
+                                                <a href="{{ url('company_quotation/'.$i->event_id) }}" class="dropdown-item">
+                                                    <i class="ni ni-shop"></i>
+                                                    <span>Edit Package</span>
+                                                </a>
+                                                <a href="{{ url('company_quotation/'.$i->event_id) }}" class="dropdown-item">
+                                                    <i class="ni ni-shop"></i>
+                                                    <span>Remove Package</span>
+                                                </a>
+                                            @else
+                                                <a href="{{ url('company_quotation/'.$i->event_id) }}" class="dropdown-item">
+                                                    <i class="ni ni-shop"></i>
+                                                    <span>Add Package</span>
+                                                </a>
+                                            @endif
+                                            <div class="dropdown-divider"></div>
+                                            {{--
                                             <a href="{{ url('events/'.$i->event_id) }}" class="dropdown-item">
                                                 <i class="ni ni-zoom-split-in"></i>
                                                 < Inc? ><span>{{ __('View Event Details') }}</span>
@@ -210,6 +239,7 @@
                                                 {{ Form::hidden('_method','DELETE')}}
                                                 {!! Form::close() !!}
                                             </a>
+                                            --}}
                                         </div>
                                     </div>
                                     {{-- <a class="btn btn-sm btn-primary" href="inventory/{{ $i->itemId }}/edit"> Replenish Item </a> mahaba--}}
