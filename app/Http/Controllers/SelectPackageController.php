@@ -113,6 +113,7 @@ class SelectPackageController extends Controller
 
             $package_item->save();
         }
+
         $package->save();
     }
     /**
@@ -231,6 +232,7 @@ class SelectPackageController extends Controller
             $e_dsh->save();
         }
         $event->set_default_cost_amount();
+        $this->generate_quotation($event->event_id);
         return redirect('/summary/'.$event->event_id);
     }
     /**
@@ -307,6 +309,8 @@ class SelectPackageController extends Controller
         }
         $event->save();
         $event->set_default_cost_amount();
+
+        $this->generate_quotation($event->event_id);
 
         return redirect('/summary/'.$event->event_id);
     }
@@ -424,6 +428,77 @@ class SelectPackageController extends Controller
 
         return view('prototype_views/customizePackageTest',['venue_price'=>($event->venue == null ? null:$venue_cost_table[$event->venue]),'user_id'=>$client_id,'package'=>$package,'event'=>$event,'avail_foods'=>$avail_foods,'avail_invs'=>$avail_invs]);
     }
+    public function export_quotation_pdf($data,$event_id)
+    {
+        $event = events::where('event_id','=',$event_id)->first();
+        // Fetch all customers from database
+        //$data = Customer::get();
+        // Send data to the view using loadView function of PDF facade
+
+        $pdf = PDF::loadView('samp', $data);
+        $fileName = time()."_cliQuot_autogen.pdf";
+
+        error_log("idyota: ".$fileName);
+        $event->save_client_quotation('/app/uploads/'.$fileName);
+        // If you want to store the generated pdf to the server then you can use the store function
+        $pdf->save(storage_path().'/app/uploads/'.$fileName);
+
+
+        //  $request->fileToUpload_deposit->storeAs('uploads',$fileName);
+        // Finally, you can download the file using download function
+        return redirect('list_events');
+    }
+    public function generate_quotation($event_id){
+        $event = Event::where('event_id','=',$event_id)->first();
+        $client = Client::where('client_id','=',$event->client_id)->first();
+
+        $is_off_premise = $event->venue == "Off-Premise";
+        $event->formatted_day = date("M jS, Y", strtotime($event->event_start));
+        $event->formatted_start = date("g:i A", strtotime($event->event_start));
+        $event->formatted_end = date("g:i A", strtotime($event->event_end));
+
+        $package = PackageModel::where('package_id','>=',$event->package_id)->first();
+        $food_items =PackageItem::where('package_id','=',$package->package_id)->select('item_id')->get();
+        $food_items =$food_items->toArray();
+        $package->foods = Items::whereIn('item_id',$food_items)->get();
+        $package->inventory = PackageInventory::where('package_id','=',$package->package_id)->get();
+
+        $event_inventories = EventInventory::where('event_id','=',$event->event_id)->where('is_addition','=',true)->get();
+        $event_dishes = EventDishes::where('event_id','=',$event->event_id)->where('is_addition','=',true)->get();
+
+        $additional_count = $event_inventories->count() + $event_dishes->count();
+
+        $employees_id = EmployeeEventSchedule::where("event_id",'=',$event_id)->get();
+        $total_staff_cost = 0;
+
+        foreach($employees_id as $employee_id){
+            $emp = Employee::where('employee_id','=',$employee_id)->first();
+            $total_staff_cost += 800; //dummy calculation of wages per day or gig.
+        }
+        $add_inv_total = 0;
+        foreach ($event_inventories as $inventory){
+            $inventory->inventory_name = inventory::where('inventory_id','=',$inventory->inventory_id)->first()->inventory_name;
+            $add_inv_total += $inventory->qty * $inventory->rent_price;
+        }
+        $add_dish_total = 0;
+        foreach ($event_dishes as $dish){
+            $dish->item_name = Items::where('item_id','=',$dish->item_id)->first()->item_name;
+            $add_dish_total += $dish->total_price;
+        }
+
+        foreach ($package->inventory as $inventory){
+            $inventory->inventory_name = inventory::where('inventory_id','=',$inventory->inventory_id)->first()->inventory_name;
+        }
+        error_log("dish: ".$add_dish_total);
+        error_log("inv: ".$add_inv_total);
+
+        $this->export_quotation_pdf(['package'=>$package,'event'=>$event,'user_id'=>$client_id,'client'=>$client,
+            'additional_count'=>$additional_count,'add_dish_total'=>$add_dish_total,'add_inv_total'=>$add_inv_total,
+            'additional_dishes'=>$event_dishes, 'is_off_premise'=>$is_off_premise,
+            'additional_invs'=>$event_inventories,'staff_count'=>count($employees_id),'staff_cost'=>$total_staff_cost],$event_id);
+
+    }
+
     public function additional_package($event_id, $package_id=null)
     {
         $package = null;
@@ -465,6 +540,7 @@ class SelectPackageController extends Controller
     public function update(Request $request, $id)
     {
         //
+
     }
     public function edit_event_package($event_id)
     {
@@ -506,6 +582,7 @@ class SelectPackageController extends Controller
 
             error_log("awit??: ".$dish);
         }
+
         return view('editselectedPackage',['user_id'=>$client_id,'package'=>$package,'event'=>$event,
             'avail_foods'=>$avail_foods,'avail_invs'=>$avail_invs,
             'add_invs'=>$event_inventories,'add_dishes'=>$event_dishes]);
@@ -556,6 +633,8 @@ class SelectPackageController extends Controller
             $event->total_amount_due = $event->total_amount_due * 1.15;
         }
         $event->save();
+
+        $this->generate_quotation($event->event_id);
         $event->set_default_cost_amount();
 
         // When to renew quotation.

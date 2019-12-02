@@ -152,10 +152,13 @@
                                                     <div class=" dropdown-header noti-title">
                                                         <h6 class="text-overflow m-0">{{ __('Quotation Options:') }}</h6>
                                                     </div>
+
+                                                    @if($i->package_id != null)
                                                     <a href="{{ url('summary/'.$i->event_id) }}" class="dropdown-item">
                                                         <i class="ni ni-single-copy-04"></i>
                                                         <span>Event Summary</span>
                                                     </a>
+
                                                     <a href="{{ url('client_quotation/'.$i->event_id) }}" class="dropdown-item">
                                                         <i class="ni ni-single-02"></i>
                                                         <span>Client Quotation</span>
@@ -176,10 +179,9 @@
                                                         <h6 class="text-overflow m-0">{{ __('Package Options:') }}</h6>
                                                     </div>
 
-                                                    @if($i->package_id != null)
                                                         <a href="{{ url('edit_event_package/'.$i->event_id) }}" class="dropdown-item">
                                                             <i class="ni ni-shop"></i>
-                                                            <span>Edit Package {under construction}</span>
+                                                            <span>Edit Package</span>
                                                         </a>
                                                         <a href="{{ url('remove_event_package/'.$i->event_id) }}" class="dropdown-item">
                                                             <i class="ni ni-shop"></i>
