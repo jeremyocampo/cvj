@@ -59,9 +59,13 @@ class ConfirmEventsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function confirm($event_id)
     {
-       
+       $event = events::where('event_id','=',$event_id)->first();
+       $event->status = 2;
+
+       //finalize the quotation here
+       //finalize budget and costings method used here.
     }
 
     /**

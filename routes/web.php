@@ -88,12 +88,15 @@ Route::resource('bookevent', 'BookEventController');
 Route::resource('eventdashboard','EventsHomeDashboard');
 Route::resource('confirmevents', 'ConfirmEventsController');
 
+Route::get('confirm_event/{$event_id}', 'ConfirmEventsController@confirm_event');
+
 Route::get('date_range', 'DateRangeController@index');
 
 Route::get('bookevent/edit/{event_id}', 'BookEventController@editEventDetails')->name('edit.bookevent');
 Route::post('editevent', 'BookEventController@PosteditEventDetails')->name('post.editevent');
 
 Route::get('/download/storage/public/{file}', 'FileController@download');
+Route::post('change_costing_method', 'QuotationController@change_costing_method')->name('post.costing_method');
 
 Route::post('upload_event_forms', 'FileController@upload_event_forms')->name('file_upload');
 Route::get('selectpackages/{event_id}', 'SelectPackageController@index')->name('get.selectpackages');

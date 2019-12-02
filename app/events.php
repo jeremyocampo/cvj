@@ -41,9 +41,20 @@ class events extends Model
     }
     public function package(){
         // Code goes here
-
         return PackageModel::where('package_id','=',$this->package_id)->first();
     }
+
+    public function reset_event_dish_cost_amount(){
+        // Code goes here
+        $event_dishes = EventDishes::where('event_id','=',$this->event_id)->get();
+
+        foreach($event_dishes as $event_dish){
+            $event_dish->cost_amount = null;
+            $event_dish->save();
+        }
+        return true;
+    }
+
     public function get_available_personnel_on_date($date){
         $employees = Employee::all();
         $avail_personnel = array();
@@ -90,16 +101,29 @@ class events extends Model
         return $emps;
     }
     public function get_analogous_event_model(){
-        $events_past = events::where('event_id','!=',$this->event_id)->where('package_id','=',$this->package_id)->get()->reverse();
+        //include only those confirmed event.
+        $events_past = events::where('event_id','!=',$this->event_id)->
+                               where('package_id','=',$this->package_id)->
+                               where('status','=',5)->get()->reverse();
         if(count($events_past) != 0){
             return $events_past[0];
         }
-        return null;
+        return -1;
+    }
+    public function set_default_cost_amount(){
+        $event_dishes = EventDishes::where('event_id','=',$this->event_id)->get();
+        $event_package = $this->package();
+
+        foreach($event_dishes as $event_dish){
+            $event_dish_item =  $event_dish->get_item();
+            $event_dish->cost_amount = $event_dish_item->unit_expense * $event_package->suggested_pax;;
+            $event_dish->save();
+        }
     }
     public function event_budget_create(){
         //create a budget.
-        $event_package = $this->package();
-        $is_analogous = $this->get_analogous_event_model() != null;
+        //$event_package = $this->package();
+        //$is_analogous = $this->get_analogous_event_model() != null;
         $budget = new EventBudget();
         $budget->event_id = $this->event_id;
         $budget->total_budget = 0;
@@ -107,6 +131,31 @@ class events extends Model
 
         $event_dishes = EventDishes::where('event_id','=',$this->event_id)->get();
 
+        foreach ($event_dishes as $event_dish){
+            $event_dish_item =  $event_dish->get_item();
+            $budget_item = new EventBudgetItem();
+            $budget_item->event_budget_id = $budget->id;
+            $budget_item->item_name = $event_dish_item->item_name;
+
+            $budget_item->actual_amount = 0;
+            $budget_item->item_tag = "Food";
+            $budget_item->budget_amount = $event_dish->cost_amount();
+
+            /*
+            if($this->costing_method == null){
+                $budget_item->budget_amount = $event_dish_item->unit_expense * $event_package->suggested_pax;
+            }
+            else{
+                $budget_item->budget_amount = $event_dish->cost_amount;
+                //think about analingus later.
+            }*/
+
+            $budget_item->save();
+            $budget->total_budget += $budget_item->budget_amount;
+        }
+
+        $budget->save();
+        /*   //sub item_implementation.
         //create food item
         $budget_item = new EventBudgetItem();
         $budget_item->event_budget_id = $budget->id;
@@ -114,7 +163,6 @@ class events extends Model
         $budget_item->budget_amount = 0;
         $budget_item->actual_amount = 0;
         $budget_item->save();
-
         //load foods
         foreach ($event_dishes as $event_dish){
             $event_dish_item =  $event_dish->get_item();
@@ -130,9 +178,7 @@ class events extends Model
             $budget_item->budget_amount += $event_budget_subitem->budget_amount;
             $event_budget_subitem->save();
         }
-
-        $budget->total_budget += $budget_item->budget_amount;
-        $budget->save();
+        */
         //save
     }
 }

@@ -15,16 +15,21 @@
             <div class="col-xl-12 mb-5 mb-xl-0">
                 <div class="card shadow">
                     <div class="card-header border-0" style="text-align: right;padding: 1vh;margin:0;">
+
+                        <form action="{{route('post.costing_method')}}" style="display: inline" method="post">
+                            @csrf
+                            <input type="hidden" name="event_id" value="{{$event->event_id}}">
+                            <select name="costing_method" @if($event->status < 2) onchange="$('#change_btn').click();" @endif  style="width: 20%; display: inline" id = "eventType">
+                                @foreach($avail_methods as $method)
+                                    <option value="{{$method['value']}}" @if($method['selected']) selected @endif> {{$method['name']}} </option>
+                                @endforeach
+                            </select>
+                            <button type="submit" id="change_btn" style="display: none;" class="form-control btn-small">Choose</button>
+                        </form>
                         <a class="btn btn-sm btn-primary" onclick="PrintElem('printable')" href="#">
                             Print Quote <i class="fa fa-print"></i>
                         </a>
-                        <select style="width: 25%;" id = "eventType">
-                            <option value="Wedding"> Analogous Cost Estimation </option>
-                            <option value="Birthday"> Parametric Cost Estimation </option>
-                            <option value="Others"> Others </option>
-                        </select>
                     </div>
-
                     <div class="card-body border-0" id="printable">
                         <style>
                             .th_tbl{
@@ -241,8 +246,6 @@
                                 </div>
                             </u>
                         </div>
-
-
                     </div>
                 </div>
             </div>

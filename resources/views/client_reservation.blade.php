@@ -147,7 +147,7 @@
                         <div style="display:inline-block;width: 18%"></div>
                         <div style="display:inline-block;width: 35%"><center>CVJ Banquet Coordinator</center></div>
                         <div style="display:inline-block;width: 8%"></div>
-                        <div style="display:inline-block;width: 35%"><center>CVJ Operations Manager/Accounting - Finance</center></div>
+                        <div style="display:inline-block;width: 35%"><center>CVJ Operations Manager</center></div>
 
                     </div>
 

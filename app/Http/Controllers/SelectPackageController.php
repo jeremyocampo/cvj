@@ -230,7 +230,7 @@ class SelectPackageController extends Controller
             $e_dsh->is_addition = false;
             $e_dsh->save();
         }
-
+        $event->set_default_cost_amount();
         return redirect('/summary/'.$event->event_id);
     }
     /**
@@ -306,7 +306,7 @@ class SelectPackageController extends Controller
             $event->total_amount_due = $event->total_amount_due * 1.15;
         }
         $event->save();
-
+        $event->set_default_cost_amount();
 
         return redirect('/summary/'.$event->event_id);
     }

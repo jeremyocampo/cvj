@@ -136,14 +136,29 @@ class QuotationController extends Controller
                 'additional_dishes'=>$event_dishes, 'is_off_premise'=>$is_off_premise,
                 'additional_invs'=>$event_inventories,'staff_count'=>count($employees_id),'staff_cost'=>$total_staff_cost]);
     }
-
     public function company_quotation($event_id)
     {
         //inventory items //food items
         $client_id = Auth::id();
+        $avail_methods = array();
 
-        $event = Event::where('event_id','=',$event_id)->first();
+
+        $event = events::where('event_id','=',$event_id)->first();
         $client = Client::where('client_id','=',$event->client_id)->first();
+
+        $is_analogous = $event->get_analogous_event_model();
+        error_log("is analogous: ".$event->get_analogous_event_model());
+        if($event->status < 2 ){
+            if($is_analogous == true){
+                array_push($avail_methods, array("selected"=>true,"value"=>"analogous","name"=>"Analogous Estimation"));
+            }
+            if($event->costing_method == null){
+                array_push($avail_methods, array("selected"=>true,"value"=>null,"name"=>"Fixed Estimation"));
+            }
+            else{
+                array_push($avail_methods, array("selected"=>false,"value"=>null,"name"=>"Fixed Estimation"));
+            }
+        }
 
         $event->formatted_day = date("M jS, Y", strtotime($event->event_start));
         $event->formatted_start = date("g:i A", strtotime($event->event_start));
@@ -184,14 +199,17 @@ class QuotationController extends Controller
         foreach ($event_dishes as $dish){
             $itm = Items::where('item_id','=',$dish->item_id)->first();
             $dish->item_name = $itm->item_name;
-            $dish->unit_expense = $itm->unit_expense;
 
-            $total_dish_cost += $dish->unit_expense * $package->suggested_pax;
+            $dish->unit_expense = $is_analogous != -1 ? round($dish->get_analogous_item($event_id)->actual_amount/$package->suggested_pax,2) : $itm->unit_expense;
+            $total_dish_cost += $is_analogous != -1 ? $dish->get_analogous_item($event_id)->actual_amount: $itm->unit_expense * $package->suggested_pax;
+
         }
+        error_log("total_dish_cost: ".$total_dish_cost);
         foreach($outsourced_items as $outsourced_item){
             $out_item = OutsourcedItem::where('outsourced_item_id','=',$outsourced_item->outsourced_item_id)->first();
             $total_outsource_cost += $outsourced_item->total_price;
             $outsourced_item->item_name = $out_item->item_name;
+            //idk with this.
         }
         //extra cost is idk. Maybe per KM distance. Google Calculate Distance API?
         $total_cost = $total_staff_cost + $total_outsource_cost + $total_dish_cost + $total_inv_cost + $extra_cost;
@@ -200,6 +218,26 @@ class QuotationController extends Controller
                 'additional_count'=>$additional_count,'additional_dishes'=>$event_dishes, 'staffs'=>$employees,
                 'additional_invs'=>$event_inventories,'staff_count'=>count($employees_id),'staff_cost'=>$total_staff_cost,
                 'total_cost'=>$total_cost,'total_dish_cost'=>$total_dish_cost , 'total_inv_cost'=>$total_inv_cost,
-                'outsourced_items'=>$outsourced_items,'extra_cost'=>$extra_cost,'total_outsource_cost'=>$total_outsource_cost]);
+                'outsourced_items'=>$outsourced_items,'extra_cost'=>$extra_cost,'total_outsource_cost'=>$total_outsource_cost,
+                'avail_methods'=>$avail_methods]);
+    }
+    public function change_costing_method(Request $request){
+        $event = events::where('event_id','=',$request->input("event_id"))->first();
+        $event->costing_method = $request->input("costing_method");
+        $event->reset_event_dish_cost_amount();
+
+        if($this->get_analogous_event_model() != null){
+            $event_dishes = EventDishes::where('event_id','=',$request->input("event_id"))->get();
+            foreach($event_dishes as $event_dish){
+                $event_dish->cost_amount = $event_dish->get_analogous_item($event->event_id)->actual_amount;
+                $event_dish->save();
+            }
+        }
+        else{
+            $event->set_default_cost_amount();
+        }
+
+        $event->save();
+        return redirect('company_quotation/'.$request->input("event_id"));
     }
 }
