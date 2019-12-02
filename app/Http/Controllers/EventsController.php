@@ -125,14 +125,30 @@ class EventsController extends Controller
         // $check = (Carbon::parse($date)->gt($event[0]->event_start));
         $upcomingPendingEvents = array();
         $upcomingApprovedEvents = array();
-
         foreach($eventPending as $i){
+            $pack = events::where('event_id','=',$i->event_id)->first()->package();
+            error_log("package: ".$pack);
+            if($pack){
+                $i->package_name = $pack->package_name;
+            }else{
+                $i->package_name = 'n/a';
+            }
+
             if(Carbon::parse($i->event_start)->format('Y-m-d') >= $date->subDay()->format('Y-m-d')){
                 array_push($upcomingPendingEvents, $i);
             }
         }
 
+
         foreach($eventApproved as $b){
+            $pack = events::where('event_id','=',$b->event_id)->first()->package();
+            error_log("package: ".$pack);
+            if($pack){
+                $b->package_name = $pack->package_name;
+            }else{
+                $b->package_name = 'n/a';
+            }
+
             if(Carbon::parse($b->event_start)->format('Y-m-d') >= $date->subDay()->format('Y-m-d')){
                 array_push($upcomingApprovedEvents, $b);
             }

@@ -20,6 +20,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\PackageModel;
 use Session;
+use PDF;
 use Illuminate\Support\Facades\Auth;
 class QuotationController extends Controller
 {
@@ -76,6 +77,12 @@ class QuotationController extends Controller
         }
         error_log("dish: ".$add_dish_total);
         error_log("inv: ".$add_inv_total);
+
+        $this->test_export_quotation_pdf(['package'=>$package,'event'=>$event,'user_id'=>$client_id,'client'=>$client,
+            'additional_count'=>$additional_count,'add_dish_total'=>$add_dish_total,'add_inv_total'=>$add_inv_total,
+            'additional_dishes'=>$event_dishes, 'is_off_premise'=>$is_off_premise,
+            'additional_invs'=>$event_inventories,'staff_count'=>count($employees_id),'staff_cost'=>$total_staff_cost],$event_id);
+
         return view('client_quotation',
             ['package'=>$package,'event'=>$event,'user_id'=>$client_id,'client'=>$client,
                 'additional_count'=>$additional_count,'add_dish_total'=>$add_dish_total,'add_inv_total'=>$add_inv_total,
@@ -147,9 +154,10 @@ class QuotationController extends Controller
         $client = Client::where('client_id','=',$event->client_id)->first();
 
         $is_analogous = $event->get_analogous_event_model();
+
         error_log("is analogous: ".$event->get_analogous_event_model());
         if($event->status < 2 ){
-            if($is_analogous == true){
+            if($is_analogous != -1){
                 array_push($avail_methods, array("selected"=>true,"value"=>"analogous","name"=>"Analogous Estimation"));
             }
             if($event->costing_method == null){
@@ -213,6 +221,7 @@ class QuotationController extends Controller
         }
         //extra cost is idk. Maybe per KM distance. Google Calculate Distance API?
         $total_cost = $total_staff_cost + $total_outsource_cost + $total_dish_cost + $total_inv_cost + $extra_cost;
+
         return view('company_quotation',
             ['package'=>$package,'event'=>$event,'user_id'=>$client_id,'client'=>$client,'is_off_premise'=>$is_off_premise,
                 'additional_count'=>$additional_count,'additional_dishes'=>$event_dishes, 'staffs'=>$employees,
@@ -220,6 +229,50 @@ class QuotationController extends Controller
                 'total_cost'=>$total_cost,'total_dish_cost'=>$total_dish_cost , 'total_inv_cost'=>$total_inv_cost,
                 'outsourced_items'=>$outsourced_items,'extra_cost'=>$extra_cost,'total_outsource_cost'=>$total_outsource_cost,
                 'avail_methods'=>$avail_methods]);
+    }
+
+    public function test_export_quotation_pdf($data,$event_id)
+    {
+        $event = events::where('event_id','=',$event_id)->first();
+        // Fetch all customers from database
+        //$data = Customer::get();
+        // Send data to the view using loadView function of PDF facade
+
+        $pdf = PDF::loadView('samp', $data);
+        $fileName = time()."_cliQuot_autogen.pdf";
+
+        error_log("idyota: ".$fileName);
+        $event->save_client_quotation('/app/uploads/'.$fileName);
+        // If you want to store the generated pdf to the server then you can use the store function
+        $pdf->save(storage_path().'/app/uploads/'.$fileName);
+
+
+        //  $request->fileToUpload_deposit->storeAs('uploads',$fileName);
+        // Finally, you can download the file using download function
+        return redirect('list_events');
+    }
+    public function export_quotation_pdf($event_id)
+    {
+        $event = events::where('event_id','=',$event_id)->first();
+        // Fetch all customers from database
+        //$data = Customer::get();
+        // Send data to the view using loadView function of PDF facade
+        $data = [
+            'title' => 'First PDF for Medium',
+            'heading' => 'Hello from 99Points.info',
+            'content' => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry'
+            ];
+        $pdf = PDF::loadView('samp', $data);
+        $fileName = time()."_dep.pdf";
+
+        $event->save_client_quotation('/app/uploads/'.$fileName);
+        // If you want to store the generated pdf to the server then you can use the store function
+        $pdf->save(storage_path().'/app/uploads/'.$fileName);
+
+
+        //  $request->fileToUpload_deposit->storeAs('uploads',$fileName);
+        // Finally, you can download the file using download function
+        return redirect('list_events');
     }
     public function change_costing_method(Request $request){
         $event = events::where('event_id','=',$request->input("event_id"))->first();

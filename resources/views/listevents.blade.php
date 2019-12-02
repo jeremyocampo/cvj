@@ -110,9 +110,9 @@
                                 <tbody>
                                 @foreach ($pendingEvents as $i)
                                     {{-- @if($i->status > 0) --}}
-                                    <tr>
-                                        <td> {{ $i->event_name }}</td>
-                                        <td> [{{ $i->venue }}]<br>{{ $i->event_detailsAdded }} </td>
+                                    <td> <b>{{ $i->event_name }}</b><br> <small>@if($i->package_name == "n/a") [ No Package Selected ]@else {{$i->package_name}} @endif </small></td>
+
+                                    <td> [{{ $i->venue }}]<br>{{ $i->event_detailsAdded }} </td>
                                         <td>
                                             {{ Carbon\Carbon::parse($i->event_start)->format('F j, Y') }} <br>[
                                             {{ Carbon\Carbon::parse($i->event_start)->format('g:i a') }} -
@@ -160,7 +160,7 @@
                                                         <i class="ni ni-single-02"></i>
                                                         <span>Client Quotation</span>
                                                     </a>
-                                                    <a href="{{-- download/{{$i->reservation_file_path}} --}}client_reservation/{{$i->event_id}}" class="dropdown-item">
+                                                    <a href="client_reservation/{{$i->event_id}}" class="dropdown-item">
                                                         <i class="ni ni-single-02"></i>
                                                         <span>View Reservation Form</span>
                                                     </a>
@@ -177,16 +177,16 @@
                                                     </div>
 
                                                     @if($i->package_id != null)
-                                                        <a href="{{ url('company_quotation/'.$i->event_id) }}" class="dropdown-item">
+                                                        <a href="{{ url('edit_event_package/'.$i->event_id) }}" class="dropdown-item">
                                                             <i class="ni ni-shop"></i>
-                                                            <span>Edit Package</span>
+                                                            <span>Edit Package {under construction}</span>
                                                         </a>
-                                                        <a href="{{ url('company_quotation/'.$i->event_id) }}" class="dropdown-item">
+                                                        <a href="{{ url('remove_event_package/'.$i->event_id) }}" class="dropdown-item">
                                                             <i class="ni ni-shop"></i>
                                                             <span>Remove Package</span>
                                                         </a>
                                                     @else
-                                                        <a href="{{ url('company_quotation/'.$i->event_id) }}" class="dropdown-item">
+                                                        <a href="{{ url('selectpackages/'.$i->event_id) }}" class="dropdown-item">
                                                             <i class="ni ni-shop"></i>
                                                             <span>Add Package</span>
                                                         </a>
@@ -246,9 +246,8 @@
                                 <tr>
                                     <th>Event Name</th>
                                     <th>Venue</th>
-                                    <th>Start Date/Time</th>
-                                    <th>End Date/Time</th>
-                                    <th>Description</th>
+                                    <th> Date/Time </th>
+
                                     <th>Remarks</th>
                                     <th >Action</th>
                                 </tr>
@@ -257,15 +256,13 @@
                                 @foreach($events as $i)
                                     @if($i->status < 5)
                                         <tr>
-                                            <td> {{ $i->event_name }}</td>
-                                            <td> {{ $i->venue }}</td>
+                                            <td> <b>{{ $i->event_name }}</b><br> @if($i->package_name == "n/a") No Package Selected @else {{$i->package_name}} @endif </td>
+                                            <td> [{{ $i->venue }}]<br>{{ $i->event_detailsAdded }} </td>
                                             <td>
-                                                {{ Carbon\Carbon::parse($i->event_start)->format('F j, Y g:i a') }}
+                                                {{ Carbon\Carbon::parse($i->event_start)->format('F j, Y') }} <br>[
+                                                {{ Carbon\Carbon::parse($i->event_start)->format('g:i a') }} -
+                                                {{ Carbon\Carbon::parse($i->event_end)->format('g:i a') }}]
                                             </td>
-                                            <td>
-                                                {{ Carbon\Carbon::parse($i->event_end)->format('F j, Y g:i a') }}
-                                            </td>
-                                            <td> {{ $i->event_detailsAdded }}</td>
                                             <td> {{ $i->status_name }}</td>
                                             <td class="popup">
                                                 <div class="dropdown">
@@ -285,9 +282,7 @@
                                                         <a href="{{ url('inventory/create')}}" class="dropdown-item">
                                                             <i class="ni ni-fat-add"></i>
                                                             <span>{{ __('Purchse Inventory') }}</span>
-
                                                         </a>
-
                                                         <a href="" class="dropdown-item" onclick="event.preventDefault();
                                                                 document.getElementById('delete-form-{{ $i->event_id }}').submit();">
                                                             <i class="ni ni-fat-remove"></i>

@@ -88,25 +88,32 @@ Route::resource('bookevent', 'BookEventController');
 Route::resource('eventdashboard','EventsHomeDashboard');
 Route::resource('confirmevents', 'ConfirmEventsController');
 
-Route::get('confirm_event/{$event_id}', 'ConfirmEventsController@confirm_event');
+Route::get('confirm_event/{event_id}', 'ConfirmEventsController@confirm_event');
 
 Route::get('date_range', 'DateRangeController@index');
 
 Route::get('bookevent/edit/{event_id}', 'BookEventController@editEventDetails')->name('edit.bookevent');
 Route::post('editevent', 'BookEventController@PosteditEventDetails')->name('post.editevent');
+Route::get('/export_quotation/{event_id}','QuotationController@export_quotation_pdf');
+
 
 Route::get('/download/storage/public/{file}', 'FileController@download');
 Route::post('change_costing_method', 'QuotationController@change_costing_method')->name('post.costing_method');
 
 Route::post('upload_event_forms', 'FileController@upload_event_forms')->name('file_upload');
+//packages routes
 Route::get('selectpackages/{event_id}', 'SelectPackageController@index')->name('get.selectpackages');
 Route::post('postselectpackages/', 'SelectPackageController@select')->name('post.selectpackages');
 
 Route::get('additional_package/{event_id}/{package_id?}', 'SelectPackageController@additional_package')->name('additional_package');
 Route::get('customize_package/{package_id?}', 'SelectPackageController@show')->name('customize_package');
-
 Route::post('customize_package', 'SelectPackageController@create')->name('post.customize_package');
 Route::post('create_with_additions', 'SelectPackageController@create_with_additions')->name('post.create_with_additions');
+
+Route::get('edit_event_package/{event_id}', 'SelectPackageController@edit_event_package')->name('get.edit_event_package');
+Route::post('edit_event_package/post', 'SelectPackageController@post_edit_event_package')->name('post.edit_event_package');
+
+Route::get('remove_event_package/{event_id}', 'SelectPackageController@destroy')->name('destroy');
 
 //ajax
 Route::post('add_client_ajax', 'BookEventController@add_client_ajax')->name('ajax.client_add');

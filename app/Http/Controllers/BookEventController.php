@@ -118,7 +118,6 @@ class BookEventController extends Controller
         $endDateTime = Carbon::parse($request->input('eventStartDate')." ".$request->input('endTime'));
 
 
-        $is_package_compat = $event->is_event_package_compatible();
         $event->event_name = $request->input('eventName');
         $event->event_type = $request->input('eventType');
         $event->venue = $request->input('venue');
@@ -146,9 +145,10 @@ class BookEventController extends Controller
             $sched->event_date_time = $event->event_start;
             $sched->save();
         }
-
-        if (true == false){
-            $event->discard_package();
+        if($event->package_id != null){
+            if ($event->is_event_package_compatible() == -1 ){
+                $event->discard_package();
+            }
         }
 
 /*

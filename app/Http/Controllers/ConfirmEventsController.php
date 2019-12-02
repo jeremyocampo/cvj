@@ -59,13 +59,20 @@ class ConfirmEventsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function confirm($event_id)
+    public function confirm_event($event_id)
     {
        $event = events::where('event_id','=',$event_id)->first();
        $event->status = 2;
 
+       //sample define costs here
+       //$event->set_default_cost_amount();
        //finalize the quotation here
+
        //finalize budget and costings method used here.
+        $event->event_budget_create();
+        $event->save();
+        error_log("budget_created successfully");
+        return redirect('list_events');
     }
 
     /**

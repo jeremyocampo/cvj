@@ -67,11 +67,18 @@ class events extends Model
         }
         return $avail_personnel;
     }
+    public function save_client_quotation($file_path){
+        $ecq = new EventClientQuotation();
+        $ecq->event_id = $this->event_id;
+        $ecq->version_num = count(EventClientQuotation::where('event_id','=',$this->event_id)->get()) + 1;
+        $ecq->file_path = $file_path;
+        $ecq->save();
+    }
     public function is_event_package_compatible(){
         //will write criterion stuff.
         $package = PackageModel::where('package_id','=',$this->package_id)->first();
         if($this->totalpax > $package->suggested_pax || $this->event_type != $package->event_type){
-            return false;
+            return -1;
         }
 
         return true;
@@ -139,7 +146,7 @@ class events extends Model
 
             $budget_item->actual_amount = 0;
             $budget_item->item_tag = "Food";
-            $budget_item->budget_amount = $event_dish->cost_amount();
+            $budget_item->budget_amount = $event_dish->cost_amount;
 
             /*
             if($this->costing_method == null){

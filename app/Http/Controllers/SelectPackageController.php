@@ -466,15 +466,115 @@ class SelectPackageController extends Controller
     {
         //
     }
+    public function edit_event_package($event_id)
+    {
+        $event = events::where('event_id','=',$event_id)->first();
+        $package = $event->package();
 
+        $package_id = $package->package_id;
+        $event = events::where('event_id','=',$event_id)->first();
+
+        $event_inventories = EventInventory::where('event_id','=',$event->event_id)->where('is_addition','=',true)->get();
+        $event_dishes = EventDishes::where('event_id','=',$event->event_id)->where('is_addition','=',true)->get();
+
+        $event_dishes_id = EventDishes::where('event_id','=',$event->event_id)->where('is_addition','=',true)->select('item_id')->get();
+
+        $client_id = Auth::id();
+        if($package_id != null){
+            $food_items =EventDishes::where('event_id','=',$event_id)->where('is_addition','=',false)->select('item_id')->get();
+            $food_items =$food_items->toArray();
+            $package->foods = Items::whereIn('item_id',$food_items)->get();
+            $package->inventory = PackageInventory::where('package_id','=',$package->package_id)->get();
+            foreach ($package->inventory as $inventory){
+                $inventory->inventory_name = inventory::where('inventory_id','=',$inventory->inventory_id)->first()->inventory_name;
+            }
+            $avail_foods = Items::whereNotIn('item_id',$food_items)->whereNotIn('item_id',$event_dishes_id)->get();
+        }
+        else{
+            $avail_foods = Items::all();
+        }
+        $avail_invs = inventory::all();
+
+        foreach($event_inventories as $inv){
+            $inv->inventory_name = $inv->inventory()->inventory_name;
+        }
+        foreach($event_dishes as $dish){
+            $item = $dish->get_item();
+            $dish->item_name = $item->item_name;
+            $dish->item_image = $item->item_image;
+            $dish->unit_cost = $item->unit_cost;
+
+            error_log("awit??: ".$dish);
+        }
+        return view('editselectedPackage',['user_id'=>$client_id,'package'=>$package,'event'=>$event,
+            'avail_foods'=>$avail_foods,'avail_invs'=>$avail_invs,
+            'add_invs'=>$event_inventories,'add_dishes'=>$event_dishes]);
+
+        //
+    }
+    public function post_edit_event_package(Request $request)
+    {
+        //chosen_invs,inv_qty,chosen_dishes
+        $event = events::where('event_id','=',$request->input('event_id'))->first();
+        //$event->save();
+        $package = PackageModel::where('package_id','=',$request->input('package_id'))->first();
+        $package->reset_package_additions($request->input('event_id'));
+
+        $tot = 0;
+        // load selected package contents to event ref tables
+        // load additionals to event ref tables
+        for($i=0; $i<count($request->input("chosen_invs"));$i++){
+            $inv = inventory::where('inventory_id','=',$request->get("chosen_invs")[$i])->first();
+            $e_inv = new EventInventory();
+            $e_inv->event_id = $event->event_id;
+            $e_inv->inventory_id = $inv->inventory_id;
+            $e_inv->qty = $request->get("inv_qty")[$i];
+            $e_inv->rent_price = $inv->rental_cost;
+            $e_inv->esku = $inv->sku;
+            $e_inv->status = $inv->status;
+            $e_inv->is_addition = true;
+            $e_inv->save();
+
+            $tot += $e_inv->qty * $e_inv->rent_price;
+        }
+        for($i=0; $i<count($request->input("chosen_dishes"));$i++){
+            $itn = Items::where('item_id','=',$request->get("chosen_dishes")[$i])->first();
+            $e_dsh = new EventDishes();
+
+            $e_dsh->event_id = $request->input("event_id");
+            $e_dsh->item_id = $itn->item_id;
+            $e_dsh->total_price = $itn->unit_cost * $package->suggested_pax;
+            $e_dsh->is_addition = true;
+            $e_dsh->save();
+
+            $tot += $e_dsh->total_price;
+        }
+        $tot += $package->price;
+        $event->total_amount_due = $tot;
+        if($event->venue == 'Off-Premise'){
+            $event->off_premise_amount = $event->total_amount_due * 0.15;
+            $event->total_amount_due = $event->total_amount_due * 1.15;
+        }
+        $event->save();
+        $event->set_default_cost_amount();
+
+        // When to renew quotation.
+        return redirect('/summary/'.$event->event_id);
+
+        //return redirect('list_events');
+        //
+    }
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($event_id)
     {
-        //
+        $event = events::where('event_id','=',$event_id)->first();
+        $event->discard_package();
+        $event->save();
+        return redirect('list_events');
     }
 }

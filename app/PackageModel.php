@@ -26,4 +26,16 @@ class PackageModel extends Model
 
         return true;
     }
+    public function reset_package_additions($event_id){
+        // Code goes here
+        $p_inventories = EventInventory::where('event_id','=',$event_id)->where('is_addition','=',true)->get();
+        $p_items = EventDishes::where('event_id','=',$event_id)->where('is_addition','=',true)->get();
+        foreach($p_inventories as $p_inventory){
+            $p_inventory->delete();
+        }
+        foreach ($p_items as $p_item){
+            $p_item->delete();
+        }
+        return true;
+    }
 }

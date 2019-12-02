@@ -2,13 +2,7 @@
 @extends('layouts.app')
 @section('content')
 @include('layouts.headers.inventoryCard1')
-<style type="text/css" media="print">
-    @page{size:auto;margin:5mm}
-    @media print {
-        @page { margin: 0; }
-        body { margin: 1.6cm; }
-    }
-</style>
+
 <div class="container-fluid mt--7">
     <div class="card-body">
         <div class="col-xl-12 mb-5 mb-xl-0">
@@ -20,6 +14,13 @@
                 </div>
 
                 <div class="card-body border-0" id="printable">
+                    <style type="text/css" media="print">
+                        @page{size:auto;margin:5mm}
+                        @media print {
+                            @page { margin: 0; }
+                            body { margin: 1.6cm; }
+                        }
+                    </style>
                     <div class="row" style="width: 100%">
                         <div style="display: inline;width: 100%;">
                             <img src="{{ asset('argon') }}/img/brand/cvj.png" style="float:left" class="navbar-brand-img img-responsive" alt="..." height="100vh" width="175vw">
