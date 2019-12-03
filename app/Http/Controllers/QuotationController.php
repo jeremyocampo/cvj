@@ -242,7 +242,7 @@ class QuotationController extends Controller
         $fileName = time()."_cliQuot_autogen.pdf";
 
         error_log("idyota: ".$fileName);
-        $event->save_client_quotation('/app/uploads/'.$fileName);
+        $event->save_client_quotation('storage/public/'.$fileName);
         // If you want to store the generated pdf to the server then you can use the store function
         $pdf->save(storage_path().'/app/uploads/'.$fileName);
 

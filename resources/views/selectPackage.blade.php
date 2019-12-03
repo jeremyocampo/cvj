@@ -56,8 +56,14 @@
 									<div class="col">
 										<h3 class="mb-0" style="display: inline">Select Packages</h3>
                                         <a  style="display: inline" class="btn btn-sm btn-primary" href="{{route('customize_package',$event->event_id)}}/">+ Create New Package</a>
-									</div>
+
+                                    </div>
+                                    <div class="col">
+                                        <label>Showing packages for {{$event->totalpax}} pax and {{$event->event_type}}.</label>
+
+                                    </div>
 									<div class="col alight-items-right">
+
 										{{-- <h4>Last Replenished: {{$items[0]->last_modified}}</h4> --}}
 									</div>
 								</div>

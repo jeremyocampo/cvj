@@ -126,14 +126,15 @@ class EventsController extends Controller
         $upcomingPendingEvents = array();
         $upcomingApprovedEvents = array();
         foreach($eventPending as $i){
-            $pack = events::where('event_id','=',$i->event_id)->first()->package();
+            $e = events::where('event_id','=',$i->event_id)->first();
+            $pack = $e->package();
             error_log("package: ".$pack);
             if($pack){
                 $i->package_name = $pack->package_name;
             }else{
                 $i->package_name = 'n/a';
             }
-
+            $i->quotations = $e->get_quotations();
             if(Carbon::parse($i->event_start)->format('Y-m-d') >= $date->subDay()->format('Y-m-d')){
                 array_push($upcomingPendingEvents, $i);
             }
@@ -141,14 +142,16 @@ class EventsController extends Controller
 
 
         foreach($eventApproved as $b){
-            $pack = events::where('event_id','=',$b->event_id)->first()->package();
-            error_log("package: ".$pack);
+
+            $e = events::where('event_id','=',$i->event_id)->first();
+            $pack = $e->package();
             if($pack){
                 $b->package_name = $pack->package_name;
             }else{
                 $b->package_name = 'n/a';
             }
 
+            $i->quotations = $e->get_quotations();
             if(Carbon::parse($b->event_start)->format('Y-m-d') >= $date->subDay()->format('Y-m-d')){
                 array_push($upcomingApprovedEvents, $b);
             }

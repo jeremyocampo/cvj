@@ -10,6 +10,7 @@ use App\EventInventory;
 use App\EventModel;
 use App\events;
 use App\inventory;
+use App\Client;
 use App\Items;
 use App\User;
 use App\PackageInventory;
@@ -18,6 +19,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\PackageModel;
 use Session;
+
+use PDF;
 use Illuminate\Support\Facades\Auth;
 class SelectPackageController extends Controller
 {
@@ -439,7 +442,7 @@ class SelectPackageController extends Controller
         $fileName = time()."_cliQuot_autogen.pdf";
 
         error_log("idyota: ".$fileName);
-        $event->save_client_quotation('/app/uploads/'.$fileName);
+        $event->save_client_quotation('/storage/public/'.$fileName);
         // If you want to store the generated pdf to the server then you can use the store function
         $pdf->save(storage_path().'/app/uploads/'.$fileName);
 
@@ -492,7 +495,7 @@ class SelectPackageController extends Controller
         error_log("dish: ".$add_dish_total);
         error_log("inv: ".$add_inv_total);
 
-        $this->export_quotation_pdf(['package'=>$package,'event'=>$event,'user_id'=>$client_id,'client'=>$client,
+        $this->export_quotation_pdf(['package'=>$package,'event'=>$event,'client'=>$client,
             'additional_count'=>$additional_count,'add_dish_total'=>$add_dish_total,'add_inv_total'=>$add_inv_total,
             'additional_dishes'=>$event_dishes, 'is_off_premise'=>$is_off_premise,
             'additional_invs'=>$event_inventories,'staff_count'=>count($employees_id),'staff_cost'=>$total_staff_cost],$event_id);

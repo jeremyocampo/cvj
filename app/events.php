@@ -54,6 +54,11 @@ class events extends Model
         }
         return true;
     }
+    public function get_quotations(){
+        // Code goes here
+        return EventClientQuotation::where('event_id','=',$this->event_id)->get();
+    }
+
 
     public function get_available_personnel_on_date($date){
         $employees = Employee::all();

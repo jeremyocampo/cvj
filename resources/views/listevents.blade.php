@@ -42,7 +42,11 @@
                                 <label id="dep_file_lb"></label>
                             </div>
                             <button type="submit" id="sumbit_upload" style="display: none"></button>
-
+                            <hr>
+                            <label>Past Quotations:</label>
+                            <div id="quotations" style="padding-left: 3vh;">
+                                <a href="download"><i class="ni ni-cloud-download-95"></i> Quotation Version 1</a>
+                            </div>
                         </form>
                     </div>
 
@@ -129,6 +133,7 @@
                                                     </div>
                                                     <a  class="dropdown-item" href="#"  data-toggle="modal"
                                                         res_dlink="{{$i->reservation_file_path}}" dep_dlink="{{$i->deposit_file_path}}" event_id="{{$i->event_id}}"
+                                                        data-quotation=" @foreach($i->quotations as $quotation) {{$quotation->version_num}},{{$quotation->file_path}}; @endforeach "
                                                         onclick="open_files_modal(this);" data-target="#filesModal"><i class="fa fa-eye"></i> View Event Files</a>
 
                                                     <a href="{{ url('bookevent/edit/'.$i->event_id) }}" class="dropdown-item">
@@ -335,11 +340,15 @@
 
                 $("#deposit_lbl").css('display','block');
                 $("#reservation_lbl").css('display','block');
+
+                $("#quotations").empty();
             }
             function open_files_modal(obj) {
+
                 $("#selected_event_id").val($(obj).attr("event_id"));
                 reset_modal();
-
+                var quot_arr = $(obj).attr('data-quotation').split(';');
+                console.log('quot_arr: '+quot_arr);
                 if($(obj).attr("res_dlink") !== ""){
                     $("#reservation_lbl").css('display','none');
                     $("#reservation_dlink").css("display","block").attr("href","download/"+$(obj).attr("res_dlink")+"/");
@@ -348,6 +357,14 @@
                     $("#deposit_lbl").css('display','none');
                     $("#deposit_dlink").css("display","block").attr("href","download/"+$(obj).attr("dep_dlink")+"/");
                 }
+                for(var i = 0; i < quot_arr.length-1 ;i++){
+                    console.log('quot_arr: '+quot_arr);
+                    var quot = quot_arr[i].split(',');
+                    str = '<a href="download'+quot[1]+'"><i class="ni ni-cloud-download-95"></i> Quotation Version';
+                    str += quot[0] + '</a><br>';
+                    $("#quotations").append(str);
+                }
+
             }
         </script>
        
