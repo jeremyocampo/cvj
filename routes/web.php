@@ -7,12 +7,12 @@
 |
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great! 
+| contains the "web" middleware group. Now create something great!
 |
 */
 
 Route::put('profile', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
-	
+
 // Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
 
 //Jeremy's Routess
@@ -28,6 +28,16 @@ Route::get('recover/{id}', 'InventoryController@recover');
 Route::resource('deploy','DeployInventoryController');
 Route::resource('events', 'EventsController');
 Route::resource('calendar', 'Calendar');
+
+Route::resource('dishes', 'DishController');
+Route::get('disabled-dishes', 'DishController@disable');
+Route::get('recover-dish/{id}', 'DishController@recoverDish');
+
+Route::resource('manpowers', 'ManpowerController');
+Route::get('disabled-manpower', 'ManpowerController@disabled');
+Route::get('recover-manpower/{id}', 'ManpowerController@recover');
+
+Route::resource('schedules', 'SchedulesController');
 
 
 //Costing
@@ -100,7 +110,7 @@ Route::get('qr-code-g', function () {
     \QrCode::size(500)
               ->format('png')
               ->generate('ItSolutionStuff.com', public_path('images/qrcode.png'));
-      
+
     return view('qrCode');
 });
 
