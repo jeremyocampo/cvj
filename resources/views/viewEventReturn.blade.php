@@ -4,28 +4,28 @@
 @include('layouts.headers.inventoryCard1')
 <div class="container-fluid mt--7">
 		
-	{{-- <!-- Modal -->
+	<!-- Modal -->
 	<div id="myModal" class="modal fade" role="dialog">
-			<div class="modal-dialog">
-		  
-			  <!-- Modal content-->
-			  <div class="modal-content">
-				<div class="modal-header">
-				  <div class="row">
-					  <div >
-				  		<h2 class="modal-title">Are you sure you want to continue?</h4>
-					  </div>
-				  </div>
+		<div class="modal-dialog">
+		
+			<!-- Modal content-->
+			<div class="modal-content">
+			<div class="modal-header">
+				<div class="row">
+					<div >
+					<h2 class="modal-title">Are you sure you want to continue?</h4>
+					</div>
 				</div>
-				
-				<div class="modal-footer">
-				  {{ Form::submit('Confirm Changes', ['class' => 'btn btn-success']) }}
-				  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-				</div>
-			  </div>
-		  
 			</div>
-		  </div> --}}
+			
+			<div class="modal-footer">
+				{{ Form::submit('Confirm Changes', ['class' => 'btn btn-success']) }}
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+			</div>
+			</div>
+		
+		</div>
+	</div>
 		
 				{{-- <div class="col-xl-8 mb-5 mb-xl-0"> --}}
 				<div class="col-xl-12 mb-5">
@@ -48,7 +48,7 @@
 									{{-- <div class="row"> --}}
 										<div class="col-xs-5">
 									{{-- <input class="form-control" id="myInput" type="search" onkeyup="searchTable()" style="background: transparent;" placeholder="Search Item Here"> --}}
-									<input class="form-control" id="barcodeInput" type="number" onkeyup="checkBarcode(this)" style="background: transparent;" placeholder="Input Qr Code Here" autofocus>
+									<input class="form-control" id="barcodeInput" type="number" onkeyup="checkBarcode(this)" style="background: transparent;" placeholder="Input Barcode Here" autofocus>
 										</div>
 										{{-- <div class="col-xs-2">
 											&nbsp; &nbsp;
@@ -103,38 +103,42 @@
                         </div>
 						<div class="card-body">
 							<div class="row">
-								<div class="col-xl-4">
-									@foreach($event as $event)
+								@foreach($event as $event)
+								<div class="col-md-4">
+										<label class="form-label">Client Name</label>
+											<h1><b>{{ $event->client_name }}</b></h1>
+										<input type="hidden" class="form-control" name="event_name" value="{{ $event->event_name}}">	
+								</div>
+								<div class="col-md-4">
 									<input type="hidden" class="form-control" name="event_id" value="{{ $event->event_id}}">
 									<label class="form-label">Event Name</label>
-									<p>{{ $event->event_name }}</p>
+										<h1><b>{{ $event->event_name }}</b></h1>
 									<input type="hidden" class="form-control" name="event_name" value="{{ $event->event_name}}">
 								</div>
-								{{-- <div class="col-xl-4">
-										<label class="text-muted">Event Name: {{$borrowedItems[0]->event_name}}</label>
-										<label class="form-label">Client Name</label>
-										<p>{{ }}</p>
-										{{ Form::text('itemName', $borrowedItems[0]->client_name,['class' => 'form-control', 'disabled'] )}}
-								</div> --}}
-								<div class="col-xl-4">
-										<label class="form-label">Date Borrowed</label>
-										<p>{{ $event->event_start}}</p>
-										<input type="hidden" class="form-control" name="event_start" value="{{ $event->event_start}}">
-									</div>
-								<div class="col-xl-4">
-									{{-- <label class="form-label">Date Due</label>
-									<p>{{ }}</p> --}}
+								<div class="col-md-4">
+									<label class="form-label">Date Deployed</label>
+									@if($dateDeployed->date_deployed <= $event->event_start)
+										<h1><b>{{ $dateDeployed->date_deployed}}</b></h1>
+									@else
+										<h1><b>{{ $dateDeployed->date_deployed}} [LATE]</b></h1>
+									@endif
+									<input type="hidden" class="form-control" name="event_start" value="{{ $dateDeployed->date_deployed}}">
 								</div>
-								<div class="col-xl-12">
+
+								
+								<div class="col-md-8">
 									<label class="form-label">Venue</label>
-									<p>{{ $event->venue}}</p>
+									<h1><b>{{ $event->venue}}</b></h1>
 									<input type="hidden" class="form-control" name="venue" value="{{ $event->venue}}">
 								</div>
-								<div class="col-xl-4">
-									
-								</div>
+								<div class="col-md-4">
+										<label class="form-label">Employee Assigned/Responsible</label>
+										<h1><b>{{ $employee->employee_FN. ' ' .$employee->employee_LN. ' ('. $employee->contact_no.')' }}</b></h1>
+										<input type="hidden" class="form-control" name="venue" value="{{ $employee->employee_id}}">
+									</div>
+								
 								@endforeach
-						</div>
+							</div>
 						<div class="card-body border-0">
 							@foreach($errors->all() as $error)
 							<div class="alert alert-danger" role="alert">
@@ -173,45 +177,31 @@
 														<input type="number" value=0  readonly class="form-control qtyReturn" name="qtyReturned[]" id="qtyReturn9876543210123">
 													</div>
 												</td>
-										</tr>
-										<tr>
-												<td>Ikea Chair</td>
-												<td>White</td>
-												<td> {!! QrCode::size(200)->generate("Item-Name: Ikea Chair, Item-Category: Chair, Color: White, Quantity: 55, Event-Name: Jeremy's Birthday Bash"); !!}</td>
-												<td>20 Php</td>
-												<td>55 Piece(s)</td>
-												<td>1,100 Php</td>
-												<td>
-													<div class="col-xl-4">
-														<label class="form-label">Qty to Return</label>
-														<input type="hidden" class="invID" name="invIDs[]" value="1" id="inventory-1">
-														<input type="number" value=0  readonly class="form-control qtyReturn" name="qtyReturned[]" id="qtyReturn9876543210123">
-													</div>
-												</td>
-										</tr> --}}
-                                        @foreach ($package as $i)
+										{{-- </tr> --}}
+									
+                                        @foreach ($deployed as $i)
                                         {{-- @if($i->status > 0) --}}
-                                        <tr id="row{{ $i->sku }}" class="success">
+                                        <tr id="row{{ $i->barcode }}" class="success">
                                             
 											<td>{{ $i->inventory_name }}</td>
 											<td>{{ $i->color_name }}</td>
 											<td>
 												<div id="barcode-{!! $i->inventory_id !!}" value="{!! "toPrint-" . $i->inventory_id!!}">
-													{!!'<img src="data:image/png;base64,' . DNS1D::getBarcodePNG("".$i->sku, "C128A",2,44,array(1,1,1), true) . '" alt="barcode"   />' !!}
-													<br>{{$i->sku}}
+													{!!'<img src="data:image/png;base64,' . DNS1D::getBarcodePNG("".$i->barcode, "C128A",2,44,array(1,1,1), true) . '" alt="barcode"   />' !!}
+													<br>{{$i->barcode}}
 												</div>	
 											</td>
 											<td>{{ $i->rental_cost}} </td>
 											<td>
 												{{ $i->qty }}
-												<input hidden type="text" value="{{ $i->qty}}" id="qty{{ $i->sku }}">
+												<input hidden type="text" value="{{ $i->qty}}" id="qty{{ $i->barcode }}">
 											</td>
 											<td> {{ $i->rental_cost * $i->qty }} </td>
 											<td>
 												<div class="col-xl-4">
 													<label class="form-label">Qty to Return</label>
 													<input type="hidden" class="invID" name="invIDs[]" value="{{ $i->inventory_id }}" id="inventory-{{ $i->inventory_id }}">
-													<input type="number" value=0  readonly class="form-control qtyReturn" name="qtyReturned[]" id="qtyReturn{{ $i->sku }}">
+													<input type="number" value=0  readonly class="form-control qtyReturn" name="qtyReturned[]" id="qtyReturn{{ $i->barcode }}">
 												</div>
 											</td>
                                         </tr>
@@ -223,7 +213,8 @@
 				</div>
 				<div class="card-footer text-muted">
 						<div class="text-right">
-								<button type="submit" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">Return Items to Inventory</button>
+								<button type="button" onclick="checkLoD()" class="btn btn-success" data-toggle="modal" data-target="#myModal">Return Items To Inventory</button>
+								{{-- <button type="submit" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">Return Items to Inventory</button> --}}
 								<a href="{{ url('returnInventory')}}" class="btn btn-default">Back</a>
 								{{-- <a href="" class="btn btn-primary" onclick="printContent('barcode-{{ $itemInfo[0]->inventory_id }}');" id="printBtn{{ $itemInfo[0]->inventory_id}}">
 									<i class="ni ni-single-copy-04"></i>

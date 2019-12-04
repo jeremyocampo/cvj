@@ -89,7 +89,7 @@ class DeployInventoryController extends Controller
         //
     }
 
-    public function store(Request $request)
+    public function store(Request $request, Faker $faker)
     {
         //
 
@@ -126,7 +126,7 @@ class DeployInventoryController extends Controller
             $deploy_inventory->inventory_deployed = $i->inventory_id;
             $deploy_inventory->quantity = $i->qty;
             $deploy_inventory->employee_assigned = $request->input('employeeAssigned');
-            $deploy_inventory->barcode = $i->sku;
+            $deploy_inventory->barcode = $faker->unique()->isbn13;
             $deploy_inventory->save();
 
             $newQuantity = DB::table('inventory')

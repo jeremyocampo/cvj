@@ -83,36 +83,37 @@ class ReturnInventoryController extends Controller
         $event = DB::table('event')
         ->join('event_status_ref', 'event.status', '=', 'event_status_ref.status_id')
         ->join('package', 'event.package_id', '=', 'package.package_id')
+        ->join('client','event.client_id','=','client.client_id')
         ->select('*')
         ->where('event.event_id', '=', (int)$id)
         ->get();
 
-        $packages = DB::table('package')
-        ->join('package_inventory', 'package.package_id', '=', 'package_inventory.package_id')
-        ->join('inventory', 'package_inventory.inventory_id', '=', 'inventory.inventory_id')
-        ->join('category_ref','inventory.category','=','category_ref.category_no')
-        ->join('color','inventory.color','=','color.color_id')
+        $eventId = DB::table('event')
+        ->select('event_id')
+        ->where('event_id', '=', $id)
+        ->first();
+
+       $deployedItems = DB::table('deployed_inventory')
+       ->select('*')
+       ->where('event_deployed', '=', $eventId->event_id)
+       ->join('inventory','deployed_inventory.inventory_deployed','=','inventory.inventory_id')
+       ->join('color','inventory.color','=','color.color_id')
+       ->get();
+
+       $date = DB::table('deployed_inventory')
+       ->select('date_deployed')
+       ->groupBy('date_deployed')
+       ->where('event_deployed', '=', $eventId->event_id)
+       ->first();
+
+    //    dd($date);
+
+       $assigned = DB::table('deployed_inventory')
+        ->join('employee','deployed_inventory.employee_assigned','=','employee.employee_id')
         ->select('*')
-        ->get();
+        ->first();
 
-        $employees = DB::table('employee')
-        ->select('*')
-        ->where('employee.employee_type', '=', 'Logistics')
-        ->get();
-
-        $eventPackages = array();
-        $eventItems = array();
-        
-        foreach($event as $i){
-            $package = $i->package_id;
-
-            foreach($packages as $b){
-                if ($b->package_id == $package){
-                    array_push($eventPackages, $b);
-                }
-            }
-        }
-        return view('viewEventReturn',[ 'event' => $event, 'package' => $eventPackages, 'employees' => $employees]);
+        return view('viewEventReturn',[ 'event' => $event, 'deployed' => $deployedItems, 'dateDeployed' => $date,'employee' => $assigned]);
     }
 
     /**

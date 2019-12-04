@@ -103,7 +103,7 @@
                                                     <th>Item Name</th>
                                                     <th>Category</th>
                                                     <th>Color</th>
-                                                    <th>Barcode</th>
+                                                    {{-- <th>Barcode</th> --}}
                                                     <th>Quantity</th>
                                                 </tr>
                                             </thead>
@@ -122,7 +122,7 @@
                                                 <input type="hidden" class="form-control" value="{{ $i->inventory_name }}" name="inventory_name{{$i->inventory_id}}" id="inventory_name"></form>
                                                     <td> {{ $i->category_name}} </td>
                                                     <td> {{ $i->color_name}} </td>
-                                                    <td> {!!'<img src="data:image/png;base64,' . DNS1D::getBarcodePNG("".$i->sku, "C128A",2,44,array(1,1,1), true) . '" alt="barcode"   />' !!}</td>
+                                                    {{-- <td> {!!'<img src="data:image/png;base64,' . DNS1D::getBarcodePNG("".$i->sku, "C128A",2,44,array(1,1,1), true) . '" alt="barcode"   />' !!}</td> --}}
                                                     <input type="hidden" class="form-control" value=" {{$i->sku}}" name="barcode" id="barcode"></form>
                                                     <td> {{ $i->qty }}</td>
                                                     <input type="hidden" class="form-control" value="{{ $i->qty }}" name="qty" id="qty"></form> 
