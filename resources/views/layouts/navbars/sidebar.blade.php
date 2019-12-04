@@ -238,11 +238,13 @@
                             <i class="ni ni-tv-2 text-primary"></i> {{ __('Dashboard') }}
                         </a>
                     </li>
+                    <!-- Later?
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('events') }}">
                             <i class="ni ni-calendar-grid-58 text-yellow"></i> {{ __('Events') }}
                         </a>
                     </li>
+                    -->
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('bookevent') }}">
                             <i class="ni ni-calendar-grid-58 text-yellow"></i> {{ __('Book Event') }}
@@ -254,8 +256,8 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('list_packages') }}">
-                            <i class="ni ni-calendar-grid-58 text-green"></i> (Temporary) Packages
+                        <a class="nav-link" href="{{ url('event_budgets') }}">
+                            <i class="ni ni-bullet-list-67 text-green"></i> Budget Management
                         </a>
                     </li>
                     <li class="nav-item">

@@ -1,41 +1,14 @@
-<div class="modal fade" id="filesModal" tabindex="-1" style="width: 100%" role="dialog"  aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document" >
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="dishesModalLabel">Event Files</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <form action="/upload_event_forms" method="post" style="padding: 3vh" enctype="multipart/form-data">
-
-                    @foreach($receipts as $receipt)
-                        <a href="/download{{$receipt['path']}}/"><i class="ni ni-cloud-download-95"></i> {{$receipt['name']}}</a><br>
-                    @endforeach
-                    </form>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-small btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<form action="{{ route('post.event_budgets') }}" method="POST" style="padding:10px" enctype="multipart/form-data">
+<form action="{{ route('post.event_budgets') }}" method="POST" style="padding:10px">
     {{csrf_field()}}
     <div class="row" style="margin-top: 4vh;margin-bottom: 2vh;">
         <div class="col-md-4">
-            {{-- @if($event_lock!=false)
-            <!-- commented while no db is present -->
+            {{-- @if($event_lock!=false) --}}
                 <button class="btn btn-icon btn-3 btn-secondary" id="edit_item_btn" onclick="edit_items()" type="button">
                     <i class="fa fa-edit fa-lg"></i>  Edit Budget
                 </button>
-             @endif --}}
+            {{-- @endif --}}
         </div>
-        <div class="col-md-4" style="margin-bottom: 5vh;">
+        <div class="col-md-4">
             <center>
                     <h2 class="mb-0">Event Budget for {{$event->event_name}} </h2>
             </center>
@@ -57,39 +30,6 @@
             </table>
         </div>
     </div>
-    <style>
-        input[type="file"] {
-            display: none;
-        }
-        .custom-file-upload {
-            border: 1px solid #ccc;
-            display: inline-block;
-            padding: 6px 12px;
-            cursor: pointer;
-        }
-    </style>
-    <div class="row">
-            <label class="custom-file-upload" style="color: blue">
-                <a href="#" data-toggle="modal"  data-target="#filesModal" >
-                    <i class="ni ni-book-bookmark"></i> View Receipts </a>
-            </label>
-
-        <div class="upload_btn" style="float: left">
-            <label id="reservation_lbl" class="custom-file-upload" style="color: blue">
-                <input type="file" name="fileToUpload" id="res_inp" onchange="undisable_amounts()" aria-describedby="fileHelp">
-                <i class="ni ni-fat-add"></i> Upload Receipt File
-            </label>
-        </div>
-        <label id="upload_lbl" style="margin-left: 1.5vw;"></label>
-    </div>
-    <script>
-        function undisable_amounts() {
-            $(".item_acts").attr("disabled",false);
-
-            var file = $('#res_inp')[0].files[0].name;
-            $("#upload_lbl").html(file);
-        }
-    </script>
     <div class="row" style="background-color: #f4f5f7;padding: 1.0vw;">
         <input type="hidden" name="event" value="{{$event_id}}">
         <input type="hidden" name="action" value="update">
@@ -98,9 +38,8 @@
         <input type="hidden" name="to_delete" id="to_delete" value="">
 
         <div class="col-md-12" >
-
             <div class="row budget_item_rows">
-                <div id="budget_name_col" class="col-md-3 marg_top">
+                <div id="budget_name_col" class="col-md-2 marg_top">
                     <center><label>Budget Item</label></center>
                     @foreach($budget->budget_items as $budget_item)
                         <i class="brs fa fa-remove fa-lg rm_item old_item" budget_item_id="{{$budget_item->id}}" style="display: none" onclick="remove_item(this)"></i>
@@ -135,10 +74,10 @@
                         @endforeach
                     </div>
 
-                <div id="budget_act_col" class="col-md-2 marg_top">
+                <div id="budget_act_col" class="col-md-3 marg_top">
                         <label>Amount Spent</label>
                         @foreach($budget->budget_items as $budget_item)
-                            <input type="number" style="display: inline-block;" name="old_acts[]" class="item_acts form-control budg_item" placeholder="0.0" value="" disabled>
+                            <input type="number" style="display: inline-block;" name="old_acts[]" class="item_acts form-control budg_item" placeholder="0.0" value="">
                         @endforeach
                     </div>
             </div>
@@ -147,7 +86,7 @@
             </button>
         </div>
         <br>
-        <!-- commented the buffer thingy first.
+
         <div style="margin-top: 2vh">
             <br>
             <small>Spent Buffer Amount</small><br>
@@ -156,7 +95,7 @@
             <small>Total Buffer Amount</small><br>
             <input type="number" name="total_buffer_amount" step="any" style="font-size: 14px;display: inline-block;width: 75%;height:20%" class="" placeholder="0.0" value="{{$budget->total_buffer}}">
         </div>
-       !-->
+
     </div>
 
     <center id="saving_btn_div" style="margin-top: 3vh">

@@ -5,7 +5,7 @@
 
 @section('content')
 
-    <div class="modal fade" id="filesModal" tabindex="-1" style="width: 100%" role="dialog" aria-labelledby="dishesModalLabel" aria-hidden="true">
+<div class="modal fade" id="filesModal" tabindex="-1" style="width: 100%" role="dialog" aria-labelledby="dishesModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document" >
             <div class="modal-content">
                 <div class="modal-header">
@@ -58,9 +58,6 @@
             </div>
         </div>
     </div>
-
-
-
 
 <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
         <div class="container-fluid">
@@ -254,9 +251,8 @@
                                     <th>Event Name</th>
                                     <th>Venue</th>
                                     <th> Date/Time </th>
-
+                                    <th> Action</th>
                                     <th>Remarks</th>
-                                    <th >Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -270,7 +266,6 @@
                                                 {{ Carbon\Carbon::parse($i->event_start)->format('g:i a') }} -
                                                 {{ Carbon\Carbon::parse($i->event_end)->format('g:i a') }}]
                                             </td>
-                                            <td> {{ $i->status_name }}</td>
                                             <td class="popup">
                                                 <div class="dropdown">
                                                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
@@ -281,27 +276,23 @@
                                                             <h6 class="text-overflow m-0">{{ __('Please Select an Action!') }}</h6>
                                                         </div>
                                                         <div class="dropdown-divider"></div>
-                                                        <a href="{{ url('events/'.$i->event_id) }}" class="dropdown-item">
+                                                        <a href="{{ url('summary/'.$i->event_id) }}" class="dropdown-item">
                                                             <i class="ni ni-zoom-split-in"></i>
-                                                            <span>{{ __('View Event Details') }}</span>
+                                                            <span>Event Summary</span>
                                                         </a>
-
+                                                        <a href="{{ url('event_budgets/view/'.$i->event_id) }}" class="dropdown-item">
+                                                            <i class="ni ni-bullet-list-67"></i>
+                                                            <span>Manage Budget</span>
+                                                        </a>
                                                         <a href="{{ url('inventory/create')}}" class="dropdown-item">
-                                                            <i class="ni ni-fat-add"></i>
-                                                            <span>{{ __('Purchse Inventory') }}</span>
-                                                        </a>
-                                                        <a href="" class="dropdown-item" onclick="event.preventDefault();
-                                                                document.getElementById('delete-form-{{ $i->event_id }}').submit();">
-                                                            <i class="ni ni-fat-remove"></i>
-                                                            <span>{{ __('Remove from Inventory') }}</span>
-                                                            {!! Form::open(['action' => ['InventoryController@destroy', $i->event_id], 'method' => 'POST', 'id' => 'delete-form-'.$i->event_id]) !!}
-                                                            {{ Form::hidden('_method','DELETE')}}
-                                                            {!! Form::close() !!}
+                                                            <i class="ni ni-bag-17"></i>
+                                                            <span>(if has outsource needed){{ __('Purchase Inventory') }}</span>
                                                         </a>
                                                     </div>
                                                 </div>
 
                                             </td>
+                                            <td> {{ $i->status_name }}</td>
                                         </tr>
                                     @endif
                                 @endforeach
@@ -370,7 +361,7 @@
        
        
         @include('layouts.footers.auth')
-    
+
 @endsection
 
 @push('js')

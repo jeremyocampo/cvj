@@ -9,6 +9,23 @@ class EventBudget extends Model
 
     public $timestamps = false;
     public $table = 'event_budget';
+    public function get_receipt_file_paths(){
+        $event_budget_items = EventBudgetItem::where('event_budget_id','=',$this->id)->select('id')->get();
+        $event_expense_receipts = EventBudgetItemExpenseAdd::whereIn('event_budget_item_id',$event_budget_items)
+                                            ->select('file_path')->distinct('file_path')->get();
+        $returnArr = array();
+        foreach($event_expense_receipts as $receipt){
+            $cleaned_path = $receipt;
+            $cleaned_path = substr($cleaned_path, 14);
+            $cleaned_path = str_replace("\\","",$cleaned_path);
+
+            $cleaned_path = substr($cleaned_path, 0,-2);
+            error_log($cleaned_path);
+            array_push($returnArr, array('path'=>$cleaned_path,'name'=>substr(explode('_',$receipt)[4], 0, -2)));
+        }
+
+        return $returnArr;
+    }
 }
 /*
  -- Budget SubItems Create
