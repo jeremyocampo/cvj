@@ -8,9 +8,11 @@ class Items extends Model
 {
     //
     public $table = 'items';
+
     public $timestamps = false;
 
-    public $fillable = [
-    	'item_name', 'quantity','quantity', 'unit_cost', 'unit_expense', 'item_image'
-    ];
+    public function dish(){
+
+        return $this->belongsTo('App\Dish');
+    }
 }

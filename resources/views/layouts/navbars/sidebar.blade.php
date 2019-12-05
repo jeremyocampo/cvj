@@ -108,7 +108,7 @@
                             </ul>
                         </div>
                     </li>
-                    
+
                     <li class="nav-item">
                         <a href="http://cvj.test:3000/logout" class="nav-link" onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();">
@@ -165,30 +165,72 @@
                                 </ul>
                             </div>
                         </li>
+                    
                         <li class="nav-item">
-                            <a class="nav-link" href="#navbar-dashboards1" data-toggle="collapse" role="" aria-expanded="false" aria-controls="">
+                        <a class="nav-link" href="#manpower" data-toggle="collapse" role="" aria-expanded="false" aria-controls="">
                                 <i class="ni ni-collection text-red"></i>
-                                <span class="nav-link-text">Manage Reports</span>
+                                <span class="nav-link-text">Manpower</span>
                             </a>
-                            <div class="collapse" id="navbar-dashboards1" style>
+                            <div class="collapse" id="manpower" style>
                                 <ul class="nav nav-sm flex-column">
                                     <li class="nav-item">
-                                        <a href="{{ url('expenseReports') }}" class="nav-link">
-                                                <i class="ni ni-bullet-list-67 text-blue"></i>View Event Expense Reports</a>
+                                        <a href="{{ url('schedules') }}" class="nav-link">
+                                            <i class="ni ni-bullet-list-67 text-blue"></i>Schedule List</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="{{ url('quotationReports') }}" class="nav-link">
-                                            <i class="ni ni-bullet-list-67 text-blue"></i>View Event Qutation Reports</a>
+                                        <a href="{{ url('manpowers') }}" class="nav-link">
+                                            <i class="ni ni-bullet-list-67 text-blue"></i>Manpower List</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ url('disabled-manpower') }}" class="nav-link">
+                                            <i class="ni ni-archive-2 text-purple"></i>Disabled Manpower</a>
                                     </li>
                                 </ul>
                             </div>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#dishes" data-toggle="collapse" role="" aria-expanded="false" aria-controls="">
+                                <i class="ni ni-collection text-red"></i>
+                                <span class="nav-link-text">Manage Dishes</span>
+                            </a>
+                            <div class="collapse" id="dishes" style>
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="{{ url('dishes') }}" class="nav-link">
+                                            <i class="ni ni-bullet-list-67 text-blue"></i>View Dishes</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ url('disabled-dishes') }}" class="nav-link">
+                                            <i class="ni ni-archive-2 text-purple"></i>Disabled Dishes</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
+                                <a class="nav-link" href="#navbar-dashboards1" data-toggle="collapse" role="" aria-expanded="false" aria-controls="">
+                                    <i class="ni ni-collection text-red"></i>
+                                    <span class="nav-link-text">Manage Reports</span>
+                                </a>
+                                <div class="collapse" id="navbar-dashboards1" style>
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a href="{{ url('expenseReports') }}" class="nav-link">
+                                                    <i class="ni ni-bullet-list-67 text-blue"></i>View Event Expense Reports</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ url('quotationReports') }}" class="nav-link">
+                                                <i class="ni ni-bullet-list-67 text-blue"></i>View Event Qutation Reports</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
                         <!-- <li class="nav-item">
                             <a class="nav-link" href="{{ url('inventory/create') }}">
                                 <i class="ni ni-collection text-red"></i> {{ __('Add Inventory') }}
                             </a>
                         </li> -->
-                        
+
                         <li class="nav-item">
                             <a href="http://cvj.test:3000/logout" class="nav-link" onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">
@@ -301,15 +343,15 @@
                         </a>
                     </li>
                 </ul>
-            
+
             @endif
 
             <!-- Divider -->
-            {{-- <hr class="my-3"> 
+            {{-- <hr class="my-3">
             <!-- Heading -->
             <h6 class="navbar-heading text-muted">Navbar Heading Text</h6> --}}
             <!-- Navigation -->
-            
+
         </div>
     </div>
 </nav>
