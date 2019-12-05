@@ -74,14 +74,11 @@ Route::get('list_events', 'EventsController@list_events')->name('list_events');
 
 Route::get('summary/{event_id}', 'SelectPackageController@summary');
 
-<<<<<<< HEAD
-=======
 Route::get('client_quotation/{event_id}', 'QuotationController@client_quotation')->name('client_quotation');
 Route::get('company_quotation/{event_id}', 'QuotationController@company_quotation')->name('company_quotation');
 //Dummy Test URLS: For Frontend prototyping
 Route::get('test_page1/{event_id}/{package_id?}', 'SelectPackageController@test_page1')->name('test_page1');
 
->>>>>>> 4811f7f9ea7ce3020c93cb022dac8462a85a7642
 
 //Rosette's Routes
 Route::resource('bookevent', 'BookEventController');
@@ -115,18 +112,6 @@ Auth::routes();
 
 Route::resource('confirmevents', 'ConfirmEventsController');
 
-<<<<<<< HEAD
-//Earl Routes
-Route::get('/earl', function() {
-    return view ('earl');
-});
-
-Route::get('/accountexecutive',function() {
-    return view ('accountexecutiveDashboard');
-});
-
-Route::get('/employees', 'earlEmployeeController@index');
-=======
 Route::resource('expenseReports', 'ExpenseReportsController');
 Route::resource('quotationReports', 'QuotationReportsController');
 
@@ -139,4 +124,3 @@ Route::get('qr-code-g', function () {
 });
 
 Route::resource('addpackages', 'BookEventController');
->>>>>>> 4811f7f9ea7ce3020c93cb022dac8462a85a7642
