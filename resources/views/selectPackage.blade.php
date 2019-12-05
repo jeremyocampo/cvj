@@ -56,8 +56,14 @@
 									<div class="col">
 										<h3 class="mb-0" style="display: inline">Select Packages</h3>
                                         <a  style="display: inline" class="btn btn-sm btn-primary" href="{{route('customize_package',$event->event_id)}}/">+ Create New Package</a>
-									</div>
+
+                                    </div>
+                                    <div class="col">
+                                        <label>Showing packages for {{$event->totalpax}} pax and {{$event->event_type}}.</label>
+
+                                    </div>
 									<div class="col alight-items-right">
+
 										{{-- <h4>Last Replenished: {{$items[0]->last_modified}}</h4> --}}
 									</div>
 								</div>
@@ -90,6 +96,7 @@
                                                         data-inventory="@foreach($package->inventory as $inv){{$inv->inventory_name}},{{$inv->quantity}},{{$inv->inv_avail}}|@endforeach"
                                                         data-toggle="modal" data-target="#exampleModal" onclick="show_package(this)">{{$package->package_name}}</a></h3>
                                                 <div>
+                                                    <small>{{$package->package_desc}}</small><br>
                                                     <span style="display: inline-block">PHP</span> <b style="display: inline-block">{{number_format($package->price,2)}}</b>
                                                     <small>~ {{$package->suggested_pax}} pax</small>
                                                 </div>

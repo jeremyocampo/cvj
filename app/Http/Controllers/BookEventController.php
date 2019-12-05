@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Client;
 use App\Employee;
 use App\EmployeeEventSchedule;
+use App\events;
+use App\User;
 use Illuminate\Http\Request;
 
 //DB Callings
 use Illuminate\Support\Facades\DB;
 use App\EventModel;
 use App\Http\Requests;
+use App\ClientAccountModel;
 use Session;
 use Response;
 use Spatie\GoogleCalendar\Event;
@@ -42,13 +46,30 @@ class BookEventController extends Controller
         ->select('*')
         ->where('client.user_id', '=', auth()->user()->id)
         ->get();
-        
+        $clients = Client::all();
         $packages = DB::table('package')
             // ->join('package','event.package_id','=','package.package_id')
             // ->join('event','package.package_id','=','event.package_id')
             ->get();
         $min_val_day = Carbon::now()->addMonths(2)->format('Y-m-d');
-        return view('bookevent', ['client' => $client, 'packages' => $packages,'min_val_date'=>$min_val_day]);
+
+        //error_log(self::send_email(auth()->user()->name,"leebet16@gmail.com", "Patorjackan.info"));
+
+        return view('bookevent', ['client' => $client,'clients'=>$clients, 'packages' => $packages,'min_val_date'=>$min_val_day]);
+
+    }
+    public function add_client_ajax(Request $request){
+        error_log("ajaxing client");
+        $client = new Client();
+        $client->client_name = $request->input('client_name');
+        $client->email = $request->input('email');
+        $client->tel_no = $request->input('tel_no');
+        $client->mob_no = $request->input('mob_no');
+        $client->address = $request->input('address');
+        $client->save();
+
+        error_log("done ejacc");
+        return Response::json(['client_id' => $client->client_id]);
     }
 
     
@@ -73,7 +94,95 @@ class BookEventController extends Controller
 
         return view('bookevent');
     }
+    public function editEventDetails($event_id)
+    {
+        $event = events::where('event_id','=',$event_id)->first();
+        $client = ClientAccountModel::where('client_id','=',$event->client_id)->first();
+        $emps_selected = $event->get_employees();
+        $other_emp =$event->get_available_personnel_on_date(date("Y-m-d", strtotime($event->event_start)));
 
+
+        $min_val_day = Carbon::now()->addMonths(2)->format('Y-m-d');
+        $format_start_day = date("Y-m-d", strtotime($event->event_start));
+        $start_time = date("H:i:s", strtotime($event->event_start));
+        $end_time = date("H:i:s", strtotime($event->event_end));
+        return view('editbookevent', ['client' => $client,'event'=>$event,
+            'emps_selected' => $emps_selected,'other_emps'=>$other_emp,'min_val_date'=>$min_val_day,
+            'event_day'=>$format_start_day,'start_time'=>$start_time,'end_time'=>$end_time]);
+    }
+    public function PosteditEventDetails(Request $request)
+    {
+        $event = events::where("event_id",'=',$request->input('event_id'))->first();
+
+        $startDateTime = Carbon::parse($request->input('eventStartDate')." ".$request->input('startTime'));
+        $endDateTime = Carbon::parse($request->input('eventStartDate')." ".$request->input('endTime'));
+
+
+        $event->event_name = $request->input('eventName');
+        $event->event_type = $request->input('eventType');
+        $event->venue = $request->input('venue');
+        $event->event_start = $startDateTime;
+        $event->event_end = $endDateTime;
+        $event->venue = $request->input('venue');
+        $event->theme = $request->input('theme');
+        $event->others = $request->input('others');
+
+
+        $event->event_detailsAdded = $request->input('eventvenue');
+        $event->venue = $request->input('venue');
+        $event->is_holiday = $request->input('is_holiday');
+        $event->totalpax = $request->input('attendees');
+
+        $event->save();
+        $event->reset_event_employees();
+
+        for($i=0; $i<count($request->input("emps"));$i++){
+            error_log("data: ".$request->input("emps")[$i]);
+
+            $sched = new EmployeeEventSchedule();
+            $sched->employee_id= $request->get("emps")[$i];
+            $sched->event_id= $event->event_id;
+            $sched->event_date_time = $event->event_start;
+            $sched->save();
+        }
+        if($event->package_id != null){
+            error_log(' select package_id:'.$event->package_id);
+            error_log("compat: ".$event->is_event_package_compatible());
+            $compat = $event->is_event_package_compatible();
+
+            error_log($compat == -1);
+            error_log($compat != -1);
+
+            if ($event->is_event_package_compatible() != -1 ){
+
+                error_log($compat.":".-1);
+                error_log("is_not_compatible");
+                $event->discard_package();
+            }
+        }
+
+/*
+        $event = new EventModel([
+            'event_name' => ,
+            'event_type' => $request->input('eventType'),
+            'venue' => $request->input('venue'),
+            'event_start' => $startDateTime,
+            'event_end' => $endDateTime,
+            'theme' => $request->input('theme'),
+            'totalpax' => null,
+            'others' => $request->input('others'),
+            'client_id' =>$request->input('client_id'),
+            'status' => 1,
+
+        ]);
+*/
+        //check if package is still compatible with event
+
+
+
+
+        return redirect('list_events');
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -111,16 +220,7 @@ class BookEventController extends Controller
     //     $eventEnd =  Carbon::parse($request->input('eventEndDate'));
     // }
 
-    $userID = auth()->user()->id;
     
-    $clientID = DB::table('client')
-    ->select('client_id')
-    ->where('client.user_id', '=', $userID)
-    ->get();
-
-    $clientID = $clientID[0]->client_id;
- 
-    // dd($clientID);
 
     $this->validate($request, [
         'eventName'                 => 'required',
@@ -128,7 +228,6 @@ class BookEventController extends Controller
     //    'eventStartDate'            => 'required|after_or_equal:'.$daysBefore1,
     //    'eventEndDate'              => 'required|after:eventStartDate',
         'theme'                     => 'required|min:1',
-    //    'totalPax'                  => 'required',
         'others'                    => '',
         'venue'                    => 'required',
         
@@ -138,7 +237,8 @@ class BookEventController extends Controller
         'eventStartDate'        => 'Please Input a valid Event Start Date',
     //    'eventEndDate'          => 'Please Input a valid Event End Date',
         'theme'                 => 'Please Input a valid Theme',
-    //    'totalPax'              => 'Please Input a valid Number of Attendees',
+       'email.required'              => 'Please Input a valid Client Email Address',
+       'email.email'            => 'Please Input a valid Client Email Address',
         'others'                => 'Please Input a valid Description',
         'venue'                => 'Please Input a valid Venue',
     ]);
@@ -149,6 +249,8 @@ class BookEventController extends Controller
     
     error_log("awit: ".$request->input('venue'));
     error_log("awit: ".$request->input('theme'));
+
+
     $event = new EventModel([
         'event_name' => $request->input('eventName'),
         'event_type' => $request->input('eventType'),
@@ -158,17 +260,17 @@ class BookEventController extends Controller
         'theme' => $request->input('theme'),
         'totalpax' => null,
         'others' => $request->input('others'),
-        'client_id' => $clientID,
+        'client_id' =>$request->input('client_id'),
         'status' => 1,
 
     ]);
+
     $event->event_detailsAdded = $request->input('eventvenue');
     $event->venue = $request->input('venue');
     $event->is_holiday = $request->input('is_holiday');
+    $event->totalpax = $request->input('attendees');
 
 
-
-    $email = auth()->user()->email;
 
     // G EVENT TEMPORARILY SUSPENDED
     // $emailAdd = $email[0]->email; 
@@ -201,7 +303,6 @@ class BookEventController extends Controller
         $sched->event_id= $event->event_id;
         $sched->event_date_time = $event->event_start;
         $sched->save();
-
     }
 
     //self::send_email(auth()->user()->name,"jeremy_ocampojr@dlsu.edu.ph", $request->input('eventName'));
@@ -224,7 +325,23 @@ class BookEventController extends Controller
     public function show($id)
     {
         //
+
+        $client = DB::table('client')
+        ->select('*')
+        ->where('client.client_id', '=', $id)
+        ->first();
+        
+        $packages = DB::table('package')
+            // ->join('package','event.package_id','=','package.package_id')
+            // ->join('event','package.package_id','=','event.package_id')
+            ->get();
+        $min_val_day = Carbon::now()->addMonths(2)->format('Y-m-d');
+
+        return view('bookevent', ['client' => $client, 'packages' => $packages,'min_val_date'=>$min_val_day]);
+
     }
+
+
     public function get_available_personnel_on_date($date){
         $employees = Employee::all();
         $avail_personnel = array();
@@ -287,6 +404,40 @@ class BookEventController extends Controller
      * 
      */
     public function send_email($send_name, $send_email, $subject){
+        $to_name = $send_name;
+        $to_email = $send_email;
+        $data = array('event_confirm_mail'=>'monkaS', 'body' => 'monkey','client_name'=>$to_name,'event_name'=>$subject,);
+        Mail::send('event_confirm_mail', $data, function($message) use ($to_name, $to_email, $subject) {
+            $message->to($to_email, $to_name)
+                ->subject('Event '.$subject.' Booked!');
+            $message->from('cvjcatering.info@gmail.com','Caterie Bot');
+            $message->attach(storage_path('app/uploads/1574702507_res.pdf'), array(
+                    'as' => 'reservation.zip',
+                    'mime' => 'application/pdf')
+            );
+        });
+        error_log('Oops! Email Error hehe.');
+
+        return "sent_";
+    }
+    public function send_email_w_attachment($send_name, $send_email, $subject,$file_name){
+        $to_name = $send_name;
+        $to_email = $send_email;
+        $data = array('event_confirm_mail'=>'monkaS', 'body' => 'monkey','client_name'=>$to_name,'event_name'=>$subject,);
+        Mail::send('event_confirm_mail', $data, function($message) use ($to_name, $to_email, $subject) {
+            $message->to($to_email, $to_name)
+                ->subject('Event'.$subject.' Booked!');
+            $message->from('betbot.py@gmail.com','Caterie Bot');
+            $message->attach(storage_path('app/uploads/1574702507_res.pdf'), array(
+                    'as' => 'reservation.pdf',
+                    'mime' => 'application/pdf')
+            );
+        });
+        error_log('Oops! Email Error hehe.');
+
+        return "sent_";
+    }
+    public function send_email_plain($send_name, $send_email, $subject){
         $to_name = $send_name;
         $to_email = $send_email;
         $data = array('event_confirm_mail'=>'monkaS', 'body' => 'monkey','client_name'=>$to_name,'event_name'=>$subject,);

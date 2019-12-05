@@ -15,11 +15,12 @@ class EmployeeEventScheduleChangeFK extends Migration
     {
         Schema::table('employee_event_schedule', function (Blueprint $table) {
             //create here
-            $table->dropForeign(['employee_id']);
-            $table->foreign('employee_id')
-                ->references('employee_id')
-                ->on('employee')
-                ->onDelete('restrict');
+            // $table->dropForeign(['fk_employee']);
+            // $table->foreign('employee_id')
+
+                // ->references('employee_id')
+                // ->on('employee')
+                // ->onDelete('restrict');
         });
     }
 

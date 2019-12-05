@@ -197,7 +197,6 @@
                                             <th></th>
                                             </thead>
                                             <tbody id="food_tbl">
-
                                             </tbody>
                                         </table>
                                     </div>
@@ -214,7 +213,6 @@
                                             <th>Total Price</th>
                                             </thead>
                                             <tbody id="inv_tbl">
-
                                             </tbody>
                                         </table>
                                     </div>

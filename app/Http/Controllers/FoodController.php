@@ -21,7 +21,15 @@ class FoodController extends Controller
     public function index()
     {
         //
-        return view('foodList');
+
+        $dishes = DB::table('items')
+        ->select('*')
+        ->where('disabled_at','!=', null)
+        ->get();
+
+        dd($dishes);
+
+        return view('foodList', ['dishes => $dishes']);
     }
 
     /**

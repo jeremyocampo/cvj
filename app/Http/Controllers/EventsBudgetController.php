@@ -12,6 +12,7 @@ use App\Supplier;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Event;
+use App\events;
 use App\inventory;
 use Response;
 use App\categoryRef;
@@ -40,6 +41,32 @@ class EventsBudgetController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    public function index()
+    {
+        //$send_name, $send_email, $subject
+        $events = events::where('status','>',1)->get();
+        foreach($events as $event) {
+            $budget_check = EventBudget::where('event_id', '=', $event->event_id)->first();
+            $client = Client::where('client_id', '=', $event->client_id)->first();
+            $event->client_name = $client->client_name;
+            $event->total_budget = $budget_check->total_budget;
+            $event->formatted_day = date("M jS, Y", strtotime($event->event_start));
+            $event->formatted_start = date("H:i", strtotime($event->event_start));
+            $event->formatted_end = date("H:i", strtotime($event->event_start));
+            if ($budget_check == null) {
+                $budget_check = $this->createAutomatedBudget($event->event_id);
+            }
+            //$this->send_email($event->client_name,'leebet16@gmail.com',$event->event_name,'Caterie Confirmation');
+            $event->total_spent = $budget_check->spent_buffer;
+            $event->budget_id = $budget_check->id;
+            foreach (EventBudgetItem::where('event_budget_id', '=', $budget_check->id)->get() as $budget_item) {
+                $event->total_spent += $budget_item->actual_amount;
+
+            }
+        }
+        return view('eventBudget',['events'=>$events]);
+    }
+/* old index of budget
     public function index()
     {
         //$send_name, $send_email, $subject
@@ -82,7 +109,7 @@ class EventsBudgetController extends Controller
         $all_personnels = array();
         return view('eventBudget',['events'=>$events,'all_personnels'=>$all_personnels]);
     }
-
+*/
     public function get_available_personnel($event_id){
         $event = Event::where('event_id','=',$event_id)->first();
         $employees=EmployeeEventSchedule::select('employee_id')->where('event_id','=',$event->event_id)->get();
@@ -120,9 +147,6 @@ class EventsBudgetController extends Controller
         $sched->save();
         return redirect('event_budgets');
     }
-    public function remove_personnel($event_id,$personnel_id){
-
-    }
     public function send_email($send_name, $send_email, $event_name, $subject){
         $to_name = $send_name;
         $to_email = $send_email;
@@ -154,7 +178,9 @@ class EventsBudgetController extends Controller
                 $event_budget_item->save();
                 $event_budget->total_budget +=$event_budget_item->budget_amount;
             }
+
             $event_budget->save();
+
         }
         else{
             $event_budget = EventBudget::where('id','=',$request->get("budget_id"))->first();
@@ -168,12 +194,20 @@ class EventsBudgetController extends Controller
             foreach ($to_delete as $delete){
                 EventBudgetItem::where('id','=',$delete)->first()->delete();
             }
+
+            $fileName = time()."_budgetExpense_receipt".$request->get("budget_id")."_".$request->fileToUpload->getClientOriginalName();
+            $request->fileToUpload->storeAs('uploads',$fileName);
+
+
             $update_budget_items = EventBudgetItem::where('event_budget_id','=',$request->get("budget_id"))->get();
             for($i=0; $i<count($request->input("old_acts"));$i++){
                 $update_budget_items[$i]->item_name = $request->input("old_names")[$i];
                 $update_budget_items[$i]->budget_amount = $request->input("old_vals")[$i];
                 $update_budget_items[$i]->actual_amount += $request->input("old_acts")[$i];
                 $update_budget_items[$i]->save();
+
+
+                $update_budget_items[$i]->add_expense('/storage/public/'.$fileName,$request->input("old_acts")[$i]);
                 $event_budget->total_budget += $update_budget_items[$i]->budget_amount;
             }
             if($request->input("acts") != null){
@@ -184,6 +218,10 @@ class EventsBudgetController extends Controller
                     $update_budget_items[$i]->actual_amount = $request->input("acts")[$i];
                     $event_budget_item->budget_amount = $request->get("vals")[$i];
                     $event_budget_item->save();
+
+                    $event_budget->add_expense('/storage/public/'.$fileName,$request->input("old_acts")[$i]);
+                    $event_budget->total_budget += $update_budget_items[$i]->budget_amount;
+
                     $event_budget->total_budget +=$event_budget_item->budget_amount;
                 }
             }
@@ -193,8 +231,6 @@ class EventsBudgetController extends Controller
 
         return redirect('event_budgets/view/'.$request->input('event'));
     }
-
-
     public function show($event_id)
     {
         $event = Event::where('event_id','=',$event_id)->first();
@@ -213,7 +249,44 @@ class EventsBudgetController extends Controller
         }
         $check_budget = EventBudget::where('event_id','=',$event->event_id)->first();
         $budget_templates = EventBudgetTemplate::all();
-        
+        $receipts = $check_budget->get_receipt_file_paths();
+        //error_log('receio: '.$receipts);
+        foreach($budget_templates as $budget_template){
+            $budget_template->items = EventBudgetTemplateItem::where('event_budget_template_id','=',$budget_template->id)->get();
+        }
+        if($check_budget != null){
+            $check_budget->budget_items = EventBudgetItem::where('event_budget_id','=',$check_budget->id)->get();
+            foreach($check_budget->budget_items as $budget_item){
+                $budget_item->overflow = false;
+                if($budget_item->actual_amount > $budget_item->budget_amount){
+                    $budget_item->overflow = true;
+                }
+               $event->total_spent += $budget_item->actual_amount;
+            }
+        }
+                return view('viewEventBudget',['event_lock'=>$event_lock,'event'=>$event,'event_id'=>$event_id,
+                    'budget'=>$check_budget,'budget_templates'=>$budget_templates,'receipts'=>$receipts]);
+    }
+/* old show budget
+    public function show($event_id)
+    {
+        $event = Event::where('event_id','=',$event_id)->first();
+        $event->package = PackageModel::Where('package_id','=',$event->package_id)->first();
+        $event_lock =  Event::where('event_id','=',$event_id)->whereDate('event_start','<=',date('Y-m-d'))->get();
+
+        //error_log("event: ".$event);
+        error_log("event_log: ".$event_lock);
+        error_log("date_today: ".date('Y-m-d'));
+        $event->total_spent = 0;
+        if(count($event_lock)>0){
+            $event_lock = false;
+        }
+        else{
+            $event_lock = true;
+        }
+        $check_budget = EventBudget::where('event_id','=',$event->event_id)->first();
+        $budget_templates = EventBudgetTemplate::all();
+
         foreach($budget_templates as $budget_template){
             $budget_template->items = EventBudgetTemplateItem::where('event_budget_template_id','=',$budget_template->id)->get();
         }
@@ -225,12 +298,12 @@ class EventsBudgetController extends Controller
                     $budget_item->overflow = true;
                 }
                 //error_log("here me ngayong".$budget_item->actual_amount);
-               $event->total_spent += $budget_item->actual_amount;
+                $event->total_spent += $budget_item->actual_amount;
             }
         }
-                return view('viewEventBudget',['event_lock'=>$event_lock,'event'=>$event,'event_id'=>$event_id,'budget'=>$check_budget,'budget_templates'=>$budget_templates]);
+        return view('viewEventBudget',['event_lock'=>$event_lock,'event'=>$event,'event_id'=>$event_id,'budget'=>$check_budget,'budget_templates'=>$budget_templates]);
     }
-
+*/
     public function createAutomatedBudget($event_id)
     {
         /// building logic here of costing with modules

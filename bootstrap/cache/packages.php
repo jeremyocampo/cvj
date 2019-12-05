@@ -75,4 +75,29 @@
       'GoogleCalendar' => 'Spatie\\GoogleCalendar\\GoogleCalendarFacade',
     ),
   ),
+  'barryvdh/laravel-dompdf' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Barryvdh\\DomPDF\\ServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'PDF' => 'Barryvdh\\DomPDF\\Facade',
+    ),
+  ),
+  'laravel/slack-notification-channel' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Illuminate\\Notifications\\SlackChannelServiceProvider',
+    ),
+  ),
+  'laravel/nexmo-notification-channel' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Illuminate\\Notifications\\NexmoChannelServiceProvider',
+    ),
+  ),
 );
