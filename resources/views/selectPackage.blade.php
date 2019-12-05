@@ -96,6 +96,7 @@
                                                         data-inventory="@foreach($package->inventory as $inv){{$inv->inventory_name}},{{$inv->quantity}},{{$inv->inv_avail}}|@endforeach"
                                                         data-toggle="modal" data-target="#exampleModal" onclick="show_package(this)">{{$package->package_name}}</a></h3>
                                                 <div>
+                                                    <small>{{$package->package_desc}}</small><br>
                                                     <span style="display: inline-block">PHP</span> <b style="display: inline-block">{{number_format($package->price,2)}}</b>
                                                     <small>~ {{$package->suggested_pax}} pax</small>
                                                 </div>

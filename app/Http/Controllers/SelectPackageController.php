@@ -33,7 +33,7 @@ class SelectPackageController extends Controller
     {
         $event = Event::where('event_id','=',$event_id)->first();
         $client_id = Auth::id();
-        $packages = PackageModel::where('suggested_pax','>=',$event->totalpax)->where('event_type','=',$event->event_type)->get();
+        $packages = PackageModel::where('event_type','=',$event->event_type)->where('suggested_pax','<=',$event->totalpax)->get();
         //$packages = PackageModel::all();
 
         error_log("looged_user: ".$client_id);
@@ -53,10 +53,8 @@ class SelectPackageController extends Controller
 
             }
             //$package->inventory = inventory::whereIn('inventory_id',$inv_items)->get();
-
         }
         return view('selectPackage',['packages'=>$packages->reverse(),'event'=>$event,'user_id'=>$client_id]);
-
     }
     public function list_packages()
     {
@@ -216,7 +214,7 @@ class SelectPackageController extends Controller
         $event->save();
         foreach (PackageInventory::where('package_id','=',$event->package_id)->get() as $inv){
             $e_inv = new EventInventory();
-            $inv_inv = inventory::where('inventory_id','=',$inv->inventory_id);
+            $inv_inv = inventory::where('inventory_id','=',$inv->inventory_id)->first();
             $e_inv->event_id = $event->event_id;
             $e_inv->inventory_id = $inv->inventory_id;
             $e_inv->qty = $inv->quantity;
@@ -235,6 +233,7 @@ class SelectPackageController extends Controller
             $e_dsh->save();
         }
         $event->set_default_cost_amount();
+        $event->generate_avail_costing_models();
         $this->generate_quotation($event->event_id);
         return redirect('/summary/'.$event->event_id);
     }
@@ -312,7 +311,7 @@ class SelectPackageController extends Controller
         }
         $event->save();
         $event->set_default_cost_amount();
-
+        $event->generate_avail_costing_models();
         $this->generate_quotation($event->event_id);
 
         return redirect('/summary/'.$event->event_id);
@@ -639,7 +638,7 @@ class SelectPackageController extends Controller
 
         $this->generate_quotation($event->event_id);
         $event->set_default_cost_amount();
-
+        $event->generate_avail_costing_models();
         // When to renew quotation.
         return redirect('/summary/'.$event->event_id);
 

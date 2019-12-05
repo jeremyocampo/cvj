@@ -15,8 +15,6 @@
                     </button>
                 </div>
                 <div class="modal-body">
-
-
                     <div class="row">
                         <form action="/upload_event_forms" method="post" enctype="multipart/form-data">
                             @csrf

@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\DB;
 use App\PackageModel;
 use Session;
 use PDF;
+use App\EventCostingModel;
 use Illuminate\Support\Facades\Auth;
 class QuotationController extends Controller
 {
@@ -149,24 +150,31 @@ class QuotationController extends Controller
         $client_id = Auth::id();
         $avail_methods = array();
 
-
+        $chosen_method = "";
         $event = events::where('event_id','=',$event_id)->first();
         $client = Client::where('client_id','=',$event->client_id)->first();
 
-        $is_analogous = $event->get_analogous_event_model();
 
-        error_log("is analogous: ".$event->get_analogous_event_model());
-        if($event->status < 2 ){
-            if($is_analogous != -1){
-                array_push($avail_methods, array("selected"=>true,"value"=>"analogous","name"=>"Analogous Estimation"));
-            }
-            if($event->costing_method == null){
-                array_push($avail_methods, array("selected"=>true,"value"=>null,"name"=>"Fixed Estimation"));
+        $old_ecms = EventCostingModel::where('event_id','=',$event_id)->get();
+        if(count($old_ecms) == 0){
+            $event->generate_avail_costing_models();
+            $old_ecms = $event->get_event_costing_models();
+        }
+
+
+        foreach($old_ecms as $ecm){
+            error_log('ecm name: '.$ecm->model_name);
+            if($event->costing_method == $ecm->model_name) {
+                $chosen_method = $ecm->model_desc;
+                array_push($avail_methods, array("selected"=>true,"value"=>$ecm->model_name,"name"=>$ecm->model_desc));
             }
             else{
-                array_push($avail_methods, array("selected"=>false,"value"=>null,"name"=>"Fixed Estimation"));
+                array_push($avail_methods, array("selected"=>false,"value"=>$ecm->model_name,"name"=>$ecm->model_desc));
+
+                error_log('dec: false');
             }
         }
+
 
         $event->formatted_day = date("M jS, Y", strtotime($event->event_start));
         $event->formatted_start = date("g:i A", strtotime($event->event_start));
@@ -207,9 +215,12 @@ class QuotationController extends Controller
         foreach ($event_dishes as $dish){
             $itm = Items::where('item_id','=',$dish->item_id)->first();
             $dish->item_name = $itm->item_name;
-
-            $dish->unit_expense = $is_analogous != -1 ? round($dish->get_analogous_item($event_id)->actual_amount/$package->suggested_pax,2) : $itm->unit_expense;
-            $total_dish_cost += $is_analogous != -1 ? $dish->get_analogous_item($event_id)->actual_amount: $itm->unit_expense * $package->suggested_pax;
+/*
+            $dish->unit_expense = $is_analogous != null ? round($dish->get_analogous_item($is_analogous->event_id)->actual_amount/$package->suggested_pax,2) : $itm->unit_expense;
+            $total_dish_cost += $is_analogous != null ? $dish->get_analogous_item($is_analogous->event_id)->actual_amount: $itm->unit_expense * $package->suggested_pax;
+*/
+            $dish->unit_expense = round($dish->cost_amount/$package->suggested_pax,2);
+            $total_dish_cost += $dish->cost_amount;
 
         }
         error_log("total_dish_cost: ".$total_dish_cost);
@@ -228,7 +239,7 @@ class QuotationController extends Controller
                 'additional_invs'=>$event_inventories,'staff_count'=>count($employees_id),'staff_cost'=>$total_staff_cost,
                 'total_cost'=>$total_cost,'total_dish_cost'=>$total_dish_cost , 'total_inv_cost'=>$total_inv_cost,
                 'outsourced_items'=>$outsourced_items,'extra_cost'=>$extra_cost,'total_outsource_cost'=>$total_outsource_cost,
-                'avail_methods'=>$avail_methods]);
+                'avail_methods'=>$avail_methods,"chosen_method"=>$chosen_method]);
     }
 
     public function test_export_quotation_pdf($data,$event_id)
@@ -278,11 +289,11 @@ class QuotationController extends Controller
         $event = events::where('event_id','=',$request->input("event_id"))->first();
         $event->costing_method = $request->input("costing_method");
         $event->reset_event_dish_cost_amount();
-
-        if($this->get_analogous_event_model() != null){
+        $analogous_event = $event->get_analogous_event_model();
+        if($event->costing_method == 'analogous'){
             $event_dishes = EventDishes::where('event_id','=',$request->input("event_id"))->get();
             foreach($event_dishes as $event_dish){
-                $event_dish->cost_amount = $event_dish->get_analogous_item($event->event_id)->actual_amount;
+                $event_dish->cost_amount = $event_dish->get_analogous_item($analogous_event->event_id)->actual_amount;
                 $event_dish->save();
             }
         }

@@ -52,7 +52,7 @@ class GoogleCalendarController extends Controller
             $client = new Google_Client();
                 $client->setApplicationName(config('app.name'));
             $client->setScopes(Google_Service_Directory::CALENDAR_READONLY);
-               $client->setAuthConfig(storage_path('keys/client_secret.json'));
+               $client->setAuthConfig(storage_path('keys/service-account-credentials_old.json'));
                $client->setAccessType('offline');
                return $client;
     }

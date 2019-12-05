@@ -146,7 +146,17 @@ class BookEventController extends Controller
             $sched->save();
         }
         if($event->package_id != null){
-            if ($event->is_event_package_compatible() == -1 ){
+            error_log(' select package_id:'.$event->package_id);
+            error_log("compat: ".$event->is_event_package_compatible());
+            $compat = $event->is_event_package_compatible();
+
+            error_log($compat == -1);
+            error_log($compat != -1);
+
+            if ($event->is_event_package_compatible() != -1 ){
+
+                error_log($compat.":".-1);
+                error_log("is_not_compatible");
                 $event->discard_package();
             }
         }

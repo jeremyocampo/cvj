@@ -195,7 +195,7 @@ class EventsBudgetController extends Controller
                 EventBudgetItem::where('id','=',$delete)->first()->delete();
             }
 
-            $fileName = time()."_budgetExpense_receipt".$request->get("budget_id").".".$request->fileToUpload->getClientOriginalExtension();
+            $fileName = time()."_budgetExpense_receipt".$request->get("budget_id")."_".$request->fileToUpload->getClientOriginalName();
             $request->fileToUpload->storeAs('uploads',$fileName);
 
 

@@ -1,5 +1,5 @@
 <div class="modal fade" id="filesModal" tabindex="-1" style="width: 100%" role="dialog"  aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document" >
+    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 50vw;" >
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="dishesModalLabel">Event Files</h5>
@@ -9,11 +9,36 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <form action="/upload_event_forms" method="post" style="padding: 3vh" enctype="multipart/form-data">
+                    <form action="/upload_event_forms" method="post" style="padding: 3vh;width: 100%" enctype="multipart/form-data">
+                        <div class="accordion" id="accordionExample">
 
                     @foreach($receipts as $receipt)
-                        <a href="/download{{$receipt['path']}}/"><i class="ni ni-cloud-download-95"></i> {{$receipt['name']}}</a><br>
+                                <div class="card" style="width: 100%" >
+                                    <div class="card-header" id="headingOne">
+                                        <h1>
+                                            <button class="btn btn-link" style="float: left" type="button" data-toggle="collapse" data-target="#collapse{{$loop->iteration}}" aria-expanded="true" aria-controls="collapseOne">
+                                                Receipt File: {{$receipt['name']}}
+                                            </button>
+                                        </h1>
+                                    </div>
+
+                                    <div id="collapse{{$loop->iteration}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <button class="btn btn-primary btn-sm float-right"><i class="ni ni-cloud-download-95"></i>
+                                                    <a style="color: white" href="/download{{$receipt['path']}}/">Download Receipt</a><br>
+                                                </button>
+                                            </div>
+                                            <div class="row">
+                                                {expense items here}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
                     @endforeach
+                        </div>
                     </form>
                 </div>
             </div>
@@ -112,7 +137,7 @@
                     @foreach($budget->budget_items as $budget_item)
                         <div class="prog">
                             <div class="progress" style="height: 20px" >
-                                <div class="progress-bar @if($budget_item->overflow) bg-warning @endif" role="progressbar" style="width: {{($budget_item->actual_amount/$budget_item->budget_amount)*100}}%;"  aria-valuemax="100">{{$budget_item->budget_comp_percentage}}{{($budget_item->actual_amount/$budget_item->budget_amount)*100}}%</div>
+                                <div class="progress-bar @if($budget_item->overflow) bg-warning @endif" role="progressbar" style="width: {{($budget_item->actual_amount/$budget_item->budget_amount)*100}}%;"  aria-valuemax="100">{{$budget_item->budget_comp_percentage}}{{round(($budget_item->actual_amount/$budget_item->budget_amount)*100,2)}}%</div>
                             </div>
                         </div>
                     @endforeach

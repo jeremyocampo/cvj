@@ -14,22 +14,32 @@
         <div class="card-body">
             <div class="col-xl-12 mb-5 mb-xl-0">
                 <div class="card shadow">
-                    <div class="card-header border-0" style="text-align: right;padding: 1vh;margin:0;">
+                    <div class="card-header border-0" style="padding: 1vh;margin:0;">
 
+                        @if($event->status == 1)
                         <form action="{{route('post.costing_method')}}" style="display: inline" method="post">
                             @csrf
                             <input type="hidden" name="event_id" value="{{$event->event_id}}">
-                            <select name="costing_method" @if($event->status < 2) onchange="$('#change_btn').click();" @endif  style="width: 20%; display: inline" id = "eventType">
+                            <select name="costing_method" @if($event->status < 2) onchange="$('#change_btn').css('display','inline');" @endif  style="width: 20%; display: inline" id = "eventType">
                                 @foreach($avail_methods as $method)
                                     <option value="{{$method['value']}}" @if($method['selected']) selected @endif> {{$method['name']}} </option>
                                 @endforeach
                             </select>
-                            <button type="submit" id="change_btn" style="display: none;" class="form-control btn-small">Choose</button>
+                            <button type="submit" id="change_btn"  class="btn-primary btn-sm" style="display: none">Confirm</button>
+
                         </form>
-                        <a class="btn btn-sm btn-primary" onclick="PrintElem('printable')" href="#">
+                        @endif
+                        <a class="btn btn-sm btn-primary" style="float: right;" onclick="PrintElem('printable')" href="#">
                             Print Quote <i class="fa fa-print"></i>
                         </a>
+
+                            @if($event->status == 1)
+                            <small style="float: right;margin-right: 4vw;">* {{count($avail_methods)}} Cost Estimation Method/s Available.</small>
+                            @else
+                                <center><b>Using {{$chosen_method}} Method</b></center>
+                            @endif
                     </div>
+                    <hr style="margin-top: 5px;margin-bottom: 5px;">
                     <div class="card-body border-0" id="printable">
                         <style>
                             .th_tbl{

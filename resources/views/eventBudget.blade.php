@@ -44,7 +44,7 @@
                                         @if( ($event->total_budget - $event->total_spent) >= 0)
                                             <p> Items are in budget.</p>
                                         @else
-                                            <p> Items are overspent.</p>
+                                            <b style="color: #ff5658"> Items are overspent. Budget Exceeded.</b>
                                         @endif
 
                                     </td>

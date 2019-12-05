@@ -43,6 +43,10 @@ class events extends Model
         // Code goes here
         return PackageModel::where('package_id','=',$this->package_id)->first();
     }
+    public function client(){
+        // Code goes here
+        return Client::where('client_id','=',$this->client_id)->first();
+    }
 
     public function reset_event_dish_cost_amount(){
         // Code goes here
@@ -116,11 +120,11 @@ class events extends Model
         //include only those confirmed event.
         $events_past = events::where('event_id','!=',$this->event_id)->
                                where('package_id','=',$this->package_id)->
-                               where('status','=',5)->get()->reverse();
+                               where('status','=',2)->get()->reverse();
         if(count($events_past) != 0){
             return $events_past[0];
         }
-        return -1;
+        return null;
     }
     public function set_default_cost_amount(){
         $event_dishes = EventDishes::where('event_id','=',$this->event_id)->get();
@@ -131,6 +135,35 @@ class events extends Model
             $event_dish->cost_amount = $event_dish_item->unit_expense * $event_package->suggested_pax;;
             $event_dish->save();
         }
+    }
+    public function get_event_costing_models(){
+        return EventCostingModel::where('event_id','=',$this->event_id)->get();
+    }
+    public function generate_avail_costing_models(){
+        $old_ecms = EventCostingModel::where('event_id','=',$this->event_id)->get();
+        if(count($old_ecms)==0){
+            $default_ecm = new EventCostingModel();
+            $default_ecm->event_id = $this->event_id;
+            $default_ecm->model_name = null;
+            $default_ecm->model_desc = 'Fixed Estimation';
+            $default_ecm->save();
+        }
+        foreach($old_ecms as $ecm){
+            if($ecm->model_name !='default'){
+                $ecm->delete();
+            }
+        }
+        //analogous if avail.
+        $is_analogous = $this->get_analogous_event_model();
+        if($is_analogous){
+            $analog_ecm = new EventCostingModel();
+            $analog_ecm->event_id = $this->event_id;
+            $analog_ecm->model_name = 'analogous';
+            $analog_ecm->model_desc = 'Analogous Estimation';
+            $analog_ecm->save();
+        }
+
+        return true;
     }
     public function event_budget_create(){
         //create a budget.

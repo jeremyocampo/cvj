@@ -143,7 +143,7 @@ class EventsController extends Controller
 
         foreach($eventApproved as $b){
 
-            $e = events::where('event_id','=',$i->event_id)->first();
+            $e = events::where('event_id','=',$b->event_id)->first();
             $pack = $e->package();
             if($pack){
                 $b->package_name = $pack->package_name;
@@ -151,7 +151,7 @@ class EventsController extends Controller
                 $b->package_name = 'n/a';
             }
 
-            $i->quotations = $e->get_quotations();
+            $b->quotations = $e->get_quotations();
             if(Carbon::parse($b->event_start)->format('Y-m-d') >= $date->subDay()->format('Y-m-d')){
                 array_push($upcomingApprovedEvents, $b);
             }
