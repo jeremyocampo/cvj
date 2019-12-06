@@ -33,7 +33,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- @foreach ($events as $i)
+                                @foreach ($events as $i)
                                 @if($i->status > 0)
                                 <tr>
                                     <td>{{ $i->event_name }}</td>
@@ -75,7 +75,7 @@
                                 </tr>
                                 
                                 @endif
-                                @endforeach --}}
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

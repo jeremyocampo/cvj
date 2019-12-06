@@ -32,11 +32,11 @@ class UpdateSuppliersTable extends Migration
         });
 
         Schema::table('supplier', function (Blueprint $table) {
-            $table->string('name');
-            $table->string('email');
-            $table->string('landline');
-            $table->string('fax');
-            $table->string('mobile');
+            $table->string('name')->nullable();
+            $table->string('email')->nullable();
+            $table->string('landline')->nullable();
+            $table->string('fax')->nullable();
+            $table->string('mobile')->nullable();
             $table->string('payment_terms');
             $table->string('company_address');
             $table->string('billing_address');

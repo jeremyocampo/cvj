@@ -86,7 +86,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ url('suppliers') }}" class="nav-link">
+                    <a href="{{ route('suppliers.index') }}" class="nav-link">
                         <i class="ni ni-archive-2 text-primary"></i>
                         Suppliers
                     </a>

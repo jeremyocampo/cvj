@@ -13,7 +13,7 @@ class Calendar extends Controller
     public function __construct()
     {
         $client = new Google_Client();
-        $KEY_FILE_LOCATION = __DIR__ . 'app/google-calendar/service-account-credentials.json';
+        $KEY_FILE_LOCATION = config('google-calendar.service_account_credentials_json');
         // $client->setAuthConfig('service-account-credentials.json');
         $client->setAuthConfig($KEY_FILE_LOCATION);
         $client->addScope(Google_Service_Calendar::CALENDAR);

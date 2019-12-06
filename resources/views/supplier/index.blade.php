@@ -1,5 +1,5 @@
 @extends('supplier.layout.dashboard')
-{{-- @extends('layouts.inventoryApp') --}}
+
 @section('css')
     <style>
         tr.supplier {
@@ -35,7 +35,7 @@
                                 <h3 class="mb-0">Suppliers</h3>
                             </div>
                             <div class="col text-right">
-                                <button class="btn btn-sm btn-success">Add New Supplier</button>
+                                <button id="addSupplier" class="btn btn-sm btn-success">Add New Supplier</button>
                             </div>
                         </div>
                     </div>
@@ -103,7 +103,7 @@
                                                             <input class="form-control" type="text" name="supplier-name" id="supplierName" value="" disabled>
                                                         </td>
                                                     </tr>
-                                                    <tr>
+                                                    <tr style="display: none;">
                                                         <th>
                                                             <h5 class="mb-0">Email: </h5>
                                                         </th>
@@ -111,7 +111,7 @@
                                                             <input type="text" name="supplier-email" id="supplierEmail" class="form-control" disabled>
                                                         </td>
                                                     </tr>
-                                                    <tr>
+                                                    <tr style="display: none;">
                                                         <th>
                                                             <h5 class="mb-0">Landline: </h5>
                                                         </th>
@@ -119,7 +119,7 @@
                                                             <input type="text" name="supplier-landline" id="supplierLandline" class="form-control" disabled>
                                                         </td>
                                                     </tr>
-                                                    <tr>
+                                                    <tr style="display: none;">
                                                         <th>
                                                             <h5 class="mb-0">Fax: </h5>
                                                         </th>
@@ -127,7 +127,7 @@
                                                             <input type="text" name="supplier-fax" id="supplierFax" class="form-control" disabled>
                                                         </td>
                                                     </tr>
-                                                    <tr>
+                                                    <tr style="display: none;">
                                                         <th>
                                                             <h5 class="mb-0">Mobile: </h5>
                                                         </th>
@@ -189,7 +189,7 @@
                                             </h4>
                                         </div>
                                         <div class="col text-right">
-                                        
+                                            <button id="addContact" class="btn btn-sm btn-success" disabled>Add Contact Person</button>
                                         </div>
                                     </div> 
                                     <div class="card-body" id="contacts">
@@ -204,6 +204,9 @@
                                                 Supplier Item
                                             </h4>
                                         </div>
+                                        <div class="col text-right">
+                                            <button id="addItem" class="btn btn-sm btn-success">Add Item</button>
+                                        </div>
                                     </div>
                                     <div class="card-body">
                                         <div class="table-responsive">
@@ -211,8 +214,7 @@
                                                 <thead>
                                                     <tr>
                                                         <th>Item</th>
-                                                        <th>Status</th>
-                                                        <th>Actions</th>
+                                                        <th>Rate</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody id="supplier-items">
@@ -228,7 +230,7 @@
             </div>
         </div>
     </div>
-    @include('supplier.new-suppliier')
+    @include('supplier.new-supplier')
 @stop
 
 @include('supplier.js')

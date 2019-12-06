@@ -3,7 +3,7 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <a class="navbar-brand pt-0" href="{{ url('home') }}">
-        {{-- <img src="{{ asset('argon') }}/img/brand/cvj.png" class="navbar-brand-img" alt="..."> --}}
+        <img src="{{ asset('argon') }}/img/brand/cvj.png" class="navbar-brand-img" alt="...">
     </a>
     
     <ul class="nav align-items-center d-md-none">
@@ -48,13 +48,13 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('suppliers.index') }}" class="nav-link">
+                <a href="{{ route('purchase-orders.index') }}" class="nav-link">
                     <i class="fa fa-money-bill-alt text-primary"></i>
                     Purchase Order
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('suppliers.index') }}" class="nav-link">
+                <a href="{{ route('reservations.index') }}" class="nav-link">
                     <i class="fa fa-phone text-primary"></i>
                     Reservation
                 </a>

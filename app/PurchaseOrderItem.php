@@ -2,16 +2,17 @@
 
 namespace App;
 
+use App\PurchaseOrder;
 use Illuminate\Database\Eloquent\Model;
 
-class SupplierItem extends Model
+class PurchaseOrderItem extends Model
 {
     /**
      * The table associated with the model.
      *
      * @var string
-    */
-    protected $table = 'supplier_items';
+     */
+    protected $table = 'purchase_order_items';
 
     /**
      * The attributes that are mass assignable.
@@ -21,11 +22,12 @@ class SupplierItem extends Model
     protected $fillable = [
         'item',
         'rate',
-        'is_active'
+        'quantity',
+        'total'
     ];
 
-    public function supplier()
+    public function purchaseOrder()
     {
-        return $this->belongsTo(Supplier::class, 'supplier_id', 'supplier_id');
+        return $this->belongsTo(PurchaseOrder::class);
     }
 }

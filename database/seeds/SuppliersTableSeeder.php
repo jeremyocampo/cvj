@@ -14,6 +14,8 @@ class SuppliersTableSeeder extends Seeder
      */
     public function run()
     {
+        Supplier::truncate();
+
         $faker = new Generator();
         $faker->addProvider(new Faker\Provider\en_US\Address($faker));
         $faker->addProvider(new Faker\Provider\en_US\PhoneNumber($faker));
@@ -54,7 +56,5 @@ class SuppliersTableSeeder extends Seeder
                 $contactPerson->save();
             }
         }
-
-        dd(count($suppliers));
     }
 }

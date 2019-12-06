@@ -83,14 +83,13 @@ Route::post('event_budgets/','EventsBudgetController@create')->name("post.event_
 Route::get('send_mail','MailController@index');
 
 Auth::routes();
-Route::get('/','HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('ingredient', 'IngredientController');
 Route::resource('food', 'FoodController');
 Route::resource('users', 'ManageUsersController');
 Route::resource('employee', 'EmployeeController');
 Route::resource('eventreport', 'EventLogisticsReportController');
-Route::resource('returnInventory', 'ReturnInventoryContoller');
+Route::resource('returnInventory', 'ReturnInventoryController');
 Route::resource('manageuser', 'ManageUsersController');
 
 Route::get('admin/routes', 'AdminController@admin')->middleware('admin');
@@ -104,4 +103,12 @@ Route::resource('bookevent', 'BookEventController');
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('suppliers', 'SupplierController');
     Route::get('suppliers/{supplier}/state', 'SupplierController@state');
+    Route::post('suppliers/{supplier}/contact-person', 'SupplierController@addContact');
+    Route::post('suppliers/{supplier}/supplier-item', 'SupplierController@addItem');
+
+    Route::get('email/{order}', 'PurchaseOrderController@email');
+    Route::get('receive/{order}', 'PurchaseOrderController@receive');
+    Route::resource('purchase-orders', 'PurchaseOrderController');
+    Route::get('events', 'ReservationController@getEvent');
+    Route::resource('reservations', 'ReservationController');
 });

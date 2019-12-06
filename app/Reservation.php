@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SupplierItem extends Model
+class Reservation extends Model
 {
     /**
      * The table associated with the model.
      *
      * @var string
-    */
-    protected $table = 'supplier_items';
+     */
+    protected $table = 'reservations';
 
     /**
      * The attributes that are mass assignable.
@@ -19,13 +19,9 @@ class SupplierItem extends Model
      * @var array
      */
     protected $fillable = [
-        'item',
-        'rate',
-        'is_active'
+        'event',
+        'event_date',
+        'time',
+        'event_place'
     ];
-
-    public function supplier()
-    {
-        return $this->belongsTo(Supplier::class, 'supplier_id', 'supplier_id');
-    }
 }
