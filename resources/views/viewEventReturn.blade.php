@@ -4,29 +4,28 @@
 @include('layouts.headers.inventoryCard1')
 <div class="container-fluid mt--7">
 		
-	<!-- Modal -->
-	<div id="myModal" class="modal fade" role="dialog">
-		<div class="modal-dialog">
-		
-			<!-- Modal content-->
-			<div class="modal-content">
-			<div class="modal-header">
-				<div class="row">
-					<div >
-					<h2 class="modal-title">Are you sure you want to continue?</h4>
+				<!-- Modal -->
+				<div id="myModal" class="modal fade" role="dialog">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h1 class="modal-title">Modal title</h1>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<div class="row" id="notReturned">
+									
+								</div>
+							</div>
+							<div class="modal-footer">
+								{{ Form::submit('Confirm Changes', ['class' => 'btn btn-success']) }}
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							</div>
+						</div>
 					</div>
 				</div>
-			</div>
-			
-			<div class="modal-footer">
-				{{ Form::submit('Confirm Changes', ['class' => 'btn btn-success']) }}
-				<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-			</div>
-			</div>
-		
-		</div>
-	</div>
-		
 				{{-- <div class="col-xl-8 mb-5 mb-xl-0"> --}}
 				<div class="col-xl-12 mb-5">
 					<div class="card shadow " >
@@ -35,7 +34,7 @@
 								<div class="col">
 									<div class="row">
 											<div class="col-md-5 ">
-												<h2 calss="">View Item Details</h2>
+												<h1 calss="">Event Item Details</h1>
 											</div>
 									<div class="col-xs-2">
 											&nbsp;&nbsp;
@@ -118,9 +117,9 @@
 								<div class="col-md-4">
 									<label class="form-label">Date Deployed</label>
 									@if($dateDeployed->date_deployed <= $event->event_start)
-										<h1><b>{{ $dateDeployed->date_deployed}}</b></h1>
+										<h1><b>{{ Carbon\Carbon::parse($dateDeployed->date_deployed)->format('F j, Y g:i a') }}</b></h1>
 									@else
-										<h1><b>{{ $dateDeployed->date_deployed}} [LATE]</b></h1>
+										<h1><b>{{ Carbon\Carbon::parse($dateDeployed->date_deployed)->format('F j, Y g:i a') }} <font color="red">[LATE]</font></b></h1>
 									@endif
 									<input type="hidden" class="form-control" name="event_start" value="{{ $dateDeployed->date_deployed}}">
 								</div>
@@ -156,10 +155,11 @@
 											<th scope="col">Item Name</th>
 											<th scope="col">Color</th>
 											<th scope="col">Event Barcode</th>
-											<th scope="col">Rental Cost</th>
-											<th scope="col">Quantity</th>
-											<th scope="col">Total Rental Cost</th>
-                                            <th scope="col">Items Scanned</th>
+											{{-- <th scope="col">Rental Cost</th> --}}
+											<th scope="col">Quantity Deployed</th>
+											{{-- <th scope="col">Total Rental Cost</th> --}}
+											<th scope="col">Quantity Scanned for Return</th>
+											<th scope="col">Quantity Lost/Damaged</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -191,17 +191,24 @@
 													<br>{{$i->barcode}}
 												</div>	
 											</td>
-											<td>{{ $i->rental_cost}} </td>
+											{{-- <td>{{ $i->rental_cost}} </td> --}}
 											<td>
 												{{ $i->qty }}
 												<input hidden type="text" value="{{ $i->qty}}" id="qty{{ $i->barcode }}">
 											</td>
-											<td> {{ $i->rental_cost * $i->qty }} </td>
+											{{-- <td> {{ $i->rental_cost * $i->qty }} </td> --}}
 											<td>
 												<div class="col-xl-4">
-													<label class="form-label">Qty to Return</label>
+													{{-- <label class="form-label">Qty to Return</label> --}}
 													<input type="hidden" class="invID" name="invIDs[]" value="{{ $i->inventory_id }}" id="inventory-{{ $i->inventory_id }}">
 													<input type="number" value=0  readonly class="form-control qtyReturn" name="qtyReturned[]" id="qtyReturn{{ $i->barcode }}">
+												</div>
+											</td>
+											<td>
+												<div class="col-xl-4">
+													{{-- <label class="form-label">Qty to Return</label> --}}
+													<input type="hidden" class="lostID" name="lostIDs[]" value="{{ $i->inventory_id }}" id="lost-{{ $i->inventory_id }}">
+													<input type="number" value={{ $i->qty }}  readonly class="form-control qtyLostDam" name="qtyLostDam[]" id="qtyLostDam{{ $i->barcode }}">
 												</div>
 											</td>
                                         </tr>
@@ -264,20 +271,22 @@
 			document.getElementById('barcodeInput').onkeyup = function checkBarcode(){
 
 				var barcode = document.getElementById('barcodeInput').value;
-				// alert(barcode);
 				
 				var barcodeId = "qtyReturn"+barcode+"";
+				var lostbarcodeId = "qtyLostDam"+barcode+""; 
 				var qtyId = "qty"+barcode+"";
 				var rowId = "row"+barcode+"";
+
 				if (document.getElementById(barcodeId).value != null){
 					if(parseInt(document.getElementById(barcodeId).value) < parseInt(document.getElementById(qtyId).value)){
-						// alert(barcode);
 						document.getElementById(barcodeId).value = parseInt(document.getElementById(barcodeId).value) + 1;
+						document.getElementById(lostbarcodeId).value = parseInt(document.getElementById(lostbarcodeId).value) - 1;
 					} else if (parseInt(document.getElementById(barcodeId).value) == parseInt(document.getElementById(qtyId).value)){
 						document.getElementById(rowId).className = 'success';
 					}
 					barcode = document.getElementById('barcodeInput').value = "";
 				}
+
 				var quantities = document.getElementsByClassName( 'qtyReturn' ),
 					qtys  = [].map.call(quantities, function( input ) {
 						return input.value;
@@ -286,23 +295,24 @@
 				var inventoryIDs = document.getElementsByClassName( 'invID' ),
 					ids  = [].map.call(inventoryIDs, function( input ) {
 						return input.value;
-						// alert(input.value);
 					}).join();
 
+				// var lostIDs = document.getElementsByClassName('lostID'),
+				// 	losts = [].
 
-				// var Quant = qtys.split(",");
-				// var IDS = ids.split(","); 
-				
 				document.getElementById('qtyReturnArray').value = qtys;
 				document.getElementById('idReturnArray').value = ids;
 
 				var qty = document.getElementById('qtyReturnArray').value;
 				var id = document.getElementById('idReturnArray').value;
 
-				// alert(id);
-				// alert(qty);
-
 			}
+
+
 		});
+
+		function checkLoD(){
+
+		}
 	</script>
 @endpush

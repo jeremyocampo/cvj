@@ -206,7 +206,6 @@
                                 </ul>
                             </div>
                         </li>
-
                         <li class="nav-item">
                                 <a class="nav-link" href="#navbar-dashboards1" data-toggle="collapse" role="" aria-expanded="false" aria-controls="">
                                     <i class="ni ni-collection text-red"></i>

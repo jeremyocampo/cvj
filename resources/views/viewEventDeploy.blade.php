@@ -43,18 +43,16 @@
                         </div>
                         {{-- {!! Form::open(['action' => ['DeployInventoryController@update', $event[0]->event_id], 'method' => 'POST']) !!} --}}
                         {!! Form::open(['action' => ['DeployInventoryController@store'], 'method' => 'POST']) !!}
+                        
                         <!-- Modal -->
                         <div id="myModal" class="modal fade" role="dialog">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <div class="row">
-                                            <div >
-                                                <h2 class="modal-title">Are you sure you want to continue?</h2>
-                                            </div>
-                                        </div>
+                                        <h1 class="modal-title">Are you sure you want to continue?</h1>
                                     </div>
                                     <div class="modal-body">
+                                        <p>Please check all necessary details before you continue.</p>
                                     </div>
                                     <div class="modal-footer">
                                         {{ Form::submit('Deploy Items', ['class' => 'btn btn-success']) }}
@@ -63,6 +61,7 @@
                                 </div>
                             </div>
                         </div>
+
 						<div class="card-body">
                                 <div class="table-responsive mb-3">
                                     <!-- Projects table -->
@@ -86,7 +85,7 @@
                                             @endforeach
                                             </div>
                                             <div class="col-md-12 mb-3">
-                                                Assigned Personel In-charge: 
+                                                Assigned Personel In-charge: <font color="red">*</font>
                                                 <select class="form-control" name="employeeAssigned" required>
                                                     <option disabled selected > -Please Assign an Employee- </option>
                                                     @foreach($employees as $a)

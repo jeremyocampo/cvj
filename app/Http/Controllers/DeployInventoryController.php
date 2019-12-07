@@ -124,7 +124,7 @@ class DeployInventoryController extends Controller
             $deploy_inventory = new deployed_inventory();
             $deploy_inventory->event_deployed = $i->event_id;
             $deploy_inventory->inventory_deployed = $i->inventory_id;
-            $deploy_inventory->quantity = $i->qty;
+            $deploy_inventory->qty = $i->qty;
             $deploy_inventory->employee_assigned = $request->input('employeeAssigned');
             $deploy_inventory->barcode = $faker->unique()->isbn13;
             $deploy_inventory->save();

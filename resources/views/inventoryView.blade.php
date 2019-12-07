@@ -47,51 +47,51 @@
                             @endif
 
 							<div class="row">
-									<div class="col-xl-8 ">
-										<h2 calss="mb-0">View Item Details</h2>
-									</div>
-									<div class="col-xl-4">
-										<label class="text-muted">Date Created: {{$itemInfo->date_created}}</label>
-									</div>
-									<div class="col-xl-8 ">
-									</div>
-									<div class="col-xl-4">
-										<div id="barcode-{!! $itemInfo->inventory_id !!}" value="{!! "toPrint-" . $itemInfo->inventory_id!!}">
-                                            <a href="" class="dropdown-item" onclick="printContent('barcode-{{$itemInfo->inventory_id}}');" id="printBtn{{ $itemInfo->inventory_id }}">
-												{!!'<img src="data:image/png;base64,' . DNS1D::getBarcodePNG("".$itemInfo->sku, "C128A",2,44,array(1,1,1), true) . '" alt="barcode"   />' !!}
-                                            </a>
-                                        </div>	
-										{{-- {!!'<img src="data:image/png;base64,' . DNS1D::getBarcodePNG("".$itemInfo->sku, "C128A",2,44,array(1,1,1), true) . '" alt="barcode"   />' !!} --}}
-									</div>
-									<div class="col-xl-8">
-									</div>
-									<div class="col-xl-4">
-											<label class="text-muted">SKU Number: &nbsp;</label>{{$itemInfo->sku}}
-									</div>
-									
-
-									<div class="col-xl-6 mt-3">
-										<h4>Item Name</h4>
-										<h1 class="mb-0">{{$itemInfo->inventory_name}}</h1>
-									</div>
-									<div class="col-xl-3 mt-3"></div>
-									<div class="col-xl-3 mt-3">
-										<div class="col-md-12">
-											<label class="form-label">Item Status</label>
-											<select id="status" name="status" class="form-control" placeholder="Sub-Category" required>
-												<option value=-1 disabled> Please Select a Status</option>
-												@if($itemInfo=='0')
-													<option value=0 selected>Disabled</option>
-													<option value=1> Activate Item</option>
-												@else
-													<option value=0> Disable Item </option>
-													<option value=1 selected> Active</option>
-												@endif
-											</select>
-										</div>
-									</div>
-									
+								<div class="col-xl-8 ">
+									<h2 calss="mb-0">View Item Details</h2>
 								</div>
+								<div class="col-xl-4">
+									<label class="text-muted">Date Created: {{$itemInfo->date_created}}</label>
+								</div>
+								<div class="col-xl-8 ">
+								</div>
+								<div class="col-xl-4">
+									<div id="barcode-{!! $itemInfo->inventory_id !!}" value="{!! "toPrint-" . $itemInfo->inventory_id!!}">
+										<a href="" class="dropdown-item" onclick="printContent('barcode-{{$itemInfo->inventory_id}}');" id="printBtn{{ $itemInfo->inventory_id }}">
+											{!!'<img src="data:image/png;base64,' . DNS1D::getBarcodePNG("".$itemInfo->sku, "C128A",2,44,array(1,1,1), true) . '" alt="barcode"   />' !!}
+										</a>
+									</div>	
+									{{-- {!!'<img src="data:image/png;base64,' . DNS1D::getBarcodePNG("".$itemInfo->sku, "C128A",2,44,array(1,1,1), true) . '" alt="barcode"   />' !!} --}}
+								</div>
+								<div class="col-xl-8">
+								</div>
+								<div class="col-xl-4">
+										<label class="text-muted">SKU Number: &nbsp;</label>{{$itemInfo->sku}}
+								</div>
+								
+
+								<div class="col-xl-6 mt-3">
+									<h4>Item Name</h4>
+									<h1 class="mb-0">{{$itemInfo->inventory_name}}</h1>
+								</div>
+								<div class="col-xl-3 mt-3"></div>
+								<div class="col-xl-3 mt-3">
+									<div class="col-md-12">
+										<label class="form-label">Item Status</label>
+										<select id="status" name="status" class="form-control" placeholder="Sub-Category" required>
+											<option value=-1 disabled> Please Select a Status</option>
+											@if($itemInfo=='0')
+												<option value=0 selected>Disabled</option>
+												<option value=1> Activate Item</option>
+											@else
+												<option value=0> Disable Item </option>
+												<option value=1 selected> Active</option>
+											@endif
+										</select>
+									</div>
+								</div>
+								
+							</div>
 								
 						</div>
 						<div class="card-body border-0">
