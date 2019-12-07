@@ -46,6 +46,8 @@ class SelectPackageController extends Controller
                 $inv = inventory::where('inventory_id','=',$inventory->inventory_id)->first();
                 $inventory->inventory_name = $inv->inventory_name;
                 $inventory->inv_avail =$inventory->is_inventory_available();
+                $inventory->inv_cat = $inv->category()->category_name;
+
                 error_log("package_id_nm: ".$package->package_id.$package->package_name);
                 error_log($inventory->inventory_name.": ".$inventory->is_inventory_available());
                 error_log("p_inv_qty: ".$inventory->quantity);
@@ -349,7 +351,12 @@ class SelectPackageController extends Controller
         else{
             $avail_foods = Items::all();
             $avail_invs = inventory::all();
+
         }
+        foreach($avail_invs as $inv){
+            $inv->cat_name = $inv->category()->category_name;
+        }
+
         return view('customizePackage',['user_id'=>$client_id,'package'=>$package,'avail_foods'=>$avail_foods,'avail_invs'=>$avail_invs]);
     }
 
@@ -576,6 +583,10 @@ class SelectPackageController extends Controller
             $avail_foods = Items::all();
         }
         $avail_invs = inventory::all();
+
+        foreach($avail_invs as $inv){
+            $inv->cat_name = $inv->category()->category_name;
+        }
 
         foreach($event_inventories as $inv){
             $inv->inventory_name = $inv->inventory()->inventory_name;
