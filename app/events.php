@@ -117,14 +117,71 @@ class events extends Model
         return $emps;
     }
     public function get_analogous_event_model(){
+        //uses latest with highest similarity score regarding items.
+        //if no analogous got perfect score. what to do??
+        //OPTIONS:
+        // 1. dont use analogous method. (use fixed instead)
+        // 2. use partial analogous method. partials filled by fixed (other items will use fixed method)
+        // 3. use analogous on items instead of package. Search other nearest packages regardless of pax/event_type and calculate cost price of each multiplied by current pax.
+
         //include only those confirmed event.
         $events_past = events::where('event_id','!=',$this->event_id)->
                                where('package_id','=',$this->package_id)->
-                               where('status','=',2)->get()->reverse();
+                               where('status','>',1)->get()->reverse();
+        //status should be more than 3.
+
         if(count($events_past) != 0){
-            return $events_past[0];
+            //check individual packages for event and check the selected if they have the match including additionals.
+            //$event_score_arr = array();
+            $highest_score = 0;
+            $highest_score_event = 0;
+            foreach($events_past as $event_past){
+                $curr_score = 0;
+                $event_past_dishes = EventDishes::where('event_id','=',$event_past->event_id)->select('item_id')->get();
+                $event_dishes = EventDishes::where('event_id','=',$this->event_id)->select('item_id')->get();
+                foreach($event_dishes as $event_dish){
+                    if(in_array($event_dish,$event_past_dishes)){
+                        $curr_score++;
+                    }
+                }
+                if($highest_score<$curr_score){
+                    $highest_score = $curr_score;
+                    $highest_score_event= $event_past;
+                }
+                if($highest_score == count($event_dishes)){
+                    return $highest_score_event;
+                }
+            }
+            return $highest_score_event;
         }
         return null;
+    }
+
+    public function get_analogous_ind_event_model($item_id){
+
+        //include only those confirmed event.
+
+        $package = events::where('event_id','=',$this->event_id)->first()->package();
+
+        error_log('$package'.$package->package_name);
+
+        $events_past = events::where('event_id','!=',$this->event_id)->
+        where('status','>',1)->
+        where('package_id','=',$package->package_id)->
+        get()->reverse();
+
+        error_log('past_events: '.count($events_past));
+        //status should be more than 3.
+        foreach($events_past as $event){
+            if($event->get_event_dish_from_item_id($item_id) != null){
+                error_log('return: '.$event);
+                return $event;
+            }
+        }
+        return null;
+    }
+    public function get_event_dish_from_item_id($item_id){
+        return EventDishes::where('item_id','=',$item_id)->where('event_id','=',$this->event_id)->first();
     }
     public function set_default_cost_amount(){
         $event_dishes = EventDishes::where('event_id','=',$this->event_id)->get();
@@ -132,7 +189,7 @@ class events extends Model
 
         foreach($event_dishes as $event_dish){
             $event_dish_item =  $event_dish->get_item();
-            $event_dish->cost_amount = $event_dish_item->unit_expense * $event_package->suggested_pax;;
+            $event_dish->cost_amount = $event_dish_item->unit_expense * $event_package->suggested_pax;
             $event_dish->save();
         }
     }
@@ -147,21 +204,29 @@ class events extends Model
             $default_ecm->model_name = null;
             $default_ecm->model_desc = 'Fixed Estimation';
             $default_ecm->save();
-        }
-        foreach($old_ecms as $ecm){
-            if($ecm->model_name !='default'){
-                $ecm->delete();
-            }
-        }
-        //analogous if avail.
-        $is_analogous = $this->get_analogous_event_model();
-        if($is_analogous){
+
             $analog_ecm = new EventCostingModel();
             $analog_ecm->event_id = $this->event_id;
             $analog_ecm->model_name = 'analogous';
             $analog_ecm->model_desc = 'Analogous Estimation';
             $analog_ecm->save();
         }
+        /*
+        foreach($old_ecms as $ecm){
+            if($ecm->model_name !='default'){
+                $ecm->delete();
+            }
+        }
+        //analogous if avail.
+        //$is_analogous = $this->get_analogous_event_model();
+        //if($is_analogous){
+        $analog_ecm = new EventCostingModel();
+        $analog_ecm->event_id = $this->event_id;
+        $analog_ecm->model_name = 'analogous';
+        $analog_ecm->model_desc = 'Analogous Estimation';
+        $analog_ecm->save();
+        //}
+        */
 
         return true;
     }

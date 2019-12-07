@@ -89,7 +89,7 @@
                         </div>
                         <div class="row" style="margin-top: 6vh;">
                             <div class="card-body" style="margin: 0;">
-                                <center >Breakdown of Expenses for <b>{{$client->client_name}}</b><br>
+                                <center><b>{{$event->event_name}} Breakdown of Expenses </b><br>
                                     <small> {{$event->formatted_day}} ~ {{$package->suggested_pax}} pax</small><br>
                                     <small>[{{$event->venue}}] {{$event->event_detailsAdded}} </small><br>
                                     <small>Event Time: {{$event->formatted_start}} to {{$event->formatted_end}}</small>

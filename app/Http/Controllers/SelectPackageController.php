@@ -211,6 +211,8 @@ class SelectPackageController extends Controller
             $event->off_premise_amount = $event->total_amount_due * 0.15;
             $event->total_amount_due = $event->total_amount_due * 1.15;
         }
+
+        $event->costing_method = null;
         $event->save();
         foreach (PackageInventory::where('package_id','=',$event->package_id)->get() as $inv){
             $e_inv = new EventInventory();
@@ -309,6 +311,8 @@ class SelectPackageController extends Controller
             $event->off_premise_amount = $event->total_amount_due * 0.15;
             $event->total_amount_due = $event->total_amount_due * 1.15;
         }
+
+        $event->costing_method = null;
         $event->save();
         $event->set_default_cost_amount();
         $event->generate_avail_costing_models();
@@ -634,6 +638,7 @@ class SelectPackageController extends Controller
             $event->off_premise_amount = $event->total_amount_due * 0.15;
             $event->total_amount_due = $event->total_amount_due * 1.15;
         }
+        $event->costing_method = null;
         $event->save();
 
         $this->generate_quotation($event->event_id);
