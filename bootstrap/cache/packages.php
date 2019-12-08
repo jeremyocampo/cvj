@@ -1,4 +1,15 @@
 <?php return array (
+  'barryvdh/laravel-dompdf' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Barryvdh\\DomPDF\\ServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'PDF' => 'Barryvdh\\DomPDF\\Facade',
+    ),
+  ),
   'beyondcode/laravel-dump-server' => 
   array (
     'providers' => 
@@ -18,6 +29,20 @@
     'providers' => 
     array (
       0 => 'LaravelFrontendPresets\\ArgonPreset\\ArgonPresetServiceProvider',
+    ),
+  ),
+  'laravel/nexmo-notification-channel' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Illuminate\\Notifications\\NexmoChannelServiceProvider',
+    ),
+  ),
+  'laravel/slack-notification-channel' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Illuminate\\Notifications\\SlackChannelServiceProvider',
     ),
   ),
   'laravel/tinker' => 
@@ -73,31 +98,6 @@
     'aliases' => 
     array (
       'GoogleCalendar' => 'Spatie\\GoogleCalendar\\GoogleCalendarFacade',
-    ),
-  ),
-  'barryvdh/laravel-dompdf' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Barryvdh\\DomPDF\\ServiceProvider',
-    ),
-    'aliases' => 
-    array (
-      'PDF' => 'Barryvdh\\DomPDF\\Facade',
-    ),
-  ),
-  'laravel/slack-notification-channel' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Illuminate\\Notifications\\SlackChannelServiceProvider',
-    ),
-  ),
-  'laravel/nexmo-notification-channel' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Illuminate\\Notifications\\NexmoChannelServiceProvider',
     ),
   ),
 );

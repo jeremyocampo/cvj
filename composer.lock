@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "0ac13e11480d442c751d0de0c1beb8e0",
@@ -579,13 +579,13 @@
             "authors": [
                 {
                     "name": "Neuman Vong",
-                    "email": "neuman+pear@twilio.com",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "neuman+pear@twilio.com"
                 },
                 {
                     "name": "Anant Narayanan",
-                    "email": "anant@php.net",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "anant@php.net"
                 }
             ],
             "description": "A simple library to encode and decode JSON Web Tokens (JWT) in PHP. Should conform to the current spec.",
@@ -3056,9 +3056,9 @@
             "authors": [
                 {
                     "name": "Freek Van der Herten",
+                    "role": "Developer",
                     "email": "freek@spatie.be",
-                    "homepage": "https://spatie.be",
-                    "role": "Developer"
+                    "homepage": "https://spatie.be"
                 }
             ],
             "description": "Manage events on a Google Calendar",
