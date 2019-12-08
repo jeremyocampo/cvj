@@ -261,6 +261,11 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="{{ url('list_packages') }}">
+                            <i class="ni ni-collection text-green"></i>List Packages
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="http://cvj.test:3000/logout" class="nav-link" onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();">
                             <i class="ni ni-button-power text-info"></i>
@@ -305,11 +310,7 @@
                              <i class="ni ni-calendar-grid-58 text-green"></i> List Events
                          </a>
                      </li>
-                     <li class="nav-item">
-                         <a class="nav-link" href="{{ url('list_packages') }}">
-                             <i class="ni ni-calendar-grid-58 text-green"></i> (Temporary) Packages
-                         </a>
-                     </li>
+
                     <li class="nav-item">
                         <a href="http://cvj.test:3000/logout" class="nav-link" onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();">

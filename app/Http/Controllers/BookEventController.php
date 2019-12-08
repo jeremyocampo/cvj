@@ -77,7 +77,7 @@ class BookEventController extends Controller
         //get number of events for that day, if 10 return invalid.
         $d = new DateTime($startDate);
         $events = EventModel::whereDate('event_start','=',$d)->get();
-        if(count($events) <= 0){
+        if(count($events) <= 10){
             return Response::json(['valid' => true,'event_count'=>count($events)]);
         }
         return Response::json(['valid' => false,'event_count'=>count($events)]);

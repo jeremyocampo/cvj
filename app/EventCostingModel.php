@@ -11,4 +11,5 @@ class EventCostingModel extends Model
     public $primaryKey = 'event_costing_id';
 
     public $timestamps = false;
+    public $primaryKey = 'event_costing_id';
 }

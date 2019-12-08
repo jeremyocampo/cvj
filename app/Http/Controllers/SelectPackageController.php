@@ -46,6 +46,8 @@ class SelectPackageController extends Controller
                 $inv = inventory::where('inventory_id','=',$inventory->inventory_id)->first();
                 $inventory->inventory_name = $inv->inventory_name;
                 $inventory->inv_avail =$inventory->is_inventory_available();
+                $inventory->inv_cat = $inv->category()->category_name;
+
                 error_log("package_id_nm: ".$package->package_id.$package->package_name);
                 error_log($inventory->inventory_name.": ".$inventory->is_inventory_available());
                 error_log("p_inv_qty: ".$inventory->quantity);
@@ -212,6 +214,8 @@ class SelectPackageController extends Controller
             $event->off_premise_amount = $event->total_amount_due * 0.15;
             $event->total_amount_due = $event->total_amount_due * 1.15;
         }
+
+        $event->costing_method = null;
         $event->save();
         foreach (PackageInventory::where('package_id','=',$event->package_id)->get() as $inv){
             $e_inv = new EventInventory();
@@ -310,6 +314,8 @@ class SelectPackageController extends Controller
             $event->off_premise_amount = $event->total_amount_due * 0.15;
             $event->total_amount_due = $event->total_amount_due * 1.15;
         }
+
+        $event->costing_method = null;
         $event->save();
         $event->set_default_cost_amount();
         $event->generate_avail_costing_models();
@@ -347,7 +353,12 @@ class SelectPackageController extends Controller
         else{
             $avail_foods = Items::all();
             $avail_invs = inventory::all();
+
         }
+        foreach($avail_invs as $inv){
+            $inv->cat_name = $inv->category()->category_name;
+        }
+
         return view('customizePackage',['user_id'=>$client_id,'package'=>$package,'avail_foods'=>$avail_foods,'avail_invs'=>$avail_invs]);
     }
 
@@ -575,6 +586,10 @@ class SelectPackageController extends Controller
         }
         $avail_invs = inventory::all();
 
+        foreach($avail_invs as $inv){
+            $inv->cat_name = $inv->category()->category_name;
+        }
+
         foreach($event_inventories as $inv){
             $inv->inventory_name = $inv->inventory()->inventory_name;
         }
@@ -636,6 +651,7 @@ class SelectPackageController extends Controller
             $event->off_premise_amount = $event->total_amount_due * 0.15;
             $event->total_amount_due = $event->total_amount_due * 1.15;
         }
+        $event->costing_method = null;
         $event->save();
 
         $this->generate_quotation($event->event_id);
