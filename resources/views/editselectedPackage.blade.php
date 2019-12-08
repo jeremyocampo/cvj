@@ -61,7 +61,7 @@
                 <input type="text" class="form-control" id="myInput" onkeyup="myFunction()" placeholder="Search for inventory">
                 <div class="row">
                     <b>Items</b>
-                    <div class="" style="overflow:scroll; height: 75vh">
+                    <div style="overflow:scroll; height: 75vh">
                         <table id="myTable" class="table">
                             <thead>
                             <th></th>

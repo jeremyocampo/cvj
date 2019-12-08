@@ -541,6 +541,10 @@ class SelectPackageController extends Controller
         }
         $avail_invs = inventory::all();
 
+        foreach($avail_invs as $inv){
+            $inv->cat_name = $inv->category()->category_name;
+        }
+
         return view('additionalPackage',['venue_price'=>$venue_cost_table[$event->venue],'user_id'=>$client_id,'package'=>$package,'event'=>$event,'avail_foods'=>$avail_foods,'avail_invs'=>$avail_invs]);
 
     }

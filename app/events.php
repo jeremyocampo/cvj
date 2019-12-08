@@ -157,12 +157,12 @@ class events extends Model
         return null;
     }
 
-    public function get_analogous_ind_event_model($item_id){
+    public function get_analogous_ind_event_models($item_id){
 
         //include only those confirmed event.
 
         $package = events::where('event_id','=',$this->event_id)->first()->package();
-
+        $events = array();
         error_log('$package'.$package->package_name);
 
         $events_past = events::where('event_id','!=',$this->event_id)->
@@ -172,13 +172,17 @@ class events extends Model
 
         error_log('past_events: '.count($events_past));
         //status should be more than 3.
+        $ctr =0;
         foreach($events_past as $event){
             if($event->get_event_dish_from_item_id($item_id) != null){
-                error_log('return: '.$event);
-                return $event;
+                if($ctr < 3){
+                    error_log('itm: '.$event);
+                    array_push($events,$event);
+                }
+                $ctr++;
             }
         }
-        return null;
+        return $events;
     }
     public function get_event_dish_from_item_id($item_id){
         return EventDishes::where('item_id','=',$item_id)->where('event_id','=',$this->event_id)->first();
