@@ -86,8 +86,8 @@
                                             {{-- <td>{{ Carbon\Carbon::parse($i->event_end)->format('F j, Y g:i a') }}</td> --}}
                                             <td>{{ $i->status_name}} </td>
                                             <td>
-                                                <a class="" href="{{ url('returnInventory/'.$i->event_id) }}" >
-                                                    <button class="btn btn-block btn-sm"><i class="ni ni-zoom-split-in"></i> &nbsp; Return Event Inventory</button>
+                                                <a class="" href="{{ url('markLostDamaged/'.$i->event_id) }}" >
+                                                    <button class="btn btn-block btn-sm"><i class="ni ni-zoom-split-in"></i> &nbsp; Report Lost/Damaged</button>
                                                 </a>
                                             </td>
                                         </tr>

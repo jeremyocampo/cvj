@@ -4,6 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\EventModel;
+use Illuminate\Support\Facades\DB;
+use App\Http\Requests;
+use Carbon\Carbon;
+use App\inventory;
+use Faker\Generator as Faker;
+use Illuminate\Support\Arr;
+use App\damaged_inventory;
+
 class MarkLostDamagedController extends Controller
 {
     /**
@@ -14,6 +23,33 @@ class MarkLostDamagedController extends Controller
     public function index()
     {
         //
+        $event = DB::table('event')
+        ->join('deployed_inventory','event.event_id','=','deployed_inventory.event_deployed')
+        ->select('event.event_id')
+        ->groupBy('event.event_id')
+        ->get();
+
+        $actuallyDamaged = array();
+
+        foreach($event as $a)
+        {
+            $eventsActuallyDamaged = DB::table('event')
+            ->select('*')
+            ->where('event.event_id', '=', $a->event_id)
+            ->join('event_status_ref','event.status', '=', 'event_status_ref.status_id')
+            ->first();
+
+            array_push($actuallyDamaged, $eventsActuallyDeployed);
+        }
+
+        $date = Carbon::now('+8:00');
+
+        $assigned = DB::table('damaged_inventory')
+        ->join('employee','deployed_inventory.employee_assigned','=','employee.employee_id')
+        ->select('*')
+        ->first();
+
+        return view('markLostDamage',['event' => $actuallyDamaged, 'dateToday' => $date, 'employee' => $assigned]);
     }
 
     /**
@@ -46,6 +82,28 @@ class MarkLostDamagedController extends Controller
     public function show($id)
     {
         //
+        $event = DB::table('event')
+        ->select('*')
+        ->where('event.event_id', '=', $id)
+        ->join('event_status_ref','event.status', '=', 'event_status_ref.status_id')
+        ->join('package', 'event.package_id','=','package.package_id')
+        ->first();
+
+        $lostDamaged = DB::table('damaged_inventory')
+        ->join('inventory', 'damaged_inventory.inventory_deployed','=','inventory.inventory_id')
+        ->select('*')
+        ->where('event_deployed','=', $id)
+        ->get();
+
+        $assigned = DB::table('damaged_inventory')
+        ->join('employee','deployed_inventory.employee_assigned','=','employee.employee_id')
+        ->select('*')
+        ->where('event_deployed', '=', $id)
+        ->first();
+
+        // dd($lostDamaged);
+
+        return view('viewMarkLostDamaged', ['event' => $event, 'lostDamaged' => $lostDamaged, 'employee' => $assigned]);
     }
 
     /**

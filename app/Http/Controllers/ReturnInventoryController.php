@@ -183,6 +183,14 @@ class ReturnInventoryController extends Controller
                         $damaged_inventory->employee_assigned = $employeeAssigned->employee_assigned;
                         $damaged_inventory->barcode = $barcode->barcode;
                         $damaged_inventory->save();
+
+                        $lost_inventory = new lost_inventory();
+                        $lost_inventory->event_deployed = $i->event_id;
+                        $lost_inventory->inventory_deployed = $i->inventory_id;
+                        $lost_inventory->qty = $difference;
+                        $lost_inventory->employee_assigned = $employeeAssigned->employee_assigned;
+                        $lost_inventory->barcode = $barcode->barcode;
+                        $lost_inventory->save();
                     }
                 }
             }
@@ -201,6 +209,14 @@ class ReturnInventoryController extends Controller
         ->where('event_deployed','=', $eventID)
         ->first();
 
+        // $eventIDisLost = DB::table('lost_inventory')
+        // ->join('event','damaged_inventory.event_deployed','=','event.event_id')
+        // ->select('event_deployed')
+        // ->groupBy('event_deployed')
+        // ->where('event_deployed','=', $eventID)
+        // ->first();
+
+        // if((!$eventIDhasDamage == null) && (!$eventIDisLost == null)){
         if(!$eventIDhasDamage == null){
             $event = DB::table('event')
             ->select('*')
