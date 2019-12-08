@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use App\inventory;
 use Faker\Generator as Faker;
 use Illuminate\Support\Arr;
+use App\damaged_inventory;
 
 class ReturnInventoryController extends Controller
 {
@@ -146,8 +147,16 @@ class ReturnInventoryController extends Controller
                         Arr::set($actuallyLost, ''.$returnedItem[0], $returnedItem[0].','.$returnedItem[1]);
 
                         $barcode = DB::table('deployed_inventory')
-                        ->where('inventory_deployed','=',$i->inventory_id)
+                        ->where('inventory_deployed','=', $i->inventory_id)
+                        ->where('event_deployed', '=', $eventID)
                         ->select('barcode')
+                        ->first();
+
+                        $employeeAssigned = DB::table('deployed_inventory')
+                        ->where('inventory_deployed','=', $i->inventory_id)
+                        ->where('event_deployed', '=', $eventID)
+                        ->select('employee_assigned')
+                        ->groupBy('employee_assigned')
                         ->first();
 
                         // dd($returnedItem[1]);
@@ -165,12 +174,14 @@ class ReturnInventoryController extends Controller
                             'date_returned' => Carbon::now(),
                         ]);
 
+                        // dd();
+
                         $damaged_inventory = new damaged_inventory();
                         $damaged_inventory->event_deployed = $i->event_id;
                         $damaged_inventory->inventory_deployed = $i->inventory_id;
-                        $damaged_inventory->qty = $returnedItem[1];
-                        $damaged_inventory->employee_assigned = $request->input('employeeAssigned');
-                        $damaged_inventory->barcode = $barcode;
+                        $damaged_inventory->qty = $difference;
+                        $damaged_inventory->employee_assigned = $employeeAssigned->employee_assigned;
+                        $damaged_inventory->barcode = $barcode->barcode;
                         $damaged_inventory->save();
                     }
                 }
@@ -287,42 +298,6 @@ class ReturnInventoryController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $borrowedItems = DB::table('event')
-        ->select('*')
-        ->where('event.event_id', '=', $id)
-        ->join('event_inventory', 'event.event_id', '=', 'event_inventory.event_id')
-        ->join('inventory', 'event_inventory.inventory_id', '=' ,'inventory.inventory_id')
-        ->get();
-
-        $a = array();
-        $b = array();
-        $i = 0;
-
-        $a = $request->input('idReturnArray');
-        $b = $request->input('qtyReturnArray');
-
-        $c = explode (",", $a); 
-        $d = explode (",", $b); 
-        
-
-        $id = $c;
-        $number = $d;
-
-        for($i = 0; $i < count($c) ; $i++)
-        {
-            $number = (int)$d[$i];
-            $id = (int)$c[$i];
-
-            if($number != null){
-                $item = inventory::find($id);
-                $item->quantity = ($item->quantity + $number);
-                $item->save();
-            } 
-
-        }
-        
-        return redirect('/returnInventory')->with('success', 'Item(s) Returned');
-
     }
 
     /**
