@@ -71,6 +71,17 @@ class MarkLostDamagedController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request, [
+            'status'      => 'required',
+            'reason'      => 'required',
+            // 'idReturnArray'      => 'required',
+        ],[
+            'status.required'     => 'Please Select a valid Status.',
+            'reason.required'     => 'Please do not leave the Reason Field Empty',
+            // 'category.required'     => 'Please Select a Category.',
+        ]);
+
+
     }
 
     /**
@@ -91,12 +102,14 @@ class MarkLostDamagedController extends Controller
 
         $lostDamaged = DB::table('damaged_inventory')
         ->join('inventory', 'damaged_inventory.inventory_deployed','=','inventory.inventory_id')
+        ->join('category_ref','inventory.category','=','category_ref.category_no')
+        ->join('color','inventory.color','=','color.color_id')
         ->select('*')
         ->where('event_deployed','=', $id)
         ->get();
 
         $assigned = DB::table('damaged_inventory')
-        ->join('employee','deployed_inventory.employee_assigned','=','employee.employee_id')
+        ->join('employee','damaged_inventory.employee_assigned','=','employee.employee_id')
         ->select('*')
         ->where('event_deployed', '=', $id)
         ->first();

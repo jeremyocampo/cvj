@@ -5,7 +5,7 @@
 @include('layouts.headers.inventoryCard1')
 <div class="container-fluid mt--7">
 	<div class="card-body">
-		<div class="col-xl-10 mb-5 mb-xl-0">
+		<div class="col-xl-12 mb-5 mb-xl-0">
 				<div class="card shadow">
 						<div class="card-header">
                             {{-- {!! Form::open(['action' => 'InventoryController@return', 'method' => 'POST']) !!} --}}
@@ -42,7 +42,7 @@
                             </div>
                         </div>
                         {{-- {!! Form::open(['action' => ['DeployInventoryController@update', $event[0]->event_id], 'method' => 'POST']) !!} --}}
-                        {!! Form::open(['action' => ['DeployInventoryController@store'], 'method' => 'POST']) !!}
+                        {!! Form::open(['action' => ['MarkLostDamagedController@store'], 'method' => 'POST']) !!}
                         
                         <!-- Modal -->
                         <div id="myModal" class="modal fade" role="dialog">
@@ -67,29 +67,34 @@
                                     <!-- Projects table -->
                                     <div class="col-md-12">
                                     <div class="row">
-                                        <div class="col-md-5 mb-5">
+                                        <div class="col-md-4 mb-5">
                                             <div class="row">
                                                 <div class="col-md-12 mb-7">
                                             {{-- @foreach ($event as $i) --}}
                                                 {{-- @if($i->status > 0) --}}
                                                     <input type="hidden" name="event_id" id="event_id" value="{{ $event->event_id }}">
-                                                    <label> Event Name </label><input class="form-control" type="text" disabled value="{{ $event->event_name }}">
+                                                    <label> Event Name </label>
+                                                    <h1>{{ $event->event_name }}</h1>
                                                     <input type="hidden" class="form-control" value="{{ $event->event_name }}" name="event_name" id="event_name"></form>
-                                                    <label> Venue </label> <input class="form-control" type="text" disabled value="{{ $event->venue }}">
+                                                    <label> Venue </label> 
+                                                    <h1>{{ $event->venue }}</h1>
                                                     <input type="hidden" class="form-control" value="{{ $event->venue }}" name="qty" id="qty"></form>
-                                                    <label> Date </label> <input class="form-control" type="text" disabled value="{{ Carbon\Carbon::parse($event->event_start)->format('F j, Y      g:i a') }}"> 
+                                                    <label> Date of Event </label>
+                                                    <h1>{{ Carbon\Carbon::parse($event->event_start)->format('F j, Y      g:i a') }}</h1> 
                                                     <input type="hidden" class="form-control" value="{{ $event->event_start }}" name="event_start" id="qty"></form>
-                                                    <label> Package </label><input class="form-control" type="text" disabled value="{{ $event->package_name }}"> 
+                                                    <label> Package </label>
+                                                    <h1>{{ $event->package_name }}</h1>
                                                     <input type="hidden" class="form-control" value="{{ $event->package_name }}" name="package_name" id="package_name"></form>
                                                 {{-- @endif --}}
                                             {{-- @endforeach --}}
                                                 </div>
                                                 <div class="col-md-12 mb-3">
-                                                        <label> Assigned Personel In-charge: </label><input class="form-control" type="text" disabled value="{{ $employee->employee_FN. ' ' .$employee->employee_LN. ' ('. $employee->contact_no.')' }}"> 
+                                                        <label> Assigned Personel In-charge: </label>
+                                                        <h1>{{ $employee->employee_FN. ' ' .$employee->employee_LN. ' ('. $employee->contact_no.')' }}</h1>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-7">
+                                        <div class="col-md-8">
                                         <table class="table table-bordered align-items-center table-flush mb-4" id="myTable">
                                             <thead class="thead-light">
                                                 <tr>
@@ -117,22 +122,40 @@
                                                 <input type="hidden" class="form-control" value="{{ $i->inventory_name }}" name="inventory_name{{$i->inventory_id}}" id="inventory_name"></form>
                                                     <td> {{ $i->category_name}} </td>
                                                     <td> {{ $i->color_name}} </td>
-                                                    <td> {!!'<img src="data:image/png;base64,' . DNS1D::getBarcodePNG("".$i->barcode, "C128A",2,44,array(1,1,1), true) . '" alt="barcode"   />' !!}</td>
+                                                    <td> 
+                                                        {!!'<img src="data:image/png;base64,' . DNS1D::getBarcodePNG("".$i->barcode, "C128A",2,44,array(1,1,1), true) . '" alt="barcode"   />' !!}
+                                                        <br>{{$i->barcode}}
+                                                    </td>
+                                                    
                                                     <input type="hidden" class="form-control" value=" {{$i->barcode}}" name="barcode" id="barcode"></form>
                                                     <td> {{ $i->qty }}</td>
                                                     <input type="hidden" class="form-control" value="{{ $i->qty }}" name="qty" id="qty"></form> 
                                                     <td>
-                                                        <select name="status" id="status" class="form-control" required>
-                                                            <option selected disabled>- Please Select Status -</option>
-                                                            <option value = 1>Lost</option>
-                                                            <option value = 2>Damaged</option>
-                                                        </select>
-                                                        <font color="red">*</font>
+                                                        <div class="row">
+                                                            <div class="col-md-11">
+                                                                {{-- <input type="hidden" id="barcode" value="{{ $i->barcode }}">
+                                                                <input type="hidden" class="invID" name="invIDs[]" value="{{ $i->inventory_id }}" id="inventory-{{ $i->inventory_id }}"> --}}
+                                                                <select name="status-{{ $i->inventory_id }}" id="status" class="form-control statusLD" required>
+                                                                    <option selected disabled>- Please Select Status -</option>
+                                                                    <option value = 1>Lost</option>
+                                                                    <option value = 2>Damaged</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                    <font color="red">*</font>
+                                                            </div>
+                                                        </div>
                                                     </td>
                                                     <td>
-                                                        <textarea name="reason" id="reason" cols="30" rows="10" placeholder="Please Input Reason for Loss/Damage" required>
-                                                        </textarea>
-                                                        <font color="red">*</font>
+                                                        <div class="row">
+                                                            <div class="col-md-11">
+                                                                <textarea name="reason-{{ $i->inventory_id }}" id="reason" cols="30" rows="10" placeholder="Please Input Reason for Loss/Damage" required>
+                                                                </textarea>
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                <font color="red">*</font>
+                                                            </div>
+                                                        </div>
                                                     </td>
                                                 </tr>
                                                 @endforeach
@@ -148,7 +171,7 @@
                                 </div>
                         <div class="card-footer text-muted">
                             <div class="text-right">
-                                    <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">Deploy</button>
+                                    <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">Report</button>
                                     <a href="{{ url('deploy')}}" class="btn btn-default">Back</a>
                             </div>
                         </div>
@@ -160,3 +183,76 @@
 	</div>
 </div>
 @endsection
+
+
+@push('js')
+    <script>
+        // $('.table-responsive tbody tr').slice(-2).find('.dropdown').addClass('dropup');
+
+        function printContent(el){
+            var restorepage = $('body').html();
+            var printcontent = $('#' + el).clone();
+            $('body').empty().html(printcontent);
+            window.print();
+            $('body').html(restorepage);
+            document.location.reload(true);
+            
+            // var restorepage = document.body.innerHTML;
+            // var printcontent = document.getElementById().innerHTML;
+            // document.body.innerHTML = printcontent;
+            // window.print();
+            // document.body.innerHTML = restorepage;
+        }
+	</script>
+	<script>
+		$( document ).ready(function() {
+			// var barcode = document.getElementById('barcodeInput').value;
+			// document.getElementById('status').onchange = function checkBarcode(){
+            document.getElementsByClassName('statusLD').onchange = function checkReason(){
+
+				var barcode = document.getElementById('barcodeInput').value;
+				
+				var barcodeId = "qtyReturn"+barcode+"";
+				var lostbarcodeId = "qtyLostDam"+barcode+""; 
+				var qtyId = "qty"+barcode+"";
+				var rowId = "row"+barcode+"";
+
+				if (document.getElementById(barcodeId).value != null){
+					if(parseInt(document.getElementById(barcodeId).value) < parseInt(document.getElementById(qtyId).value)){
+						document.getElementById(barcodeId).value = parseInt(document.getElementById(barcodeId).value) + 1;
+						document.getElementById(lostbarcodeId).value = parseInt(document.getElementById(lostbarcodeId).value) - 1;
+					} else if (parseInt(document.getElementById(barcodeId).value) == parseInt(document.getElementById(qtyId).value)){
+						document.getElementById(rowId).className = 'success';
+					}
+					barcode = document.getElementById('barcodeInput').value = "";
+				}
+
+				var quantities = document.getElementsByClassName( 'qtyReturn' ),
+					qtys  = [].map.call(quantities, function( input ) {
+						return input.value;
+					}).join();
+
+				var inventoryIDs = document.getElementsByClassName( 'invID' ),
+					ids  = [].map.call(inventoryIDs, function( input ) {
+						return input.value;
+					}).join();
+
+				// var lostIDs = document.getElementsByClassName('lostID'),
+				// 	losts = [].
+
+				document.getElementById('qtyReturnArray').value = qtys;
+				document.getElementById('idReturnArray').value = ids;
+
+				var qty = document.getElementById('qtyReturnArray').value;
+				var id = document.getElementById('idReturnArray').value;
+
+			}
+
+
+		});
+
+		function checkLoD(){
+
+		}
+	</script>
+@endpush
