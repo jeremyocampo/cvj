@@ -16,17 +16,27 @@ Route::put('profile', ['as' => 'profile.update', 'uses' => 'ProfileController@up
 // Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
 
 //Jeremy's Routess
+// Route::get('', 'InventoryHomeController@index')->name('home');
+// Route::get('/', 'InventoryHomeController@index')->name('home');
+// Route::get('/home', 'InventoryHomeController@index')->name('home');
 
-// Route::get('inventory/return', 'InventoryController@return');
+Route::get('inventory/return', 'InventoryController@return');
 //Route::get('inventory/view/{$id}', 'InventoryController@updateInfo');
-// Route::get('inventory/view/{$id}', 'InventoryController@updateInfo');
-// Route::get('inventory/deploy', 'InventoryController@deploy');
+Route::get('inventory/view/{$id}', 'InventoryController@updateInfo');
+Route::get('inventory/deploy', 'InventoryController@deploy');
+// Route::get('inventory/view/{id}', function ($id) {
+// 	return redirect()->route( 'inventory.updateInfo' )->with( [ 'id' => $id ] ); 
+// });
+// Route::get('inventory/view/{id}', function ($id) {
+//     return redirect()->route( 'inventory.view' )->with( [ 'id' => $id ] );
+// });
 Route::resource('inventory','InventoryController');
 Route::get('updateInventory/{id}', 'InventoryController@editRecord');
 Route::get('archive', 'InventoryController@archive');
 Route::get('recover/{id}', 'InventoryController@recover');
 Route::resource('deploy','DeployInventoryController');
 Route::resource('events', 'EventsController');
+Route::resource('/roset', 'Roset');
 Route::resource('calendar', 'Calendar');
 
 Route::resource('dishes', 'DishController');
@@ -47,7 +57,6 @@ Route::resource('event_costing','EventsCostingController');
 //Event Budget Template
 Route::get('event_budget_template','EventsBudgetTemplateController@index')->name("event_budget_template");
 Route::post('event_budget_template','EventsBudgetTemplateController@store')->name('post.event_budget_template');
-
 //Event Budget
 Route::get('event_budgets','EventsBudgetController@index')->name("event_budgets");
 Route::get('event_budgets/view/{event_id}','EventsBudgetController@show')->name("get.event_budgets");
@@ -63,17 +72,15 @@ Route::get('check_valid_date/{startDate}','BookEventController@checkDateValidity
 
 //Gmail API
 Route::get('send_mail','MailController@index');
-Route::get('email/{send_name}/{send_email}/{subject}','MailController@send_email');
 
-Route::get('/', 'HomeController@index')->name('home');
+Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
-
-Route::resource('outsource', 'OutsourcingController');
 Route::resource('ingredient', 'IngredientController');
 Route::resource('food', 'FoodController');
-Route::resource('users', 'UsersController');
+Route::resource('users', 'ManageUsersController');
 Route::resource('employee', 'EmployeeController');
 Route::resource('eventreport', 'EventLogisticsReportController');
+Route::resource('returnInventory', 'ReturnInventoryController');
 Route::resource('manageuser', 'ManageUsersController');
 
 Route::get('admin/routes', 'AdminController@admin')->middleware('admin');

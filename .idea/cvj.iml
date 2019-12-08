@@ -21,6 +21,10 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/hamcrest/hamcrest-php" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/jakub-onderka/php-console-color" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/jakub-onderka/php-console-highlighter" />
+<<<<<<< HEAD
+=======
+      <excludeFolder url="file://$MODULE_DIR$/vendor/laravel-frontend-presets/argon" />
+>>>>>>> 8014dcfb69bdaf0569c5cb6a3da6a8581c79d997
       <excludeFolder url="file://$MODULE_DIR$/vendor/laravel/framework" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/laravel/tinker" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/league/flysystem" />
@@ -65,6 +69,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/simplesoftwareio/simple-qrcode" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/swiftmailer/swiftmailer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/console" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/contracts" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/css-selector" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/debug" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/event-dispatcher" />
@@ -121,6 +126,10 @@
           <root url="file://$MODULE_DIR$/vendor/hamcrest/hamcrest-php" />
           <root url="file://$MODULE_DIR$/vendor/jakub-onderka/php-console-color" />
           <root url="file://$MODULE_DIR$/vendor/jakub-onderka/php-console-highlighter" />
+<<<<<<< HEAD
+=======
+          <root url="file://$MODULE_DIR$/vendor/laravel-frontend-presets/argon" />
+>>>>>>> 8014dcfb69bdaf0569c5cb6a3da6a8581c79d997
           <root url="file://$MODULE_DIR$/vendor/laravel/framework" />
           <root url="file://$MODULE_DIR$/vendor/laravel/tinker" />
           <root url="file://$MODULE_DIR$/vendor/league/flysystem" />
@@ -165,6 +174,7 @@
           <root url="file://$MODULE_DIR$/vendor/simplesoftwareio/simple-qrcode" />
           <root url="file://$MODULE_DIR$/vendor/swiftmailer/swiftmailer" />
           <root url="file://$MODULE_DIR$/vendor/symfony/console" />
+          <root url="file://$MODULE_DIR$/vendor/symfony/contracts" />
           <root url="file://$MODULE_DIR$/vendor/symfony/css-selector" />
           <root url="file://$MODULE_DIR$/vendor/symfony/debug" />
           <root url="file://$MODULE_DIR$/vendor/symfony/event-dispatcher" />
@@ -203,6 +213,10 @@
           <root url="file://$MODULE_DIR$/vendor/hamcrest/hamcrest-php" />
           <root url="file://$MODULE_DIR$/vendor/jakub-onderka/php-console-color" />
           <root url="file://$MODULE_DIR$/vendor/jakub-onderka/php-console-highlighter" />
+<<<<<<< HEAD
+=======
+          <root url="file://$MODULE_DIR$/vendor/laravel-frontend-presets/argon" />
+>>>>>>> 8014dcfb69bdaf0569c5cb6a3da6a8581c79d997
           <root url="file://$MODULE_DIR$/vendor/laravel/framework" />
           <root url="file://$MODULE_DIR$/vendor/laravel/tinker" />
           <root url="file://$MODULE_DIR$/vendor/league/flysystem" />
@@ -247,6 +261,7 @@
           <root url="file://$MODULE_DIR$/vendor/simplesoftwareio/simple-qrcode" />
           <root url="file://$MODULE_DIR$/vendor/swiftmailer/swiftmailer" />
           <root url="file://$MODULE_DIR$/vendor/symfony/console" />
+          <root url="file://$MODULE_DIR$/vendor/symfony/contracts" />
           <root url="file://$MODULE_DIR$/vendor/symfony/css-selector" />
           <root url="file://$MODULE_DIR$/vendor/symfony/debug" />
           <root url="file://$MODULE_DIR$/vendor/symfony/event-dispatcher" />

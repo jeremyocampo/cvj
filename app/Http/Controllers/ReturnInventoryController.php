@@ -137,7 +137,7 @@ class ReturnInventoryController extends Controller
                         ->where('event_deployed','=', $eventID)
                         ->where('inventory_deployed','=', $returnedItem[0])
                         ->update([
-                            'date_returned' => Carbon::now(),
+                            'date_returned' => Carbon::now('+8:00'),
                         ]);
                     }
                     else{
@@ -171,7 +171,7 @@ class ReturnInventoryController extends Controller
                         ->where('event_deployed','=', $eventID)
                         ->where('inventory_deployed','=', $returnedItem[0])
                         ->update([
-                            'date_returned' => Carbon::now(),
+                            'date_returned' => Carbon::now('+8:00'),
                         ]);
 
                         // dd();

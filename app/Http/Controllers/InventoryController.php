@@ -47,9 +47,7 @@ class InventoryController extends Controller
 
         $criticalInventory = DB::select(DB::raw('select * from cvjdb.inventory where quantity <= threshold'));
 
-        $month = Carbon::now()->format('F');
-
-        return view('inventory', ['joinedInventory' => $joinedTable, 'criticalInventory' => $criticalInventory, 'month' => $month]);
+        return view('inventory', ['joinedInventory' => $joinedTable, 'criticalInventory' => $criticalInventory]);
     }
 
     /**
@@ -82,7 +80,7 @@ class InventoryController extends Controller
             $quantity = $request->input('quantity');
             $threshold  = $request->input('threshold');
 
-            $minTh = $quantity*.10;
+            $minTh = $quantity/2;
             $minP = 1.00;
         
             $this->validate($request, [
@@ -127,14 +125,12 @@ class InventoryController extends Controller
             $inventory->returnable_item = $request->post('returnable_item');
             $inventory->save();
             
-            // dd($inventory);
-
             return redirect('/inventory')->with('success', 'Item Added!');
         
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified resource.hhthrrejajgoeaibijgntoeaofineoaniivnomrnninalnuentamaimeuguop ihean
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -144,6 +140,7 @@ class InventoryController extends Controller
         //
 
         $itemInfo = DB::table('category_ref')
+            // ->join('category_ref','inventory.category','=','category_ref.id')
             ->select('*')
             ->where('inventory.inventory_id', '=', $id)
             ->join('inventory','category_ref.category_no','=','inventory.category')
@@ -151,7 +148,9 @@ class InventoryController extends Controller
 
 
         $category_ref = DB::table('category_ref')->get();
+
         $color =  DB::table('color')->get();
+
         $size = DB::table('size')->get();
 
         $suppliers = Supplier::all();
@@ -264,6 +263,13 @@ class InventoryController extends Controller
         ],[
             'quantity.required'     => 'Please input a valid Quantity',
         ]);
+        
+        //dd($request->input('category'));
+
+        // $newQuantity = DB::table('inventory')
+        // ->select('quantity')
+        // ->where('inventory_id', '=', $id)
+        // ->get();
 
 
 

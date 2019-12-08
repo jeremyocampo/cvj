@@ -192,7 +192,6 @@ class DeployInventoryController extends Controller
     public function edit($id)
     {
         //
-
     }
 
 

@@ -42,18 +42,4 @@ class MailController extends Controller
         return redirect("home");
         
     }
-    public function send_email($send_name, $send_email, $subject){
-        $to_name = $send_name;
-        $to_email = $send_email;
-        $data = array('send_mail'=>'monkaS', 'body' => 'monkey','client_name','event_name',);
-        Mail::send('send_mail', $data, function($message) use ($to_name, $to_email, $subject) {
-            $message->to($to_email, $to_name)->subject($subject);
-            $message->from('betbot.py@gmail.com','Caterie Bot');
-        });
-        error_log('Some message here.');
-        error_log('Some message here.');
-        error_log('Some message here.');
-
-        return "sent_";
-    }
 }

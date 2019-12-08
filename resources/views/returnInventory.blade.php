@@ -1,5 +1,5 @@
 
-@extends('layouts.app')
+@extends('layouts.inventoryApp')
 
 @section('content')
 @include('layouts.headers.inventoryCard1')
@@ -8,7 +8,7 @@
 		<div class="col-xl-12 mb-5 mb-xl-0">
 				<div class="card shadow">
 						<div class="card-header">
-                            {{-- {!! Form::open(['action' => 'InventoryController@return', 'method' => 'POST']) !!} --}}
+                            {!! Form::open(['action' => 'InventoryController@return', 'method' => 'POST']) !!}
                             <div class="row align-items-center">
                                 <div class="col">
                                     <div class="row">
@@ -18,14 +18,14 @@
                                         <div class="col">
                                         </div>
                                         <div class="col">
-                                            {{-- <div class="custom-control custom-checkbox">
+                                            <div class="custom-control custom-checkbox">
                                                 <label class="form-label">Status</label> <label class="text-muted">(optional)</label>
                                                 <select class="form-control" name="status" id="status">
                                                     <option selected disabled value=0>Please Select a status</option>
                                                     <option value="1">Mark as Lost</option>
                                                     <option value="2">Mark as Damaged</option>
                                                 </select>
-                                            </div> --}}
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -99,8 +99,9 @@
                         </div>
                         <div class="card-footer text-muted">
                             <div class="text-right">
-                                    <a href="{{ url('inventory')}}" class="btn btn-secondary">Back to View Inventory</a>
-                                    {{-- {{Form::hidden('_method', 'PUT')}} --}}
+                                    {{ Form::submit('Return Item', ['class' => 'btn btn-success']) }}
+                                    <a href="{{ url('inventory')}}" class="btn btn-default">Back</a>
+                                    {{Form::hidden('_method', 'PUT')}}
                             </div>
                         </div>
 		        {{-- {!! Form::close() !!} --}}

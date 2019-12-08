@@ -20,11 +20,6 @@ class EventsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     public function index()
     {
        
@@ -72,11 +67,8 @@ class EventsController extends Controller
         // $event = new Event;
 
         // $event->name = 'A new event';
-        // $event->startDateTime = Carbon\Carbon::now();
-        // $event->endDateTime = Carbon\Carbon::now()->addHour();
-        // $event->addAttendee(['email' => 'youremail@gmail.com']);
-        // $event->addAttendee(['email' => 'anotherEmail@gmail.com']);
-
+        // $event->startDateTime = Carbon::now();
+        // $event->endDateTime = Carbon::now()->addHour();
         // $event->save();
 
         // get all future events on a calendar
@@ -161,12 +153,6 @@ class EventsController extends Controller
     public function store(Request $request)
     {
         //
-        // create a new event
-        // Event::create([
-        // 'name' => 'A new event',
-        // 'startDateTime' => Carbon\Carbon::now(),
-        // 'endDateTime' => Carbon\Carbon::now()->addHour(),
-        // ]);
     }
 
     /**
@@ -178,14 +164,6 @@ class EventsController extends Controller
     public function show($id)
     {
         //
-        $event = DB::table('event')
-        ->join('reserve_venue','event.reservation_id','=','reserve_venue.reservation_id')
-        ->join('event_status_ref', 'event.status', '=', 'event_status_ref.status_id')
-        ->select('*')
-        ->where('event.status', '<', '2')
-        ->get();
-
-        return view('viewEventDeets');
     }
 
     /**
@@ -197,7 +175,6 @@ class EventsController extends Controller
     public function edit($id)
     {
         //
-
     }
 
     /**
@@ -210,12 +187,6 @@ class EventsController extends Controller
     public function update(Request $request, $id)
     {
         //
-        // update existing event
-        // $firstEvent = $events->first();
-        // $firstEvent->name = 'updated name';
-        // $firstEvent->save();
-
-        // $firstEvent->update(['name' => 'updated again']);
     }
 
     /**
@@ -227,8 +198,5 @@ class EventsController extends Controller
     public function destroy($id)
     {
         //
-        // // delete an event
-        // $event->delete();
-        // dd($events);
     }
 }

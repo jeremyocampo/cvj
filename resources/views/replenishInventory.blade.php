@@ -1,5 +1,5 @@
 
-@extends('layouts.app')
+@extends('layouts.inventoryApp')
 
 @section('content')
 @include('layouts.headers.inventoryCard1')
