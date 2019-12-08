@@ -293,15 +293,22 @@ class QuotationController extends Controller
         if($event->costing_method == 'analogous'){
             $event_dishes = EventDishes::where('event_id','=',$request->input("event_id"))->get();
             foreach($event_dishes as $event_dish){
-                $ind_event_model = $event->get_analogous_ind_event_model($event_dish->item_id);
+                //$ind_event_model = $event->get_analogous_ind_event_model($event_dish->item_id);
+                $ind_models = $event->get_analogous_ind_event_models($event_dish->item_id);
 
-
-                if($ind_event_model == null){
+                if($ind_models == null){
                     error_log("null detected: ".$event_dish);
                     error_log("null detected: ".$event_dish->get_item());
                 }
+                $sub_total = 0;
+                if(count($ind_models) != 0){
+                    foreach($ind_models as $model){
+                        $sub_total += $event_dish->get_analogous_item($model->event_id)->actual_amount;
+                    }
+                }
+                $cost_amt = count($ind_models) != 0 ? $sub_total/count($ind_models) : $event_dish->get_item()->unit_expense * $event->package()->suggested_pax;
 
-                $event_dish->cost_amount = $ind_event_model != null ? $event_dish->get_analogous_item($ind_event_model->event_id)->actual_amount: $event_dish->get_item()->unit_expense * $event->package()->suggested_pax;
+                $event_dish->cost_amount = $cost_amt;
                 //$event_dish->cost_amount = $ind_event_model != null ? $event_dish->get_analogous_item($ind_event_model->event_id)->actual_amount: 0;
                 $event_dish->save();
 
