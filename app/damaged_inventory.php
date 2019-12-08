@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class deployed_inventory extends Model
+class damaged_inventory extends Model
 {
     //
     protected $primaryKey = 'inventory_deployed';
@@ -12,7 +12,7 @@ class deployed_inventory extends Model
     protected $table = 'deployed_inventory';
     public $timestamps = false;
     protected $fillable = [
-        'event_deployed', 'inventory_deployed','qty', 'date_deployed', 'employee_assigned', 'barcode'
+        'event_deployed', 'inventory_deployed','qty', 'date_deployed', 'employee_assigned', 'barcode', 'reason'
     ];
 }
 

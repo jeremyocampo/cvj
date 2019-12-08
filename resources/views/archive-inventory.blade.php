@@ -14,7 +14,7 @@
                         <div class="col">
                             <div class="row">
                                 <div class="col-xs-5">
-                                    <h1 class="mb-0">Current Inventory</h1>
+                                    <h1 class="mb-0">Temporarily Disabled Inventory</h1>
                                 </div>
                             </div>
                         </div>

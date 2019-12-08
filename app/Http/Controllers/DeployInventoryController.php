@@ -36,6 +36,7 @@ class DeployInventoryController extends Controller
             $eventsActuallyDeployed = DB::table('event')
             ->select('*')
             ->where('event.event_id', '=', $a->event_id)
+            // ->where('event.status', '=', 3)
             ->join('event_status_ref','event.status', '=', 'event_status_ref.status_id')
             ->first();
 

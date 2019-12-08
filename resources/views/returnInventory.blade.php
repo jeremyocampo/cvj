@@ -28,6 +28,24 @@
                                             </div> --}}
                                         </div>
                                     </div>
+                                    <div class="row">
+                                            <div class="col-md-12">
+                                                @if(session()->has('success'))
+                                                    <br>
+                                                    <div class="alert alert-success" role="alert">
+                                                        <button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">x</span></button>
+                                                        {{ session()->get('success') }}<br>
+                                                    </div>
+                                                @endif
+                                                @if(session()->has('deleted'))
+                                                    <br>
+                                                    <div class="alert alert-danger" role="alert">
+                                                        <button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">x</span></button>
+                                                        {{ session()->get('deleted') }}<br>
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        </div>
                                 </div>
                             </div>
 						</div>
@@ -60,7 +78,7 @@
                                             </td>
                                         </tr> --}}
                                         @foreach ($events as $i)
-                                        @if($i->status > 0)
+                                        @if($i->status <= 4)
                                         <tr>
                                             <td>{{ $i->event_name }}</td>
                                             <td>{{ $i->venue }}</td>

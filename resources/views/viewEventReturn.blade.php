@@ -4,28 +4,7 @@
 @include('layouts.headers.inventoryCard1')
 <div class="container-fluid mt--7">
 		
-				<!-- Modal -->
-				<div id="myModal" class="modal fade" role="dialog">
-					<div class="modal-dialog" role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h1 class="modal-title">Modal title</h1>
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body">
-								<div class="row" id="notReturned">
-									
-								</div>
-							</div>
-							<div class="modal-footer">
-								{{ Form::submit('Confirm Changes', ['class' => 'btn btn-success']) }}
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-							</div>
-						</div>
-					</div>
-				</div>
+				
 				{{-- <div class="col-xl-8 mb-5 mb-xl-0"> --}}
 				<div class="col-xl-12 mb-5">
 					<div class="card shadow " >
@@ -81,25 +60,29 @@
 						{{-- {!! Form::open(['action' => ['ReturnInventoryController@update', $borrowedItems[0]->event_id], 'method' => 'POST' ,'id' => 'barcodeForm']) !!} --}}
 						{!! Form::open(['action' => ['ReturnInventoryController@store'], 'method' => 'POST']) !!}
                         <!-- Modal -->
-                        <div id="myModal" class="modal fade" role="dialog">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <div class="row">
-                                            <div >
-                                                <h2 class="modal-title">Are you sure you want to continue?</h2>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal-body">
-                                    </div>
-                                    <div class="modal-footer">
-                                        {{ Form::submit('Return Items', ['class' => 'btn btn-success']) }}
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <!-- Modal -->
+						<div id="myModal" class="modal fade" role="dialog">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<div class="modal-header">
+											<h1 class="modal-title">Are you sure you want to continue?</h1>
+										</div>
+												
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<p>Please check all necessary details before you continue.</p>
+									</div>
+									<div class="modal-footer">
+										{{ Form::submit('Return Items to Inventory', ['class' => 'btn btn-success']) }}
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+									</div>
+								</div>
+							</div>
+						</div>
 						<div class="card-body">
 							<div class="row">
 								@foreach($event as $event)
@@ -237,7 +220,7 @@
 		</div>
 				<input type="hidden" name="qtyReturnArray" id="qtyReturnArray">
 				<input type="hidden" name="idReturnArray" id="idReturnArray">
-				{{Form::hidden('_method', 'PUT')}}
+				{{-- {{Form::hidden('_method', 'PUT')}} --}}
 		{!! Form::close() !!}
 		</div>
 		</div>

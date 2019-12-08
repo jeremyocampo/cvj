@@ -134,3 +134,5 @@ Route::get('qr-code-g', function () {
 Route::resource('addpackages', 'BookEventController');
 
 Route::resource('/client', 'ClientController');
+
+Route::resource('/markLostDamaged', 'MarkLostDamagedController');

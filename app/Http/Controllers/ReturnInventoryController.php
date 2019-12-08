@@ -9,6 +9,7 @@ use App\Http\Requests;
 use Carbon\Carbon;
 use App\inventory;
 use Faker\Generator as Faker;
+use Illuminate\Support\Arr;
 
 class ReturnInventoryController extends Controller
 {
@@ -69,6 +70,157 @@ class ReturnInventoryController extends Controller
     public function store(Request $request)
     {
         //
+        $eventID = $request->input('event_id');
+
+        $itemReturns = array();
+        $qtyReturns = array();
+
+        $this->validate($request, [
+            'qtyReturnArray'      => 'required',
+            // 'idReturnArray'      => 'required',
+        ],[
+            'qtyReturnArray.required'     => 'Please Scan/Input a valid Barcode.',
+            // 'category.required'     => 'Please Select a Category.',
+        ]);
+
+        $qtyReturns = explode(',', $request->input('qtyReturnArray'));
+        $itemReturns = explode(',', $request->input('idReturnArray'));
+
+        $returns = array();
+
+        for($i=0; $i< count($qtyReturns); $i++){
+            Arr::set($returns, ''.$itemReturns[$i], $itemReturns[$i].','.$qtyReturns[$i]);
+        }
+
+        // dd($returns);
+
+        $event = DB::table('event')
+        ->select('*')
+        ->where('event.event_id', '=', $eventID)
+        ->first();
+
+        $packages = DB::table('event')
+        ->join('package', 'event.package_id','=','package.package_id')
+        ->join('package_inventory', 'package.package_id', '=', 'package_inventory.package_id')
+        ->join('inventory', 'package_inventory.inventory_id', '=', 'inventory.inventory_id')
+        ->select('*')
+        ->where('event.event_id', '=', $eventID)
+        ->get();
+
+        // dd($packages);
+
+        $inventory = DB::table('inventory')
+        ->get();
+
+        $actuallyLost = array();
+        
+        foreach($packages as $i){
+            foreach($returns as $j){
+                $returnedItem = explode(',', $j);
+                if($i->inventory_id == $returnedItem[0]){
+                    if($i->qty == $returnedItem[1]){
+                        $sum = $returnedItem[1] + $i->quantity;
+
+                        // dd($sum);
+    
+                        $item = DB::table('inventory')
+                        ->where('inventory_id', '=', $i->inventory_id)
+                        ->where('returnable_item','=','Yes')
+                        ->update([
+                            'quantity'      => $sum,
+                        ]);
+
+                        $updateDeployed = DB::table('deployed_inventory')
+                        // ->join('inventory','deployed_inventory.inventory_deployed','=','inventory.inventory_id')
+                        // ->where('returnable_item','=','Yes')
+                        ->where('event_deployed','=', $eventID)
+                        ->where('inventory_deployed','=', $returnedItem[0])
+                        ->update([
+                            'date_returned' => Carbon::now(),
+                        ]);
+                    }
+                    else{
+                        $sum = $returnedItem[1] + $i->quantity;
+                        $difference = $i->qty - $returnedItem[1];
+
+                        Arr::set($actuallyLost, ''.$returnedItem[0], $returnedItem[0].','.$returnedItem[1]);
+
+                        $barcode = DB::table('deployed_inventory')
+                        ->where('inventory_deployed','=',$i->inventory_id)
+                        ->select('barcode')
+                        ->first();
+
+                        // dd($returnedItem[1]);
+    
+                        $item = DB::table('inventory')
+                        ->where('inventory_id', '=', $i->inventory_id)
+                        ->update([
+                            'quantity'      => $sum,
+                        ]);
+
+                        $updateDeployed = DB::table('deployed_inventory')
+                        ->where('event_deployed','=', $eventID)
+                        ->where('inventory_deployed','=', $returnedItem[0])
+                        ->update([
+                            'date_returned' => Carbon::now(),
+                        ]);
+
+                        $damaged_inventory = new damaged_inventory();
+                        $damaged_inventory->event_deployed = $i->event_id;
+                        $damaged_inventory->inventory_deployed = $i->inventory_id;
+                        $damaged_inventory->qty = $returnedItem[1];
+                        $damaged_inventory->employee_assigned = $request->input('employeeAssigned');
+                        $damaged_inventory->barcode = $barcode;
+                        $damaged_inventory->save();
+                    }
+                }
+            }
+        }
+
+        $event = DB::table('event')
+        ->where('event_id','=', $eventID)
+        ->update([
+            'status' => 5,
+        ]);
+
+        $eventIDhasDamage = DB::table('damaged_inventory')
+        ->join('event','damaged_inventory.event_deployed','=','event.event_id')
+        ->select('event_deployed')
+        ->groupBy('event_deployed')
+        ->where('event_deployed','=', $eventID)
+        ->first();
+
+        if(!$eventIDhasDamage == null){
+            $event = DB::table('event')
+            ->select('*')
+            ->where('event_id','=',$eventID)
+            ->get();
+
+            $deployedItems = DB::table('deployed_inventory')
+            ->select('*')
+            ->where('event_deployed', '=', $eventId->event_id)
+            ->join('inventory','deployed_inventory.inventory_deployed','=','inventory.inventory_id')
+            ->join('color','inventory.color','=','color.color_id')
+            ->get();
+     
+            $date = DB::table('deployed_inventory')
+            ->select('date_deployed')
+            ->groupBy('date_deployed')
+            ->where('event_deployed', '=', $eventId->event_id)
+            ->first();
+     
+            $assigned = DB::table('deployed_inventory')
+             ->join('employee','deployed_inventory.employee_assigned','=','employee.employee_id')
+             ->select('*')
+             ->first();
+
+
+            return redirect('/markLostDamaged'.'/'.$eventID.'')->with([ 'event' => $event, 'deployed' => $deployedItems, 'dateDeployed' => $date,'employee' => $assigned]);
+        } else {
+            return redirect('/returnInventory')->with('success', 'Event Items Successfully Returned');
+        }
+
+       
     }
 
     /**
@@ -106,8 +258,6 @@ class ReturnInventoryController extends Controller
        ->where('event_deployed', '=', $eventId->event_id)
        ->first();
 
-    //    dd($date);
-
        $assigned = DB::table('deployed_inventory')
         ->join('employee','deployed_inventory.employee_assigned','=','employee.employee_id')
         ->select('*')
@@ -144,22 +294,10 @@ class ReturnInventoryController extends Controller
         ->join('inventory', 'event_inventory.inventory_id', '=' ,'inventory.inventory_id')
         ->get();
 
-        // foreach($borrowedItems as $i){
-        //     $item = DB::table('inventory')
-        //     ->where('inventory_id', '=', $i->inventory_id)
-        //     ->update([
-        //         'quantity' => $request->input('quantity'),
-        //     ]);
-        // }
-        // dd($borrowedItems);
-
         $a = array();
         $b = array();
         $i = 0;
 
-        // foreach($request->input('qtyReturnArray') as $i){
-        //     $i
-        // }
         $a = $request->input('idReturnArray');
         $b = $request->input('qtyReturnArray');
 
@@ -170,47 +308,18 @@ class ReturnInventoryController extends Controller
         $id = $c;
         $number = $d;
 
-        // dd($id, $number);
-
         for($i = 0; $i < count($c) ; $i++)
         {
-            // $item = inventory::find( $c[$i] );
-            // $item->increment('quantity',$d[$i]);
             $number = (int)$d[$i];
             $id = (int)$c[$i];
 
-            // dd($id);
-
-            // dd($number);
-            // dd($number,$id);
-            // $item = DB::update('update cvjdb.inventory set quantity = (quantity + '. $number .') where inventory_id = ' . $id . ';');
-           
-            // $quantity = DB::table('inventory')
-            // ->select('quantity')
-            // ->where('inventory.inventory_id', '=', $id)
-            // ->get();
-
-            // $item = inventory::find($id);
-
-            // dd($item->quantity);
-
             if($number != null){
-                // $item = DB::table('inventory')
-                // ->where('inventory_id', '=', $id)
-                // ->update([
-                //     'quantity' => $quantity[0]->quantity+$number,
-                // ]);
                 $item = inventory::find($id);
                 $item->quantity = ($item->quantity + $number);
                 $item->save();
             } 
 
         }
-
-        // dd($number[1]);
-
-        
-        
         
         return redirect('/returnInventory')->with('success', 'Item(s) Returned');
 

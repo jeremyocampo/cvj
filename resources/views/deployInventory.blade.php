@@ -56,7 +56,7 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($events as $i)
-                                        @if($i->status > 0)
+                                        @if($i->status <= 3)
                                         <tr>
                                             <td>{{ $i->event_name }}</td>
                                             <td>{{ $i->venue }}</td>
@@ -86,7 +86,7 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($eventsDep as $i)
-                                        @if($i->status > 0)
+                                        @if($i->status <= 4)
                                         <tr>
                                             <td>{{ $i->event_name }}</td>
                                             <td>{{ $i->venue }}</td>
