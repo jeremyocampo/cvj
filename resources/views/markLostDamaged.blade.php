@@ -7,111 +7,105 @@
 	<div class="card-body">
 		<div class="col-xl-12 mb-5 mb-xl-0">
 				<div class="card shadow">
-						<div class="card-header border-0">
-								<div class="row align-items-center">
-									<div class="col">
-										<h3 class="mb-0">Mark Items as Lost or Damaged</h3>
-									</div>
-								</div>
-								{{-- <div class="row alight-items-right">
-									<h4>Last Replenished: {{$items->last_modified}}</h4>
-								</div> --}}
-						</div>
-						<div class="card-body border-0">
-								@foreach($errors->all() as $error)
-								<div class="alert alert-danger" role="alert">
-									<button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">x</span></button>
-										{{ $error }}<br>
-								</div>
-								@endforeach
-							
-							{!! Form::open(['action' => ['InventoryController@update', $items->inventory_id], 'method' => 'POST', 'autocomplete' => 'off']) !!}
-							{{-- {{ Form::model($item, array('route' => array('inventory.update', $item->itemId), 'method' => 'PUT')) }} --}}
-							<div class="col-md-12"></div>
-							<div class="row">
-								
-								<div class="col-md-12 mb-3">
-									<label class="form-label">Item Name</label>
-									<h3>{{ $items->inventory_name }}</h3>
-								</div>
-								<div class="col-md-12 mb-3">
-									<label class="form-label">Category</label>
-									<h3>{{ $category[0]->category_name }}</h3>
-								</div>
-								<div class="col-md-12 mb-3">
-									<label class="form-label">Replenish Quantity</label>
-									<div class="row">
-                                        <div class="col-md-4">
-                                            <input type="number" name="quantity" class="form-control" id="qty" onkeyup="getTotal()" placeholder="Quantity" required>
+						<div class="card-header">
+                            {{-- {!! Form::open(['action' => 'InventoryController@return', 'method' => 'POST']) !!} --}}
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <h1 class="mb-0">Mark as Lost/Damaged</h1>
                                         </div>
-									</div>
-								</div>
-								<div class="col-md-12 mb-3">
-										<table class="table align-items-center table-striped" id="myTable">
-											<thead>
-												<tr>
-													<th>Current Quantity</th>
-													<th>Quantity to be Replenished</th>
-													<th>New Total</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td><p>	{{ $items->quantity}} </p>
-														<input type="hidden" id="curQty" value={{ $items->quantity}}>
-													</td>
-													<td><span id="inpQty"></span></td>
-													<td><b><span id="total"></span></b></td>
-												</tr>
-											</tbody>
-										</table> 
-									</div>
-				
-				{{-- <div class="col-md-12 mb-3">
-						{{ Form::submit('Replenish Item', ['class' => 'btn btn-success']) }}
-				</div> --}}
-							</div>
+                                        <div class="col">
+                                        </div>
+                                        <div class="col">
+                                            {{-- <div class="custom-control custom-checkbox">
+                                                <label class="form-label">Status</label> <label class="text-muted">(optional)</label>
+                                                <select class="form-control" name="status" id="status">
+                                                    <option selected disabled value=0>Please Select a status</option>
+                                                    <option value="1">Mark as Lost</option>
+                                                    <option value="2">Mark as Damaged</option>
+                                                </select>
+                                            </div> --}}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                            <div class="col-md-12">
+                                                @if(session()->has('success'))
+                                                    <br>
+                                                    <div class="alert alert-success" role="alert">
+                                                        <button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">x</span></button>
+                                                        {{ session()->get('success') }}<br>
+                                                    </div>
+                                                @endif
+                                                @if(session()->has('deleted'))
+                                                    <br>
+                                                    <div class="alert alert-danger" role="alert">
+                                                        <button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">x</span></button>
+                                                        {{ session()->get('deleted') }}<br>
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                </div>
+                            </div>
 						</div>
-						<div class="card-footer text-muted">
-								<div class="text-right">
-										{{ Form::submit('Replenish Item', ['class' => 'btn btn-success']) }}
-										<a href="{{ url('inventory')}}" class="btn btn-default">Back</a>
-										{{Form::hidden('_method', 'PUT')}}
-								</div>
-						</div>
-				{!! Form::close() !!}
-			</div>
+						<div class="card-body">
+                            <div class="table-responsive mb-3">
+                                <!-- Projects table -->
+                                <table class="table align-items-center table-flush">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th scope="col">Event Name</th>
+                                            <th scope="col">Venue</th>
+                                            <th scope="col">Borrow Date/Time</th>
+                                            {{-- <th scope="col">Return Date/Time</th> --}}
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{-- <tr>
+                                            <td>Jeremy's Birthday Bash</td>
+                                            <td>CVJ Catering Ground Floor</td>
+                                            <td>March 25, 2020</td>
+                                            <td>March 25, 2020</td>
+                                            <td>Complete</td>
+                                            <td>
+                                                <a href="{{url('returnInventory/1')}}" class="btn btn-small">
+                                                    <i class="ni ni-zoom-split-in"></i>
+                                                    <span>{{ __('Return Deployed Items') }}</span>
+                                                </a>
+                                            </td>
+                                        </tr> --}}
+                                        @foreach ($events as $i)
+                                        @if($i->status <= 4)
+                                        <tr>
+                                            <td>{{ $i->event_name }}</td>
+                                            <td>{{ $i->venue }}</td>
+                                            <td>{{ Carbon\Carbon::parse($i->event_start)->format('F j, Y g:i a') }}</td>
+                                            {{-- <td>{{ Carbon\Carbon::parse($i->event_end)->format('F j, Y g:i a') }}</td> --}}
+                                            <td>{{ $i->status_name}} </td>
+                                            <td>
+                                                <a class="" href="{{ url('returnInventory/'.$i->event_id) }}" >
+                                                    <button class="btn btn-block btn-sm"><i class="ni ni-zoom-split-in"></i> &nbsp; Return Event Inventory</button>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        @endif
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card-footer text-muted">
+                            <div class="text-right">
+                                    <a href="{{ url('inventory')}}" class="btn btn-secondary">Back to View Inventory</a>
+                                    {{-- {{Form::hidden('_method', 'PUT')}} --}}
+                            </div>
+                        </div>
+		        {{-- {!! Form::close() !!} --}}
+		    </div>
 		</div>
 	</div>
 </div>
 @endsection
-<script>
-	// function getTotal(){
-	// 	var input = document.getElementById('qty').value;
-	// 	var output = document.getElementById('inpQty');
-	// 	output.value = input;
-	// 	var current = document.getElementById('curQty').value;
-	// 	var total = current+input;
-	// 	document.getElementById('total').value = total;
-	// }
-
-	// $('input').on('keyup input', function () {
-	// var actualQty = Number($("#curQty").val().trim());
-	// var newQty = Number($("#qty").val().trim());
-	// // var shipping = Number($("#shipping").val().trim());
-
-	// var sum = (actual + newQty);
-	// var result = sum;
-	
-	// $("#inpQty").val(result.toFixed(2));
-
-	// });
-	function getTotal(){
-		var y = document.getElementById("curQty").value;
-		var z = document.getElementById("qty").value;
-
-		var x = parseInt(y) + parseInt(z);
-		document.getElementById('inpQty').innerHTML = z;
-		document.getElementById("total").innerHTML = x;
-	}
-</script>

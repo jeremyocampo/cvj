@@ -137,7 +137,7 @@ class ReturnInventoryController extends Controller
                         ->where('event_deployed','=', $eventID)
                         ->where('inventory_deployed','=', $returnedItem[0])
                         ->update([
-                            'date_returned' => Carbon::now('+8:00'),
+                            'date_returned' => Carbon::now(),
                         ]);
                     }
                     else{
@@ -171,7 +171,7 @@ class ReturnInventoryController extends Controller
                         ->where('event_deployed','=', $eventID)
                         ->where('inventory_deployed','=', $returnedItem[0])
                         ->update([
-                            'date_returned' => Carbon::now('+8:00'),
+                            'date_returned' => Carbon::now(),
                         ]);
 
                         // dd();
@@ -209,7 +209,7 @@ class ReturnInventoryController extends Controller
 
             $deployedItems = DB::table('deployed_inventory')
             ->select('*')
-            ->where('event_deployed', '=', $eventId->event_id)
+            ->where('event_deployed', '=', $eventID)
             ->join('inventory','deployed_inventory.inventory_deployed','=','inventory.inventory_id')
             ->join('color','inventory.color','=','color.color_id')
             ->get();
@@ -217,7 +217,7 @@ class ReturnInventoryController extends Controller
             $date = DB::table('deployed_inventory')
             ->select('date_deployed')
             ->groupBy('date_deployed')
-            ->where('event_deployed', '=', $eventId->event_id)
+            ->where('event_deployed', '=', $eventID)
             ->first();
      
             $assigned = DB::table('deployed_inventory')

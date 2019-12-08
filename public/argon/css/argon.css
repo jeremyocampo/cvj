@@ -21867,7 +21867,3 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle
 
     height: 3px;
 }
-
-.bg-gradient-logo-color {
-    background: linear-gradient(87deg, #0D5007 0, #0D5007 100%) !important;
-}

@@ -1,10 +1,6 @@
-<<<<<<< HEAD
 
    
 @extends('layouts.app')
-=======
-@extends('layouts.eventApp')
->>>>>>> 8014dcfb69bdaf0569c5cb6a3da6a8581c79d997
 
 @section('content')
     @include('layouts.headers.cards')
@@ -19,14 +15,14 @@
                     <div class="card-header border-0">
                         <div class="row align-items-center">
                             <div class="col">
-                                <h3 class="mb-0">Events Happening Now</h3>
+                                <h3 class="mb-0">Events Today</h3>
                             </div>
                             <div class="col text-right">
                             <a href="{{--url("events")--}}" class="btn btn-sm btn-primary">See all</a>
                             </div>
                         </div>
                     </div>
-                    <div class="table">
+                    <div class="table table-responsive">
                         <!-- Projects table -->
                         <table class="table align-items-center table-flush">
                             <thead class="thead-light">
@@ -72,7 +68,7 @@
                                     <td>{{ $i->venue }}</td>
                                     <td>{{ $i->event_start }}</td>
                                     <td>{{ $i->event_end }}</td>
-                                    <td>{{ $i->status}} </td>
+                                    <td>{{ $i->status_name}} </td>
                                     <td>
                                         <div class="dropdown">
                                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -87,24 +83,7 @@
                                                     <i class="ni ni-zoom-split-in"></i>
                                                     <span>{{ __('View Event Details') }}</span>
                                                 </a>
-<<<<<<< HEAD
                                                 
-=======
-
-                                                <a href="{{ url('inventory/'.$i->event_name.'/edit')}}" class="dropdown-item">
-                                                    <i class="ni ni-fat-add"></i>
-                                                    <span>{{ __('Replenish Item') }}</span>
-                                                </a>
-                                                
-                                                <a href="" class="dropdown-item" onclick="event.preventDefault();
-                                                    document.getElementById('delete-form-{{ $i->event_name }}').submit();">
-                                                    <i class="ni ni-fat-remove"></i>
-                                                    <span>{{ __('Remove from Inventory') }}</span>
-                                                    {!! Form::open(['action' => ['InventoryController@destroy', $i->event_name], 'method' => 'POST', 'id' => 'delete-form-'.$i->inventory_id]) !!}
-                                                        {{ Form::hidden('_method','DELETE')}}
-                                                    {!! Form::close() !!}
-                                                </a>
->>>>>>> 8014dcfb69bdaf0569c5cb6a3da6a8581c79d997
                                             </div>
                                         </div>
                                     </td>
@@ -231,7 +210,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="table">
+                    <div class="table table-responsive">
                         <!-- Projects table -->
                         <table class="table align-items-center table-flush">
                             <thead class="thead-light">
@@ -275,7 +254,7 @@
                                                     document.getElementById('delete-form-{{ $b->inventory_id }}').submit();">
                                                     <i class="ni ni-fat-remove"></i>
                                                     <span>{{ __('Remove from Inventory') }}</span>
-                                                    {!! Form::open(['action' => ['InventoryController@destroy', $b->inventory_id], 'method' => 'POST', 'id' => 'delete-form-'.$i->inventory_id]) !!}
+                                                    {!! Form::open(['action' => ['InventoryController@destroy', $b->inventory_id], 'method' => 'POST', 'id' => 'delete-form-'.$b->inventory_id]) !!}
                                                         {{ Form::hidden('_method','DELETE')}}
                                                     {!! Form::close() !!}
                                                 </a>
@@ -293,7 +272,80 @@
             </div>
         </div>
 
-        @include('layouts.footers.auth')
+        {{-- <div class="row">
+        </div>
+        <div class="row mt-5">
+            <div class="col-xl-12">
+                <div class="card shadow">
+                    <div class="card-header border-0">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h3 class="mb-0">Upcoming Events</h3>
+                            </div>
+                            <div class="col text-right">
+                            <a href="url("events")" class="btn btn-sm btn-primary">See all</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table table-responsive">
+                        <!-- Projects table -->
+                        <table class="table align-items-center table-flush">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">Event Name</th>
+                                    <th scope="col">Venue</th>
+                                    <th scope="col">Borrow Date/Time</th>
+                                    <th scope="col">Return Date/Time</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($events as $i)
+                                @if($i->status > 0)
+                                <tr>
+                                    <td>{{ $i->event_name }}</td>
+                                    <td>{{ $i->venue }}</td>
+                                    <td>{{ $i->event_start }}</td>
+                                    <td>{{ $i->event_end }}</td>
+                                    <td>{{ $i->status_name}} </td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Action
+                                            </button>
+                                            <div class="dropdown-menu dropdown-menu-arrow dropdown-menu">
+                                                <div class=" dropdown-header noti-title">
+                                                    <h6 class="text-overflow m-0">{{ __('Please Select an Action!') }}</h6>
+                                                </div>
+                                                <div class="dropdown-divider"></div>
+                                                <a href="{{ url('inventory/'.$i->event_name) }}" class="dropdown-item">
+                                                    <i class="ni ni-zoom-split-in"></i>
+                                                    <span>{{ __('View Event Details') }}</span>
+                                                </a>
+                                                <a href="" class="dropdown-item" onclick="event.preventDefault();
+                                                    document.getElementById('delete-form-{{ $i->event_name }}').submit();">
+                                                    <i class="ni ni-fat-remove"></i>
+                                                    <span>{{ __('Remove from Inventory') }}</span>
+                                                    {!! Form::open(['action' => ['InventoryController@destroy', $i->event_name], 'method' => 'POST', 'id' => 'delete-form-'.$i->inventory_id]) !!}
+                                                        {{ Form::hidden('_method','DELETE')}}
+                                                    {!! Form::close() !!}
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                
+                                @endif
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div> --}}
+
+        {{-- @include('layouts.footers.auth') --}}
     </div>
 @endsection
 

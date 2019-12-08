@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class FoodController extends Controller
 {
@@ -39,6 +40,13 @@ class FoodController extends Controller
     public function create()
     {
         //
+        $joinedTable = DB::table('ingredient')
+        // ->join('ingredient','rawmaterial.ingredient_id', '=', 'ingredient.ingredient_id')
+        ->get();
+
+        // dd($joinedTable);
+
+        return view('addFood', ['joinedTable' => $joinedTable]);
     }
 
     /**

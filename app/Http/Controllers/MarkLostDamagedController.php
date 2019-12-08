@@ -14,30 +14,6 @@ class MarkLostDamagedController extends Controller
     public function index()
     {
         //
-        $event = DB::table('event')
-        ->join('damaged_inventory','event.event_id','=','damaged_inventory.event_deployed')
-        ->select('event.event_id')
-        ->groupBy('event.event_id')
-        ->get();
-
-        $actuallyDamaged = array();
-
-        foreach($event as $a)
-        {
-            $eventsActuallyDamaged = DB::table('event')
-            ->select('*')
-            ->where('event.event_id', '=', $a->event_id)
-            ->join('event_status_ref','event.status', '=', 'event_status_ref.status_id')
-            ->first();
-
-            array_push($actuallyDamaged, $eventsActuallyDamaged);
-        }
-
-        dd($actuallyDamaged);
-
-        $date = Carbon::now('+8:00');
-
-        return view('markLostDamage',['event' => $event, '']);
     }
 
     /**

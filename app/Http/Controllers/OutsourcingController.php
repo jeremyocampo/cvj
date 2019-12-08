@@ -188,5 +188,26 @@ class OutsourcingController extends Controller
     public function destroy($id)
     {
         //
+        return redirect('/outsource');
+    }
+
+    /**
+     * Emails the Supplier about the outsource
+     *
+     *
+     * 
+     */
+    public function send_email($send_name, $send_email, $subject){
+        $to_name = $send_name;
+        $to_email = $send_email;
+        $data = array('event_confirm_mail'=>'monkaS', 'body' => 'monkey','client_name'=>$to_name,'event_name'=>$subject,);
+        Mail::send('event_confirm_mail', $data, function($message) use ($to_name, $to_email, $subject) {
+            $message->to($to_email, $to_name)
+                ->subject('Event '.$subject.' Booked!');
+            $message->from('cvjcatering.info@gmail.com','Caterie Bot');
+        });
+        error_log('Oops! Email Error hehe.');
+
+        return "sent_";
     }
 }

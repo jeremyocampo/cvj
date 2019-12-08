@@ -11,15 +11,11 @@ use Illuminate\Support\Facades\DB;
 use App\EventModel;
 use App\Http\Requests;
 use Session;
-<<<<<<< HEAD
 use Response;
 use Spatie\GoogleCalendar\Event;
 use Carbon\Carbon;
 use DateTime;
 use Mail;
-=======
-
->>>>>>> 8014dcfb69bdaf0569c5cb6a3da6a8581c79d997
 class BookEventController extends Controller
 {
     /**
@@ -27,24 +23,27 @@ class BookEventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index(){
+
        
-        $client = DB::table('event')
+        // $client = DB::table('event')
             // ->join('client_ref','event.client_name','=','client_ref.client_name')
             // ->join('event','client_ref.client_name','=','event.client_name')
-            ->get();
+            // ->get();
         //dd($joinedTable);
         
-<<<<<<< HEAD
         $client = null;
         
-=======
->>>>>>> 8014dcfb69bdaf0569c5cb6a3da6a8581c79d997
         $packages = DB::table('package')
             // ->join('package','event.package_id','=','package.package_id')
             // ->join('event','package.package_id','=','event.package_id')
             ->get();
-<<<<<<< HEAD
         $min_val_day = Carbon::now()->addMonths(2)->format('Y-m-d');
         return view('bookevent', ['client' => $client, 'packages' => $packages,'min_val_date'=>$min_val_day]);
     }
@@ -59,13 +58,6 @@ class BookEventController extends Controller
         }
         return Response::json(['valid' => false,'event_count'=>count($events)]);
     }
-=======
-
-        return view('bookevent', ['clients' => $client, 'packages' => $packages]);
-    }
-
-
->>>>>>> 8014dcfb69bdaf0569c5cb6a3da6a8581c79d997
     /**
      * Show the form for creating a new resource.
      *
@@ -74,6 +66,9 @@ class BookEventController extends Controller
     public function create()
     {
         //
+        
+
+        return view('bookevent');
     }
 
     /**
@@ -93,7 +88,6 @@ class BookEventController extends Controller
 
     // Session::put('loginDetails', $loginDet);
     // $loginDetails = Session::get('loginDetails');
-<<<<<<< HEAD
     // $client_id = 1;
     $today = Carbon::now('+8:00');
 
@@ -146,31 +140,19 @@ class BookEventController extends Controller
     error_log("awit: ".$request->input('theme'));
 
 
-=======
-   
->>>>>>> 8014dcfb69bdaf0569c5cb6a3da6a8581c79d997
     $event = new EventModel([
-        'client_id' => $loginDet['client_id'],
         'event_name' => $request->input('eventName'),
-        'event_date_time' => $request->input('eventDate'),
-         'reservation_id' => $request->input('eventVenue'),
-        //Event Type Selection
-        'eventType' => $request->input('event_type'),
+        'event_type' => $request->input('eventType'),
+        'venue' => $request->input('venue'),
+        'event_start' => $startDateTime,
+        'event_end' => $endDateTime,
         'theme' => $request->input('theme'),
-<<<<<<< HEAD
         'totalpax' => null,
-=======
-        'centerpiece' => $request->input('centerpiece'),
-        'flowers' => $request->input('flowers'),
-        'linencolor' => $request->input('linencolor'),
-        'chair' => $request->input('chair'),
-        'table' => $request->input('table'),
->>>>>>> 8014dcfb69bdaf0569c5cb6a3da6a8581c79d997
         'others' => $request->input('others'),
-        'totalpax' => $request->input('totalpax'),
+        'client_id' => $clientID,
+        'status' => 1,
 
     ]);
-<<<<<<< HEAD
 
     $event->event_detailsAdded = $request->input('eventvenue');
     $event->venue = $request->input('venue');
@@ -229,15 +211,10 @@ class BookEventController extends Controller
     return redirect('/selectpackages/' . $event->event_id)
     ->with('success', "Event details saved!");
     
-=======
-    $event->save();
->>>>>>> 8014dcfb69bdaf0569c5cb6a3da6a8581c79d997
         
-    return redirect('/selectpackage')
-    ->with('success', "Event details saved!")
-    ->with('client', $client)
-    ->with('packages', $packages);
-    //return view('eventbookingpage.selectpackage', compact('status'));
+    //->with('client', $client)
+    //->with('packages', $packages);
+    
     }
 
     /**
@@ -319,5 +296,25 @@ class BookEventController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Sends mail to client.
+     *
+     *
+     * 
+     */
+    public function send_email($send_name, $send_email, $subject){
+        $to_name = $send_name;
+        $to_email = $send_email;
+        $data = array('event_confirm_mail'=>'monkaS', 'body' => 'monkey','client_name'=>$to_name,'event_name'=>$subject,);
+        Mail::send('event_confirm_mail', $data, function($message) use ($to_name, $to_email, $subject) {
+            $message->to($to_email, $to_name)
+                ->subject('Event '.$subject.' Booked!');
+            $message->from('cvjcatering.info@gmail.com','Caterie Bot');
+        });
+        error_log('Oops! Email Error hehe.');
+
+        return "sent_";
     }
 }
