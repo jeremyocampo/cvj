@@ -257,7 +257,7 @@
 
     function dropdown_change_listener() {
         let len = $(".js-example-basic-multiple :selected").length;
-        if (len >= 2){
+        if (len >= 5){
             $("#sumbit_btn").attr("disabled",false);
         }
         else{

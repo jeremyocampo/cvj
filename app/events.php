@@ -127,8 +127,8 @@ class events extends Model
         //include only those confirmed event.
         $events_past = events::where('event_id','!=',$this->event_id)->
                                where('package_id','=',$this->package_id)->
-                               where('status','>',1)->get()->reverse();
-        //status should be more than 3.
+                               where('status','>',3)->get()->reverse();
+        //status should be more than 3.g
 
         if(count($events_past) != 0){
             //check individual packages for event and check the selected if they have the match including additionals.
@@ -166,7 +166,7 @@ class events extends Model
         error_log('$package'.$package->package_name);
 
         $events_past = events::where('event_id','!=',$this->event_id)->
-        where('status','>',1)->
+        where('status','>',2)->
         where('package_id','=',$package->package_id)->
         get()->reverse();
 
