@@ -63,7 +63,6 @@ class ConfirmEventsController extends Controller
     {
 
        $event = events::where('event_id','=',$event_id)->first();
-        /*
         $event->status = 2;
 
         //sample define costs here
@@ -73,7 +72,7 @@ class ConfirmEventsController extends Controller
         //finalize budget and costings method used here.
          $event->event_budget_create();
          $event->save();
-*/
+
 
 
             $startDateTime = Carbon::parse($event->event_start);
