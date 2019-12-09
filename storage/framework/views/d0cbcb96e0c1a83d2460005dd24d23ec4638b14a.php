@@ -10,7 +10,7 @@
                             <div class="col">
                                 <div class="row">
                                 <div class="col-xs-5">
-                                    <h1 class="mb-0">Expense Reports</h1>
+                                    <h1 class="mb-0">Upcoming Events</h1>
                                 </div>
                                 <div class="col-xs-2">
                                         &nbsp;&nbsp;

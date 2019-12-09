@@ -1,5 +1,6 @@
 <?php $__env->startSection('js'); ?>
     <script>
+<<<<<<< HEAD
         $('#addSupplier').on('click', function() {
             $('#addModalSupplier').modal('show');
 
@@ -63,6 +64,10 @@
                     });
                 }
             });
+=======
+        $('#add-supplier').on('click', function() {
+            alert('test'); 
+>>>>>>> af89cc55d0015b180d38cf76171692f982e6b22c
         });
 
         $('.edit').on('click', function() {
@@ -175,8 +180,11 @@
                 url: '/suppliers/' + supplier,
                 type: 'GET',
                 success: function(data) {
+<<<<<<< HEAD
                     $('#addContact').removeAttr('disabled');
                     $('#addContact').attr('data-id', data.supplier_id);
+=======
+>>>>>>> af89cc55d0015b180d38cf76171692f982e6b22c
                     $('#supplierName').val(data.name);
                     $('#supplierEmail').val(data.email);
                     $('#supplierLandline').val(data.landline);
@@ -267,6 +275,7 @@
             });
         }
     </script>
+<<<<<<< HEAD
     
     <script>
         $('#addItem').on('click', function() {
@@ -360,4 +369,6 @@
             })
         });
     </script>
+=======
+>>>>>>> af89cc55d0015b180d38cf76171692f982e6b22c
 <?php $__env->stopSection(); ?>

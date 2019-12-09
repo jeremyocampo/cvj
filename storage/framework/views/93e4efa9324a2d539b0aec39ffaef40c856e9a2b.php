@@ -160,7 +160,7 @@
                                     <div class="col">
                                         <div class="row">
                                             <div class="col-xs-5">
-                                                <h1 class="mb-0">Critical Inventory</h1>
+                                                <h1 class="mb-0">Critical Inventory</h1> &nbsp;&nbsp; <p>as of <?php echo e($month); ?></p>
                                             </div>
                                             
                                         </div>
@@ -179,6 +179,9 @@
                                         
                                     
                             <div class="card-body">
+        
+                            
+        
                             <div class="table-responsive mb-3">
                                 <!-- Projects table -->
                                 

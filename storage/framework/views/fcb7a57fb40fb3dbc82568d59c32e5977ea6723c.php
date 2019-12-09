@@ -88,7 +88,7 @@
                                                 <select class="form-control" name="employeeAssigned" required>
                                                     <option disabled selected > -Please Assign an Employee- </option>
                                                     <?php $__currentLoopData = $employees; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $a): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                        <option value="<?php echo e($a->id); ?>"> <?php echo e($a->employee_fn); ?> <?php echo e($a->employee_ln); ?></option>
+                                                        <option value="<?php echo e($a->employee_id); ?>"> <?php echo e($a->employee_FN); ?> <?php echo e($a->employee_LN); ?></option>
                                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                                 </select>
                                             </div>

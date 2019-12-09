@@ -542,3 +542,27 @@
 #54 C:\\xampp\\htdocs\\cvj\\public\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #55 {main}
 "} 
+[2019-12-09 06:59:21] local.ERROR: Declaration of Symfony\Component\Translation\IdentityTranslator::trans(?string $id, array $parameters = Array, ?string $domain = NULL, ?string $locale = NULL): string must be compatible with Symfony\Component\Translation\TranslatorInterface::trans($id, array $parameters = Array, $domain = NULL, $locale = NULL) {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 64): Declaration of Symfony\\Component\\Translation\\IdentityTranslator::trans(?string $id, array $parameters = Array, ?string $domain = NULL, ?string $locale = NULL): string must be compatible with Symfony\\Component\\Translation\\TranslatorInterface::trans($id, array $parameters = Array, $domain = NULL, $locale = NULL) at C:\\xampp\\htdocs\\cvj\\vendor\\symfony\\translation\\IdentityTranslator.php:23)
+[stacktrace]
+#0 {main}
+"} 
+[2019-12-09 06:59:30] local.ERROR: Declaration of Symfony\Component\Translation\IdentityTranslator::trans(?string $id, array $parameters = Array, ?string $domain = NULL, ?string $locale = NULL): string must be compatible with Symfony\Component\Translation\TranslatorInterface::trans($id, array $parameters = Array, $domain = NULL, $locale = NULL) {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 64): Declaration of Symfony\\Component\\Translation\\IdentityTranslator::trans(?string $id, array $parameters = Array, ?string $domain = NULL, ?string $locale = NULL): string must be compatible with Symfony\\Component\\Translation\\TranslatorInterface::trans($id, array $parameters = Array, $domain = NULL, $locale = NULL) at C:\\xampp\\htdocs\\cvj\\vendor\\symfony\\translation\\IdentityTranslator.php:23)
+[stacktrace]
+#0 {main}
+"} 
+[2019-12-09 07:02:26] local.ERROR: Declaration of Symfony\Component\Translation\IdentityTranslator::trans(?string $id, array $parameters = Array, ?string $domain = NULL, ?string $locale = NULL): string must be compatible with Symfony\Component\Translation\TranslatorInterface::trans($id, array $parameters = Array, $domain = NULL, $locale = NULL) {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 64): Declaration of Symfony\\Component\\Translation\\IdentityTranslator::trans(?string $id, array $parameters = Array, ?string $domain = NULL, ?string $locale = NULL): string must be compatible with Symfony\\Component\\Translation\\TranslatorInterface::trans($id, array $parameters = Array, $domain = NULL, $locale = NULL) at C:\\xampp\\htdocs\\cvj\\vendor\\symfony\\translation\\IdentityTranslator.php:23)
+[stacktrace]
+#0 {main}
+"} 
+[2019-12-09 07:06:18] local.ERROR: Declaration of Symfony\Component\Translation\IdentityTranslator::trans(?string $id, array $parameters = Array, ?string $domain = NULL, ?string $locale = NULL): string must be compatible with Symfony\Component\Translation\TranslatorInterface::trans($id, array $parameters = Array, $domain = NULL, $locale = NULL) {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 64): Declaration of Symfony\\Component\\Translation\\IdentityTranslator::trans(?string $id, array $parameters = Array, ?string $domain = NULL, ?string $locale = NULL): string must be compatible with Symfony\\Component\\Translation\\TranslatorInterface::trans($id, array $parameters = Array, $domain = NULL, $locale = NULL) at C:\\xampp\\htdocs\\cvj\\vendor\\symfony\\translation\\IdentityTranslator.php:23)
+[stacktrace]
+#0 {main}
+"} 
+[2019-12-09 07:06:24] local.ERROR: Declaration of Symfony\Component\Translation\IdentityTranslator::trans(?string $id, array $parameters = Array, ?string $domain = NULL, ?string $locale = NULL): string must be compatible with Symfony\Component\Translation\TranslatorInterface::trans($id, array $parameters = Array, $domain = NULL, $locale = NULL) {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 64): Declaration of Symfony\\Component\\Translation\\IdentityTranslator::trans(?string $id, array $parameters = Array, ?string $domain = NULL, ?string $locale = NULL): string must be compatible with Symfony\\Component\\Translation\\TranslatorInterface::trans($id, array $parameters = Array, $domain = NULL, $locale = NULL) at C:\\xampp\\htdocs\\cvj\\vendor\\symfony\\translation\\IdentityTranslator.php:23)
+[stacktrace]
+#0 {main}
+"} 
+[2019-12-09 07:06:25] local.ERROR: Declaration of Symfony\Component\Translation\IdentityTranslator::trans(?string $id, array $parameters = Array, ?string $domain = NULL, ?string $locale = NULL): string must be compatible with Symfony\Component\Translation\TranslatorInterface::trans($id, array $parameters = Array, $domain = NULL, $locale = NULL) {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 64): Declaration of Symfony\\Component\\Translation\\IdentityTranslator::trans(?string $id, array $parameters = Array, ?string $domain = NULL, ?string $locale = NULL): string must be compatible with Symfony\\Component\\Translation\\TranslatorInterface::trans($id, array $parameters = Array, $domain = NULL, $locale = NULL) at C:\\xampp\\htdocs\\cvj\\vendor\\symfony\\translation\\IdentityTranslator.php:23)
+[stacktrace]
+#0 {main}
+"} 
