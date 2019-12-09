@@ -44,8 +44,15 @@ class PurchaseOrderController extends Controller
     public function email(PurchaseOrder $order)
     {
         $supplier = $order->supplier()->first();
-        
-        Mail::to($supplier->email)->send(new PurchaseOrderMail($order));
+        $email = $supplier->contacts()->first()->email;
+
+        if ($email === null) {
+            return response()->json([
+                'message' => 'Please Provide a proper email'
+            ], 422);
+        }
+
+        Mail::to($email)->send(new PurchaseOrderMail($order));
 
         return response()->json([
             'message' => 'Email Sent'

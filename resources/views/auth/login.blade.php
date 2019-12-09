@@ -1,5 +1,6 @@
-@extends('layouts.app', ['class' => 'bg-default'])
+@extends('layouts.inventoryApp', ['class' => 'bg-default'])
 
+@section('content')
     @include('layouts.headers.guest')
     
     <div class="container mt--8 pb-5">
@@ -73,12 +74,13 @@
                             </a>
                         @endif
                     </div>
-                    {{-- <div class="col-6 text-right">
+                    <div class="col-6 text-right">
                         <a href="{{ route('register') }}" class="text-light">
                             <small>{{ __('Create new account') }}</small>
                         </a>
-                    </div> --}}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+@endsection
