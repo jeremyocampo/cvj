@@ -77,15 +77,10 @@
                                 <label class="form-label">Contact No</label>
                                 <input type="number" class="form-control" step="any" name="contact_no" required />
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Salary</label>
-                                <input type="number" min="0" value="0" step="0.01" class="form-control" name="salary" required />
-                            </div>
                             <div class="col-md-4 mb-3">
                                 <label class="form-label">Address</label>
                                 <textarea name="address" class="form-control" rows="4"></textarea>
                             </div>
-                            
                         </div>
                     </div>
                     <div class="card-footer text-muted">

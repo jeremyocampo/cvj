@@ -14,7 +14,15 @@ class ExpenseReportsController extends Controller
     public function index()
     {
         //
-        return view('expenseReports');
+        $events = DB::table('event')
+        ->select('*')
+        ->join('event_client_quotation', 'event.event_id','=','event_client_quotation.event_id')
+        ->join('event_company_quotation', 'event.event_id','=','event_company_quotation.event_id')
+        ->join('event_costing')
+        ->where('status','=', 5)
+        ->get();
+
+        return view('expenseReports',['events' => $events]);
     }
 
     /**

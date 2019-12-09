@@ -1,9 +1,31 @@
 <?php return array (
+  'barryvdh/laravel-dompdf' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Barryvdh\\DomPDF\\ServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'PDF' => 'Barryvdh\\DomPDF\\Facade',
+    ),
+  ),
   'beyondcode/laravel-dump-server' => 
   array (
     'providers' => 
     array (
       0 => 'BeyondCode\\DumpServer\\DumpServerServiceProvider',
+    ),
+  ),
+  'encore/laravel-admin' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Encore\\Admin\\AdminServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'Admin' => 'Encore\\Admin\\Facades\\Admin',
     ),
   ),
   'fideloper/proxy' => 
@@ -13,11 +35,32 @@
       0 => 'Fideloper\\Proxy\\TrustedProxyServiceProvider',
     ),
   ),
+  'laravel-admin-ext/daterangepicker' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Encore\\DateRangePicker\\DateRangePickerServiceProvider',
+    ),
+  ),
   'laravel-frontend-presets/argon' => 
   array (
     'providers' => 
     array (
       0 => 'LaravelFrontendPresets\\ArgonPreset\\ArgonPresetServiceProvider',
+    ),
+  ),
+  'laravel/nexmo-notification-channel' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Illuminate\\Notifications\\NexmoChannelServiceProvider',
+    ),
+  ),
+  'laravel/slack-notification-channel' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Illuminate\\Notifications\\SlackChannelServiceProvider',
     ),
   ),
   'laravel/tinker' => 

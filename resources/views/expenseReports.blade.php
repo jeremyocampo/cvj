@@ -1,216 +1,118 @@
 @extends('layouts.app')
 
-{{-- @include('layouts.headers.pagination') --}}
-
 @section('content')
     @include('layouts.headers.inventoryCard')
 
     <div class="container-fluid mt--7">
-            {{-- <div class="col-xl-8 mb-5 mb-xl-0"> --}}
-            <div class="col-xl-12 mb-5">
-                <div class="card shadow " >
-                    <div class="card-header ">
-                        <div class="row align-items-center">
-                            <div class="col">
-                                <div class="row">
-                                <div class="col-xs-5">
-                                    <h1 class="mb-0">Expense Reports</h1>
-                                </div>
-                                <div class="col-xs-2">
-                                        &nbsp;&nbsp;
-                                </div>
-                                {{-- <div class="col-xs-4">
-                                    <a href="inventory/create" class="btn btn-sm btn-primary"> + Add Item</a>
-                                </div> --}}
-                                </div>
-                            </div>
-                            <div class="col text-right"> </div>
-                            <div class="col text-left">
-                                <div class="col-xs-5"> 
-                                    <input class="form-control" id="myInput" type="search" onkeyup="searchTable()" style="background: transparent;" placeholder="Search Item Here">
-                                </div>
-                            </div>
-                        </div>
+    <div class="col-xl-12 mb-5">
+        <div class="card shadow " >
+            <div class="card-header ">
+                <div class="row align-items-center">
+                    <div class="col">
                         <div class="row">
-                            <div class="col-md-12">
-                                @if(session()->has('success'))
-                                    <br>
-                                    <div class="alert alert-success" role="alert">
-                                        <button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">x</span></button>
-                                        {{ session()->get('success') }}<br>
-                                    </div>
-                                @endif
-                                @if(session()->has('deleted'))
-                                    <br>
-                                    <div class="alert alert-danger" role="alert">
-                                        <button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">x</span></button>
-                                        {{ session()->get('deleted') }}<br>
-                                    </div>
-                                @endif
+                        <div class="col-xs-5">
+                            <h1 class="mb-0">Expense Reports</h1>
+                        </div>
+                        <div class="col-xs-2">
+                                &nbsp;&nbsp;
+                        </div>
+                        </div>
+                    </div>
+                    <div class="col text-right"> </div>
+                    <div class="col text-left">
+                        <div class="col-xs-5"> 
+                            <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+                                <i class="fa fa-calendar"></i>&nbsp;
+                                <span></span> <i class="fa fa-caret-down"></i>
                             </div>
                         </div>
-                       
-                    </div>
-                    <div class="card-body">
-
-                    
-
-                    <div class="table-responsive mb-3">
-                        <!-- Projects table -->
-                        
-                        <table class="table table-bordered align-items-center table-flush mb-4" id="myTable">
-                            <thead class="thead-light">
-                                <tr>
-                                    <th >Item name</th>
-                                    {{-- <th >Stock Keeping Unit(SKU)</th> --}}
-                                    <th >Category</th>
-                                    <th>Color</th>
-                                    <th>Size</th>
-                                    <th >Quantity</th>
-                                    <th >Threshold</th>
-                                    <th >Last Modified (YY-MM-DD)</th>
-                                    <th >Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php  
-
-                                ?>
-
-                                {{-- @foreach ($joinedInventory as $i)
-                                @if($i->status > 0)
-                                <tr>
-                                    
-                                    <td>
-                                        <a href="{{ url('inventory/'.$i->inventory_id) }}" class="dropdown-item">
-                                            {{ $i->inventory_name }}
-                                        </a>
-                                    </td>    
-                                    <td>{{ $i->category_name }}</td>
-                                    <td>{{ $i->color_name }}</td>
-                                    <td> {{ $i->size }}</td>
-                                    <td>{{ $i->quantity }}</td>
-                                    <td>{{ $i->threshold }}</td>
-                                    <td>{{ $i->last_modified }}</td>
-                                    <td class="popup">
-                                        <div class="dropdown">
-                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                Action
-                                            </button>
-                                            <div class="dropdown-menu dropdown-menu-arrow dropdown-menu">
-                                                <div class=" dropdown-header noti-title">
-                                                    <h6 class="text-overflow m-0">{{ __('Please Select an Action!') }}</h6>
-                                                </div>
-                                                <div class="dropdown-divider"></div>
-                                                <a href="{{ url('inventory/'.$i->inventory_id) }}" class="dropdown-item">
-                                                    <i class="ni ni-zoom-split-in"></i>
-                                                    <span>{{ __('View Item Details') }}</span>
-                                                </a>
-
-                                                <a href="{{ url('inventory/'.$i->inventory_id.'/edit')}}" class="dropdown-item">
-                                                    <i class="ni ni-fat-add"></i>
-                                                    <span>{{ __('Replenish Item') }}</span>
-                                                </a>
-                                                
-                                                <a href="" class="dropdown-item" onclick="event.preventDefault();
-                                                    document.getElementById('delete-form-{{ $i->inventory_id }}').submit();">
-                                                    <i class="ni ni-fat-remove"></i>
-                                                    <span>{{ __('Remove from Inventory') }}</span>
-                                                    {!! Form::open(['action' => ['InventoryController@destroy', $i->inventory_id], 'method' => 'POST', 'id' => 'delete-form-'.$i->inventory_id]) !!}
-                                                        {{ Form::hidden('_method','DELETE')}}
-                                                    {!! Form::close() !!}
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                @endif
-                                @endforeach --}}
-                            </tbody>
-                        </table>
-                    </div>
-                    </div>
-                    <div class="card-footer">
-                            <div id="pageNavPosition" style="padding-top: 20px; cursor: pointer;" align="center"></div>
-                            <script type="text/javascript">
-                                <!--
-                                var pager = new Pager('myTable', 5);
-                                pager.init();
-                                pager.showPageNav('pager', 'pageNavPosition');
-                                pager.showPage(1);
-                            </script>
-                    </div>
-                    </div>
-                    <!--pagination-->
-                    
-                    <!--pagination-->
-
-                    </div>
-
-
-                    {{-- <div class="col-xl-12 mb-5">
-                        <div class="card shadow " >
-                                <div class="card-body">
-                                        <div class="table-responsive mb-3">
-                                            <!-- Projects table -->
-                                            <table class="table table-bordered align-items-center table-flush mb-4" id="myTable">
-                                            
-                                            </table>
-                                        </div>
-                                </div>
-                        </div>
-                    </div> --}}
-
-
-                   
-                            <!--pagination-->
-                            
-                            <!--pagination-->
-        
-                        </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        @if(session()->has('success'))
+                            <br>
+                            <div class="alert alert-success" role="alert">
+                                <button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">x</span></button>
+                                {{ session()->get('success') }}<br>
+                            </div>
+                        @endif
+                        @if(session()->has('deleted'))
+                            <br>
+                            <div class="alert alert-danger" role="alert">
+                                <button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">x</span></button>
+                                {{ session()->get('deleted') }}<br>
+                            </div>
+                        @endif
+                    </div>
                 </div>
-                </div>
+                
             </div>
+            <div class="card-body">
+
+            
+
+            <div class="table-responsive mb-3">
+                <!-- Projects table -->
+                
+                <table class="table table-bordered align-items-center table-flush mb-4" id="myTable">
+                    <thead class="thead-light">
+                        <tr>
+                            <th >Event name</th>
+                            {{-- <th >Stock Keeping Unit(SKU)</th> --}}
+                            <th >Event Type</th>
+                            <th>Package</th>
+                            <th>Total Expenses</th>
+                            <th >Total Cost</th>
+                            <th >Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach()
+                            @if()
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            @endif
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            </div>
+            <div class="card-footer">
+                    
             </div>
         </div>
     </div>
-    </div>
-    {{-- @include('layouts.footers.auth') --}}
-    </div>
+</div>
+
+
 @endsection
 
+
+
+
+
 @push('js')
-    {{-- <script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.min.js"></script>
-    <script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.extension.js"></script> --}}
-    {{-- <script>
-        function searchTable() {
-            // Declare variables 
-            var input, filter, table, tr, td, i;
-            input = document.getElementById("myInput");
-            filter = input.value.toUpperCase();
-            table = document.getElementById("myTable");
-            tr = table.getElementsByTagName("tr");
-            // tr = table.getElementsByClassName("mamamo");
-            th = table.getElementsByTagName("th");
 
-            // Loop through all table rows, and hide those who don't match the search query
-            for (i = 1; i < tr.length; i++) {
-                tr[i].style.display = "none";
-                for (var j = 0; j <= th.length; j++) {
-                    td = tr[i].getElementsByTagName("td")[j];
-                    if (td) {
-                        if (td.innerHTML.toUpperCase().indexOf(filter.toUpperCase()) > -1) {
-                            tr[i].style.display = "";
-                            break;
-                        }
-                    }
-                }
-            }
-        }
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
-    </script> --}}
+    {{-- DATA TABLES START --}}
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+
+        <link rel="stylesheet" type="text/css" href=". /resources/DataTables/datatables.min.css"/>
+        <script type="text/javascript" src=". /resources/DataTables/datatables.min.js"></script>
+    {{-- DATA TABLES END --}}
+    
     <script>
         $('.table-responsive tbody tr').slice(-2).find('.dropdown').addClass('dropup');
 
@@ -221,13 +123,41 @@
             window.print();
             $('body').html(restorepage);
             document.location.reload(true);
-            
-            // var restorepage = document.body.innerHTML;
-            // var printcontent = document.getElementById().innerHTML;
-            // document.body.innerHTML = printcontent;
-            // window.print();
-            // document.body.innerHTML = restorepage;
         }
+    </script>
+
+    <script type="text/javascript">
+        $(function() {
+        
+            var start = moment().subtract(29, 'days');
+            var end = moment();
+        
+            function cb(start, end) {
+                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+            }
+        
+            $('#reportrange').daterangepicker({
+                startDate: start,
+                endDate: end,
+                ranges: {
+                'Today': [moment(), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                'This Month': [moment().startOf('month'), moment().endOf('month')],
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                }
+            }, cb);
+        
+            cb(start, end);
+        
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#myTable').DataTable();
+        } );
     </script>
 
 @endpush
