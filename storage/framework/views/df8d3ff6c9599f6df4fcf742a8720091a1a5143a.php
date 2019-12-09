@@ -202,7 +202,8 @@
 	<script>
 		$( document ).ready(function() {
 			// var barcode = document.getElementById('barcodeInput').value;
-			document.getElementById('status').onchange = function checkBarcode(){
+			// document.getElementById('status').onchange = function checkBarcode(){
+            document.getElementsByClassName('statusLD').onchange = function checkReason(){
 
 				var barcode = document.getElementById('barcodeInput').value;
 				

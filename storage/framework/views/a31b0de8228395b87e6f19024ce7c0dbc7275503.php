@@ -1,12 +1,11 @@
-@extends('layouts.app')
-
-@section('content')
-    @include('layouts.headers.inventoryCard1')
+<?php $__env->startSection('content'); ?>
+    <?php echo $__env->make('layouts.headers.inventoryCard1', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
     <div class="container-fluid mt--7">
         <div class="card-body">
             <div class="col-xl-12 mb-5 mb-xl-0">
                 <div class="card shadow">
-                    {!! Form::open(['action' => 'ManpowerController@store', 'method' => 'POST', 'autocomplete' =>'off']) !!}
+                    <?php echo Form::open(['action' => 'ManpowerController@store', 'method' => 'POST', 'autocomplete' =>'off']); ?>
+
                     <div class="card-header">
                         <div class="row align-items-center">
                             <div class="col">
@@ -17,21 +16,21 @@
                     </div>
                     <div class="card-body border-0">
 
-                        @foreach($errors->all() as $error)
+                        <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <div class="alert alert-danger" role="alert">
                                 <button type = button data-dismiss="alert" class="close"><span aria-hidden="true">x</span></button>
-                                {{ $error }}<br>
+                                <?php echo e($error); ?><br>
                             </div>
 
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
-                        @if(session()->has('warning'))
+                        <?php if(session()->has('warning')): ?>
                             <br>
                             <div class="alert alert-warning" role="alert">
                                 <button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">x</span></button>
-                                {{ session()->get('warning') }}<br>
+                                <?php echo e(session()->get('warning')); ?><br>
                             </div>
-                        @endif
+                        <?php endif; ?>
 
                         <div class="row">
 
@@ -39,9 +38,9 @@
                                 <label class="form-label">Agency</label>
                                 <select name="agency_id" class="form-control" required>
                                     <option value = 0 selected disabled>Please Select agency</option>
-                                    @foreach ($agencies as $agency)
-                                        <option value="{{ $agency->agency_id }}">{{ $agency->agency_name }}</option>
-                                    @endforeach
+                                    <?php $__currentLoopData = $agencies; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $agency): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($agency->agency_id); ?>"><?php echo e($agency->agency_name); ?></option>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </select>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -69,9 +68,9 @@
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Schedule</label>
                                 <select name="schedule_id" class="form-control" required>
-                                    @foreach ($schedules as $schedule)
-                                        <option value="{{ $schedule->id }}">{{ $schedule->shift_name }}</option>
-                                    @endforeach
+                                    <?php $__currentLoopData = $schedules; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $schedule): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($schedule->id); ?>"><?php echo e($schedule->shift_name); ?></option>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </select>
                             </div>
                             <div class="col-md-4 mb-3">
@@ -90,23 +89,23 @@
                         </div>
                     </div>
                     <div class="card-footer text-muted">
-                        {{-- @foreach($subcategoryIds as $subcategoryId)
-                            <p>{{$subcategoryId}}</p>
-                        @endforeach --}}
+                        
 
                         <div class="text-right">
 
-                            {{ Form::submit('Save Record', ['class' => 'btn btn-success']) }}
-                            <a href="{{ url('manpowers')}}" class="btn btn-default">Back</a>
-                            {{-- {{Form::hidden('_method', 'PUT')}} --}}
+                            <?php echo e(Form::submit('Save Record', ['class' => 'btn btn-success'])); ?>
+
+                            <a href="<?php echo e(url('manpowers')); ?>" class="btn btn-default">Back</a>
+                            
                         </div>
                     </div>
-                    {!! Form::close() !!}
+                    <?php echo Form::close(); ?>
+
                 </div>
             </div>
         </div>
     </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
 <script>
     function getSelected(){
@@ -140,3 +139,5 @@
 
 
 </script>
+
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>

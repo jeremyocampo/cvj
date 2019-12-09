@@ -71,15 +71,19 @@ class MarkLostDamagedController extends Controller
     public function store(Request $request)
     {
         //
-        $this->validate($request, [
-            'status'      => 'required',
-            'reason'      => 'required',
-            // 'idReturnArray'      => 'required',
-        ],[
-            'status.required'     => 'Please Select a valid Status.',
-            'reason.required'     => 'Please do not leave the Reason Field Empty',
-            // 'category.required'     => 'Please Select a Category.',
-        ]);
+        // $this->validate($request, [
+        //     'status'      => 'required',
+        //     'reason'      => 'required',
+        //     // 'idReturnArray'      => 'required',
+        // ],[
+        //     'status.required'     => 'Please Select a valid Status.',
+        //     'reason.required'     => 'Please do not leave the Reason Field Empty',
+        //     // 'category.required'     => 'Please Select a Category.',
+        // ]);
+
+        dd($request);
+
+        return view('markLostDamage')->with('success', 'Event Items Successfully Marked as Lost/Damaged');
 
 
     }
@@ -113,9 +117,7 @@ class MarkLostDamagedController extends Controller
         ->select('*')
         ->where('event_deployed', '=', $id)
         ->first();
-
-        // dd($lostDamaged);
-
+        
         return view('viewMarkLostDamaged', ['event' => $event, 'lostDamaged' => $lostDamaged, 'employee' => $assigned]);
     }
 

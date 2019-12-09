@@ -26,7 +26,6 @@ class DeployController extends Controller
         ->get();
         
         return view('deployInventory',['events' => $event]);
-        
     }
 
     /**

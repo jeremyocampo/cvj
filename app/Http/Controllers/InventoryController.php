@@ -215,7 +215,8 @@ class InventoryController extends Controller
                 'status'        => 'required|numeric|min:0',
                 'supplier' => 'required',
                 'shelf_life' => 'required|numeric|min:0',
-                'returnable_item' => 'required'
+                'returnable_item' => 'required',
+                'description'    => 'required',
             ],[
                 'inventory_name.required'     => 'Please Input a Valid Item Name.',
                 'category.required'     => 'Please Select a Category.',
@@ -223,6 +224,7 @@ class InventoryController extends Controller
                 'threshold,required'    => 'Please Input a valid Threshold Amount',
                 'threshold.min'         => 'Please Input a Threshold Amount at least 50% of Starting Quantity',
                 'status.required'        => 'Please select the appropriate Status for this item',
+                'description.required'        => 'Please input a valid Quantity',
             ]);
 
             $similar_inventory = $this->validatorUtil->validateInventory($request->post('inventory_name'), $request->post('category'),
@@ -246,7 +248,8 @@ class InventoryController extends Controller
                     'threshold'     => $request->input('threshold'),
                     'shelf_life' => $request->post('shelf_life'),
                     'returnable_item' => $request->post('returnable_item'),
-                    'supplier_id' => $request->post('supplier')
+                    'supplier_id' => $request->post('supplier'),
+                    'description' => $request->post('description'),
                 ]);
 
 

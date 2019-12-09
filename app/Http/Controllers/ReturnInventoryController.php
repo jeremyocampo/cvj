@@ -11,6 +11,7 @@ use App\inventory;
 use Faker\Generator as Faker;
 use Illuminate\Support\Arr;
 use App\damaged_inventory;
+use App\lost_inventory;
 
 class ReturnInventoryController extends Controller
 {

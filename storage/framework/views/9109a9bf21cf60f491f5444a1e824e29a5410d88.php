@@ -1,12 +1,11 @@
-@extends('layouts.app')
-
-@section('content')
-@include('layouts.headers.inventoryCard1')
+<?php $__env->startSection('content'); ?>
+<?php echo $__env->make('layouts.headers.inventoryCard1', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 <div class="container-fluid mt--7">
 	<div class="card-body">
 		<div class="col-xl-12 mb-5 mb-xl-0">
 				<div class="card shadow">
-						{!! Form::open(['action' => 'InventoryController@store', 'method' => 'POST', 'autocomplete' =>'off']) !!}
+						<?php echo Form::open(['action' => 'InventoryController@store', 'method' => 'POST', 'autocomplete' =>'off']); ?>
+
 						<div class="card-header">
 								<div class="row align-items-center">
 									<div class="col">
@@ -17,34 +16,35 @@
 						</div>
 						<div class="card-body border-0">
 							
-								@foreach($errors->all() as $error)
+								<?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 								<div class="alert alert-danger" role="alert">
 									<button type = button data-dismiss="alert" class="close"><span aria-hidden="true">x</span></button>
-										{{ $error }}<br>
+										<?php echo e($error); ?><br>
 								</div>
 										
-								@endforeach
+								<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
-                                @if(session()->has('warning'))
+                                <?php if(session()->has('warning')): ?>
                                     <br>
                                     <div class="alert alert-warning" role="alert">
                                         <button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">x</span></button>
-                                        {{ session()->get('warning') }}<br>
+                                        <?php echo e(session()->get('warning')); ?><br>
                                     </div>
-                                @endif
+                                <?php endif; ?>
 							
 							<div class="row">
 								<div class="col-md-12 mb-3">
 									<label class="form-label">Inventory Name</label>
-									{{ Form::text('inventory_name', '',['class' => 'form-control', 'placeholder' => 'Inventory Name'] )}}
+									<?php echo e(Form::text('inventory_name', '',['class' => 'form-control', 'placeholder' => 'Inventory Name'] )); ?>
+
 								</div>
 								<div class="col-md-9 mb-3">
 										<label class="form-label">Category</label>
 										<select id="category" name="category" class="form-control" placeholder="Category" onchange="filterDropdown()" required>
 												<option value = 0 selected disabled>Please Select a Category</option>
-												@foreach ($categories as $category)
-													<option id="category-{{$category->category_no}}" value="{{ $category->category_no }}">{{ $category->category_name }}</option>
-												@endforeach
+												<?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+													<option id="category-<?php echo e($category->category_no); ?>" value="<?php echo e($category->category_no); ?>"><?php echo e($category->category_name); ?></option>
+												<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 										</select>
 								</div>
 								<div class="col-md-3 mb-3"></div>
@@ -52,33 +52,36 @@
 									<label class="form-label">Color</label>
 									<select id="color" name="color" class="form-control" placeholder="Color" required>
 											<option value = 0 selected disabled>Please Select a Color</option>
-											@foreach ($colors as $color)
-												<option id="category-{{ $color->color_id }}" value="{{ $color->color_id }}">{{ $color->color_name}}</option>
-											@endforeach
+											<?php $__currentLoopData = $colors; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $color): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+												<option id="category-<?php echo e($color->color_id); ?>" value="<?php echo e($color->color_id); ?>"><?php echo e($color->color_name); ?></option>
+											<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 									</select>
 								</div>
 								<div class="col-md-3 mb-3"></div>
 								<div class="col-md-9 mb-3">
 									<label class="form-label">Size</label>
 									<select id="color" name="size" class="form-control" placeholder="Size" required>
-                                        @foreach ($sizes as $size)
-                                            <option value="{{ $size->size_id }}" id="size">{{ $size->size_name }}</option>
-                                        @endforeach
+                                        <?php $__currentLoopData = $sizes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $size): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <option value="<?php echo e($size->size_id); ?>" id="size"><?php echo e($size->size_name); ?></option>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
 								</div>
 								<div class="col-md-3 mb-3"></div>
 								<div class="col-md-5 mb-3">
 									<label class="form-label">Item Quantity</label>
-									{{ Form::number('quantity', '',['class' => 'form-control', 'placeholder' => 'Starting Quantity'] )}}
+									<?php echo e(Form::number('quantity', '',['class' => 'form-control', 'placeholder' => 'Starting Quantity'] )); ?>
+
 								</div>
 								<div class="col-md-4 mb-3">
 									<label class="form-label">Item Threshold</label>
-									{{ Form::number('threshold', '',['class' => 'form-control', 'placeholder' => 'Minimum Threshold'] )}}
+									<?php echo e(Form::number('threshold', '',['class' => 'form-control', 'placeholder' => 'Minimum Threshold'] )); ?>
+
 								</div>
 								<div class="col-md-3"></div>
 								<div class="col-md-4 mb-3">
 									<label class="form-label">Item Price (Php)</label>
-									{{ Form::number('price', '',['class' => 'form-control', 'placeholder' => 'Item Price' , 'type' => 'number' , 'min' => 1 , 'step' => 0.01] )}}
+									<?php echo e(Form::number('price', '',['class' => 'form-control', 'placeholder' => 'Item Price' , 'type' => 'number' , 'min' => 1 , 'step' => 0.01] )); ?>
+
 								</div>
                                 <div class="col-md-4">
                                     <label>
@@ -96,35 +99,31 @@
                                 <div class="col-md-4">
                                     <label>Suppliers</label>
                                     <select class="form-control" name="supplier_id" required>
-                                        @foreach($suppliers as $supplier)
-                                        <option value="{{ $supplier->supplier_id }}">{{ $supplier->name }}</option>
-                                        @endforeach
+                                        <?php $__currentLoopData = $suppliers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $supplier): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($supplier->supplier_id); ?>"><?php echo e($supplier->name); ?></option>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
-								</div>
-								<div class="col-md-4 mb-3">
-									<label class="form-label">Description</label>
-									<input type="textarea" name="description" class="form-control" placeholder="Please Input Item Description">
-								</div>
+                                </div>
 							</div>
 						</div>
 						<div class="card-footer text-muted">
-								{{-- @foreach($subcategoryIds as $subcategoryId)
-									<p>{{$subcategoryId}}</p>
-								@endforeach --}}
+								
 
 								<div class="text-right">
 								
-								{{ Form::submit('Add Item', ['class' => 'btn btn-success']) }}
-								<a href="{{ url('inventory')}}" class="btn btn-default">Back</a>
-								{{-- {{Form::hidden('_method', 'PUT')}} --}} 
+								<?php echo e(Form::submit('Add Item', ['class' => 'btn btn-success'])); ?>
+
+								<a href="<?php echo e(url('inventory')); ?>" class="btn btn-default">Back</a>
+								 
 								</div>
 						</div>
-							{!! Form::close() !!}
+							<?php echo Form::close(); ?>
+
 			</div>
 		</div>
 	</div>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
 <script>
 	function getSelected(){
@@ -158,3 +157,5 @@
 
 
 </script>
+
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>

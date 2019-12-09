@@ -53,7 +53,6 @@ class ManpowerController extends Controller
     public function store(ManpowerRequest $request)
     {
         //
-
         Manpower::create($request->all());
 
         return redirect('/manpowers')->with('success', 'Manpower Created Successfully!');
