@@ -1,7 +1,7 @@
-
 @extends('layouts.app')
 @section('content')
     @include('layouts.headers.inventoryCard1')
+
     <div class="modal fade" id="dishesModal" tabindex="-1" style="width: 100%" role="dialog" aria-labelledby="dishesModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document" >
             <div class="modal-content">
@@ -50,15 +50,12 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <input type="text" class="form-control" id="myInput" onkeyup="myFunction()" placeholder="Search for inventory">
                     <div class="row">
                         <b>Items</b>
-                        <div class="" style="overflow:scroll; height: 75vh">
-                        <table id="myTable" class="table">
+                        <table class="table">
                             <thead>
                             <th></th>
                             <th>Name</th>
-                            <th>Category</th>
                             <th>Cost/Unit</th>
                             </thead>
                             <tbody id="mod_inv_tbl">
@@ -68,36 +65,11 @@
                                            data-inv="{{$avail_inv->inventory_id}},{{$avail_inv->inventory_name}},{{$avail_inv->rental_cost}}"
                                            class="btn btn-sm btn-primary" onclick="select_inv(this)"> + </a></td>
                                     <td>{{$avail_inv->inventory_name}}</td>
-                                    <td>{{$avail_inv->cat_name}}</td>
                                     <td>{{$avail_inv->rental_cost}}</td>
                                 </tr>
                             @endforeach
                             </tbody>
                         </table>
-                        </div>
-                            <script>
-                            function myFunction() {
-                                // Declare variables
-                                var input, filter, table, tr, td, i, txtValue;
-                                input = document.getElementById("myInput");
-                                filter = input.value.toUpperCase();
-                                table = document.getElementById("myTable");
-                                tr = table.getElementsByTagName("tr");
-
-                                // Loop through all table rows, and hide those who don't match the search query
-                                for (i = 0; i < tr.length; i++) {
-                                    td = tr[i].getElementsByTagName("td")[1];
-                                    if (td) {
-                                        txtValue = td.textContent || td.innerText;
-                                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                                            tr[i].style.display = "";
-                                        } else {
-                                            tr[i].style.display = "none";
-                                        }
-                                    }
-                                }
-                            }
-                        </script>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -107,102 +79,46 @@
         </div>
     </div>
 
-    <div class="mt--7">
+    <div class="container-fluid mt--7">
         <div class="card-body">
             <div class="col-xl-12 mb-5 mb-xl-0">
                 <div class="card shadow">
 
-                    <form method="post" action="{{route('post.customize_package')}}">
-                        @csrf
+                    <form method="post" action="{{route('post.selectpackages')}}">
                         <div class="card-header border-0">
-                            @if($package != null)
-                            <input type="hidden" name="package_id" value="{{$package->package_id}}">
-                            @else
-                            <input type="hidden" name="package_id" value="-1">
-                            @endif
-                            <center style="margin-bottom: 4.5vh;"><h2 class="mb-0" > @if($package != null)Edit <b>{{$package->package_name}}</b> @else Create New Package @endif </h2></center>
+
+                            <center style="margin-bottom: 2.5vh;"><h2 class="mb-0" >Customize Package</h2></center>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="row" style="margin-bottom: 2.5vh;">
                                         <div class="col-md-4"><label>Package Name</label></div>
-                                        <div class="col-md-8"><input name="package_name" class=" form-control" type="text" placeholder="Describe Package" value=" @if($package != null){{$package->package_name}} @endif "></div>
+                                        <div class="col-md-8"><input name="package_name" class=" form-control"   type="text" placeholder="Describe Package"></div>
                                     </div>
-
                                     <div class="row">
-                                        <div class="col-md-4"><label>Event Type</label></div>
-                                        <div class="col-md-8">
-                                            <select name = "eventType"  id = "eventType" class = "form-control" required>
-                                                @if($package != null) <option value="{{$package->event_type}}" selected> {{$package->event_type}} </option> @else
-                                                    <option disabled selected> - Please Select Event Type - </option> @endif
-                                                <option value="Wedding"> Wedding </option>
-                                                <option value="Birthday"> Birthday </option>
-                                                <option value="Debut"> Debut </option>
-                                                <option value="Business"> Business </option>
-                                                <option value="Corporate"> Corporate </option>
-                                                <option value="Others"> Others </option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-md-4"><label>Suggested Pax</label></div>
-                                        <div class="col-md-8">
-                                            <select name="suggested_pax" onchange="change_pax(this)" class  = "form-control" >
-                                                @if($package != null) <option value="{{$package->suggested_pax}}" selected> {{$package->suggested_pax}} </option> @endif
-                                                <option value="50"> 50 </option>
-                                                <option value="70"> 70 </option>
-                                                <option value="80"> 80 </option>
-                                                <option value="100"> 100 </option>
-                                                <option value="150"> 150 </option>
-                                                <option value="200"> 200 </option>
-                                            </select>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="row" style="margin-top: 2vh">
-                                        <div class="col-md-4"><label>Package Description</label></div>
-                                        <div class="col-md-8">
-                                            <textarea name="package_desc" class="form-control" placeholder="Describe package"> @if($package != null){{$package->package_desc}} @endif </textarea>
-                                        </div>
+                                        <div class="col-md-4"><label>Number of Attendants</label></div>
+                                        <div class="col-md-8"><input name="suggested_pax" class=" form-control" id="totalpax" onchange="calibrate_pax(this)" type="number" value="@if($package != null) {{$package->price}} @else 50 @endif" @if($package != null) readonly @endif></div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-
-
-                                    <div class="row" style="margin-top: 2vh">
-                                        <div class="col-md-4"><label>Package Price</label></div>
-                                        @if($package != null)
-                                        <div class="col-md-8"><input name="package_price" class=" form-control" id="package_price" type="number" value="{{$package->price}}"></div>
-                                        @else
-                                        <div class="col-md-8"><input name="package_price" class=" form-control" id="package_price" type="number" value=""></div>
-                                        @endif
-                                    </div>
-                                    <div class="row" style="margin-top: 2vh">
-                                        <div class="col-md-4"><label>Markup Percent</label></div>
-                                        @if($package != null)
-                                        <div class="col-md-8"><input name="package_markup" class=" form-control" id="markup" style="width: 90%;display: inline" onkeyup="compute_total_package_price()" type="number" value="{{$package->package_markup}}"><p style="display: inline">  %</p></div>
-                                        @else
-                                        <div class="col-md-8"><input name="package_markup" class=" form-control" id="markup" style="width: 90%;display: inline" onkeyup="compute_total_package_price()" type="number" value="150"><p style="display: inline">  %</p></div>
-                                        @endif
-                                    </div>
-                                    <br>
                                     <div>
                                         <label>Dishes Total: P<span id="food_total_text">...</span></label>
                                     </div>
                                     <div>
                                         <label>Inventory Total: P<span id="inv_total_text">...</span></label>
                                     </div>
+                                    <div>
+                                        <label>Venue Cost: P<span id="venue">{{$venue_price}}</span></label>
+                                    </div>
                                     <hr style="margin: 0;">
-                                    <h4 style="margin-top: 0;">Total Package Suggested Price: <span id="total_package_price"></span></h4>
-                                    <!-- <small style="margin-top: 0;" id="perhead"></small> -->
-
+                                    <h3 style="margin-top: 0;">Total Package Price: <span id="total_package_price"></span></h3>
                                 </div>
                             </div>
                         </div>
                         <div class="card-body border-0">
                             {{csrf_field()}}
+                            <input type="hidden" value="{{$event->event_id}}" name="event_id">
                             <input type="hidden" value="{{$user_id}}" name="client_id">
+                            <input type="hidden" value="{{$venue_price}}" name="venue_price">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="col" style="margin-bottom: 2vh;">
@@ -223,7 +139,7 @@
                                                     <td><a style="display: inline;color:white" class="food_item btn btn-sm btn-primary"
                                                            data-food="{{$food->item_id}},{{$food->item_name}},{{asset($food->item_image)}},{{$food->unit_cost}}"
                                                            onclick="remove_food(this)">-</a>   {{$food->item_name}}</td>
-                                                    <td>{{$food->unit_cost * $package->suggested_pax}} </td>
+                                                    <td>{{$food->unit_cost * $event->totalpax}} </td>
                                                     <td><img src="{{asset($food->item_image)}}" style="height: 10vh;width: 10vw"></td>
                                                 </tr>
                                             @endforeach
@@ -263,15 +179,16 @@
                             </div>
                             <hr>
                             <center>
-                                <button type="submit" class="btn btn-sm btn-primary">Confirm</button>
+                                <button type="submit" class="btn btn-sm btn-primary">Create and Choose Customized Package</button>
                             </center>
                         </div>
                     </form>
                 </div>
             </div>
+            <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
             <script>
-
-                let total_pax = @if($package != null) {{$package->suggested_pax}} @else 50 @endif;
+                let total_pax =  @if($package != null) {{$package->price}} @else 50 @endif;
+                let venue = {{$venue_price}};
                 let inv_subtotal = 0;
                 let food_subtotal = 0;
                 $(document).ready(function () {
@@ -283,36 +200,18 @@
                  console.log($(".inv_qty"));
                  });
                  */
-                function change_pax(sel) {
-                    var old_pax = total_pax;
-                    total_pax = $(sel).val();
-                    $('.food_price_td').each(function(i, obj) {
-                        var price_each = parseFloat($(obj).text())/old_pax;
-                        $(obj).html(total_pax * price_each);
-                    });
-                    compute_total_package_price();
-                }
-                function calibrate_suggested_price(total_package_price) {
-                    const markup_perc = $("#markup").val()/100;
-                    let markup_multiplier = 1 + markup_perc;
-                    return parseFloat(total_package_price * markup_multiplier).toFixed(2);
-                }
                 function select_food(obj) {
                     let data_arr = $(obj).attr('data-food').split(',');
                     let str ='<tr id="food_row_'+data_arr[0]+'"><input type="hidden" name="chosen_dishes[]" value="'+data_arr[0]+'">';
                     str +='<td><a style="display: inline;color:white" class="food_item btn btn-sm btn-primary"';
                     str+= ' data-food="'+$(obj).attr('data-food')+'"';
                     str+= ' onclick="remove_food(this)">-</a>   '+data_arr[1]+'</td>';
-                    str+= '<td class="food_price_td">'+(parseFloat(data_arr[3]) * parseFloat(total_pax))+'</td>';
+                    str+= '<td>'+(parseFloat(data_arr[3]) * parseFloat(total_pax))+'</td>';
                     str+= '<td><img  src="'+data_arr[2]+'" style="height: 10vh;width: 10vw"></td>';
                     str +='</tr>';
                     $('#food_tbl').append(str);
                     $('#mod_food_row_'+data_arr[0]).remove();
-
                     compute_total_package_price();
-                }
-                function numberWithCommas(x) {
-                    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                 }
                 function select_inv(obj) {
                     let data_arr = $(obj).attr('data-inv').split(',');
@@ -325,12 +224,10 @@
                     str +='</tr>';
                     $('#inv_tbl').append(str);
                     $('#mod_inv_row_'+data_arr[0]).remove();
-
                     compute_total_package_price();
                 }
                 function remove_food(obj) {
                     let data_arr = $(obj).attr('data-food').split(',');
-
                     let str ='<tr id="mod_food_row_'+data_arr[0]+'">';
                     str +='<td><a style="display: inline;color:white" class="btn btn-sm btn-primary"';
                     str+= ' data-food="'+$(obj).attr('data-food')+'"';
@@ -340,7 +237,6 @@
                     str +='</tr>';
                     $('#mod_food_tbl').append(str);
                     $('#food_row_'+data_arr[0]).remove();
-
                     compute_total_package_price();
                 }
                 function remove_inv(obj) {
@@ -355,7 +251,6 @@
                     str +='</tr>';
                     $('#mod_inv_tbl').append(str);
                     $('#inv_row_'+data_arr[0]).remove();
-
                     compute_total_package_price();
                 }
                 function compute_inv_qtys(){
@@ -366,7 +261,6 @@
                         inv_subtotal = parseFloat(inv_subtotal) + tot;
                     });
                     $("#inv_total_text").html(parseFloat(inv_subtotal).toFixed(2));
-
                 }
                 function compute_food_total(){
                     food_subtotal = 0;
@@ -375,7 +269,6 @@
                         food_subtotal = parseFloat(food_subtotal) + (parseFloat(data_arr[3]) * parseFloat(total_pax));
                     });
                     $("#food_total_text").html(parseFloat(food_subtotal).toFixed(2));
-
                 }
                 function calibrate_pax(obj) {
                     if($(obj).val()<50){
@@ -388,9 +281,7 @@
                 function compute_total_package_price(){
                     compute_inv_qtys();
                     compute_food_total();
-
-                    $("#total_package_price").html('P '+numberWithCommas(calibrate_suggested_price(parseFloat(inv_subtotal)+parseFloat(food_subtotal))));
-                    //$("#total_package_price").html('P '+numberWithCommas(calibrate_suggested_price(venue+parseFloat(inv_subtotal)+parseFloat(food_subtotal))));
+                    $("#total_package_price").html('P'+(venue+parseFloat(inv_subtotal)+parseFloat(food_subtotal)));
                 }
             </script>
 @endsection

@@ -10,7 +10,10 @@
 
         <title>{{ config('app.name', 'Argon Dashboard') }}</title>
         <!-- Favicon -->
-        <link href="{{ asset('argon') }}/img/brand/favicon.png" rel="icon" type="image/png">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+
+        <link href="{{ asset('argon') }}/img/brand/cvj.png" rel="icon" type="image/png">
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
         <!-- Icons -->
@@ -32,21 +35,10 @@
         <script type="text/javascript" src=". /resources/js/moment.min.js"></script>
         <script type="text/javascript" src=". /resources/js/bootstrap.min.js"></script>
         <script type="text/javascript" src=". /resources/js/bootstrap-datetimepicker.*js"></script>
-        <!------>
+        {{--  --}}
 
 
-
-        
-
-        {{-- DATE TIME PICKER START --}}
-        {{-- <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" /> --}}
-        {{-- DATE TIME PICKER END --}}
-
-
-    <link rel="stylesheet" type="text/css" media="screen"
+        <link rel="stylesheet" type="text/css" media="screen"
      href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
 
 
@@ -158,7 +150,11 @@
 {{-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --}}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <style type="text/css">
+
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+
+        <style type="text/css">
     body {
         background: #e2eaef;
         font-family: "Open Sans", sans-serif;

@@ -249,21 +249,38 @@
                 </ul>
             @endif
             @if(auth()->user()->userType == 4)
-                <!-- eventmanager Navigation -->
+                <!-- eventmanager Navigation/Operations Head? -->
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('home') }}">
                             <i class="ni ni-tv-2 text-primary"></i> {{ __('Dashboard') }}
                         </a>
                     </li>
+                    <!-- Later?
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('events') }}">
                             <i class="ni ni-calendar-grid-58 text-yellow"></i> {{ __('Events') }}
                         </a>
                     </li>
+                    -->
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('bookevent') }}">
                             <i class="ni ni-calendar-grid-58 text-yellow"></i> {{ __('Book Event') }}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('list_events') }}">
+                            <i class="ni ni-calendar-grid-58 text-green"></i> List Events
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('event_budgets') }}">
+                            <i class="ni ni-bullet-list-67 text-green"></i> Budget Management
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('list_packages') }}">
+                            <i class="ni ni-collection text-green"></i>List Packages
                         </a>
                     </li>
                     <li class="nav-item">
@@ -276,7 +293,7 @@
                 </ul>
             @endif
             @if(auth()->user()->userType == 5)
-                 <!-- client Navigation -->
+                 <!-- Account Executive -->
                  <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('home') }}">
@@ -311,28 +328,6 @@
                              <i class="ni ni-calendar-grid-58 text-green"></i> List Events
                          </a>
                      </li>
-                     <li class="nav-item">
-                            <a class="nav-link" href="#manpower" data-toggle="collapse" role="" aria-expanded="false" aria-controls="">
-                                    <i class="ni ni-collection text-red"></i>
-                                    <span class="nav-link-text">Manpower</span>
-                                </a>
-                                <div class="collapse" id="manpower" style>
-                                    <ul class="nav nav-sm flex-column">
-                                        <li class="nav-item">
-                                            <a href="{{ url('schedules') }}" class="nav-link">
-                                                <i class="ni ni-bullet-list-67 text-blue"></i>Schedule List</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{ url('manpowers') }}" class="nav-link">
-                                                <i class="ni ni-bullet-list-67 text-blue"></i>Manpower List</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{ url('disabled-manpower') }}" class="nav-link">
-                                                <i class="ni ni-archive-2 text-purple"></i>Disabled Manpower</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
                     <li class="nav-item">
                         <a href="http://cvj.test:3000/logout" class="nav-link" onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();">

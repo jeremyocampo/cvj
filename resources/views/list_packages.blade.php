@@ -3,7 +3,6 @@
 @section('content')
 @include('layouts.headers.inventoryCard1')
 
-
 <div class="modal fade" id="exampleModal" tabindex="-1" style="width: 100%" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 70vw;">
         <div class="modal-content">
@@ -35,15 +34,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-small btn-secondary" data-dismiss="modal">Close</button>
-                <a id="customize_package_url" href="{{route('additional_package',$event->event_id)}}/" class="btn btn-small btn-success">
-                    <i class="fa fa-cart-plus"></i> Choose Package With Additions</a>
-                <form action="{{route('post.selectpackages')}}" method="POST">
-                    {{csrf_field()}}
-                    <input type="hidden" value="{{$event->event_id}}" name="event_id">
-                    <input type="hidden" id="package_id" value="" name="package_id">
-                    <button type="submit"  class="btn btn-small btn-primary">
-                    <i class="fa fa-cart-arrow-down"></i> Choose Package</button>
-                </form>
+
             </div>
         </div>
     </div>
@@ -54,17 +45,13 @@
 				<div class="card shadow">
 						<div class="card-header border-0">
 								<div class="row align-items-center">
-									<div class="col">
-										<h3 class="mb-0" style="display: inline">Select Packages</h3>
-                                        <a  style="display: inline" class="btn btn-sm btn-primary" href="{{route('customize_package',$event->event_id)}}/">+ Create New Package</a>
-
-                                    </div>
-                                    <div class="col">
-                                        <label>Showing packages for {{$event->totalpax}} pax and {{$event->event_type}}.</label>
-
+									<div class="col-md-12">
+										<h3 class="mb-0" style="display: inline">List of Packages</h3>
+                                        @if($user->userType == 4)
+                                        <a  style="float:right" class="btn btn-sm btn-primary" href="{{url('customize_package')}}">+ Create New Package</a>
+									    @endif
                                     </div>
 									<div class="col alight-items-right">
-
 										{{-- <h4>Last Replenished: {{$items[0]->last_modified}}</h4> --}}
 									</div>
 								</div>
@@ -73,50 +60,66 @@
 								</div> --}}
 						</div>
 						<div class="card-body border-0">
-                            <div class="input-group mb-3" style="width: 35%">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">₱</span>
-                                </div>
-                                <input type="Number" step="any" id="filter_price" class="form-control" onkeyup="filter_price()" PLACEHOLDER="Place your budget for event here.">
-                            </div>
-                            <div class="row" id="package_row">
-                                @foreach($packages as $package)
-                                    <div class="col-md-4 package_card" style="margin-bottom: 4vh" value="{{$package->price}}">
-                                        <div class="card" style="width: 18rem;">
-                                            {{--
-                                            @if($package->package_client_id == $user_id)
-                                                <span class="badge badge-pill badge-success" style="background-color: green;color:white;position:absolute;top:65%;left:50%;">USER CUSTOM PACKAGE</span>
-                                            @endif
-                                            --}}
-                                            <img class="card-img-top" src="{{asset($package->package_img_url)}}" style="height: 25vh;width: 100%vw" alt="">
-                                            <div class="card-body">
-                                                <h3 class="card-title" style="margin-bottom: 0;"><a href="#"
+
+                            <div class="row">
+                                <table class="table  align-items-center  mb-3" id="myTable" >
+                                <thead class="thead-light">
+                                <tr>
+                                    <th> Package Name </th>
+                                    <th> Event Type </th>
+                                    <th> Suggested Pax </th>
+                                    <th> Price </th>
+                                    <th> Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach ($packages as $package)
+                                    <tr>
+                                        <td>{{$package->package_name}}</td>
+                                        <td>{{$package->event_type}}</td>
+                                        <td>{{$package->suggested_pax}}</td>
+                                        <td>P {{number_format($package->price,2)}}</td>
+
+                                        <td class="popup">
+                                            <div class="dropdown">
+                                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                                                    Action
+                                                </button>
+                                                <div class="dropdown-menu dropdown-menu-arrow dropdown-menu">
+                                                    <div class=" dropdown-header noti-title">
+                                                        <h6 class="text-overflow m-0">{{ __('Please Select an Action!') }}</h6>
+                                                    </div>
+                                                    <a  class="dropdown-item" href="#"  data-toggle="modal"
                                                         package-name="{{$package->package_name}}"
                                                         package-id="{{$package->package_id}}"
                                                         data-food="@foreach($package->foods as $food){{$food->item_name}},{{asset($food->item_image)}}|@endforeach"
                                                         data-inventory="@foreach($package->inventory as $inv){{$inv->inventory_name}},{{$inv->quantity}},{{$inv->inv_avail}}|@endforeach"
-                                                        data-toggle="modal" data-target="#exampleModal" onclick="show_package(this)">{{$package->package_name}}</a></h3>
-                                                <div>
-                                                    <small>{{$package->package_desc}}</small><br>
-                                                    <span style="display: inline-block">PHP</span> <b style="display: inline-block">{{number_format($package->price,2)}}</b>
-                                                    <small>~ {{$package->suggested_pax}} pax</small>
+                                                        onclick="show_package(this);" data-target="#exampleModal"><i class="fa fa-eye"></i> View Package</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a href="{{ route('customize_package',$package->package_id)}}" class="dropdown-item">
+                                                        <i class="fa fa-edit"></i>
+                                                        <span>Edit Package</span>
+                                                    </a>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
+                                            {{-- <a class="btn btn-sm btn-primary" href="inventory/{{ $i->itemId }}/edit"> Replenish Item </a> mahaba--}}
+                                        </td>
+                                    </tr>
+
+
                                 @endforeach
+                                </tbody>
+                            </table>
                             </div>
+
 		                </div>
 	  </div>
 </div>
 <script>
-    let customize_route = '{{route('additional_package',$event->event_id)}}/';
     function show_package(obj) {
         let food_set = $(obj).attr('data-food').split('|');
         let inventory_set = $(obj).attr('data-inventory').split('|');
-
         $("#package_id").val($(obj).attr('package-id'));
-        $("#customize_package_url").attr('href', customize_route + $(obj).attr('package-id'));
         $("#modal_package_title").html("  "+$(obj).attr('package-name'));
         $("#food_tbl").empty();
         $("#item_tbl").empty();

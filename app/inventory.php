@@ -14,4 +14,7 @@ class inventory extends Model
     public $fillable = [
     	'itemName', 'category','quantity', 'sku', 'date_created', 'last_modified'
     ];
+    public function category(){
+        return categoryRef::where('category_no','=',$this->category)->first();
+    }
 }

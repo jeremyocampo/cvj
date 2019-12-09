@@ -22,7 +22,7 @@ class gCalendarController extends Controller
         session_start();
 
         $client = new GoogleClient();
-        $client->setAuthConfig('client_secret.json');
+        $client->setAuthConfig('service-account-credentials_old.json');
         $client->addScope(Google_Service_Calendar::CALENDAR);
 
         $guzzleClient = new \GuzzleHttp\Client(array('curl' => array(CURLOPT_SSL_VERIFYPEER => false)));
