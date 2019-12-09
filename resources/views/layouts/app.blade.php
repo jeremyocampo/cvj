@@ -32,8 +32,20 @@
         <script type="text/javascript" src=". /resources/js/moment.min.js"></script>
         <script type="text/javascript" src=". /resources/js/bootstrap.min.js"></script>
         <script type="text/javascript" src=". /resources/js/bootstrap-datetimepicker.*js"></script>
-        {{--  --}}
+        <!------>
+
+
+
         
+
+        {{-- DATE TIME PICKER START --}}
+        {{-- <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" /> --}}
+        {{-- DATE TIME PICKER END --}}
+
+
     <link rel="stylesheet" type="text/css" media="screen"
      href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
 
