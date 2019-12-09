@@ -115,8 +115,8 @@
 								</div>
 								<div class="col-md-4">
 										<label class="form-label">Employee Assigned/Responsible</label>
-										<h1><b>{{ $employee->employee_FN. ' ' .$employee->employee_LN. ' ('. $employee->contact_no.')' }}</b></h1>
-										<input type="hidden" class="form-control" name="venue" value="{{ $employee->employee_id}}">
+										<h1><b>{{ $employee->employee_fn. ' ' .$employee->employee_ln. ' ('. $employee->contact_no.')' }}</b></h1>
+										<input type="hidden" class="form-control" name="venue" value="{{ $employee->id}}">
 									</div>
 								
 								@endforeach
@@ -181,14 +181,14 @@
 											</td>
 											{{-- <td> {{ $i->rental_cost * $i->qty }} </td> --}}
 											<td>
-												<div class="col-xl-4">
+												<div class="col-xl-6">
 													{{-- <label class="form-label">Qty to Return</label> --}}
 													<input type="hidden" class="invID" name="invIDs[]" value="{{ $i->inventory_id }}" id="inventory-{{ $i->inventory_id }}">
 													<input type="number" value=0  readonly class="form-control qtyReturn" name="qtyReturned[]" id="qtyReturn{{ $i->barcode }}">
 												</div>
 											</td>
 											<td>
-												<div class="col-xl-4">
+												<div class="col-xl-6">
 													{{-- <label class="form-label">Qty to Return</label> --}}
 													<input type="hidden" class="lostID" name="lostIDs[]" value="{{ $i->inventory_id }}" id="lost-{{ $i->inventory_id }}">
 													<input type="number" value={{ $i->qty }}  readonly class="form-control qtyLostDam" name="qtyLostDam[]" id="qtyLostDam{{ $i->barcode }}">

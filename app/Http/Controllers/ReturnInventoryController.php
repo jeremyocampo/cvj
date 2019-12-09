@@ -238,7 +238,7 @@ class ReturnInventoryController extends Controller
             ->first();
      
             $assigned = DB::table('deployed_inventory')
-             ->join('employee','deployed_inventory.employee_assigned','=','employee.employee_id')
+             ->join('manpowers','deployed_inventory.employee_assigned','=','manpowers.id')
              ->select('*')
              ->first();
 
@@ -287,7 +287,7 @@ class ReturnInventoryController extends Controller
        ->first();
 
        $assigned = DB::table('deployed_inventory')
-        ->join('employee','deployed_inventory.employee_assigned','=','employee.employee_id')
+        ->join('manpowers','deployed_inventory.employee_assigned','=','manpowers.id')
         ->select('*')
         ->first();
 

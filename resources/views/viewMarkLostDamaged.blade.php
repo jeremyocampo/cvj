@@ -67,7 +67,7 @@
                                     <!-- Projects table -->
                                     <div class="col-md-12">
                                     <div class="row">
-                                        <div class="col-md-4 mb-5">
+                                        <div class="col-md-3 mb-3">
                                             <div class="row">
                                                 <div class="col-md-12 mb-7">
                                             {{-- @foreach ($event as $i) --}}
@@ -94,7 +94,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-8">
+                                        <div class="col-md-9">
                                         <table class="table table-bordered align-items-center table-flush mb-4" id="myTable">
                                             <thead class="thead-light">
                                                 <tr>
@@ -132,7 +132,7 @@
                                                     <input type="hidden" class="form-control" value="{{ $i->qty }}" name="qty" id="qty"></form> 
                                                     <td>
                                                         <div class="row">
-                                                            <div class="col-md-11">
+                                                            <div class="col-md-10">
                                                                 {{-- <input type="hidden" id="barcode" value="{{ $i->barcode }}">
                                                                 <input type="hidden" class="invID" name="invIDs[]" value="{{ $i->inventory_id }}" id="inventory-{{ $i->inventory_id }}"> --}}
                                                                 <select name="status-{{ $i->inventory_id }}" id="status" class="form-control statusLD" required>
@@ -141,18 +141,18 @@
                                                                     <option value = 2>Damaged</option>
                                                                 </select>
                                                             </div>
-                                                            <div class="col-md-1">
+                                                            <div class="col-md-2">
                                                                     <font color="red">*</font>
                                                             </div>
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <div class="row">
-                                                            <div class="col-md-11">
+                                                            <div class="col-md-10">
                                                                 <textarea name="reason-{{ $i->inventory_id }}" id="reason" cols="30" rows="10" placeholder="Please Input Reason for Loss/Damage" required>
                                                                 </textarea>
                                                             </div>
-                                                            <div class="col-md-1">
+                                                            <div class="col-md-2">
                                                                 <font color="red">*</font>
                                                             </div>
                                                         </div>

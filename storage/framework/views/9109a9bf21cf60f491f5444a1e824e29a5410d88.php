@@ -103,7 +103,11 @@
                                         <option value="<?php echo e($supplier->supplier_id); ?>"><?php echo e($supplier->name); ?></option>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
-                                </div>
+								</div>
+								<div class="col-md-4 mb-3">
+									<label class="form-label">Description</label>
+									<input type="textarea" name="description" class="form-control" placeholder="Please Input Item Description">
+								</div>
 							</div>
 						</div>
 						<div class="card-footer text-muted">

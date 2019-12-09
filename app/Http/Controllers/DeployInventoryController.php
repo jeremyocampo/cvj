@@ -168,9 +168,9 @@ class DeployInventoryController extends Controller
         ->select('*')
         ->get();
 
-        $employees = DB::table('employee')
+        $employees = DB::table('manpowers')
         ->select('*')
-        ->where('employee.employee_type', '=', 'Logistics')
+        ->where('manpowers.employee_type', '=', 'Logistics')
         ->get();
 
         $eventPackages = array();

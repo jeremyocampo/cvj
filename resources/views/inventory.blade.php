@@ -171,7 +171,7 @@
                                     <div class="col">
                                         <div class="row">
                                             <div class="col-xs-5">
-                                                <h1 class="mb-0">Critical Inventory</h1> &nbsp;&nbsp; <p>as of {{ $month }}</p>
+                                                <h1 class="mb-0">Critical Inventory</h1>
                                             </div>
                                             
                                         </div>
@@ -205,9 +205,6 @@
                                 </div>
                             </div> --}}
                             <div class="card-body">
-        
-                            
-        
                             <div class="table-responsive mb-3">
                                 <!-- Projects table -->
                                 

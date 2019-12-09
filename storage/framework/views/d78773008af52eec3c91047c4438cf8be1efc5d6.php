@@ -111,8 +111,8 @@
 								</div>
 								<div class="col-md-4">
 										<label class="form-label">Employee Assigned/Responsible</label>
-										<h1><b><?php echo e($employee->employee_FN. ' ' .$employee->employee_LN. ' ('. $employee->contact_no.')'); ?></b></h1>
-										<input type="hidden" class="form-control" name="venue" value="<?php echo e($employee->employee_id); ?>">
+										<h1><b><?php echo e($employee->employee_fn. ' ' .$employee->employee_ln. ' ('. $employee->contact_no.')'); ?></b></h1>
+										<input type="hidden" class="form-control" name="venue" value="<?php echo e($employee->id); ?>">
 									</div>
 								
 								<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -166,14 +166,14 @@
 											</td>
 											
 											<td>
-												<div class="col-xl-4">
+												<div class="col-xl-6">
 													
 													<input type="hidden" class="invID" name="invIDs[]" value="<?php echo e($i->inventory_id); ?>" id="inventory-<?php echo e($i->inventory_id); ?>">
 													<input type="number" value=0  readonly class="form-control qtyReturn" name="qtyReturned[]" id="qtyReturn<?php echo e($i->barcode); ?>">
 												</div>
 											</td>
 											<td>
-												<div class="col-xl-4">
+												<div class="col-xl-6">
 													
 													<input type="hidden" class="lostID" name="lostIDs[]" value="<?php echo e($i->inventory_id); ?>" id="lost-<?php echo e($i->inventory_id); ?>">
 													<input type="number" value=<?php echo e($i->qty); ?>  readonly class="form-control qtyLostDam" name="qtyLostDam[]" id="qtyLostDam<?php echo e($i->barcode); ?>">

@@ -78,7 +78,7 @@
                                             </td>
                                         </tr> --}}
                                         @foreach ($events as $i)
-                                        @if($i->status <= 4)
+                                        {{-- @if($i->status <= 4) --}}
                                         <tr>
                                             <td>{{ $i->event_name }}</td>
                                             <td>{{ $i->venue }}</td>
@@ -91,7 +91,7 @@
                                                 </a>
                                             </td>
                                         </tr>
-                                        @endif
+                                        {{-- @endif --}}
                                         @endforeach
                                     </tbody>
                                 </table>

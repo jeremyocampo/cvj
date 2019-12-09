@@ -24,7 +24,7 @@ class MarkLostDamagedController extends Controller
     {
         //
         $event = DB::table('event')
-        ->join('deployed_inventory','event.event_id','=','deployed_inventory.event_deployed')
+        ->join('damaged_inventory','event.event_id','=','damaged_inventory.event_deployed')
         ->select('event.event_id')
         ->groupBy('event.event_id')
         ->get();
@@ -39,17 +39,19 @@ class MarkLostDamagedController extends Controller
             ->join('event_status_ref','event.status', '=', 'event_status_ref.status_id')
             ->first();
 
-            array_push($actuallyDamaged, $eventsActuallyDeployed);
+            array_push($actuallyDamaged, $eventsActuallyDamaged);
         }
+
+        // dd($actuallyDamaged);
 
         $date = Carbon::now('+8:00');
 
         $assigned = DB::table('damaged_inventory')
-        ->join('employee','deployed_inventory.employee_assigned','=','employee.employee_id')
+        ->join('manpowers','damaged_inventory.employee_assigned','=','manpowers.id')
         ->select('*')
         ->first();
 
-        return view('markLostDamage',['event' => $actuallyDamaged, 'dateToday' => $date, 'employee' => $assigned]);
+        return view('markLostDamaged',['events' => $actuallyDamaged, 'dateToday' => $date, 'employee' => $assigned]);
     }
 
     /**
@@ -117,7 +119,7 @@ class MarkLostDamagedController extends Controller
         ->select('*')
         ->where('event_deployed', '=', $id)
         ->first();
-        
+
         return view('viewMarkLostDamaged', ['event' => $event, 'lostDamaged' => $lostDamaged, 'employee' => $assigned]);
     }
 

@@ -89,7 +89,7 @@
                                                 <select class="form-control" name="employeeAssigned" required>
                                                     <option disabled selected > -Please Assign an Employee- </option>
                                                     @foreach($employees as $a)
-                                                        <option value="{{ $a->employee_id}}"> {{$a->employee_FN}} {{$a->employee_LN}}</option>
+                                                        <option value="{{ $a->id}}"> {{$a->employee_fn}} {{$a->employee_ln}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
