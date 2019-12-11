@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdateInventorySoftDeletes extends Migration
+class CreateSupplierItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class UpdateInventorySoftDeletes extends Migration
      */
     public function up()
     {
-        //
-
-        Schema::table('inventory', function (Blueprint $table){
-
-            $table->softDeletes();
+        Schema::create('supplier_items', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('item');
+            $table->boolean('is_active')->default(true);
+            $table->integer('supplier_id');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class UpdateInventorySoftDeletes extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('supplier_items');
     }
 }

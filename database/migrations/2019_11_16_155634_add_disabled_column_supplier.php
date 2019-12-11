@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class InventoryUpdate extends Migration
+class AddDisabledColumnSupplier extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class InventoryUpdate extends Migration
      */
     public function up()
     {
-        //
-
-        Schema::table('inventory', function (Blueprint $table){
-           $table->integer('shelf_life')->default('0');
-           $table->enum('returnable_item', array('Yes', 'No'));
-           $table->unsignedInteger('supplier_id');
+        Schema::table('supplier', function (Blueprint $table) {
+            $table->boolean('is_enabled')->default(true)->after('remarks');
         });
     }
 
@@ -29,6 +25,8 @@ class InventoryUpdate extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('supplier', function (Blueprint $table) {
+            $table->dropColumn('is_enabled');
+        });
     }
 }
