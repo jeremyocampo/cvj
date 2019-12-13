@@ -33,6 +33,7 @@ class HomeController extends Controller
     public function index()
     {
         // return view('admin');
+        // dd(auth()->user()->userType );
         if(auth()->user()->userType == 1){
 
             $users = DB::table('users')

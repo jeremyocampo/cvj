@@ -59,17 +59,46 @@ class ConfirmEventsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function confirm_event($event_id)
     {
-       
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+       $event = events::where('event_id','=',$event_id)->first();
+        $event->status = 2;
+
+        //sample define costs here
+        //$event->set_default_cost_amount();
+        //finalize the quotation here
+
+        //finalize budget and costings method used here.
+         $event->event_budget_create();
+         $event->save();
+
+
+
+            $startDateTime = Carbon::parse($event->event_start);
+            $endDateTime = Carbon::parse($event->event_end);
+
+
+            $gevent = new Event;
+            $gevent->name =  $event->event_name;
+            $gevent->startDateTime = $startDateTime;
+            $gevent->endDateTime =$endDateTime ;
+            $gevent->location = $event->venue;
+            $gevent->maxAttendees = $event->totalpax;
+            $gevent->addAttendee(['email' => $event->client()->email]);
+            $gevent->save();
+
+
+            error_log("budget_created successfully");
+            return redirect('list_events');
+        }
+
+        /**
+         * Store a newly created resource in storage.
+         *
+         * @param  \Illuminate\Http\Request  $request
+         * @return \Illuminate\Http\Response
+         */
     public function store(Request $request) { 
         // dd($request->has('decline'));
         $event_idA = $request->input('eventA');

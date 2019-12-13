@@ -56,19 +56,28 @@
                 <table class="table table-bordered align-items-center table-flush mb-4" id="myTable">
                     <thead class="thead-light">
                         <tr>
-                            <th >Item name</th>
+                            <th >Event name</th>
                             
-                            <th >Category</th>
-                            <th>Color</th>
-                            <th>Size</th>
-                            <th >Quantity</th>
-                            <th >Threshold</th>
-                            <th >Last Modified (YY-MM-DD)</th>
+                            <th >Event Type</th>
+                            <th>Package</th>
+                            <th>Total Expenses</th>
+                            <th >Total Cost</th>
                             <th >Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        
+                        <?php $__currentLoopData = $events; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            
+                            <tr>
+                                <td><?php echo e($i->event_name, false); ?></td>
+                                <td><?php echo e($i->event_type, false); ?></td>
+                                <td><?php echo e($i->package_name, false); ?></td>
+                                <td></td>
+                                <td><?php echo e($i->total_amount_due, false); ?></td>
+                                <td><button class="form-control" type="button">Action</button></td>
+                            </tr>
+                            
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </tbody>
                 </table>
             </div>

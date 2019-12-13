@@ -51,12 +51,15 @@
                 </button>
             </div>
             <div class="modal-body">
+                <input type="text" class="form-control" id="myInput" onkeyup="myFunction()" placeholder="Search for inventory">
                 <div class="row">
                     <b>Items</b>
-                    <table class="table">
+                    <div style="overflow:scroll; height: 75vh">
+                    <table id="myTable" class="table">
                         <thead>
                         <th></th>
                         <th>Name</th>
+                        <th>Category</th>
                         <th>Cost/Unit</th>
                         </thead>
                         <tbody id="mod_inv_tbl">
@@ -66,11 +69,36 @@
                                        data-inv="{{$avail_inv->inventory_id}},{{$avail_inv->inventory_name}},{{$avail_inv->rental_cost}}"
                                        class="btn btn-sm btn-primary" onclick="select_inv(this)"> + </a></td>
                                 <td>{{$avail_inv->inventory_name}}</td>
+                                <td>{{$avail_inv->cat_name}}</td>
                                 <td>{{$avail_inv->rental_cost}}</td>
                             </tr>
                         @endforeach
                         </tbody>
                     </table>
+                    </div>
+                    <script>
+                        function myFunction() {
+                            // Declare variables
+                            var input, filter, table, tr, td, i, txtValue;
+                            input = document.getElementById("myInput");
+                            filter = input.value.toUpperCase();
+                            table = document.getElementById("myTable");
+                            tr = table.getElementsByTagName("tr");
+
+                            // Loop through all table rows, and hide those who don't match the search query
+                            for (i = 0; i < tr.length; i++) {
+                                td = tr[i].getElementsByTagName("td")[1];
+                                if (td) {
+                                    txtValue = td.textContent || td.innerText;
+                                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                        tr[i].style.display = "";
+                                    } else {
+                                        tr[i].style.display = "none";
+                                    }
+                                }
+                            }
+                        }
+                    </script>
                 </div>
             </div>
             <div class="modal-footer">
@@ -197,7 +225,6 @@
                                             <th></th>
                                             </thead>
                                             <tbody id="food_tbl">
-
                                             </tbody>
                                         </table>
                                     </div>
@@ -214,7 +241,6 @@
                                             <th>Total Price</th>
                                             </thead>
                                             <tbody id="inv_tbl">
-
                                             </tbody>
                                         </table>
                                     </div>

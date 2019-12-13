@@ -146,36 +146,7 @@
           $(this).closest("tr").remove();
          });
         
-         $('#dynamic_form').on('submit', function(event){
-                event.preventDefault();
-                $.ajax({
-                    url:'{{ route("addpackages.insert") }}',
-                    method:'post',
-                    data:$(this).serialize(),
-                    dataType:'json',
-                    beforeSend:function(){
-                        $('#save').attr('disabled','disabled');
-                    },
-                    success:function(data)
-                    {
-                        if(data.error)
-                        {
-                            var error_html = '';
-                            for(var count = 0; count < data.error.length; count++)
-                            {
-                                error_html += '<p>'+data.error[count]+'</p>';
-                            }
-                            $('#result').html('<div class="alert alert-danger">'+error_html+'</div>');
-                        }
-                        else
-                        {
-                            dynamic_field(1);
-                            $('#result').html('<div class="alert alert-success">'+data.success+'</div>');
-                        }
-                        $('#save').attr('disabled', false);
-                    }
-                })
-         });
+       
         
         });
         </script>

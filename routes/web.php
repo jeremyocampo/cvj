@@ -70,7 +70,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('outsource', 'OutsourcingController');
 Route::resource('ingredient', 'IngredientController');
-Route::resource('food', 'FoodController');
 Route::resource('users', 'UsersController');
 Route::resource('employee', 'EmployeeController');
 Route::resource('eventreport', 'EventLogisticsReportController');
@@ -81,10 +80,12 @@ Route::get('admin/routes', 'AdminController@admin')->middleware('admin');
 // Route::resource('cal','gCalendarController');
 // Route::get('oauth', 'gCalendarController@oauth');
 Route::get('list_events', 'EventsController@list_events')->name('list_events');
+Route::get('list_packages', 'SelectPackageController@list_packages')->name('list_packages');
 
 Route::get('summary/{event_id}', 'SelectPackageController@summary');
 
 Route::get('client_quotation/{event_id}', 'QuotationController@client_quotation')->name('client_quotation');
+Route::get('client_reservation/{event_id}', 'QuotationController@client_reservation')->name('client_reservation');
 Route::get('company_quotation/{event_id}', 'QuotationController@company_quotation')->name('company_quotation');
 //Dummy Test URLS: For Frontend prototyping
 Route::get('test_page1/{event_id}/{package_id?}', 'SelectPackageController@test_page1')->name('test_page1');
@@ -92,24 +93,44 @@ Route::get('test_page1/{event_id}/{package_id?}', 'SelectPackageController@test_
 
 //Rosette's Routes
 Route::resource('bookevent', 'BookEventController');
+
 Route::resource('eventdashboard','EventsHomeDashboard');
 Route::resource('confirmevents', 'ConfirmEventsController');
 
+Route::get('confirm_event/{event_id}', 'ConfirmEventsController@confirm_event');
+
 Route::get('date_range', 'DateRangeController@index');
 
+Route::get('bookevent/edit/{event_id}', 'BookEventController@editEventDetails')->name('edit.bookevent');
+Route::post('editevent', 'BookEventController@PosteditEventDetails')->name('post.editevent');
+Route::get('/export_quotation/{event_id}','QuotationController@export_quotation_pdf');
+
+
 Route::get('/download/storage/public/{file}', 'FileController@download');
+Route::post('change_costing_method', 'QuotationController@change_costing_method')->name('post.costing_method');
 
 Route::post('upload_event_forms', 'FileController@upload_event_forms')->name('file_upload');
+//packages routes
 Route::get('selectpackages/{event_id}', 'SelectPackageController@index')->name('get.selectpackages');
 Route::post('postselectpackages/', 'SelectPackageController@select')->name('post.selectpackages');
 
 Route::get('additional_package/{event_id}/{package_id?}', 'SelectPackageController@additional_package')->name('additional_package');
-Route::get('customize_package/{event_id}/{package_id?}', 'SelectPackageController@show')->name('customize_package');
-
+Route::get('customize_package/{package_id?}', 'SelectPackageController@show')->name('customize_package');
 Route::post('customize_package', 'SelectPackageController@create')->name('post.customize_package');
 Route::post('create_with_additions', 'SelectPackageController@create_with_additions')->name('post.create_with_additions');
 
+Route::get('edit_event_package/{event_id}', 'SelectPackageController@edit_event_package')->name('get.edit_event_package');
+Route::post('edit_event_package/post', 'SelectPackageController@post_edit_event_package')->name('post.edit_event_package');
+
+Route::get('remove_event_package/{event_id}', 'SelectPackageController@destroy')->name('destroy');
+
+//ajax
+Route::post('add_client_ajax', 'BookEventController@add_client_ajax')->name('ajax.client_add');
+
+
 Route::resource('clientregister', 'ClientRegisterController');
+
+Route::resource('addpackages', 'AddPackageController');
 
 Route::resource('inventoryDash', 'InventoryHomeController');
 
@@ -136,3 +157,12 @@ Route::resource('addpackages', 'BookEventController');
 Route::resource('/client', 'ClientController');
 
 Route::resource('/markLostDamaged', 'MarkLostDamagedController');
+
+// Route::resource('/food', 'FoodController');
+
+// Route::get('/food', 'FoodController@index');
+
+Route::resource('fooditem','FoodItemController');
+
+Route::get('disabled-food', 'FoodItemController@disabled');
+Route::get('recover-food/{id}', 'FoodItemController@recoverItem');

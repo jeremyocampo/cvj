@@ -19,7 +19,7 @@
 								<?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 								<div class="alert alert-danger" role="alert">
 									<button type = button data-dismiss="alert" class="close"><span aria-hidden="true">x</span></button>
-										<?php echo e($error); ?><br>
+										<?php echo e($error, false); ?><br>
 								</div>
 										
 								<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -28,14 +28,14 @@
                                     <br>
                                     <div class="alert alert-warning" role="alert">
                                         <button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">x</span></button>
-                                        <?php echo e(session()->get('warning')); ?><br>
+                                        <?php echo e(session()->get('warning'), false); ?><br>
                                     </div>
                                 <?php endif; ?>
 							
 							<div class="row">
 								<div class="col-md-12 mb-3">
 									<label class="form-label">Inventory Name</label>
-									<?php echo e(Form::text('inventory_name', '',['class' => 'form-control', 'placeholder' => 'Inventory Name'] )); ?>
+									<?php echo e(Form::text('inventory_name', '',['class' => 'form-control', 'placeholder' => 'Inventory Name'] ), false); ?>
 
 								</div>
 								<div class="col-md-9 mb-3">
@@ -43,7 +43,7 @@
 										<select id="category" name="category" class="form-control" placeholder="Category" onchange="filterDropdown()" required>
 												<option value = 0 selected disabled>Please Select a Category</option>
 												<?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-													<option id="category-<?php echo e($category->category_no); ?>" value="<?php echo e($category->category_no); ?>"><?php echo e($category->category_name); ?></option>
+													<option id="category-<?php echo e($category->category_no, false); ?>" value="<?php echo e($category->category_no, false); ?>"><?php echo e($category->category_name, false); ?></option>
 												<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 										</select>
 								</div>
@@ -53,7 +53,7 @@
 									<select id="color" name="color" class="form-control" placeholder="Color" required>
 											<option value = 0 selected disabled>Please Select a Color</option>
 											<?php $__currentLoopData = $colors; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $color): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-												<option id="category-<?php echo e($color->color_id); ?>" value="<?php echo e($color->color_id); ?>"><?php echo e($color->color_name); ?></option>
+												<option id="category-<?php echo e($color->color_id, false); ?>" value="<?php echo e($color->color_id, false); ?>"><?php echo e($color->color_name, false); ?></option>
 											<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 									</select>
 								</div>
@@ -62,25 +62,25 @@
 									<label class="form-label">Size</label>
 									<select id="color" name="size" class="form-control" placeholder="Size" required>
                                         <?php $__currentLoopData = $sizes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $size): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                            <option value="<?php echo e($size->size_id); ?>" id="size"><?php echo e($size->size_name); ?></option>
+                                            <option value="<?php echo e($size->size_id, false); ?>" id="size"><?php echo e($size->size_name, false); ?></option>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
 								</div>
 								<div class="col-md-3 mb-3"></div>
 								<div class="col-md-5 mb-3">
 									<label class="form-label">Item Quantity</label>
-									<?php echo e(Form::number('quantity', '',['class' => 'form-control', 'placeholder' => 'Starting Quantity'] )); ?>
+									<?php echo e(Form::number('quantity', '',['class' => 'form-control', 'placeholder' => 'Starting Quantity'] ), false); ?>
 
 								</div>
 								<div class="col-md-4 mb-3">
 									<label class="form-label">Item Threshold</label>
-									<?php echo e(Form::number('threshold', '',['class' => 'form-control', 'placeholder' => 'Minimum Threshold'] )); ?>
+									<?php echo e(Form::number('threshold', '',['class' => 'form-control', 'placeholder' => 'Minimum Threshold'] ), false); ?>
 
 								</div>
 								<div class="col-md-3"></div>
 								<div class="col-md-4 mb-3">
 									<label class="form-label">Item Price (Php)</label>
-									<?php echo e(Form::number('price', '',['class' => 'form-control', 'placeholder' => 'Item Price' , 'type' => 'number' , 'min' => 1 , 'step' => 0.01] )); ?>
+									<?php echo e(Form::number('price', '',['class' => 'form-control', 'placeholder' => 'Item Price' , 'type' => 'number' , 'min' => 1 , 'step' => 0.01] ), false); ?>
 
 								</div>
                                 <div class="col-md-4">
@@ -100,10 +100,14 @@
                                     <label>Suppliers</label>
                                     <select class="form-control" name="supplier_id" required>
                                         <?php $__currentLoopData = $suppliers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $supplier): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <option value="<?php echo e($supplier->supplier_id); ?>"><?php echo e($supplier->name); ?></option>
+                                        <option value="<?php echo e($supplier->supplier_id, false); ?>"><?php echo e($supplier->name, false); ?></option>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
-                                </div>
+								</div>
+								<div class="col-md-4 mb-3">
+									<label class="form-label">Description</label>
+									<input type="textarea" name="description" class="form-control" placeholder="Please Input Item Description">
+								</div>
 							</div>
 						</div>
 						<div class="card-footer text-muted">
@@ -111,9 +115,9 @@
 
 								<div class="text-right">
 								
-								<?php echo e(Form::submit('Add Item', ['class' => 'btn btn-success'])); ?>
+								<?php echo e(Form::submit('Add Item', ['class' => 'btn btn-success']), false); ?>
 
-								<a href="<?php echo e(url('inventory')); ?>" class="btn btn-default">Back</a>
+								<a href="<?php echo e(url('inventory'), false); ?>" class="btn btn-default">Back</a>
 								 
 								</div>
 						</div>

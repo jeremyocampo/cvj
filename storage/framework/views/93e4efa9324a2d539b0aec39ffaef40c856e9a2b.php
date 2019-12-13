@@ -33,14 +33,14 @@
                                     <br>
                                     <div class="alert alert-success" role="alert">
                                         <button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">x</span></button>
-                                        <?php echo e(session()->get('success')); ?><br>
+                                        <?php echo e(session()->get('success'), false); ?><br>
                                     </div>
                                 <?php endif; ?>
                                 <?php if(session()->has('deleted')): ?>
                                     <br>
                                     <div class="alert alert-danger" role="alert">
                                         <button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">x</span></button>
-                                        <?php echo e(session()->get('deleted')); ?><br>
+                                        <?php echo e(session()->get('deleted'), false); ?><br>
                                     </div>
                                 <?php endif; ?>
                             </div>
@@ -77,19 +77,19 @@
                                 <tr>
                                     
                                     <td>
-                                        <a href="<?php echo e(url('inventory/'.$i->inventory_id)); ?>" class="dropdown-item">
-                                            <?php echo e($i->inventory_name); ?>
+                                        <a href="<?php echo e(url('inventory/'.$i->inventory_id), false); ?>" class="dropdown-item">
+                                            <?php echo e($i->inventory_name, false); ?>
 
                                         </a>
                                     </td>    
-                                    <td><?php echo e($i->category_name); ?></td>
-                                    <td><?php echo e($i->color_name); ?></td>
-                                    <td> <?php echo e($i->size); ?></td>
-                                    <td><?php echo e($i->quantity); ?></td>
-                                    <td><?php echo e($i->threshold); ?></td>
+                                    <td><?php echo e($i->category_name, false); ?></td>
+                                    <td><?php echo e($i->color_name, false); ?></td>
+                                    <td> <?php echo e($i->size, false); ?></td>
+                                    <td><?php echo e($i->quantity, false); ?></td>
+                                    <td><?php echo e($i->threshold, false); ?></td>
                                     
                                    
-                                    <td><?php echo e($i->last_modified); ?></td>
+                                    <td><?php echo e($i->last_modified, false); ?></td>
                                     <td class="popup">
                                         <div class="dropdown">
                                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -97,26 +97,26 @@
                                             </button>
                                             <div class="dropdown-menu dropdown-menu-arrow dropdown-menu">
                                                 <div class=" dropdown-header noti-title">
-                                                    <h6 class="text-overflow m-0"><?php echo e(__('Please Select an Action!')); ?></h6>
+                                                    <h6 class="text-overflow m-0"><?php echo e(__('Please Select an Action!'), false); ?></h6>
                                                 </div>
                                                 <div class="dropdown-divider"></div>
-                                                <a href="<?php echo e(url('inventory/'.$i->inventory_id)); ?>" class="dropdown-item">
+                                                <a href="<?php echo e(url('inventory/'.$i->inventory_id), false); ?>" class="dropdown-item">
                                                     <i class="ni ni-zoom-split-in"></i>
-                                                    <span><?php echo e(__('View Item Details')); ?></span>
+                                                    <span><?php echo e(__('View Item Details'), false); ?></span>
                                                 </a>
 
-                                                <a href="<?php echo e(url('inventory/'.$i->inventory_id.'/edit')); ?>" class="dropdown-item">
+                                                <a href="<?php echo e(url('inventory/'.$i->inventory_id.'/edit'), false); ?>" class="dropdown-item">
                                                     <i class="ni ni-fat-add"></i>
-                                                    <span><?php echo e(__('Replenish Item')); ?></span>
+                                                    <span><?php echo e(__('Replenish Item'), false); ?></span>
                                                 </a>
                                                 
                                                 <a href="" class="dropdown-item" onclick="event.preventDefault();
-                                                    document.getElementById('delete-form-<?php echo e($i->inventory_id); ?>').submit();">
+                                                    document.getElementById('delete-form-<?php echo e($i->inventory_id, false); ?>').submit();">
                                                     <i class="ni ni-fat-remove"></i>
-                                                    <span><?php echo e(__('Remove from Inventory')); ?></span>
+                                                    <span><?php echo e(__('Remove from Inventory'), false); ?></span>
                                                     <?php echo Form::open(['action' => ['InventoryController@destroy', $i->inventory_id], 'method' => 'POST', 'id' => 'delete-form-'.$i->inventory_id]); ?>
 
-                                                        <?php echo e(Form::hidden('_method','DELETE')); ?>
+                                                        <?php echo e(Form::hidden('_method','DELETE'), false); ?>
 
                                                     <?php echo Form::close(); ?>
 
@@ -160,7 +160,7 @@
                                     <div class="col">
                                         <div class="row">
                                             <div class="col-xs-5">
-                                                <h1 class="mb-0">Critical Inventory</h1> &nbsp;&nbsp; <p>as of <?php echo e($month); ?></p>
+                                                <h1 class="mb-0">Critical Inventory</h1>
                                             </div>
                                             
                                         </div>
@@ -179,9 +179,6 @@
                                         
                                     
                             <div class="card-body">
-        
-                            
-        
                             <div class="table-responsive mb-3">
                                 <!-- Projects table -->
                                 
@@ -201,10 +198,10 @@
                                         <?php $__currentLoopData = $criticalInventory; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $b): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <?php if($b->status > 0): ?>
                                         <tr>
-                                            <td scope="col"><?php echo e($b->inventory_name); ?></td> 
-                                            <td scope="col"><?php echo e($b->threshold); ?></td>
-                                            <td scope="col"><?php echo e($b->quantity); ?></td>
-                                            <td scope="col"><?php echo e($b->price); ?></td>
+                                            <td scope="col"><?php echo e($b->inventory_name, false); ?></td> 
+                                            <td scope="col"><?php echo e($b->threshold, false); ?></td>
+                                            <td scope="col"><?php echo e($b->quantity, false); ?></td>
+                                            <td scope="col"><?php echo e($b->price, false); ?></td>
                                             <td>
                                                 <div class="dropdown">
                                                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -212,16 +209,16 @@
                                                     </button>
                                                     <div class="dropdown-menu dropdown-menu-arrow dropdown-menu">
                                                         <div class=" dropdown-header noti-title">
-                                                            <h6 class="text-overflow m-0"><?php echo e(__('Please Select an Action!')); ?></h6>
+                                                            <h6 class="text-overflow m-0"><?php echo e(__('Please Select an Action!'), false); ?></h6>
                                                         </div>
                                                         <div class="dropdown-divider"></div>
-                                                        <a href="<?php echo e(url('inventory/'.$b->inventory_id)); ?>" class="dropdown-item">
+                                                        <a href="<?php echo e(url('inventory/'.$b->inventory_id), false); ?>" class="dropdown-item">
                                                             <i class="ni ni-zoom-split-in"></i>
-                                                            <span><?php echo e(__('View Event Details')); ?></span>
+                                                            <span><?php echo e(__('View Event Details'), false); ?></span>
                                                         </a>
-                                                        <a href="<?php echo e(url('inventory/'.$b->inventory_id.'/edit')); ?>" class="dropdown-item">
+                                                        <a href="<?php echo e(url('inventory/'.$b->inventory_id.'/edit'), false); ?>" class="dropdown-item">
                                                             <i class="ni ni-fat-add"></i>
-                                                            <span><?php echo e(__('Replenish Item')); ?></span>
+                                                            <span><?php echo e(__('Replenish Item'), false); ?></span>
                                                         </a>
                                                     </div>
                                                 </div>

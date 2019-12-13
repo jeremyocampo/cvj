@@ -26,23 +26,34 @@
 							
 							<div class="row">
 								<div class="col-md-8 mb-3">
-									<label class="form-label">Food Name</label>
-									{{ Form::text('foodName', '',['class' => 'form-control', 'placeholder' => 'Food Name'] )}}
+									<label class="form-label">Food Name<font color="red">*</font></label>
+									{{ Form::text('foodName', '',['class' => 'form-control', 'placeholder' => 'Food Name', 'required'] )}}
 								</div>
 								<div class="col-md-4 mb-3">
-                                    <label class="form-label">Item Price (Php)</label>
-									{{ Form::number('price', '',['class' => 'form-control', 'placeholder' => 'Item Price' , 'type' => 'number' , 'min' => 1 , 'step' => 0.01] )}}
+                                    <label class="form-label">Item Price (Php)<font color="red">*</font></label>
+									{{ Form::number('price', '',['class' => 'form-control', 'placeholder' => 'Item Price' , 'type' => 'number' , 'min' => 1 , 'step' => 0.01, 'required'] )}}
 								</div>
-
+								<div class="col-md-6 mb-3">
+									<label class="form-label">Unit Cost (Php)<font color="red">*</font></label>
+									{{ Form::number('unit_cost', '',['class' => 'form-control', 'placeholder' => 'Unit Cost' , 'type' => 'number' , 'min' => 1 , 'step' => 0.01, 'required'] )}}
+								</div>
+								<div class="col-md-6 mb-3">
+									<label class="form-label">Unit Expense (Php)<font color="red">*</font></label>
+									{{ Form::number('unit_expense', '',['class' => 'form-control', 'placeholder' => 'Unit Expense' , 'type' => 'number' , 'min' => 1 , 'step' => 0.01, 'required'] )}}
+								</div>
+								<div class="col-md-12">
+									{{-- <button name="image">Upload Item Image</button> --}}
+									<input type="file" class="form-control" name="image" required>
+								</div>
 								
-								<div class="col-md-12 mb-3">
+								{{-- <div class="col-md-12 mb-3">
 									<button class="btn btn-sm btn-block btn-success" type="button" id="more_fields" onclick="add_a_row();" value="" class="btn btn-secondary">+ Add Ingredient</button>
-								</div>
+								</div> --}}
 
 								<div class="table-responsive mb-2" >
 								
 									
-								<table class="table  align-items-center table-hover  mb-3" id="myTable" >
+								{{-- <table class="table  align-items-center table-hover  mb-3" id="myTable" >
 											<thead>
 												<tr>
 													<th>Question</th>
@@ -51,7 +62,7 @@
 												</tr>
 											</thead>
 											<tbody>
-											{{-- <tr>
+											<tr>
 												<td>
 												<input type="text" name="itemName" placeholder="Item Name"  id="item_name1" class="form-control">
 												</td>
@@ -61,9 +72,9 @@
 												<td>
 													<button > hi</button>
 												</td>
-											</tr> --}}
+											</tr>
 											</tbody>
-										</table>
+										</table> --}}
 								</div>
 								</div>
 							</div>
@@ -74,8 +85,8 @@
 								@endforeach --}}
 
 								<div class="text-right">
-								<button></button>
-								{{-- {{ Form::submit('Add Item', ['class' => 'btn btn-success']) }} --}}
+								
+								{{ Form::submit('Add Item', ['class' => 'btn btn-success']) }}
 								<a href="{{ url('inventory')}}" class="btn btn-default">Back</a>
 								{{-- {{Form::hidden('_method', 'PUT')}} --}} 
 								</div>
@@ -90,7 +101,7 @@
 
 
 	
-	<script>
+	{{-- <script>
 		var x = 1;
 		function add_a_row(){
 			if(x>=1){
@@ -123,5 +134,5 @@
 				tdArray.push(items); //push the object to array
 			});    
 		});
-	</script>
+	</script> --}}
 

@@ -40,10 +40,11 @@
     36 => 'Collective\\Html\\HtmlServiceProvider',
     37 => 'Milon\\Barcode\\BarcodeServiceProvider',
     38 => 'Spatie\\GoogleCalendar\\GoogleCalendarServiceProvider',
-    39 => 'App\\Providers\\AppServiceProvider',
-    40 => 'App\\Providers\\AuthServiceProvider',
-    41 => 'App\\Providers\\EventServiceProvider',
-    42 => 'App\\Providers\\RouteServiceProvider',
+    39 => 'SimpleSoftwareIO\\QrCode\\QrCodeServiceProvider',
+    40 => 'App\\Providers\\AppServiceProvider',
+    41 => 'App\\Providers\\AuthServiceProvider',
+    42 => 'App\\Providers\\EventServiceProvider',
+    43 => 'App\\Providers\\RouteServiceProvider',
   ),
   'eager' => 
   array (

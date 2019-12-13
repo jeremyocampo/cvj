@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class FoodController extends Controller
 {
@@ -12,24 +11,9 @@ class FoodController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index()
     {
         //
-
-        $dishes = DB::table('items')
-        ->select('*')
-        ->where('disabled_at','!=', null)
-        ->get();
-
-        dd($dishes);
-
-        return view('foodList', ['dishes => $dishes']);
     }
 
     /**
@@ -40,13 +24,6 @@ class FoodController extends Controller
     public function create()
     {
         //
-        $joinedTable = DB::table('ingredient')
-        // ->join('ingredient','rawmaterial.ingredient_id', '=', 'ingredient.ingredient_id')
-        ->get();
-
-        // dd($joinedTable);
-
-        return view('addFood', ['joinedTable' => $joinedTable]);
     }
 
     /**

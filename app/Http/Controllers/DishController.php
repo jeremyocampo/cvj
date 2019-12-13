@@ -133,7 +133,12 @@ class DishController extends Controller
     public function recoverDish($id){
 
 
-        Dish::withTrashed()->find($id)->restore();
+        // Dish::withTrashed()->find($id)->restore();
+        $restore = DB::table('items')
+        ->where('item_id','=', $id)
+        ->update([
+            'disabled_at' => null,
+        ]);
 
         return redirect('/disabled-dishes')->with('success', 'Dish Enabled');
 

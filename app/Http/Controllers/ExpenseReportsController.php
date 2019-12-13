@@ -4,6 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\EventModel;
+use Illuminate\Support\Facades\DB;
+use App\Http\Requests;
+use Carbon\Carbon;
+use App\inventory;
+use Faker\Generator as Faker;
+use Illuminate\Support\Arr;
+use App\damaged_inventory;
+
 class ExpenseReportsController extends Controller
 {
     /**
@@ -16,11 +25,14 @@ class ExpenseReportsController extends Controller
         //
         $events = DB::table('event')
         ->select('*')
-        ->join('event_client_quotation', 'event.event_id','=','event_client_quotation.event_id')
-        ->join('event_company_quotation', 'event.event_id','=','event_company_quotation.event_id')
-        ->join('event_costing')
-        ->where('status','=', 5)
+        ->join('package','event.package_id','=','package.package_id')
+        // ->join('event_client_quotation', 'event.event_id','=','event_client_quotation.event_id')
+        // ->join('event_company_quotation', 'event.event_id','=','event_company_quotation.event_id')
+        // ->join('event_costing')
+        // ->where('status','=', 5)
         ->get();
+
+        // dd($events);
 
         return view('expenseReports',['events' => $events]);
     }

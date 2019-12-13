@@ -10,6 +10,7 @@ use App\categoryRef;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests;
 use Carbon\Carbon;
+use App\User;
 use Faker\Generator as Faker;
 use Spatie\GoogleCalendar\Event;
 
@@ -124,21 +125,43 @@ class EventsController extends Controller
         // $check = (Carbon::parse($date)->gt($event[0]->event_start));
         $upcomingPendingEvents = array();
         $upcomingApprovedEvents = array();
-
         foreach($eventPending as $i){
+            $e = events::where('event_id','=',$i->event_id)->first();
+            $pack = $e->package();
+            error_log("package: ".$pack);
+            if($pack){
+                $i->package_name = $pack->package_name;
+            }else{
+                $i->package_name = 'n/a';
+            }
+            $i->quotations = $e->get_quotations();
             if(Carbon::parse($i->event_start)->format('Y-m-d') >= $date->subDay()->format('Y-m-d')){
                 array_push($upcomingPendingEvents, $i);
             }
         }
 
+
         foreach($eventApproved as $b){
+
+            $e = events::where('event_id','=',$b->event_id)->first();
+            $pack = $e->package();
+            if($pack){
+                $b->package_name = $pack->package_name;
+            }else{
+                $b->package_name = 'n/a';
+            }
+
+            $b->quotations = $e->get_quotations();
             if(Carbon::parse($b->event_start)->format('Y-m-d') >= $date->subDay()->format('Y-m-d')){
                 array_push($upcomingApprovedEvents, $b);
             }
         }
         // dd($eventEndString);
 
-        return view('listevents', ['pendingEvents' => $upcomingPendingEvents, 'events' => $upcomingApprovedEvents]);
+        $user = User::where('id','=', auth()->user()->id)->first();
+
+
+        return view('listevents', ['user'=>$user,'pendingEvents' => $upcomingPendingEvents, 'events' => $upcomingApprovedEvents]);
         // return view('eventsDash');
     }
 

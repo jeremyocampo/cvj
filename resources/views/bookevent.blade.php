@@ -5,6 +5,70 @@
 
 @section('content')
     @include('layouts.headers.eventsCard')
+    <div class="modal fade" id="newUserModal" tabindex="-1" style="width: 100%" role="dialog" aria-labelledby="dishesModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document" >
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="dishesModalLabel">Add New Client</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Client Name</label>
+                            <input type="text" name="client_name" id="client_name" value ="" placeholder="e.g: Juan Dela Cruz"  class="form-control">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" name="email" id="email" value ="" placeholder="e.g: JuanDelaCruz@gmail.com"  class="form-control">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Telephone Number</label>
+                            <input type="text" name="tel_no" id="tel_no" value ="" placeholder="e.g: 8011234"  class="form-control">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Mobile Number</label>
+                            <input type="text" name="mob_no" id="mob_no" value ="" placeholder="e.g: 09171234567"  class="form-control">
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">Address</label>
+                            <input type="text" name="address" id="address" value ="" placeholder="e.g: Leon Guinto, Taft Ave., Malate, Manila"  class="form-control">
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-small btn-primary" onclick="add_new_client();" data-dismiss="modal">Add Client</button>
+                    <button type="button" class="btn btn-small btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+                <script>
+                    function add_new_client(){
+                        $.ajax({
+                            url: "{{route('ajax.client_add')}}",
+                            method: 'POST',
+                            data:{
+                                'client_name':$("#client_name").val(),
+                                'email':$("#email").val(),
+                                'tel_no':$("#tel_no").val(),
+                                'mob_no':$("#mob_no").val(),
+                                'address':$("#address").val(),
+                                '_token':'{{csrf_token()}}'
+                            },
+                            success: function(result){
+                                console.log(result);
+                                var str =  '<option value="'+result.client_id+'" selected>';
+                                str += $("#client_name").val();
+                                str += '</option>';
+                                $('#client_select').append(str);
+                                alert('client '+$("#client_name").val()+' added');
+                            }});
+                    }
+                </script>
+            </div>
+        </div>
+    </div>
 
     <div class="container-fluid mt--7">
         <div class="col-xl-12 mb-5">
@@ -14,17 +78,6 @@
                         <div class="col-xs-12 col-md-12 col-md-4 mb-3">
                             {!! Form::open(['action' => 'BookEventController@store', 'method' => 'POST']) !!}
                             <h1 class="">Book Event <br> </h1>
-                        </div>
-                        <div class="col-xs-5 col-md-5">
-                            {{-- <p>for {{ $client[0]->client_name }}</p> --}}
-                            @if(is_null($client))
-                                <label class = "form-label"> Client Email Address <font color="red">*</font></label>
-                                <input type="text" class="form-control" name="email" placeholder="example: Client@gmail.com" required>
-                            @else
-                                <label class = "form-label"> for </label>
-                                <h3><b>{{ ' ' . $client->client_name . ' ' }}</b></h3>
-                                <input type="hidden" class="form-control" name="email" value="{{ $client->email }}">
-                            @endif
                         </div>
                     </div>
                     <div class="row">
@@ -54,6 +107,32 @@
                         </div>
                     @endforeach
                     <div class="row">
+                        <div class="col-md-5 mb-3">
+                            <div>
+                            <label class = "form-label" style="display: inline"> Select Client <font color="red">*</font></label>
+                                <button type="button"style="border-radius: 50px;display: inline;padding: .75px;margin-bottom: .5rem;"  class="btn btn-primary" data-target="#newUserModal" data-tooltip="eut" data-toggle="modal"><i class="fa fa-user-alt"></i>+</button>
+
+                            </div>
+                            <select name = "client_id"  id = "client_select" class = "form-control" required>
+                                <option disabled selected> - Please Choose Client - </option>
+                                @foreach($clients as $client)
+                                    <option value="{{$client->client_id}}"> {{$client->client_name}} </option>
+                                @endforeach
+                            </select>
+
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label class = "form-label"> Estimated Attendees <font color="red">*</font></label>
+                            <select name = "attendees"  id = "attendees" class = "form-control" required>
+                                <option value="50"> 50 </option>
+                                <option value="70"> 70 </option>
+                                <option value="80"> 80 </option>
+                                <option value="100"> 100 </option>
+                                <option value="150"> 150 </option>
+                                <option value="200"> 200 </option>
+                            </select>
+                        </div>
                         <div class="col-md-5 mb-3">
                             <label class = "form-label"> Event Name <font color="red">*</font></label>
                             {{ Form::text('eventName', '', ['class' => 'form-control', 'placeholder' => 'Event Name', 'required' => 'true'])}}
@@ -178,7 +257,7 @@
 
     function dropdown_change_listener() {
         let len = $(".js-example-basic-multiple :selected").length;
-        if (len >= 2){
+        if (len >= 5){
             $("#sumbit_btn").attr("disabled",false);
         }
         else{
