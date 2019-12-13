@@ -6,7 +6,7 @@
 	<div class="card-body">
 		<div class="col-xl-8 mb-5 mb-xl-0">
 				<div class="card shadow">
-						{!! Form::open(['action' => 'InventoryController@store', 'method' => 'POST', 'autocomplete' =>'off']) !!}
+						{!! Form::open(['action' => 'FoodItemController@store', 'method' => 'POST', 'autocomplete' =>'off']) !!}
 						<div class="card-header">
 								<div class="row align-items-center">
 									<div class="col">
@@ -25,15 +25,15 @@
 							
 							
 							<div class="row">
-								<div class="col-md-8 mb-3">
+								<div class="col-md-12 mb-3">
 									<label class="form-label">Food Name<font color="red">*</font></label>
 									{{ Form::text('foodName', '',['class' => 'form-control', 'placeholder' => 'Food Name', 'required'] )}}
 								</div>
-								<div class="col-md-4 mb-3">
+								{{-- <div class="col-md-4 mb-3">
                                     <label class="form-label">Item Price (Php)<font color="red">*</font></label>
 									{{ Form::number('price', '',['class' => 'form-control', 'placeholder' => 'Item Price' , 'type' => 'number' , 'min' => 1 , 'step' => 0.01, 'required'] )}}
-								</div>
-								<div class="col-md-6 mb-3">
+								</div> --}}
+								<div class="col-md-6 mb-3 ">
 									<label class="form-label">Unit Cost (Php)<font color="red">*</font></label>
 									{{ Form::number('unit_cost', '',['class' => 'form-control', 'placeholder' => 'Unit Cost' , 'type' => 'number' , 'min' => 1 , 'step' => 0.01, 'required'] )}}
 								</div>

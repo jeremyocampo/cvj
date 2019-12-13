@@ -71,6 +71,29 @@ class FoodItemController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request, [
+            'item_name'      => 'required',
+            'unit_cost'      => 'required|min:1',
+            'unit_expense'      => 'required|numeric|min:1',
+            'image'     => 'required|',
+        ],[
+            'inventory_name.required'     => 'Please Input a Valid Inventory Name.',
+            'category.required'     => 'Please Select a Category.',
+            'quantity.required'     => 'Please input a valid Quantity',
+            'subcategory.required'  => 'Please Select a Sub-Category.',
+            'threshold,required'    => 'Please Input a valid Threshold Amount',
+            'threshold.min'         => 'Please Input a Threshold Amount at least 50% of Starting Quantity',
+        ]);
+
+        $items = new Items();
+        $items->item_name = $request->input('foodName');
+        $items->unit_cost = $request->input('unit_cost');
+        $items->unit_expense = $request->input('unit_expense');
+        $items->item_image = $request->input('image');
+        $items->save();
+
+        return redirect('/fooditem')->with('success', 'Item Added!');
+
     }
 
     /**
