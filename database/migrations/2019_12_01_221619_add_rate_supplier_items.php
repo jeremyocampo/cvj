@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class EventInventoryAdditions extends Migration
+class AddRateSupplierItems extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class EventInventoryAdditions extends Migration
      */
     public function up()
     {
-        Schema::table('event_inventory', function (Blueprint $table) {
-            $table->tinyInteger('is_addition')->nullable();
+        Schema::table('supplier_items', function (Blueprint $table) {
+            $table->string('rate');
         });
     }
 
@@ -25,8 +25,8 @@ class EventInventoryAdditions extends Migration
      */
     public function down()
     {
-        Schema::table('event_inventory', function (Blueprint $table) {
-            //
+        Schema::table('supplier_items', function (Blueprint $table) {
+            $table->dropColumn('rate');
         });
     }
 }
