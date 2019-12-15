@@ -1,9 +1,9 @@
-@extends('layouts.eventApp')
+@extends('layouts.app')
 @section('title', 'BookEvent')
 
 {{-- @include('layouts.headers.pagination') --}}
 
-@section('content') 
+@section('content')
     @include('layouts.headers.eventsCard')
     <div class="modal fade" id="newUserModal" tabindex="-1" style="width: 100%" role="dialog" aria-labelledby="dishesModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document" >
@@ -69,6 +69,49 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="empSchedModal" tabindex="-1" style="width: 100%" role="dialog" aria-labelledby="dishesModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document" >
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="dishesModalLabel">Employee Shift Schedule</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <h3 id="shift_lbl"></h3>
+                        <div class="table-responsive mb-3">
+                            <table class="table table-bordered align-items-center table-flush mb-4" id="myTable">
+                                <thead class="thead-light">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Shift Name</th>
+                                    <th>In</th>
+                                    <th>Out</th>
+                                </tr>
+                                </thead>
+                                <tbody id="shift_tbl">
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="pageNavPosition" style="padding-top: 20px; cursor: pointer;" align="center"></div>
+                        <script type="text/javascript">
+                            var pager = new Pager('myTable', 5);
+                            pager.init();
+                            pager.showPageNav('pager', 'pageNavPosition');
+                            pager.showPage(1);
+                        </script>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-small btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <div class="container-fluid mt--7">
         <div class="col-xl-12 mb-5">
@@ -88,37 +131,28 @@
                                     <button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">x</span></button>
                                     {{ session()->get('success') }}<br>
                                 </div>
-                                <div class="col-xs-2">
-                                        &nbsp;&nbsp;
+                            @endif
+                            @if(session()->has('error'))
+                                <br>
+                                <div class="alert alert-danger" role="alert">
+                                    <button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">x</span></button>
+                                    {{ session()->get('error') }}<br>
                                 </div>
-                               
-                                </div>
-                            </div>
-                            <!-- <div class="col text-right">
-                                {{-- <a href="inventory/create" class="btn btn-sm btn-primary">Add Item</a> --}}
-                                
-                            </div> -->
-
-                            <!-- <div class="col text-left">
-                                {{-- <div class="row"> --}}
-                                    <div class="col-xs-5">
-                                {{-- <input class="form-control" id="myInput" type="search" onkeyup="searchTable()" style="background: transparent;" placeholder="Search Item Here"> --}}
-                                <input class="form-control" id="myInput" type="search" onkeyup="searchTable()" style="background: transparent;" placeholder="Search Item Here">
-                                    </div>
-                                    {{-- <div class="col-xs-2">
-                                        &nbsp; &nbsp;
-                                    </div> --}}
-                                    {{-- <div class="col-xs-3">
-                                    <button type="button" class="btn btn-md btn-block" onclick="seachTable()">Search</button>
-                                    </div> --}}
-                                {{-- </div> --}}
-                            </div> -->
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body border-0">
+                    @foreach($errors->all() as $error)
+                        <div class="alert alert-danger" role="alert">
+                            <button type = button data-dismiss="alert" class="close"><span aria-hidden="true">x</span></button>
+                            {{ $error }}<br>
                         </div>
                     @endforeach
                     <div class="row">
                         <div class="col-md-5 mb-3">
                             <div>
-                            <label class = "form-label" style="display: inline"> Select Client <font color="red">*</font></label>
+                                <label class = "form-label" style="display: inline"> Select Client <font color="red">*</font></label>
                                 <button type="button"style="border-radius: 50px;display: inline;padding: .75px;margin-bottom: .5rem;"  class="btn btn-primary" data-target="#newUserModal" data-tooltip="eut" data-toggle="modal"><i class="fa fa-user-alt"></i>+</button>
 
                             </div>
@@ -146,117 +180,117 @@
                             <label class = "form-label"> Event Name <font color="red">*</font></label>
                             {{ Form::text('eventName', '', ['class' => 'form-control', 'placeholder' => 'Event Name', 'required' => 'true'])}}
                         </div>
-                            {{-- {!! Form::open('action' => ['BookEventController@store', 'method' => 'POST', 'id' => 'bookevent']) !!} --}}
-                            {!! Form::open(['action' => 'BookEventController@store', 'method' => 'POST']) !!}
-                            {{-- <form action = "BookEventController@store" method = "POST"> --}}
-                            {{ csrf_field() }}
 
-                            <div class="col-md-4"> <h4> Event Name <font color="red">*</font></h4>
-                                {{ Form::text('eventName', '', ['class' => 'form-control', 'placeholder' => 'Event Name', 'required' => 'true'])}}
-                           </div>
-                            
-                           <div class="col-md-4"> <h4> Event Date <font color="red">*</font></h4>
-                                   {{ Form::date('eventDate', '', ['class' => 'form-control', 'placeholder' => 'Date of Event', 'required' => 'true', 'min' => date("Y-m-d H:i:s")]) }} 
-                           </div>
-
-                           <div class="col-md-4"> <h4> Event Venue </h4>
-                            <select name="eventVenue" class = "form-control" form = "bookevent">
-                                <option disabled> - Please Select a Venue - </option>
-                                    <option value="01"> CVJ Hall A </option>
-                                    <option value="02"> CVJ Hall B </option>
-                                    <option value="03"> CVJ Hall C </option>
-                                    <option value="04"> CVJ Hall D </option>
-                                    <option value="05"> Other Venue </option>
+                        <div class="col-md-4 mb-3">
+                            <label class = "form-label"> Event Type <font color="red">*</font></label>
+                            <select name = "eventType"  id = "eventType" class = "form-control" required>
+                                <option disabled selected> - Please Select Event Type - </option>
+                                <option value="Wedding"> Wedding </option>
+                                <option value="Birthday"> Birthday </option>
+                                <option value="Debut"> Debut </option>
+                                <option value="Business"> Business </option>
+                                <option value="Corporate"> Corporate </option>
+                                <option value="Others"> Others </option>
                             </select>
-                            </div>
-                                   
-                           <div class="col-md-4"> <h4> Event Type <font color="red">*</font></h4>
-                                   <select name="eventType" class = "form-control" form = "bookevent" onchange="toggle(this.value)">
-                                       <option disabled> - Please Select Event Type - </option>
-                                           <option value="Wedding"> Wedding </option>
-                                           <option value="Birthday"> Birthdays </option>
-                                           <option value="Debut"> Baptismal </option>
-                                           <option value="Business"> Business </option>
-                                           <option value="Corporate"> Corporate </option>
-                                           <option value="Others"> Others </option>
-                                   </select>
-                           </div>
-                           
-                           {{-- Hidden Div for additional request --}}
-                            <div class= "col-md-12 mb-3" id='test' style="display:none">
-                                 {{ Form::text('eventType', '', ['class' => 'form-control', 'placeholder' => 'Others: Please Specify', 'required' => 'true'])}}
-                            </div>
-
-                            <div class="col-md-4"> <h4> Theme <font color="red">*</font></h4>
-                                {{ Form::text('theme', '', ['class' => 'form-control', 'placeholder' => 'Theme', 'required' => 'true'])}}
-                            </div>
-
-                            <div class="col-md-4"> <h4> Centerpiece <font color="red">*</font></h4>
-                                {{ Form::text('centerpiece', '', ['class' => 'form-control', 'placeholder' => 'Centerpiece', 'required' => 'true'])}}
-                            </div>
-
-                            <div class="col-md-4"> <h4> Flowers <font color="red">*</font></h4>
-                                {{ Form::text('flowers', '', ['class' => 'form-control', 'placeholder' => 'Flowers', 'required' => 'true'])}}
-                            </div>
-
-                            <div class="col-md-4"> <h4> Linen Color <font color="red">*</font></h4>
-                                {{ Form::text('linencolor', '', ['class' => 'form-control', 'placeholder' => 'Linen Color', 'required' => 'true'])}}
-                            </div>
-    
-                            <div class="col-md-4"> <h4> Chair <font color="red">*</font></h4>
-                                {{ Form::text('chair', '', ['class' => 'form-control', 'placeholder' => 'Chair', 'required' => 'true'])}}
-                            </div>
-    
-                            <div class="col-md-4"> <h4> Table <font color="red">*</font></h4>
-                                {{ Form::text('table', '', ['class' => 'form-control', 'placeholder' => 'Table', 'required' => 'true'])}}
-                            </div>
-    
-                            <div class="col-md-4"> <h4> Others 
-                                {{ Form::textarea('others', '', ['class' => 'form-control', 'placeholder' => 'Others (Optional)', 'required' => 'true'])}}
-                            </div>
-
-                            {{-- by 50s, 60s, 70, 80s etcc.. --}}
-                            <div class="col-md-4"> <h4> Total Pax <font color="red">*</font></h4>
-                                {{ Form::number('totalPax', '', ['class' => 'form-control', 'placeholder' => 'Total Pax', 'required' => 'true'])}}
-                            </div>
-    
-                            {{-- <div class="col-md-4"> <h4> Package </h4>
-                                <select name="package" class = "form-control"> 
-                                    <option disabled> - Please Select a Package - </option>
-                                    @if (count($packages) > 0)
-                                        @foreach($packages as $package)
-                                        <option value="{{$package->package_id}}" > {{$package->package_name}}</option>
-                                        @endforeach
-                                    @endif
-                                </select>
-                            </div>
-
-                            <div class="col-md-4"> <h4> Price per Head </h4>
-                                {{ Form::number('priceHead', '', ['class' => 'form-control', 'placeholder' => 'Price per Head', 'required' => 'true'])}}
-                            </div> --}}
-
-                            <br>
-                            <div class="col-md-12 mb-3">
-                                    <p style="text-align:center">
-                                         {{ Form::submit('Next: Add Book Event', ['class' => 'btn btn-success']) }} 
-                                    </p>
-                                 </div>
-                                 
-                                 {!! Form::close() !!} 
                         </div>
+
+                        <div class="col-md-5 mb-3">
+                            <label class = "datetime"> Event Date <font color="red">*</font></label>
+                            {{-- {{ Form::date('eventStartDate', '', ['class' => 'form-control', 'placeholder' => 'Date of Event', 'required' => 'true', 'min' => date("Y-m-d H:i:s")]) }}  --}}
+                            <input type="date" min="{{$min_val_date}}" name="eventStartDate" onchange="checkdates()" class="form-control" placeholder="Start date" id="eventStartDate">
+                            <p id="invalid_msg" class="small" style="color: #ff5153;display: none;">This date is already overbooked. Please consider booking another day or cancel booking event.</p>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class = "datetime"> Start Time <font color="red">*</font></label>
+                                    <input type="time" name="startTime"  class="form-control" id="eventStartTime" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class = "datetime"> End Time <font color="red">*</font></label>
+                                    <input type="time" name="endTime"  class="form-control"  id="eventEndTime" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-5 mb-3">
+                            <label class = "form-label"> Event Theme <font color="red">*</font></label>
+                            {{ Form::text('theme', '', ['class' => 'form-control', 'placeholder' => 'Theme', 'required' => 'true'])}}
+                        </div>
+
+                        {{-- by 50s, 60s, 70, 80s etcc.. --}}
+                        <div class="col-md-4 mb-3">
+                            <label class = "form-label"> Is a Holiday<font color="red">*</font></label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="is_holiday" id="exampleRadios1" value="0" checked>
+                                <label class="form-check-label" for="exampleRadios1">
+                                    No
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="is_holiday" id="exampleRadios2" value="1">
+                                <label class="form-check-label" for="exampleRadios2">
+                                    Yes
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-5 mb-3">
+                            <label class = "form-label"> Venue <font color="red" >*</font></label>
+                            <select name="venue" class = "form-control" onchange="venue_select()" id="location" required>
+                                <option selected disabled>Please Select Location</option>
+                                <option value="CVJ Clubhouse Ground Floor"> CVJ Clubhouse Ground Floor </option>
+                                <option value="CVJ Clubhouse Second Floor"> CVJ Clubhouse Second Floor </option>
+                                <option value="CVJ Clubhouse Third Floor"> CVJ Clubhouse Third Floor </option>
+                                <option value="Off-Premise"> Off-Premise </option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div id="address_div" style="display: none">
+                                <label class = "form-label" id="eventvenueL"> Address <font color="red" id="eventvenueA"></font></label>
+                                <input type="text" class="form-control" PLACEHOLDER="Venue address" id="eventvenue" name="eventvenue">
+                                <p class="small" style="color: #ff8300;">Off-Premise Venues adds a 15 % Service Charge to the total amount due.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-5 mb-3"> <label class = "form-label"> Others </label>
+                            {{ Form::textarea('others', '', ['class' => 'form-control', 'placeholder' => 'Others (Optional)'])}}
+                        </div>
+                        <div class="col-md-4 mb-3" id="emp_col" style="display: none;">
+                            <label class = "form-label"> Assign Personnel to Event</label>
+                            <select class="js-example-basic-multiple" id="select_emps" onchange="dropdown_change_listener()" name="emps[]" style="width: 100%;" multiple="multiple">
+                            </select>
+                            <small><br><a href="#" data-target="#empSchedModal"  data-toggle="modal"><i class="fa fa-eye"></i> View Shift Schedule.</a></small>
+                            <script>
+                                $(document).ready(function() {
+                                    $('.js-example-basic-multiple').select2({
+                                        //maximumSelectionLength: 10,
+                                    });
+                                });
+                            </script>
+                        </div>
+                        <br>
+                        <div class="col-md-12 mb-3">
+                            <b id="warning_div" style="text-align: center;display: none;color: #ff4646"> Unable to proceed to next step. Please resolve the error.</b>
+                            <div style="text-align:center;" id="submit_div">
+                                <button type="submit" id="sumbit_btn" class="btn btn-success" disabled>Next: Select Packages</button>
+                            </div>
+                        </div>
+                        {!! Form::close() !!}
+                    </div>
                 </div>
                 <script>
                     function toggle(x){
                         if(x=="Others"){
                             var test=document.getElementById('test');
-                             test.style.display="block";
+                            test.style.display="block";
                         }
                     }
                 </script>
             </div>
         </div>
     </div>
-</div>
+    </div>
 @endsection
 
 @push('js')
@@ -265,7 +299,7 @@
 
     function dropdown_change_listener() {
         let len = $(".js-example-basic-multiple :selected").length;
-        if (len >= 5){
+        if (len >= 2){
             $("#sumbit_btn").attr("disabled",false);
         }
         else{
@@ -312,6 +346,7 @@
             $("#emp_col").css("display","block");
         }
         disp_avail_personnel(start.value);
+        disp_personnel_sched(start.value);
         //show avail employees
     }
     function disp_avail_personnel(date){
@@ -322,6 +357,22 @@
                 console.log(entry);
                 $("#select_emps").append('<option value="'+entry["emp_id"]+'">'+entry["fn"]+' '+entry["ln"]+'</option>');
 
+            });
+        });
+    }
+    function disp_personnel_sched(date){
+        $.get("/get_all_personnel_sched_on_date/"+date, function(data, status){
+            console.log("helloo: " + data + "\nStatus: " + status);
+            $("#shift_tbl").empty();
+            var datur = JSON.parse(data);
+            $("#shift_lbl").html(datur.date_name + ' Shift');
+            var scheds = datur.scheds;
+            scheds.forEach(function(entry) {
+                var str = '<tr><td>'+entry.name+'</td>';
+                str +='<td>'+entry.shift_name+'</td>';
+                str += '<td>'+entry.in+'</td><td>'+entry.out+'</td></tr>';
+                $("#shift_tbl").append(str);
+                console.log(entry);
             });
         });
     }

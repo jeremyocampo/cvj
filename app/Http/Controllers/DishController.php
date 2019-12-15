@@ -55,9 +55,18 @@ class DishController extends Controller
      */
     public function store(DishRequest $request)
     {
-        //
-
-        Dish::create($request->all());
+        /*
+        $itm = new Items();
+        $itm->item_name = $request->input('dish_name');
+        $itm->item_cat = $request->input('dish_category');
+        $itm->quantity = $request->input('quantity');
+        $itm->unit_cost = $request->input('unit_cost');
+        $itm->unit_expense = $request->input('unit_expense');
+        $itm->save();
+        */
+        $dish = Dish::create($request->all());
+        //$dish->item_id = $itm->item_id;
+        //$dish->save();
 
         return redirect('/dishes')->with('success', 'Dish Added!');
     }
@@ -102,6 +111,7 @@ class DishController extends Controller
         //
 
         Dish::find($id)->update($request->all());
+
         return redirect('/dishes')->with('success', 'Dish Updated!');
 
     }

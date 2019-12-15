@@ -38,4 +38,7 @@ class PackageModel extends Model
         }
         return true;
     }
+    public function check_package_event_inv_warning(){
+
+    }
 }

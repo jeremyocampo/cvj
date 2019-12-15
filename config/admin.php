@@ -1,7 +1,5 @@
 <?php
-
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Laravel-admin name
@@ -12,7 +10,6 @@ return [
     |
     */
     'name' => 'Laravel-admin',
-
     /*
     |--------------------------------------------------------------------------
     | Laravel-admin logo
@@ -23,7 +20,6 @@ return [
     |
     */
     'logo' => '<b>Laravel</b> admin',
-
     /*
     |--------------------------------------------------------------------------
     | Laravel-admin mini logo
@@ -35,7 +31,6 @@ return [
     |
     */
     'logo-mini' => '<b>La</b>',
-
     /*
     |--------------------------------------------------------------------------
     | Laravel-admin bootstrap setting
@@ -45,7 +40,6 @@ return [
     |
     */
     'bootstrap' => app_path('Admin/bootstrap.php'),
-
     /*
     |--------------------------------------------------------------------------
     | Laravel-admin route settings
@@ -57,14 +51,10 @@ return [
     |
     */
     'route' => [
-
         'prefix' => env('ADMIN_ROUTE_PREFIX', 'admin'),
-
         'namespace' => 'App\\Admin\\Controllers',
-
         'middleware' => ['web', 'admin'],
     ],
-
     /*
     |--------------------------------------------------------------------------
     | Laravel-admin install directory
@@ -76,7 +66,6 @@ return [
     |
     */
     'directory' => app_path('Admin'),
-
     /*
     |--------------------------------------------------------------------------
     | Laravel-admin html title
@@ -86,7 +75,6 @@ return [
     |
     */
     'title' => 'Admin',
-
     /*
     |--------------------------------------------------------------------------
     | Access via `https`
@@ -96,7 +84,6 @@ return [
     |
     */
     'https' => env('ADMIN_HTTPS', false),
-
     /*
     |--------------------------------------------------------------------------
     | Laravel-admin auth setting
@@ -109,31 +96,24 @@ return [
     |
     */
     'auth' => [
-
         'controller' => App\Admin\Controllers\AuthController::class,
-
         'guard' => 'admin',
-
         'guards' => [
             'admin' => [
                 'driver'   => 'session',
                 'provider' => 'admin',
             ],
         ],
-
         'providers' => [
             'admin' => [
                 'driver' => 'eloquent',
                 'model'  => Encore\Admin\Auth\Database\Administrator::class,
             ],
         ],
-
         // Add "remember me" to login form
         'remember' => true,
-
         // Redirect to the specified URI when user is not authorized.
         'redirect_to' => 'auth/login',
-
         // The URIs that should be excluded from authorization.
         'excepts' => [
             'auth/login',
@@ -141,7 +121,6 @@ return [
             '_handle_action_',
         ],
     ],
-
     /*
     |--------------------------------------------------------------------------
     | Laravel-admin upload setting
@@ -152,17 +131,14 @@ return [
     |
     */
     'upload' => [
-
         // Disk in `config/filesystem.php`.
         'disk' => 'admin',
-
         // Image and file upload path under the disk above.
         'directory' => [
             'image' => 'images',
             'file'  => 'files',
         ],
     ],
-
     /*
     |--------------------------------------------------------------------------
     | Laravel-admin database settings
@@ -172,26 +148,20 @@ return [
     |
     */
     'database' => [
-
         // Database connection for following tables.
         'connection' => '',
-
         // User tables and model.
         'users_table' => 'admin_users',
         'users_model' => Encore\Admin\Auth\Database\Administrator::class,
-
         // Role table and model.
         'roles_table' => 'admin_roles',
         'roles_model' => Encore\Admin\Auth\Database\Role::class,
-
         // Permission table and model.
         'permissions_table' => 'admin_permissions',
         'permissions_model' => Encore\Admin\Auth\Database\Permission::class,
-
         // Menu table and model.
         'menu_table' => 'admin_menu',
         'menu_model' => Encore\Admin\Auth\Database\Menu::class,
-
         // Pivot table for table above.
         'operation_log_table'    => 'admin_operation_log',
         'user_permissions_table' => 'admin_user_permissions',
@@ -199,7 +169,6 @@ return [
         'role_permissions_table' => 'admin_role_permissions',
         'role_menu_table'        => 'admin_role_menu',
     ],
-
     /*
     |--------------------------------------------------------------------------
     | User operation log setting
@@ -209,14 +178,11 @@ return [
     |
     */
     'operation_log' => [
-
         'enable' => true,
-
         /*
          * Only logging allowed methods in the list
          */
         'allowed_methods' => ['GET', 'HEAD', 'POST', 'PUT', 'DELETE', 'CONNECT', 'OPTIONS', 'TRACE', 'PATCH'],
-
         /*
          * Routes that will not log to database.
          *
@@ -227,21 +193,18 @@ return [
             'admin/auth/logs*',
         ],
     ],
-
     /*
     |--------------------------------------------------------------------------
     | Indicates whether to check route permission.
     |--------------------------------------------------------------------------
     */
     'check_route_permission' => true,
-
     /*
     |--------------------------------------------------------------------------
     | Indicates whether to check menu roles.
     |--------------------------------------------------------------------------
     */
     'check_menu_roles'       => true,
-
     /*
     |--------------------------------------------------------------------------
     | User default avatar
@@ -251,7 +214,6 @@ return [
     |
     */
     'default_avatar' => '/vendor/laravel-admin/AdminLTE/dist/img/user2-160x160.jpg',
-
     /*
     |--------------------------------------------------------------------------
     | Admin map field provider
@@ -261,7 +223,6 @@ return [
     |
     */
     'map_provider' => 'google',
-
     /*
     |--------------------------------------------------------------------------
     | Application Skin
@@ -277,7 +238,6 @@ return [
     |
     */
     'skin' => 'skin-blue-light',
-
     /*
     |--------------------------------------------------------------------------
     | Application layout
@@ -291,7 +251,6 @@ return [
     |
     */
     'layout' => ['sidebar-mini', 'sidebar-collapse'],
-
     /*
     |--------------------------------------------------------------------------
     | Login page background image
@@ -301,7 +260,6 @@ return [
     |
     */
     'login_background_image' => '',
-
     /*
     |--------------------------------------------------------------------------
     | Show version at footer
@@ -312,7 +270,6 @@ return [
     |
     */
     'show_version' => true,
-
     /*
     |--------------------------------------------------------------------------
     | Show environment at footer
@@ -322,7 +279,6 @@ return [
     |
     */
     'show_environment' => true,
-
     /*
     |--------------------------------------------------------------------------
     | Menu bind to permission
@@ -331,7 +287,6 @@ return [
     | whether enable menu bind to a permission
     */
     'menu_bind_permission' => true,
-
     /*
     |--------------------------------------------------------------------------
     | Enable default breadcrumb
@@ -340,42 +295,34 @@ return [
     | Whether enable default breadcrumb for every page content.
     */
     'enable_default_breadcrumb' => true,
-
     /*
     |--------------------------------------------------------------------------
     | Enable/Disable assets minify
     |--------------------------------------------------------------------------
     */
     'minify_assets' => [
-
         // Assets will not be minified.
         'excepts' => [
-
         ],
-
     ],
-
     /*
     |--------------------------------------------------------------------------
     | Enable/Disable sidebar menu search
     |--------------------------------------------------------------------------
     */
     'enable_menu_search' => true,
-
     /*
     |--------------------------------------------------------------------------
     | Alert message that will displayed on top of the page.
     |--------------------------------------------------------------------------
     */
     'top_alert' => '',
-
     /*
     |--------------------------------------------------------------------------
     | The global Grid action display class.
     |--------------------------------------------------------------------------
     */
     'grid_action_class' => \Encore\Admin\Grid\Displayers\DropdownActions::class,
-
     /*
     |--------------------------------------------------------------------------
     | Extension Directory
@@ -385,7 +332,6 @@ return [
     | the extension files will be generated in this directory.
     */
     'extension_dir' => app_path('Admin/Extensions'),
-
     /*
     |--------------------------------------------------------------------------
     | Settings for extensions.
@@ -396,34 +342,31 @@ return [
     |
     */
     'extensions' => [
-        
+        /*
         'daterangepicker' => [
-        
+
             // Set to `false` if you want to disable this extension
-            'enable' => true,
-            
+            'enable' => false,
+
             // Find more configurations http://www.daterangepicker.com/
             'config' => [
-
                 $('#demo').daterangepicker({
                     "showDropdowns": true,
                     ranges: {
-                        'Today': [moment(), moment()],
+                        "Today": [moment(), moment()],
                         'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
                         'Last 7 Days': [moment().subtract(6, 'days'), moment()],
                         'Last 30 Days': [moment().subtract(29, 'days'), moment()],
                         'This Month': [moment().startOf('month'), moment().endOf('month')],
                         'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
                     },
-                    "startDate": "12/03/2019",
-                    "endDate": "12/09/2019"
-                }, function(start, end, label) {
-                  console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
-                });
+{ "startDate": "12/03/2019",
+                                        "endDate": "12/09/2019"
+                                    }, function(start, end, label) {
+                    });
 
-            
             ]
         ]
-        
+*/
     ],
 ];

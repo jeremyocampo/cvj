@@ -21,21 +21,63 @@ class EventsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
-        // $event = Event::get();
-        $events = Event::get();
 
-        // $events[0]->startDate;
-        // $events[0]->startDateTime;
-        // $events[0]->endDate;
-        // $events[0]->endDateTime;
+        $eventPending = DB::table('event')
+            // ->join('reserve_venue','event.reservation_id','=','reserve_venue.reservation_id')
+            ->join('event_status_ref', 'event.status', '=', 'event_status_ref.status_id')
+            ->select('*')
+            ->where('event.status', '<', '2')
+            ->get();
 
+        $eventApproved = DB::table('event')
+            // ->join('reserve_venue','event.reservation_id','=','reserve_venue.reservation_id')
+            ->join('event_status_ref', 'event.status', '=', 'event_status_ref.status_id')
+            ->select('*')
+            ->where('event.status', '>', '1')
+            ->get();
+
+        $date = Carbon::now();
+        // dd($date);
+
+        // $check = (Carbon::parse($date)->gt($event[0]->event_start));
+        $upcomingPendingEvents = array();
+        $upcomingApprovedEvents = array();
+
+        foreach($eventPending as $i){
+            if(Carbon::parse($i->event_start)->format('Y-m-d') >= $date->subDay()->format('Y-m-d')){
+                array_push($upcomingPendingEvents, $i);
+            }
+        }
+
+        foreach($eventApproved as $b){
+            if(Carbon::parse($b->event_start)->format('Y-m-d') >= $date->subDay()->format('Y-m-d')){
+                array_push($upcomingApprovedEvents, $b);
+            }
+        }
+        // dd($eventEndString);
+
+        return view('eventsDash', ['pendingEvents' => $upcomingPendingEvents, 'events' => $upcomingApprovedEvents]);
+        // return view('eventsDash');
+    }
+
+    public function list_events()
+    {
+        //create a new event
         // $event = new Event;
 
         // $event->name = 'A new event';
-        // $event->startDateTime = Carbon::now();
-        // $event->endDateTime = Carbon::now()->addHour();
+        // $event->startDateTime = Carbon\Carbon::now();
+        // $event->endDateTime = Carbon\Carbon::now()->addHour();
+        // $event->addAttendee(['email' => 'youremail@gmail.com']);
+        // $event->addAttendee(['email' => 'anotherEmail@gmail.com']);
+
         // $event->save();
 
         // get all future events on a calendar
@@ -99,6 +141,7 @@ class EventsController extends Controller
         }
 
 
+
         foreach($eventApproved as $b){
 
             $e = events::where('event_id','=',$b->event_id)->first();
@@ -142,6 +185,12 @@ class EventsController extends Controller
     public function store(Request $request)
     {
         //
+        // create a new event
+        // Event::create([
+        // 'name' => 'A new event',
+        // 'startDateTime' => Carbon\Carbon::now(),
+        // 'endDateTime' => Carbon\Carbon::now()->addHour(),
+        // ]);
     }
 
     /**
@@ -153,6 +202,14 @@ class EventsController extends Controller
     public function show($id)
     {
         //
+        $event = DB::table('event')
+            ->join('reserve_venue','event.reservation_id','=','reserve_venue.reservation_id')
+            ->join('event_status_ref', 'event.status', '=', 'event_status_ref.status_id')
+            ->select('*')
+            ->where('event.status', '<', '2')
+            ->get();
+
+        return view('viewEventDeets');
     }
 
     /**
@@ -164,6 +221,7 @@ class EventsController extends Controller
     public function edit($id)
     {
         //
+
     }
 
     /**
@@ -176,6 +234,12 @@ class EventsController extends Controller
     public function update(Request $request, $id)
     {
         //
+        // update existing event
+        // $firstEvent = $events->first();
+        // $firstEvent->name = 'updated name';
+        // $firstEvent->save();
+
+        // $firstEvent->update(['name' => 'updated again']);
     }
 
     /**
@@ -187,5 +251,8 @@ class EventsController extends Controller
     public function destroy($id)
     {
         //
+        // // delete an event
+        // $event->delete();
+        // dd($events);
     }
 }

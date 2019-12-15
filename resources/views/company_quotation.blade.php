@@ -162,7 +162,6 @@
                                 </table>
                                 <br>
                                 <u> LABOR COST FOR EVENT STAFFING</u>
-                                <small>(is just trial for now)</small>
                                 <br>
                                 <table style="border:none; width: 100%;">
                                     <tr class="th_tbl">
@@ -174,7 +173,7 @@
                                         <tr>
                                             <td class="col_1 squam_tbl">{{$staff['employee_id']}}</td>
                                             <td class="col_2 squam_tbl">{{$staff['employee_FN'] }} {{$staff['employee_LN']}}</td>
-                                            <td class="col_3 squam_tbl">P 800.0</td>
+                                            <td class="col_3 squam_tbl">{{$staff['daily_rate']}}</td>
                                         </tr>
                                     @endforeach
                                     <tr>
@@ -216,14 +215,8 @@
                                     </tr>
                                 </table>
                                 <br>
-                                <u> Extras </u>
-                                <small>(is just trial for now)</small>
-                                <ul>
-                                    <li>Off-Premise Logistics Fee : P <b>{{number_format($extra_cost,2)}}</b></li>
-                                </ul>
                                 @if($is_off_premise)
                                     <u> Extras </u>
-                                    <small>(is just trial for now)</small>
                                     <ul>
                                         <li>Off-Premise Logistics Fee : P <b>{{number_format($extra_cost,2)}}</b></li>
                                     </ul>

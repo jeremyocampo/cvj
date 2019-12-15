@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Event extends Model
 {
     //
-    public $primaryKey = 'event_name';
+    public $primaryKey = 'event_id';
     //public $incrementing = false;
     public $table = 'event';
     public $timestamps = false;

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class EventModel extends Model
 {
     //
-    public $primaryKey = 'event_name';
+    public $primaryKey = 'event_id';
     public $table = 'event';
     public $timestamps = false;
     public $fillable = [

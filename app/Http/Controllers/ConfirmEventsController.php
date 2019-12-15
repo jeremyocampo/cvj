@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\EventInventory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\events;
@@ -73,7 +74,13 @@ class ConfirmEventsController extends Controller
          $event->event_budget_create();
          $event->save();
 
+        // Add items to outsource here or item outsource.
+        //1. Check Total Inv of items
+        $event_invs = DB::select('select inventory_id, sum(qty) as qty from event_inventory where event_id = ? group by inventory_id',[31]);
 
+        foreach($event_invs as $inv){
+            error_log("Amporkchop: ".$inv->inventory_id." ".$inv->qty);
+        }
 
             $startDateTime = Carbon::parse($event->event_start);
             $endDateTime = Carbon::parse($event->event_end);

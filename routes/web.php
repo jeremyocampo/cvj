@@ -68,6 +68,20 @@ Route::resource('calendar', 'Calendar');
 
 //MARKzs Routes
 
+//Personnel API
+Route::get('avail_personnels/{event_id}','EventsBudgetController@get_available_personnel')->name("get.personnels");
+Route::get('add_personnel/{emp_id}/{event_id}','EventsBudgetController@save_personnel')->name("post.personnels");
+Route::get('avail_personnels_on_date/{date}','BookEventController@get_available_personnel_on_date')->name("get.personnel_date");
+Route::get('get_all_personnel_sched_on_date/{date}','BookEventController@get_all_personnel_sched_on_date')->name("get.personnel_sched");
+
+Route::get('get_all_personnel_sched_on_date/{date}','BookEventController@get_all_personnel_sched_on_date')->name("get.personnel_sched");
+
+//Bookevent API
+Route::get('check_valid_date/{startDate}','BookEventController@checkDateValidity')->name("get.checkdatevalid");
+
+//Gmail API
+Route::get('email/{send_name}/{send_email}/{subject}','MailController@send_email');
+
 //Costing
 Route::get('event_costing/{event_id}','EventsCostingController@show');
 Route::resource('event_costing','EventsCostingController');
@@ -145,6 +159,12 @@ Route::get('remove_event_package/{event_id}', 'SelectPackageController@destroy')
 //ajax
 Route::post('add_client_ajax', 'BookEventController@add_client_ajax')->name('ajax.client_add');
 
+Route::resource('dishes', 'DishController');
+Route::get('disabled-dishes', 'DishController@disable');
+Route::get('recover-dish/{id}', 'DishController@recoverDish');
+
+Route::resource('manpowers', 'ManpowerController');
+Route::get('disabled-manpower', 'ManpowerController@disable');
 
 Route::resource('clientregister', 'ClientRegisterController');
 
