@@ -43,11 +43,11 @@ class BookEventController extends Controller
         // ->join('event','client_ref.client_name','=','event.client_name')
         // ->get();
         //dd($joinedTable);
-
-        $client = DB::table('client')
-            ->select('*')
-            ->where('client.user_id', '=', auth()->user()->id)
-            ->get();
+        
+        // $client = DB::table('client')
+        // ->select('*')
+        // ->where('client.user_id', '=', auth()->user()->id)
+        // ->get();
         $clients = Client::all();
         $packages = DB::table('package')
             // ->join('package','event.package_id','=','package.package_id')
@@ -57,7 +57,7 @@ class BookEventController extends Controller
 
         //error_log(self::send_email(auth()->user()->name,"leebet16@gmail.com", "Patorjackan.info"));
 
-        return view('bookevent', ['client' => $client,'clients'=>$clients, 'packages' => $packages,'min_val_date'=>$min_val_day]);
+        return view('bookevent', ['clients'=>$clients, 'packages' => $packages,'min_val_date'=>$min_val_day]);
 
     }
     public function add_client_ajax(Request $request){

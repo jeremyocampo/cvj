@@ -17,11 +17,29 @@
       0 => 'BeyondCode\\DumpServer\\DumpServerServiceProvider',
     ),
   ),
+  'encore/laravel-admin' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Encore\\Admin\\AdminServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'Admin' => 'Encore\\Admin\\Facades\\Admin',
+    ),
+  ),
   'fideloper/proxy' => 
   array (
     'providers' => 
     array (
       0 => 'Fideloper\\Proxy\\TrustedProxyServiceProvider',
+    ),
+  ),
+  'laravel-admin-ext/daterangepicker' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Encore\\DateRangePicker\\DateRangePickerServiceProvider',
     ),
   ),
   'laravel-frontend-presets/argon' => 
@@ -87,24 +105,6 @@
     'aliases' => 
     array (
       'GoogleCalendar' => 'Spatie\\GoogleCalendar\\GoogleCalendarFacade',
-    ),
-  ),
-  'encore/laravel-admin' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Encore\\Admin\\AdminServiceProvider',
-    ),
-    'aliases' => 
-    array (
-      'Admin' => 'Encore\\Admin\\Facades\\Admin',
-    ),
-  ),
-  'laravel-admin-ext/daterangepicker' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Encore\\DateRangePicker\\DateRangePickerServiceProvider',
     ),
   ),
 );

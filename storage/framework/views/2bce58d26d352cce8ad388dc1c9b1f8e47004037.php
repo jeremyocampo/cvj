@@ -298,7 +298,7 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startPush('js'); ?>
-    <script src="<?php echo e(asset('argon')); ?>/vendor/chart.js/dist/Chart.min.js"></script>
-    <script src="<?php echo e(asset('argon')); ?>/vendor/chart.js/dist/Chart.extension.js"></script>
+    <script src="<?php echo e(asset('argon'), false); ?>/vendor/chart.js/dist/Chart.min.js"></script>
+    <script src="<?php echo e(asset('argon'), false); ?>/vendor/chart.js/dist/Chart.extension.js"></script>
 <?php $__env->stopPush(); ?>
 <?php echo $__env->make('layouts.inventoryApp', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>

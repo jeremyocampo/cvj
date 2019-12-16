@@ -68,17 +68,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach()
-                            @if()
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            @endif
+                        @foreach($events as $i)
+                            {{-- @if() --}}
+                            <tr>
+                                <td>{{$i->event_name}}</td>
+                                <td>{{$i->event_type}}</td>
+                                <td>{{$i->package_name}}</td>
+                                <td></td>
+                                <td>{{$i->total_amount_due}}</td>
+                                <td><button class="form-control" type="button">Action</button></td>
+                            </tr>
+                            {{-- @endif --}}
                         @endforeach
                     </tbody>
                 </table>

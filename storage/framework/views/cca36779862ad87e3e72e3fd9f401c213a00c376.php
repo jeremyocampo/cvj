@@ -10,6 +10,9 @@
 
         <title><?php echo e(config('app.name', 'Argon Dashboard'), false); ?></title>
         <!-- Favicon -->
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+
         <link href="<?php echo e(asset('argon'), false); ?>/img/brand/cvj.png" rel="icon" type="image/png">
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
@@ -34,17 +37,16 @@
         <script type="text/javascript" src=". /resources/js/bootstrap-datetimepicker.*js"></script>
         <!------>
 
-
-
-        
-
         
         
         
 
 
-    <link rel="stylesheet" type="text/css" media="screen"
-     href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
+    
+        
+
+
+        <link rel="stylesheet" type="text/css" media="screen" href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
 
 
         <script type="text/javascript">
@@ -155,7 +157,11 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <style type="text/css">
+
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+
+        <style type="text/css">
     body {
         background: #e2eaef;
         font-family: "Open Sans", sans-serif;
@@ -334,7 +340,7 @@
             <form id="logout-form" action="<?php echo e(route('logout'), false); ?>" method="POST" style="display: none;">
                 <?php echo csrf_field(); ?>
             </form>
-                <?php echo $__env->make('layouts.navbars.sidebar', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+            <?php echo $__env->make('layouts.navbars.sidebar', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
         <?php endif; ?>
         
         <div class="main-content">

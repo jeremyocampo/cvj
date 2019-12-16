@@ -23,7 +23,8 @@
                             <img alt="Image placeholder" src="{{ asset('argon') }}/img/theme/team-1-800x800.jpg">
                         </span>
                         <div class="media-body ml-2 d-none d-lg-block">
-                            <span class="mb-0 text-sm  font-weight-bold">{{ auth()->user()->name }}<br><small>{{ auth()->user()->userType }}</small></span>
+                            {{-- <span class="mb-0 text-sm  font-weight-bold">{{ auth()->user()->name }}<br><small>{{ auth()->user()->userType }}</small></span> --}}
+                            <span class="mb-0 text-sm  font-weight-bold">{{ auth()->user()->name }}<br></span>
                         </div>
                     </div>
                 </a>

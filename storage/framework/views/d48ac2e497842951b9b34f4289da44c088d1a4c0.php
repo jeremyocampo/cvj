@@ -25,14 +25,14 @@
                                         <br>
                                         <div class="alert alert-success" role="alert">
                                             <button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">x</span></button>
-                                            <?php echo e(session()->get('success')); ?><br>
+                                            <?php echo e(session()->get('success'), false); ?><br>
                                         </div>
                                     <?php endif; ?>
                                     <?php if(session()->has('deleted')): ?>
                                         <br>
                                         <div class="alert alert-danger" role="alert">
                                             <button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">x</span></button>
-                                            <?php echo e(session()->get('deleted')); ?><br>
+                                            <?php echo e(session()->get('deleted'), false); ?><br>
                                         </div>
                                     <?php endif; ?>
                                 </div>
@@ -55,11 +55,11 @@
                                         <?php $__currentLoopData = $events; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <?php if($i->status <= 3): ?>
                                         <tr>
-                                            <td><?php echo e($i->event_name); ?></td>
-                                            <td><?php echo e($i->venue); ?></td>
-                                            <td><?php echo e(Carbon\Carbon::parse($i->event_start)->format('F j, Y g:i a')); ?></td>
+                                            <td><?php echo e($i->event_name, false); ?></td>
+                                            <td><?php echo e($i->venue, false); ?></td>
+                                            <td><?php echo e(Carbon\Carbon::parse($i->event_start)->format('F j, Y g:i a'), false); ?></td>
                                             <td>
-                                                <a class="" href="<?php echo e(url('deploy/'.$i->event_id)); ?>" >
+                                                <a class="" href="<?php echo e(url('deploy/'.$i->event_id), false); ?>" >
                                                     <button class="btn btn-block btn-sm">Deploy Inventory</button>
                                                 </a>
                                             </td>
@@ -85,10 +85,10 @@
                                         <?php $__currentLoopData = $eventsDep; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <?php if($i->status <= 4): ?>
                                         <tr>
-                                            <td><?php echo e($i->event_name); ?></td>
-                                            <td><?php echo e($i->venue); ?></td>
-                                            <td><?php echo e(Carbon\Carbon::parse($i->event_start)->format('F j, Y g:i a')); ?></td>
-                                            <td><?php echo e($i->status_name); ?></td>
+                                            <td><?php echo e($i->event_name, false); ?></td>
+                                            <td><?php echo e($i->venue, false); ?></td>
+                                            <td><?php echo e(Carbon\Carbon::parse($i->event_start)->format('F j, Y g:i a'), false); ?></td>
+                                            <td><?php echo e($i->status_name, false); ?></td>
                                         </tr>
                                         <?php endif; ?>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

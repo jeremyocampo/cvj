@@ -4,6 +4,113 @@
 
 <?php $__env->startSection('content'); ?>
     <?php echo $__env->make('layouts.headers.eventsCard', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    <div class="modal fade" id="newUserModal" tabindex="-1" style="width: 100%" role="dialog" aria-labelledby="dishesModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document" >
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="dishesModalLabel">Add New Client</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Client Name</label>
+                            <input type="text" name="client_name" id="client_name" value ="" placeholder="e.g: Juan Dela Cruz"  class="form-control">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" name="email" id="email" value ="" placeholder="e.g: JuanDelaCruz@gmail.com"  class="form-control">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Telephone Number</label>
+                            <input type="text" name="tel_no" id="tel_no" value ="" placeholder="e.g: 8011234"  class="form-control">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Mobile Number</label>
+                            <input type="text" name="mob_no" id="mob_no" value ="" placeholder="e.g: 09171234567"  class="form-control">
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">Address</label>
+                            <input type="text" name="address" id="address" value ="" placeholder="e.g: Leon Guinto, Taft Ave., Malate, Manila"  class="form-control">
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-small btn-primary" onclick="add_new_client();" data-dismiss="modal">Add Client</button>
+                    <button type="button" class="btn btn-small btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+                <script>
+                    function add_new_client(){
+                        $.ajax({
+                            url: "<?php echo e(route('ajax.client_add'), false); ?>",
+                            method: 'POST',
+                            data:{
+                                'client_name':$("#client_name").val(),
+                                'email':$("#email").val(),
+                                'tel_no':$("#tel_no").val(),
+                                'mob_no':$("#mob_no").val(),
+                                'address':$("#address").val(),
+                                '_token':'<?php echo e(csrf_token(), false); ?>'
+                            },
+                            success: function(result){
+                                console.log(result);
+                                var str =  '<option value="'+result.client_id+'" selected>';
+                                str += $("#client_name").val();
+                                str += '</option>';
+                                $('#client_select').append(str);
+                                alert('client '+$("#client_name").val()+' added');
+                            }});
+                    }
+                </script>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="empSchedModal" tabindex="-1" style="width: 100%" role="dialog" aria-labelledby="dishesModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document" >
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="dishesModalLabel">Employee Shift Schedule</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <h3 id="shift_lbl"></h3>
+                        <div class="table-responsive mb-3">
+                            <table class="table table-bordered align-items-center table-flush mb-4" id="myTable">
+                                <thead class="thead-light">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Shift Name</th>
+                                    <th>In</th>
+                                    <th>Out</th>
+                                </tr>
+                                </thead>
+                                <tbody id="shift_tbl">
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="pageNavPosition" style="padding-top: 20px; cursor: pointer;" align="center"></div>
+                        <script type="text/javascript">
+                            var pager = new Pager('myTable', 5);
+                            pager.init();
+                            pager.showPageNav('pager', 'pageNavPosition');
+                            pager.showPage(1);
+                        </script>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-small btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <div class="container-fluid mt--7">
         <div class="col-xl-12 mb-5">
@@ -15,17 +122,6 @@
 
                             <h1 class="">Book Event <br> </h1>
                         </div>
-                        <div class="col-xs-5 col-md-5">
-                            
-                            <?php if(is_null($client)): ?>
-                                <label class = "form-label"> Client Email Address <font color="red">*</font></label>
-                                <input type="text" class="form-control" name="email" placeholder="example: Client@gmail.com" required>
-                            <?php else: ?>
-                                <label class = "form-label"> for </label>
-                                <h3><b><?php echo e(' ' . $client->client_name . ' '); ?></b></h3>
-                                <input type="hidden" class="form-control" name="email" value="<?php echo e($client->email); ?>">
-                            <?php endif; ?>
-                        </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
@@ -33,14 +129,14 @@
                                 <br>
                                 <div class="alert alert-success" role="alert">
                                     <button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">x</span></button>
-                                    <?php echo e(session()->get('success')); ?><br>
+                                    <?php echo e(session()->get('success'), false); ?><br>
                                 </div>
                             <?php endif; ?>
                             <?php if(session()->has('error')): ?>
                                 <br>
                                 <div class="alert alert-danger" role="alert">
                                     <button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">x</span></button>
-                                    <?php echo e(session()->get('error')); ?><br>
+                                    <?php echo e(session()->get('error'), false); ?><br>
                                 </div>
                             <?php endif; ?>
                         </div>
@@ -50,13 +146,39 @@
                     <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <div class="alert alert-danger" role="alert">
                             <button type = button data-dismiss="alert" class="close"><span aria-hidden="true">x</span></button>
-                            <?php echo e($error); ?><br>
+                            <?php echo e($error, false); ?><br>
                         </div>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     <div class="row">
                         <div class="col-md-5 mb-3">
+                            <div>
+                                <label class = "form-label" style="display: inline"> Select Client <font color="red">*</font></label>
+                                <button type="button"style="border-radius: 50px;display: inline;padding: .75px;margin-bottom: .5rem;"  class="btn btn-primary" data-target="#newUserModal" data-tooltip="eut" data-toggle="modal"><i class="fa fa-user-alt"></i>+</button>
+
+                            </div>
+                            <select name = "client_id"  id = "client_select" class = "form-control" required>
+                                <option disabled selected> - Please Choose Client - </option>
+                                <?php $__currentLoopData = $clients; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $client): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option value="<?php echo e($client->client_id, false); ?>"> <?php echo e($client->client_name, false); ?> </option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </select>
+
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label class = "form-label"> Estimated Attendees <font color="red">*</font></label>
+                            <select name = "attendees"  id = "attendees" class = "form-control" required>
+                                <option value="50"> 50 </option>
+                                <option value="70"> 70 </option>
+                                <option value="80"> 80 </option>
+                                <option value="100"> 100 </option>
+                                <option value="150"> 150 </option>
+                                <option value="200"> 200 </option>
+                            </select>
+                        </div>
+                        <div class="col-md-5 mb-3">
                             <label class = "form-label"> Event Name <font color="red">*</font></label>
-                            <?php echo e(Form::text('eventName', '', ['class' => 'form-control', 'placeholder' => 'Event Name', 'required' => 'true'])); ?>
+                            <?php echo e(Form::text('eventName', '', ['class' => 'form-control', 'placeholder' => 'Event Name', 'required' => 'true']), false); ?>
 
                         </div>
 
@@ -76,7 +198,7 @@
                         <div class="col-md-5 mb-3">
                             <label class = "datetime"> Event Date <font color="red">*</font></label>
                             
-                            <input type="date" min="<?php echo e($min_val_date); ?>" name="eventStartDate" onchange="checkdates()" class="form-control" placeholder="Start date" id="eventStartDate">
+                            <input type="date" min="<?php echo e($min_val_date, false); ?>" name="eventStartDate" onchange="checkdates()" class="form-control" placeholder="Start date" id="eventStartDate">
                             <p id="invalid_msg" class="small" style="color: #ff5153;display: none;">This date is already overbooked. Please consider booking another day or cancel booking event.</p>
                         </div>
 
@@ -95,7 +217,7 @@
 
                         <div class="col-md-5 mb-3">
                             <label class = "form-label"> Event Theme <font color="red">*</font></label>
-                            <?php echo e(Form::text('theme', '', ['class' => 'form-control', 'placeholder' => 'Theme', 'required' => 'true'])); ?>
+                            <?php echo e(Form::text('theme', '', ['class' => 'form-control', 'placeholder' => 'Theme', 'required' => 'true']), false); ?>
 
                         </div>
 
@@ -134,15 +256,14 @@
                             </div>
                         </div>
                         <div class="col-md-5 mb-3"> <label class = "form-label"> Others </label>
-                            <?php echo e(Form::textarea('others', '', ['class' => 'form-control', 'placeholder' => 'Others (Optional)'])); ?>
+                            <?php echo e(Form::textarea('others', '', ['class' => 'form-control', 'placeholder' => 'Others (Optional)']), false); ?>
 
                         </div>
                         <div class="col-md-4 mb-3" id="emp_col" style="display: none;">
                             <label class = "form-label"> Assign Personnel to Event</label>
-                            <select class="js-example-basic-multiple" id="select_emps" onchange="dropdown_change_listener()" name="emps[]" style="width: 100%" multiple="multiple">
-
+                            <select class="js-example-basic-multiple" id="select_emps" onchange="dropdown_change_listener()" name="emps[]" style="width: 100%;" multiple="multiple">
                             </select>
-                            <small>Minimum of 5 personnel in an event.</small>
+                            <small><br><a href="#" data-target="#empSchedModal"  data-toggle="modal"><i class="fa fa-eye"></i> View Shift Schedule.</a></small>
                             <script>
                                 $(document).ready(function() {
                                     $('.js-example-basic-multiple').select2({
@@ -173,7 +294,7 @@
             </div>
         </div>
     </div>
-</div>
+    </div>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startPush('js'); ?>
@@ -229,6 +350,7 @@
             $("#emp_col").css("display","block");
         }
         disp_avail_personnel(start.value);
+        disp_personnel_sched(start.value);
         //show avail employees
     }
     function disp_avail_personnel(date){
@@ -239,6 +361,22 @@
                 console.log(entry);
                 $("#select_emps").append('<option value="'+entry["emp_id"]+'">'+entry["fn"]+' '+entry["ln"]+'</option>');
 
+            });
+        });
+    }
+    function disp_personnel_sched(date){
+        $.get("/get_all_personnel_sched_on_date/"+date, function(data, status){
+            console.log("helloo: " + data + "\nStatus: " + status);
+            $("#shift_tbl").empty();
+            var datur = JSON.parse(data);
+            $("#shift_lbl").html(datur.date_name + ' Shift');
+            var scheds = datur.scheds;
+            scheds.forEach(function(entry) {
+                var str = '<tr><td>'+entry.name+'</td>';
+                str +='<td>'+entry.shift_name+'</td>';
+                str += '<td>'+entry.in+'</td><td>'+entry.out+'</td></tr>';
+                $("#shift_tbl").append(str);
+                console.log(entry);
             });
         });
     }

@@ -97,6 +97,7 @@ Route::post('event_budgets/','EventsBudgetController@create')->name("post.event_
 Route::get('send_mail','MailController@index');
 
 Auth::routes();
+Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('ingredient', 'IngredientController');
 Route::resource('food', 'FoodController');
@@ -192,6 +193,18 @@ Route::get('qr-code-g', function () {
 
 Route::resource('addpackages', 'BookEventController');
 
+Route::resource('/client', 'ClientController');
+
+Route::resource('/markLostDamaged', 'MarkLostDamagedController');
+
+// Route::resource('/food', 'FoodController');
+
+// Route::get('/food', 'FoodController@index');
+
+Route::resource('fooditem','FoodItemController');
+
+Route::get('disabled-food', 'FoodItemController@disabled');
+Route::get('recover-food/{id}', 'FoodItemController@recoverItem');
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('suppliers', 'SupplierController');
     Route::get('suppliers/{supplier}/state', 'SupplierController@state');

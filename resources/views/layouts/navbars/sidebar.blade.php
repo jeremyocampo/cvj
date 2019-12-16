@@ -143,7 +143,7 @@
                                                 <i class="ni ni-bullet-list-67 text-blue"></i>View Inventory</a>
                                     </li>
                                     <li class="nav-item">
-                                    <li class="nav-item">
+                                    {{-- <li class="nav-item">
                                         <a class="nav-link" href="#dishes" data-toggle="collapse" role="" aria-expanded="false" aria-controls="">
                                             <i class="ni ni-collection text-red"></i>
                                             <span class="nav-link-text">Manage Dishes</span>
@@ -160,6 +160,24 @@
                                                 </li>
                                             </ul>
                                         </div>
+                                    </li> --}}
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#dishes" data-toggle="collapse" role="" aria-expanded="false" aria-controls="">
+                                            <i class="ni ni-collection text-red"></i>
+                                            <span class="nav-link-text">Manage Food</span>
+                                        </a>
+                                        <div class="collapse" id="dishes" style>
+                                            <ul class="nav nav-sm flex-column">
+                                                <li class="nav-item">
+                                                    <a href="{{ url('fooditem') }}" class="nav-link">
+                                                        <i class="ni ni-bullet-list-67 text-blue"></i>View Food</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="{{ url('disabled-food') }}" class="nav-link">
+                                                        <i class="ni ni-archive-2 text-red"></i>Food Archive</a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </li>
                                     <li class="nav-item">
                                         <a href="{{ url('deploy') }}" class="nav-link">
@@ -167,7 +185,7 @@
                                     </li>
                                     <li class="nav-item">
                                         <a href="{{ url('returnInventory') }}" class="nav-link">
-                                            <i class="ni ni-archive-2 text-purple"></i>Inventory Return</a>
+                                            <i class="ni ni-curved-next text-green"></i>Inventory Return</a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="{{ url('outsource') }}" class="nav-link">
@@ -175,7 +193,7 @@
                                     </li>
                                     <li class="nav-item">
                                         <a href="{{ url('archive') }}" class="nav-link">
-                                            <i class="ni ni-archive-2 text-red"></i> Archive</a>
+                                            <i class="ni ni-archive-2 text-red"></i>Inventory Archive</a>
                                     </li>
                                 </ul>
                             </div>
@@ -328,6 +346,28 @@
                              <i class="ni ni-calendar-grid-58 text-green"></i> List Events
                          </a>
                      </li>
+                     <li class="nav-item">
+                            <a class="nav-link" href="#manpower" data-toggle="collapse" role="" aria-expanded="false" aria-controls="">
+                                    <i class="ni ni-collection text-red"></i>
+                                    <span class="nav-link-text">Manpower</span>
+                                </a>
+                                <div class="collapse" id="manpower" style>
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a href="{{ url('schedules') }}" class="nav-link">
+                                                <i class="ni ni-bullet-list-67 text-blue"></i>Schedule List</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ url('manpowers') }}" class="nav-link">
+                                                <i class="ni ni-bullet-list-67 text-blue"></i>Manpower List</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ url('disabled-manpower') }}" class="nav-link">
+                                                <i class="ni ni-archive-2 text-purple"></i>Disabled Manpower</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
                     <li class="nav-item">
                         <a href="http://cvj.test:3000/logout" class="nav-link" onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();">
