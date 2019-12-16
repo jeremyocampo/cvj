@@ -15,7 +15,7 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                         <b>Food</b>
                         <table class="table">
                             <tbody id="food_tbl">
@@ -23,9 +23,12 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-7">
                         <b>Items & Misc</b>
                         <table class="table">
+                            <th>Inventory Name</th>
+                            <th>Package PCS</th>
+                            <th>Inventory on Date</th>
                             <tbody id="item_tbl">
                             <td></td>
                             </tbody>
@@ -53,24 +56,19 @@
 		<div class="col-xl-12 mb-5 mb-xl-0">
 				<div class="card shadow">
 						<div class="card-header border-0">
-								<div class="row align-items-center">
-									<div class="col">
-										<h3 class="mb-0" style="display: inline">Select Packages</h3>
+								<div class="row">
+										<h3 class="mb-0" style="display: inline">Select Package for Event ({{$event->event_name}})</h3>
+                                        {{--
                                         <a  style="display: inline" class="btn btn-sm btn-primary" href="{{route('customize_package',$event->event_id)}}/">+ Create New Package</a>
+                                        --}}
 
-                                    </div>
-                                    <div class="col">
-                                        <label>Showing packages for {{$event->totalpax}} pax and {{$event->event_type}}.</label>
-
-                                    </div>
-									<div class="col alight-items-right">
-
-										{{-- <h4>Last Replenished: {{$items[0]->last_modified}}</h4> --}}
-									</div>
 								</div>
-								{{-- <div class="row alight-items-right">
-									<h4>Last Replenished: {{$items[0]->last_modified}}</h4>
-								</div> --}}
+                            <div class="row">
+                                <label> > Showing packages good for <b>{{$event->totalpax}}</b> PAX and <b>{{$event->event_type}}</b> events.</label>
+                            </div>
+                            {{-- <div class="row alight-items-right">
+                                <h4>Last Replenished: {{$items[0]->last_modified}}</h4>
+                            </div> --}}
 						</div>
 						<div class="card-body border-0">
                             <div class="input-group mb-3" style="width: 35%">
@@ -90,13 +88,17 @@
                                             --}}
                                             <img class="card-img-top" src="{{asset($package->package_img_url)}}" style="height: 25vh;width: 100%vw" alt="">
                                             <div class="card-body">
+
                                                 <h3 class="card-title" style="margin-bottom: 0;"><a href="#"
                                                         package-name="{{$package->package_name}}"
                                                         package-id="{{$package->package_id}}"
                                                         data-food="@foreach($package->foods as $food){{$food->item_name}},{{asset($food->item_image)}}|@endforeach"
-                                                        data-inventory="@foreach($package->inventory as $inv){{$inv->inventory_name}},{{$inv->quantity}},{{$inv->inv_avail}}|@endforeach"
+                                                        data-inventory="@foreach($package->inventory as $inv){{$inv->inventory_name}},{{$inv->quantity}},{{$inv->inv_on_date}}|@endforeach"
                                                         data-toggle="modal" data-target="#exampleModal" onclick="show_package(this)">{{$package->package_name}}</a></h3>
-                                                <div>
+                                                @if($package->is_warning != null)
+                                                <span class="badge badge-pill badge-warning">Inventory Insufficient</span>
+                                                @endif
+                                                    <div>
                                                     <small>{{$package->package_desc}}</small><br>
                                                     <span style="display: inline-block">PHP</span> <b style="display: inline-block">{{number_format($package->price,2)}}</b>
                                                     <small>~ {{$package->suggested_pax}} pax</small>
@@ -131,15 +133,15 @@
         for(let i = 0;i<inventory_set.length-1;i++){
             let arr2 = inventory_set[i].split(',');
             let inv_str = '<tr><td>'+arr2[0]+'</td>';
-            inv_str += '<td>'+arr2[1]+' PCS';
-            console.log(arr2[0]+":"+arr2[2]);
-            if(parseInt(arr2[2]) === 0){
-                console.log('entered?');
-                inv_str +=' <span class="badge badge-danger">Insufficient Materials</span></td></tr>';
+            inv_str += '<td>'+arr2[1]+' PCS </td>';
+
+            if(parseInt(arr2[2]) - parseInt(arr2[1]) >= 0){
+                inv_str += '<td>'+arr2[2]+'</td></tr>';
             }
             else{
-                inv_str += '</td></tr>';
-            };
+                console.log('entered?');
+                inv_str +='<td>'+arr2[2]+' <span class="badge badge-danger">Insufficient Inventory</span></td></tr>';
+            }
             $("#item_tbl").append(inv_str);
         }
     }

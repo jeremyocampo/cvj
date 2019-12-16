@@ -7,6 +7,8 @@ use App\Employee;
 use App\EmployeeEventSchedule;
 use App\events;
 use App\User;
+//use App\Http\Controllers\Carbon;
+
 use Illuminate\Http\Request;
 
 //DB Callings
@@ -35,17 +37,25 @@ class BookEventController extends Controller
 
     public function index(){
 
-       
+
         // $client = DB::table('event')
-            // ->join('client_ref','event.client_name','=','client_ref.client_name')
-            // ->join('event','client_ref.client_name','=','event.client_name')
-            // ->get();
+        // ->join('client_ref','event.client_name','=','client_ref.client_name')
+        // ->join('event','client_ref.client_name','=','event.client_name')
+        // ->get();
         //dd($joinedTable);
+<<<<<<< HEAD
         
         // $client = DB::table('client')
         // ->select('*')
         // ->where('client.user_id', '=', auth()->user()->id)
         // ->get();
+=======
+
+        $client = DB::table('client')
+            ->select('*')
+            ->where('client.user_id', '=', auth()->user()->id)
+            ->get();
+>>>>>>> bbd802713255388126e073ba0da75ea63372c948
         $clients = Client::all();
         $packages = DB::table('package')
             // ->join('package','event.package_id','=','package.package_id')
@@ -72,7 +82,7 @@ class BookEventController extends Controller
         return Response::json(['client_id' => $client->client_id]);
     }
 
-    
+
     public function checkDateValidity($startDate){
         //get number of events for that day, if 10 return invalid.
         $d = new DateTime($startDate);
@@ -90,7 +100,7 @@ class BookEventController extends Controller
     public function create()
     {
         //
-        
+
 
         return view('bookevent');
     }
@@ -161,21 +171,21 @@ class BookEventController extends Controller
             }
         }
 
-/*
-        $event = new EventModel([
-            'event_name' => ,
-            'event_type' => $request->input('eventType'),
-            'venue' => $request->input('venue'),
-            'event_start' => $startDateTime,
-            'event_end' => $endDateTime,
-            'theme' => $request->input('theme'),
-            'totalpax' => null,
-            'others' => $request->input('others'),
-            'client_id' =>$request->input('client_id'),
-            'status' => 1,
+        /*
+                $event = new EventModel([
+                    'event_name' => ,
+                    'event_type' => $request->input('eventType'),
+                    'venue' => $request->input('venue'),
+                    'event_start' => $startDateTime,
+                    'event_end' => $endDateTime,
+                    'theme' => $request->input('theme'),
+                    'totalpax' => null,
+                    'others' => $request->input('others'),
+                    'client_id' =>$request->input('client_id'),
+                    'status' => 1,
 
-        ]);
-*/
+                ]);
+        */
         //check if package is still compatible with event
 
 
@@ -192,128 +202,103 @@ class BookEventController extends Controller
     public function store(Request $request)
     {
 
-    //dd($request['eventType']);
-    // $loginDet = [
-    //     "client_id" => "princessdelapaz",
-    //     "password" => "123456"
-    // ];
+        //dd($request['eventType']);
+        // $loginDet = [
+        //     "client_id" => "princessdelapaz",
+        //     "password" => "123456"
+        // ];
 
-    // Session::put('loginDetails', $loginDet);
-    // $loginDetails = Session::get('loginDetails');
-    // $client_id = 1;
-    $today = Carbon::now('+8:00');
+        // Session::put('loginDetails', $loginDet);
+        // $loginDetails = Session::get('loginDetails');
+        // $client_id = 1;
+        $today = Carbon::now('+8:00');
 
-    $eventDate =  Carbon::parse($request->input('eventStartDate'));
+        $eventDate =  Carbon::parse($request->input('eventStartDate'));
 //    $eventEnd = Carbon::parse($request->input('eventEndDate'))->format('Y-m-d');
 
-    //$daysBefore = $eventDate->subDay(90)->format('Y-m-d');
-    $daysBefore1 = $today->addDay(90)->format("Y-m-d");
+        //$daysBefore = $eventDate->subDay(90)->format('Y-m-d');
+        $daysBefore1 = $today->addDay(90)->format("Y-m-d");
 
-    // $errors = '';
-    // if($today <= $daysBefore){
-    //     $eventStart =  Carbon::parse($request->input('eventStartDate'));
-    // } else {
+        // $errors = '';
+        // if($today <= $daysBefore){
+        //     $eventStart =  Carbon::parse($request->input('eventStartDate'));
+        // } else {
 
-    // }
+        // }
 
-    // if($eventEnd >= $eventDate){
-    //     $eventEnd =  Carbon::parse($request->input('eventEndDate'));
-    // }
-
-    
-
-    $this->validate($request, [
-        'eventName'                 => 'required',
-        'eventType'                 => 'required',
-    //    'eventStartDate'            => 'required|after_or_equal:'.$daysBefore1,
-    //    'eventEndDate'              => 'required|after:eventStartDate',
-        'theme'                     => 'required|min:1',
-        'others'                    => '',
-        'venue'                    => 'required',
-        
-    ],[
-        'eventName'             => 'Please Input a valid Event Name',
-        'eventType'             => 'Please Input a valid Event Type',
-        'eventStartDate'        => 'Please Input a valid Event Start Date',
-    //    'eventEndDate'          => 'Please Input a valid Event End Date',
-        'theme'                 => 'Please Input a valid Theme',
-       'email.required'              => 'Please Input a valid Client Email Address',
-       'email.email'            => 'Please Input a valid Client Email Address',
-        'others'                => 'Please Input a valid Description',
-        'venue'                => 'Please Input a valid Venue',
-    ]);
-
-    $startDateTime = Carbon::parse($request->input('eventStartDate')." ".$request->input('startTime'));
-    $endDateTime = Carbon::parse($request->input('eventStartDate')." ".$request->input('endTime'));
-
-    
-    error_log("awit: ".$request->input('venue'));
-    error_log("awit: ".$request->input('theme'));
-
-
-    $event = new EventModel([
-        'event_name' => $request->input('eventName'),
-        'event_type' => $request->input('eventType'),
-        'venue' => $request->input('venue'),
-        'event_start' => $startDateTime,
-        'event_end' => $endDateTime,
-        'theme' => $request->input('theme'),
-        'totalpax' => null,
-        'others' => $request->input('others'),
-        'client_id' =>$request->input('client_id'),
-        'status' => 1,
-
-    ]);
-
-    $event->event_detailsAdded = $request->input('eventvenue');
-    $event->venue = $request->input('venue');
-    $event->is_holiday = $request->input('is_holiday');
-    $event->totalpax = $request->input('attendees');
+        // if($eventEnd >= $eventDate){
+        //     $eventEnd =  Carbon::parse($request->input('eventEndDate'));
+        // }
 
 
 
-    // G EVENT TEMPORARILY SUSPENDED
-    // $emailAdd = $email[0]->email; 
-    
-    // dd($email);
+        $this->validate($request, [
+            'eventName'                 => 'required',
+            'eventType'                 => 'required',
+            //    'eventStartDate'            => 'required|after_or_equal:'.$daysBefore1,
+            //    'eventEndDate'              => 'required|after:eventStartDate',
+            'theme'                     => 'required|min:1',
+            'others'                    => '',
+            'venue'                    => 'required',
 
-    // dd($startDateTime);
-    /* commenting google events for now.
-    $gevent = new Event;
-    $gevent->name =  $request->input('eventName');
-    $gevent->startDateTime =  $startDateTime;
-    $gevent->endDateTime = $endDateTime;
-    $gevent->location = $request->input('venue');
-    //$gevent->maxAttendees = $request->input('totalPax');
-    $gevent->addAttendee(['email' => $email]);
+        ],[
+            'eventName'             => 'Please Input a valid Event Name',
+            'eventType'             => 'Please Input a valid Event Type',
+            'eventStartDate'        => 'Please Input a valid Event Start Date',
+            //    'eventEndDate'          => 'Please Input a valid Event End Date',
+            'theme'                 => 'Please Input a valid Theme',
+            'email.required'              => 'Please Input a valid Client Email Address',
+            'email.email'            => 'Please Input a valid Client Email Address',
+            'others'                => 'Please Input a valid Description',
+            'venue'                => 'Please Input a valid Venue',
+        ]);
 
-    // dd($gevent);
-    $event->save();
-    $gevent->save();
-    */
+        $startDateTime = Carbon::parse($request->input('eventStartDate')." ".$request->input('startTime'));
+        $endDateTime = Carbon::parse($request->input('eventStartDate')." ".$request->input('endTime'));
 
-    $event->save();
-    //error_log("data: ".$request->input("emps"));
 
-    for($i=0; $i<count($request->input("emps"));$i++){
-        error_log("data: ".$request->input("emps")[$i]);
+        error_log("awit: ".$startDateTime);
+        error_log("awit: ".$request->input('eventStartDate'));
 
-        $sched = new EmployeeEventSchedule();
-        $sched->employee_id= $request->get("emps")[$i];
-        $sched->event_id= $event->event_id;
-        $sched->event_date_time = $event->event_start;
-        $sched->save();
-    }
 
-    //self::send_email(auth()->user()->name,"jeremy_ocampojr@dlsu.edu.ph", $request->input('eventName'));
-    
-    return redirect('/selectpackages/' . $event->event_id)
-    ->with('success', "Event details saved!");
-    
-        
-    //->with('client', $client)
-    //->with('packages', $packages);
-    
+        $event = new events([
+            'event_name' => $request->input('eventName'),
+            'event_type' => $request->input('eventType'),
+            'venue' => $request->input('venue'),
+            'event_start' => $startDateTime,
+            'event_end' => $endDateTime,
+            'theme' => $request->input('theme'),
+            'totalpax' => null,
+            'others' => $request->input('others'),
+            'client_id' =>$request->input('client_id'),
+            'status' => 1,
+
+        ]);
+
+        $event->event_detailsAdded = $request->input('eventvenue');
+        $event->venue = $request->input('venue');
+        $event->is_holiday = $request->input('is_holiday');
+        $event->totalpax = $request->input('attendees');
+
+        $event->save();
+        error_log('event_sheez: '.$event);
+
+        for($i=0; $i<count($request->input("emps"));$i++){
+            error_log("data: ".$request->input("emps")[$i]);
+
+            $sched = new EmployeeEventSchedule();
+            $sched->employee_id= $request->get("emps")[$i];
+            $sched->event_id= $event->event_id;
+            $sched->event_date_time = $event->event_start;
+            $sched->save();
+        }
+
+        //self::send_email(auth()->user()->name,"jeremy_ocampojr@dlsu.edu.ph", $request->input('eventName'));
+
+        return redirect('/selectpackages/' . $event->event_id)
+            ->with('success', "Event details saved!");
+
+
     }
 
     /**
@@ -327,10 +312,10 @@ class BookEventController extends Controller
         //
 
         $client = DB::table('client')
-        ->select('*')
-        ->where('client.client_id', '=', $id)
-        ->first();
-        
+            ->select('*')
+            ->where('client.client_id', '=', $id)
+            ->first();
+
         $packages = DB::table('package')
             // ->join('package','event.package_id','=','package.package_id')
             // ->join('event','package.package_id','=','event.package_id')
@@ -345,7 +330,7 @@ class BookEventController extends Controller
     public function get_available_personnel_on_date($date){
         $employees = Employee::all();
         $avail_personnel = array();
-        error_log($employees);
+
         foreach($employees as $employee){
             $has_event = EmployeeEventSchedule::whereDate('event_date_time','=',$date)->where('employee_id','=',$employee->employee_id)->first();
             if($has_event == null){
@@ -353,6 +338,21 @@ class BookEventController extends Controller
             }
         }
         return Response::json($avail_personnel);
+    }
+    public function get_all_personnel_sched_on_date($date){
+        $employees = Employee::all();
+        $scheds = array();
+        $date_time = new DateTime($date);
+        $date_name = $date_time->format('l');
+        $obj = new \stdClass();
+        $obj->date_name = $date_name;
+        foreach($employees as $employee){
+            $sched = $employee->get_shift_times_on_date($date);
+            array_push($scheds,array('in'=>$sched['in'],'out'=>$sched['out'],'name'=>($employee->employee_FN." ".$employee->employee_LN),'shift_name'=>$date_name));
+        }
+        $obj->scheds = $scheds;
+
+        return Response::json(json_encode($obj));
     }
     public function save_personnel($personnel_id,$event_id){
         $sched = new EmployeeEventSchedule();
@@ -401,7 +401,7 @@ class BookEventController extends Controller
      * Sends mail to client.
      *
      *
-     * 
+     *
      */
     public function send_email($send_name, $send_email, $subject){
         $to_name = $send_name;

@@ -28,20 +28,20 @@ class EventsController extends Controller
     }
     public function index()
     {
-       
+
         $eventPending = DB::table('event')
-        // ->join('reserve_venue','event.reservation_id','=','reserve_venue.reservation_id')
-        ->join('event_status_ref', 'event.status', '=', 'event_status_ref.status_id')
-        ->select('*')
-        ->where('event.status', '<', '2')
-        ->get();
+            // ->join('reserve_venue','event.reservation_id','=','reserve_venue.reservation_id')
+            ->join('event_status_ref', 'event.status', '=', 'event_status_ref.status_id')
+            ->select('*')
+            ->where('event.status', '<', '2')
+            ->get();
 
         $eventApproved = DB::table('event')
-        // ->join('reserve_venue','event.reservation_id','=','reserve_venue.reservation_id')
-        ->join('event_status_ref', 'event.status', '=', 'event_status_ref.status_id')
-        ->select('*')
-        ->where('event.status', '>', '1')
-        ->get();
+            // ->join('reserve_venue','event.reservation_id','=','reserve_venue.reservation_id')
+            ->join('event_status_ref', 'event.status', '=', 'event_status_ref.status_id')
+            ->select('*')
+            ->where('event.status', '>', '1')
+            ->get();
 
         $date = Carbon::now();
         // dd($date);
@@ -141,6 +141,7 @@ class EventsController extends Controller
         }
 
 
+
         foreach($eventApproved as $b){
 
             $e = events::where('event_id','=',$b->event_id)->first();
@@ -202,11 +203,11 @@ class EventsController extends Controller
     {
         //
         $event = DB::table('event')
-        ->join('reserve_venue','event.reservation_id','=','reserve_venue.reservation_id')
-        ->join('event_status_ref', 'event.status', '=', 'event_status_ref.status_id')
-        ->select('*')
-        ->where('event.status', '<', '2')
-        ->get();
+            ->join('reserve_venue','event.reservation_id','=','reserve_venue.reservation_id')
+            ->join('event_status_ref', 'event.status', '=', 'event_status_ref.status_id')
+            ->select('*')
+            ->where('event.status', '<', '2')
+            ->get();
 
         return view('viewEventDeets');
     }

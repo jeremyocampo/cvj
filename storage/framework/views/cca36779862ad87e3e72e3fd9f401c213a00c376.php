@@ -42,8 +42,11 @@
         
 
 
-    <link rel="stylesheet" type="text/css" media="screen"
-     href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
+    
+        
+
+
+        <link rel="stylesheet" type="text/css" media="screen" href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
 
 
         <script type="text/javascript">
@@ -337,7 +340,7 @@
             <form id="logout-form" action="<?php echo e(route('logout'), false); ?>" method="POST" style="display: none;">
                 <?php echo csrf_field(); ?>
             </form>
-                <?php echo $__env->make('layouts.navbars.sidebar', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+            <?php echo $__env->make('layouts.navbars.sidebar', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
         <?php endif; ?>
         
         <div class="main-content">

@@ -7,38 +7,80 @@
 |
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
+| contains the "web" middleware group. Now create something great! 
 |
 */
 
-Route::put('profile', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
 
-// Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
+//Route::get('/', 'PagesController@home');
+// Route::get('/about', 'PagesController@about');
+// Route::get('/contact', 'PagesController@contact');
+
+// Route::get('/', function () {
+
+//     return view('home', [
+//     	'foo' => 'Caterie Yo'
+//     ]);
+// });
+
+// Route::get('/about', function () {
+//     return view('about');
+// });
+
+// Route::get('/contact', function () {
+//     return view('contact');
+// });
+
+
+
+// Route::get('/home', 'HomeController@index')->name('home');
+
+	// Route::put('profile', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
+	
+	// Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
+
+
+// Route::get('/inventory', 'InventoryController@show')->name('inventory');
+
+
+// Route::get('/inventory', 'InventoryController@index')->name('inventory');
 
 //Jeremy's Routess
+// Route::get('', 'InventoryHomeController@index')->name('home');
+// Route::get('/', 'InventoryHomeController@index')->name('home');
+// Route::get('/home', 'InventoryHomeController@index')->name('home');
 
-// Route::get('inventory/return', 'InventoryController@return');
+Route::get('inventory/return', 'InventoryController@return');
 //Route::get('inventory/view/{$id}', 'InventoryController@updateInfo');
-// Route::get('inventory/view/{$id}', 'InventoryController@updateInfo');
-// Route::get('inventory/deploy', 'InventoryController@deploy');
+Route::get('inventory/view/{$id}', 'InventoryController@updateInfo');
+Route::get('inventory/deploy', 'InventoryController@deploy');
+// Route::get('inventory/view/{id}', function ($id) {
+// 	return redirect()->route( 'inventory.updateInfo' )->with( [ 'id' => $id ] ); 
+// });
+// Route::get('inventory/view/{id}', function ($id) {
+//     return redirect()->route( 'inventory.view' )->with( [ 'id' => $id ] );
+// });
 Route::resource('inventory','InventoryController');
-Route::get('updateInventory/{id}', 'InventoryController@editRecord');
-Route::get('archive', 'InventoryController@archive');
-Route::get('recover/{id}', 'InventoryController@recover');
 Route::resource('deploy','DeployInventoryController');
 Route::resource('events', 'EventsController');
+Route::resource('/roset', 'Roset');
 Route::resource('calendar', 'Calendar');
 
-Route::resource('dishes', 'DishController');
-Route::get('disabled-dishes', 'DishController@disable');
-Route::get('recover-dish/{id}', 'DishController@recoverDish');
+//MARKzs Routes
 
-Route::resource('manpowers', 'ManpowerController');
-Route::get('disabled-manpower', 'ManpowerController@disabled');
-Route::get('recover-manpower/{id}', 'ManpowerController@recover');
+//Personnel API
+Route::get('avail_personnels/{event_id}','EventsBudgetController@get_available_personnel')->name("get.personnels");
+Route::get('add_personnel/{emp_id}/{event_id}','EventsBudgetController@save_personnel')->name("post.personnels");
+Route::get('avail_personnels_on_date/{date}','BookEventController@get_available_personnel_on_date')->name("get.personnel_date");
+Route::get('get_all_personnel_sched_on_date/{date}','BookEventController@get_all_personnel_sched_on_date')->name("get.personnel_sched");
 
-Route::resource('schedules', 'SchedulesController');
+Route::get('get_all_personnel_sched_on_date/{date}','BookEventController@get_all_personnel_sched_on_date')->name("get.personnel_sched");
 
+//Bookevent API
+Route::get('check_valid_date/{startDate}','BookEventController@checkDateValidity')->name("get.checkdatevalid");
+
+//Gmail API
+Route::get('email/{send_name}/{send_email}/{subject}','MailController@send_email');
 
 //Costing
 Route::get('event_costing/{event_id}','EventsCostingController@show');
@@ -47,32 +89,22 @@ Route::resource('event_costing','EventsCostingController');
 //Event Budget Template
 Route::get('event_budget_template','EventsBudgetTemplateController@index')->name("event_budget_template");
 Route::post('event_budget_template','EventsBudgetTemplateController@store')->name('post.event_budget_template');
-
 //Event Budget
 Route::get('event_budgets','EventsBudgetController@index')->name("event_budgets");
 Route::get('event_budgets/view/{event_id}','EventsBudgetController@show')->name("get.event_budgets");
 Route::post('event_budgets/','EventsBudgetController@create')->name("post.event_budgets");
-
-//Personnel API
-Route::get('avail_personnels/{event_id}','EventsBudgetController@get_available_personnel')->name("get.personnels");
-Route::get('add_personnel/{emp_id}/{event_id}','EventsBudgetController@save_personnel')->name("post.personnels");
-Route::get('avail_personnels_on_date/{date}','BookEventController@get_available_personnel_on_date')->name("get.personnel_date");
-
-//Bookevent API
-Route::get('check_valid_date/{startDate}','BookEventController@checkDateValidity')->name("get.checkdatevalid");
-
 //Gmail API
 Route::get('send_mail','MailController@index');
-Route::get('email/{send_name}/{send_email}/{subject}','MailController@send_email');
 
+Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
-
-Route::resource('outsource', 'OutsourcingController');
 Route::resource('ingredient', 'IngredientController');
-Route::resource('users', 'UsersController');
+Route::resource('food', 'FoodController');
+Route::resource('users', 'ManageUsersController');
 Route::resource('employee', 'EmployeeController');
 Route::resource('eventreport', 'EventLogisticsReportController');
+Route::resource('returnInventory', 'ReturnInventoryController');
 Route::resource('manageuser', 'ManageUsersController');
 
 Route::get('admin/routes', 'AdminController@admin')->middleware('admin');
@@ -90,6 +122,7 @@ Route::get('company_quotation/{event_id}', 'QuotationController@company_quotatio
 //Dummy Test URLS: For Frontend prototyping
 Route::get('test_page1/{event_id}/{package_id?}', 'SelectPackageController@test_page1')->name('test_page1');
 
+Route::get('/home', 'HomeController@index')->name('home');
 
 //Rosette's Routes
 Route::resource('bookevent', 'BookEventController');
@@ -127,6 +160,12 @@ Route::get('remove_event_package/{event_id}', 'SelectPackageController@destroy')
 //ajax
 Route::post('add_client_ajax', 'BookEventController@add_client_ajax')->name('ajax.client_add');
 
+Route::resource('dishes', 'DishController');
+Route::get('disabled-dishes', 'DishController@disable');
+Route::get('recover-dish/{id}', 'DishController@recoverDish');
+
+Route::resource('manpowers', 'ManpowerController');
+Route::get('disabled-manpower', 'ManpowerController@disable');
 
 Route::resource('clientregister', 'ClientRegisterController');
 
@@ -148,7 +187,7 @@ Route::get('qr-code-g', function () {
     \QrCode::size(500)
               ->format('png')
               ->generate('ItSolutionStuff.com', public_path('images/qrcode.png'));
-
+      
     return view('qrCode');
 });
 
@@ -166,3 +205,15 @@ Route::resource('fooditem','FoodItemController');
 
 Route::get('disabled-food', 'FoodItemController@disabled');
 Route::get('recover-food/{id}', 'FoodItemController@recoverItem');
+Route::group(['middleware' => ['auth']], function () {
+    Route::resource('suppliers', 'SupplierController');
+    Route::get('suppliers/{supplier}/state', 'SupplierController@state');
+    Route::post('suppliers/{supplier}/contact-person', 'SupplierController@addContact');
+    Route::post('suppliers/{supplier}/supplier-item', 'SupplierController@addItem');
+
+    Route::get('email/{order}', 'PurchaseOrderController@email');
+    Route::get('receive/{order}', 'PurchaseOrderController@receive');
+    Route::resource('purchase-orders', 'PurchaseOrderController');
+    Route::get('events', 'ReservationController@getEvent');
+    Route::resource('reservations', 'ReservationController');
+});

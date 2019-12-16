@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Agency;
+use App\Employee;
 use App\Http\Requests\ManpowerRequest;
 use App\Manpower;
 use App\Schedules;
@@ -53,8 +54,18 @@ class ManpowerController extends Controller
     public function store(ManpowerRequest $request)
     {
         //
-        Manpower::create($request->all());
+        $emp = new Employee();
+        $emp->employee_FN = $request->input('employee_fn');
+        $emp->employee_LN = $request->input('employee_ln');
+        $emp->password =  '123';
+        $emp->employee_type =  $request->input('employee_type');
+        $emp->email =  $request->input('email');
+        $emp->agency_id = $request->input('agency_id');
+        $emp->contact_no = $request->input('contact_no');
+        $emp->address = $request->input('address');
 
+        Manpower::create($request->all());
+        $emp->save();
         return redirect('/manpowers')->with('success', 'Manpower Created Successfully!');
 
     }

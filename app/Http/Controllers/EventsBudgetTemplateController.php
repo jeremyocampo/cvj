@@ -28,11 +28,8 @@ class EventsBudgetTemplateController extends Controller
     {
         $budget_templates = EventBudgetTemplate::All();
         foreach($budget_templates as $budget_template){
-            $budget_template->event_budget_template_item = EventBudgetTemplateItem::where("event_budget_template_id","=",$budget_template->id)->get();
-            $budget_template->total_budget = 0;
-            foreach($budget_template->event_budget_template_item as $template_item){
-                $budget_template->total_budget += $template_item->default_value;
-            }
+            $budget_template->event_budget_template_item =
+                EventBudgetTemplateItem::where("event_budget_template_id","=",$budget_template->id)->get();
         }
         return view('eventBudgetTemplates',
             ['budget_templates' => $budget_templates]);
@@ -66,7 +63,7 @@ class EventsBudgetTemplateController extends Controller
             $event_budget_template_item->default_value = $request->get("default_value")[$i];
             $event_budget_template_item->save();
         }
-        return redirect('event_budget_template');
+        redirect('event_budget_template');
     }
 
     /**

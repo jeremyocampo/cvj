@@ -48,6 +48,7 @@ class events extends Model
         return Client::where('client_id','=',$this->client_id)->first();
     }
 
+
     public function reset_event_dish_cost_amount(){
         // Code goes here
         $event_dishes = EventDishes::where('event_id','=',$this->event_id)->get();

@@ -1,5 +1,5 @@
 @inject('func', 'App\Http\Controllers\EventsCostingController')
-@extends('layouts.app', ['title' => __('User Management')])
+@extends('layouts.inventoryApp', ['title' => __('User Management')])
 @section('content')
     @include('layouts.headers.eventsCard')
     <style>
@@ -21,6 +21,8 @@
                         </div>
                     </div>
                     <div class="col-12" style="padding-bottom: 5vh;padding-right: 2vw">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add Template</button>
+                        <hr>
                         <table class="table">
                             <thead>
                             <tr>

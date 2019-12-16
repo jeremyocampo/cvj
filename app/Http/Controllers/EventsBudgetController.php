@@ -2,36 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Employee;
-use App\EmployeeEventSchedule;
 use App\EventBudget;
-use App\InventoryCategory;
-use App\PackageInventory;
-use App\PackageMiscItem;
 use App\Supplier;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Event;
 use App\events;
 use App\inventory;
-use Response;
 use App\categoryRef;
 use App\OutsourcedItem;
-
-use App\PackageItem;
 use App\EventBudgetTemplate;
 use App\EventBudgetTemplateItem;
 use App\EventBudgetItem;
-use App\PackageModel;
+use App\Package;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests;
 use Carbon\Carbon;
 use App\Client;
-
-use Mail;
-use App\Http\Controllers\MailController;
-use \Illuminate\Foundation\Testing\Concerns\MakesHttpRequests;
-
 
 class EventsBudgetController extends Controller
 {
@@ -40,7 +27,6 @@ class EventsBudgetController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
     public function index()
     {
         //$send_name, $send_email, $subject
@@ -72,18 +58,14 @@ class EventsBudgetController extends Controller
         //$send_name, $send_email, $subject
 
         $events = Event::All();
-        foreach($events as $event) {
-            $budget_check = EventBudget::where('event_id', '=', $event->event_id)->first();
-            $client = Client::where('client_id', '=', $event->client_id)->first();
-
-            $event->client_name = $client->client_name;
-            $event->total_budget = $budget_check == null ? 0 : $budget_check->total_budget;
-            $event->formatted_day = date("M jS, Y", strtotime($event->event_start));
-            $event->formatted_start = date("H:i", strtotime($event->event_start));
-            $event->formatted_end = date("H:i", strtotime($event->event_start));
-            //$event->budget = $budget_check == null? null : $budget_check;
-            if ($budget_check == null) {
-                $budget_check = $this->createAutomatedBudget($event->event_id);
+        foreach($events as $event){
+            $budget_check = EventBudget::where('event_name', '=',$event->event_name)->first();
+            $client = Client::where('client_id','=',$event->client_id)->first();
+            $event->client_name = $client->client_FN ." ".$client->client_LN;
+            if($budget_check != null){
+                $event->budget_id=$budget_check->id;
+            }else{
+                $event->budget_id=null;
             }
             //$this->send_email($event->client_name,'leebet16@gmail.com',$event->event_name,'Caterie Confirmation');
             $event->total_spent = $budget_check->spent_buffer;
@@ -136,7 +118,7 @@ class EventsBudgetController extends Controller
                     }
                 }
         }
-        return Response::json($avail_personnel);
+        return view('eventBudget',['events'=>$events]);
     }
     public function save_personnel($personnel_id,$event_id){
         $sched = new EmployeeEventSchedule();
@@ -229,25 +211,12 @@ class EventsBudgetController extends Controller
             $event_budget->save();
         }
 
-        return redirect('event_budgets/view/'.$request->input('event'));
+        $event_budget->save();
+        return redirect('event_budgets');
     }
     public function show($event_id)
     {
-        $event = Event::where('event_id','=',$event_id)->first();
-        $event->package = PackageModel::Where('package_id','=',$event->package_id)->first();
-        $event_lock =  Event::where('event_id','=',$event_id)->whereDate('event_start','<=',date('Y-m-d'))->get();
-
-        //error_log("event: ".$event);
-        error_log("event_log: ".$event_lock);
-        error_log("date_today: ".date('Y-m-d'));
-        $event->total_spent = 0;
-        if(count($event_lock)>0){
-            $event_lock = false;
-        }
-        else{
-            $event_lock = true;
-        }
-        $check_budget = EventBudget::where('event_id','=',$event->event_id)->first();
+        $check_budget = EventBudget::where('event_name','=',$event_id)->first();
         $budget_templates = EventBudgetTemplate::all();
         $receipts = $check_budget->get_receipt_file_paths();
         //error_log('receio: '.$receipts);
@@ -341,45 +310,28 @@ class EventsBudgetController extends Controller
         foreach(PackageItem::where('package_id','=',$package->package_id)->get() as $food){
             $food_total += $food->computed_cost;
         }
-            array_push($return_item,array('budg_name'=>'Food','budget_amount'=>($food_total),'mark'=>'misc'));
+        $event = Event::where('event_name','=',$event_id)->first();
+        return view('viewEventBudget',['event'=>$event,'event_id'=>$event_id,'budget'=>$check_budget,'budget_templates'=>$budget_templates]);
 
-        $outsourced_items = DB::table('event_outsource_item')->where('event_id', '=',$event_id)->get();
-        $total_outsource = 0;
-        if(count($outsourced_items)>0){
-            foreach($outsourced_items as $item){
-                $total_outsource += $item->total_price;
-            }
-            array_push($return_item,array('budg_name'=>'Outsourcing','budget_amount'=>$total_outsource,'mark'=>'outsource'));
-        }
-
-
-        $OUT = print_r($return_item,1);
-        error_log($OUT);
-
-        // create new budget here
-        $event_budget = new EventBudget();
-        $event_budget->event_id = $event_id;
-        $event_budget->save();
-        foreach($return_item as $item){
-            $event_budget_item = new EventBudgetItem();
-            $event_budget_item->event_budget_id = $event_budget->id;
-            $event_budget_item->item_name = $item['budg_name'];
-            $event_budget_item->budget_amount = $item["budget_amount"];
-            $event_budget_item->save();
-            $event_budget->total_budget +=$event_budget_item->budget_amount;
-        }
-
-        $event_budget->total_buffer = $event_budget->total_budget * 0.15;
-        $event_budget->save();
-        return $event_budget;
     }
+
+    public function createIndex($event_id)
+    {   }
 
     public static function getSupplier_by_Id($id){
        return $supplier = Supplier::where('supplier_id', '=',$id)->first();
     }
 
     public static function getPackage_by_Id($id){
-        return $supplier = PackageModel::where('package_id', '=',$id)->first();
+        return $supplier = Package::where('package_id', '=',$id)->first();
     }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
 
 }

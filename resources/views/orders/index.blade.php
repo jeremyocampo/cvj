@@ -165,7 +165,9 @@
                     button.removeClass('btn-primary');
                     button.addClass('btn-success');
                 },
-                error: function(error) {}
+                error: function(error) {
+                    alert('Please provide a valid email address for the supplier');
+                }
             }); 
         });
 

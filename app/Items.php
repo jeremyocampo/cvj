@@ -9,6 +9,7 @@ class Items extends Model
     //
     public $table = 'items';
 
+    public $primaryKey = 'item_id';
     public $timestamps = false;
 
     public function dish(){

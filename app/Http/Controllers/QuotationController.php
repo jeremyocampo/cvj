@@ -13,6 +13,7 @@ use App\EventOutsourceItem;
 use App\events;
 use App\inventory;
 use App\Items;
+use App\Manpower;
 use App\OutsourcedItem;
 use App\PackageInventory;
 use App\PackageItem;
@@ -120,7 +121,8 @@ class QuotationController extends Controller
 
         foreach($employees_id as $employee_id){
             $emp = Employee::where('employee_id','=',$employee_id)->first();
-            $total_staff_cost += 800; //dummy calculation of wages per day or gig.
+            $manpower = Manpower::where('email','=',$emp->email)->first();
+            $total_staff_cost += round( $manpower->salary/30,2); //dummy calculation of wages per day or gig.
         }
         $add_inv_total = 0;
         foreach ($event_inventories as $inventory){
@@ -200,10 +202,10 @@ class QuotationController extends Controller
         $employees_id = EmployeeEventSchedule::where("event_id",'=',$event_id)->select('employee_id')->get();
 
         $employees = Employee::whereIn('employee_id',$employees_id)->get();
-        foreach($employees_id as $employee_id){
-            $emp = Employee::where('employee_id','=',$employee_id)->first();
-            $total_staff_cost += 800; //dummy calculation of wages per day or gig.
-            //array_push($employees, $emp);
+        foreach($employees as $employee){
+            $manpower = Manpower::where('email','=',$employee->email)->first();
+            $employee->daily_rate = round( $manpower->salary/30,2);
+            $total_staff_cost += $employee->daily_rate; //dummy calculation of wages per day or gig.
         }
         foreach ($event_inventories as $inventory){
             $inv = inventory::where('inventory_id','=',$inventory->inventory_id)->first();
@@ -230,7 +232,7 @@ class QuotationController extends Controller
             $outsourced_item->item_name = $out_item->item_name;
             //idk with this.
         }
-        //extra cost is idk. Maybe per KM distance. Google Calculate Distance API?
+
         $total_cost = $total_staff_cost + $total_outsource_cost + $total_dish_cost + $total_inv_cost + $extra_cost;
 
         return view('company_quotation',

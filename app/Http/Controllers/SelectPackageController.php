@@ -38,6 +38,7 @@ class SelectPackageController extends Controller
 
         error_log("looged_user: ".$client_id);
         foreach ($packages as $package){
+            $package->is_warning = null;
             $food_items =PackageItem::where('package_id','=',$package->package_id)->select('item_id')->get();
             $food_items =$food_items->toArray();
             $package->foods = Items::whereIn('item_id',$food_items)->get();
@@ -45,16 +46,16 @@ class SelectPackageController extends Controller
             foreach ($package->inventory as $inventory){
                 $inv = inventory::where('inventory_id','=',$inventory->inventory_id)->first();
                 $inventory->inventory_name = $inv->inventory_name;
-                $inventory->inv_avail =$inventory->is_inventory_available();
+
                 $inventory->inv_cat = $inv->category()->category_name;
+                $inventory->inv_on_date = $inv->inv_level_on_date($event->event_start);
 
-                error_log("package_id_nm: ".$package->package_id.$package->package_name);
-                error_log($inventory->inventory_name.": ".$inventory->is_inventory_available());
-                error_log("p_inv_qty: ".$inventory->quantity);
-                error_log("inv_qty ".$inv->quantity);
-
+                if($package->is_warning == null){
+                    if($inv->is_need_outsource_on_date($event->start_date,$inventory->quantity) != -1){
+                        $package->is_warning = 1;
+                    }
+                }
             }
-            //$package->inventory = inventory::whereIn('inventory_id',$inv_items)->get();
         }
         return view('selectPackage',['packages'=>$packages->reverse(),'event'=>$event,'user_id'=>$client_id]);
     }
@@ -71,7 +72,6 @@ class SelectPackageController extends Controller
                 $inventory->inventory_name = $inv->inventory_name;
                 $inventory->inv_avail =$inventory->is_inventory_available();
             }
-            //$package->inventory = inventory::whereIn('inventory_id',$inv_items)->get();
         }
         $user = User::where('id','=',Auth::id())->first();
         return view('list_packages',['user'=>$user,'packages'=>$packages->reverse()]);
@@ -522,15 +522,27 @@ class SelectPackageController extends Controller
             "CVJ Clubhouse Third Floor"=>22000,
             "Off-Premise"=>null
         );
+
         $event = events::where('event_id','=',$event_id)->first();
         $client_id = Auth::id();
         if($package_id != null){
             $package = PackageModel::where('package_id','=',$package_id)->first();
+
+            $package->is_warning = null;
             $food_items =PackageItem::where('package_id','=',$package->package_id)->select('item_id')->get();
             $food_items =$food_items->toArray();
             $package->foods = Items::whereIn('item_id',$food_items)->get();
             $package->inventory = PackageInventory::where('package_id','=',$package->package_id)->get();
             foreach ($package->inventory as $inventory){
+                $inv = inventory::where('inventory_id','=',$inventory->inventory_id)->first();
+                $inventory->inv_cat = $inv->category()->category_name;
+                $inventory->inv_on_date = $inv->inv_level_on_date($event->event_start);
+
+                if($package->is_warning == null){
+                    if($inv->is_need_outsource_on_date($event->start_date,$inventory->quantity) != -1){
+                        $package->is_warning = 1;
+                    }
+                }
                 $inventory->inventory_name = inventory::where('inventory_id','=',$inventory->inventory_id)->first()->inventory_name;
             }
 
@@ -543,6 +555,7 @@ class SelectPackageController extends Controller
 
         foreach($avail_invs as $inv){
             $inv->cat_name = $inv->category()->category_name;
+            $inv->inv_on_date = $inv->inv_level_on_date($event->event_start);
         }
 
         return view('additionalPackage',['venue_price'=>$venue_cost_table[$event->venue],'user_id'=>$client_id,'package'=>$package,'event'=>$event,'avail_foods'=>$avail_foods,'avail_invs'=>$avail_invs]);

@@ -45,8 +45,11 @@
         {{-- DATE TIME PICKER END --}}
 
 
-    <link rel="stylesheet" type="text/css" media="screen"
-     href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
+    {{-- <link rel="stylesheet" type="text/css" media="screen"> --}}
+        {{--  --}}
+
+
+        <link rel="stylesheet" type="text/css" media="screen" href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
 
 
         <script type="text/javascript">
@@ -340,7 +343,7 @@
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf
             </form>
-                @include('layouts.navbars.sidebar')
+            @include('layouts.navbars.sidebar')
         @endauth
         
         <div class="main-content">

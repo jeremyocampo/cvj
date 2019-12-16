@@ -10,7 +10,7 @@
                             <div class="col">
                                 <div class="row">
                                 <div class="col-xs-5">
-                                    <h1 class="mb-0">Current Inventory</h1>
+                                    <h1 class="mb-0">Current Inventory Table</h1>
                                 </div>
                                 <div class="col-xs-2">
                                         &nbsp;&nbsp;
@@ -20,11 +20,19 @@
                                 </div>
                                 </div>
                             </div>
-                            <div class="col text-right"> </div>
+                            <div class="col text-right">
+                                
+                                
+                            </div>
                             <div class="col text-left">
-                                <div class="col-xs-5"> 
-                                    <input class="form-control" id="myInput" type="search" onkeyup="searchTable()" style="background: transparent;" placeholder="Search Item Here">
-                                </div>
+                                
+                                    <div class="col-xs-5">
+                                
+                                <input class="form-control" id="myInput" type="search" onkeyup="searchTable()" style="background: transparent;" placeholder="Search Item Here">
+                                    </div>
+                                    
+                                    
+                                
                             </div>
                         </div>
                         <div class="row">
@@ -45,7 +53,7 @@
                                 <?php endif; ?>
                             </div>
                         </div>
-                       
+                        
                     </div>
                     <div class="card-body">
 
@@ -60,8 +68,6 @@
                                     <th >Item name</th>
                                     
                                     <th >Category</th>
-                                    <th>Color</th>
-                                    <th>Size</th>
                                     <th >Quantity</th>
                                     <th >Threshold</th>
                                     <th >Last Modified (YY-MM-DD)</th>
@@ -78,13 +84,11 @@
                                     
                                     <td>
                                         <a href="<?php echo e(url('inventory/'.$i->inventory_id), false); ?>" class="dropdown-item">
-                                            <?php echo e($i->inventory_name, false); ?>
-
+                                            <?php echo e($i->inventory_name, false); ?></td>
                                         </a>
-                                    </td>    
+                                   
+                                    
                                     <td><?php echo e($i->category_name, false); ?></td>
-                                    <td><?php echo e($i->color_name, false); ?></td>
-                                    <td> <?php echo e($i->size, false); ?></td>
                                     <td><?php echo e($i->quantity, false); ?></td>
                                     <td><?php echo e($i->threshold, false); ?></td>
                                     
@@ -148,37 +152,49 @@
                     <!--pagination-->
 
                     </div>
-
-
-                    
-
-
                     <div class="col-xl-12 mb-5">
                         <div class="card shadow " >
                             <div class="card-header ">
                                 <div class="row align-items-center">
                                     <div class="col">
                                         <div class="row">
-                                            <div class="col-xs-5">
-                                                <h1 class="mb-0">Critical Inventory</h1>
-                                            </div>
+                                        <div class="col-xs-5">
+                                            <h1 class="mb-0">Critical Inventory Table</h1>
+                                        </div>
+                                        <div class="col-xs-2">
+                                                &nbsp;&nbsp;
+                                        </div>
+                                        <div class="col-xs-4">
                                             
                                         </div>
+                                        </div>
                                     </div>
-                                   
+                                    <div class="col text-right">
+                                        
+                                        
+                                    </div>
                                     <div class="col text-left">
-                                       
+                                        
                                             <div class="col-xs-5">
+                                        
                                                 <input class="form-control" id="myInput" type="search" onkeyup="searchTable()" style="background: transparent;" placeholder="Search Item Here">
                                             </div>
-                                        </div>
+                                            
+                                            
+                                        
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
                                         
-                                    
+                                    </div>
+                                </div>
+                                
+                            </div>
                             <div class="card-body">
+        
+                            
+        
                             <div class="table-responsive mb-3">
                                 <!-- Projects table -->
                                 
@@ -198,7 +214,7 @@
                                         <?php $__currentLoopData = $criticalInventory; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $b): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <?php if($b->status > 0): ?>
                                         <tr>
-                                            <td scope="col"><?php echo e($b->inventory_name, false); ?></td> 
+                                            <td scope="col"><?php echo e($b->inventory_name, false); ?></td>
                                             <td scope="col"><?php echo e($b->threshold, false); ?></td>
                                             <td scope="col"><?php echo e($b->quantity, false); ?></td>
                                             <td scope="col"><?php echo e($b->price, false); ?></td>
@@ -216,9 +232,22 @@
                                                             <i class="ni ni-zoom-split-in"></i>
                                                             <span><?php echo e(__('View Event Details'), false); ?></span>
                                                         </a>
+        
                                                         <a href="<?php echo e(url('inventory/'.$b->inventory_id.'/edit'), false); ?>" class="dropdown-item">
                                                             <i class="ni ni-fat-add"></i>
                                                             <span><?php echo e(__('Replenish Item'), false); ?></span>
+                                                        </a>
+                                                        
+                                                        <a href="" class="dropdown-item" onclick="event.preventDefault();
+                                                            document.getElementById('delete-form-<?php echo e($b->inventory_id, false); ?>').submit();">
+                                                            <i class="ni ni-fat-remove"></i>
+                                                            <span><?php echo e(__('Remove from Inventory'), false); ?></span>
+                                                            <?php echo Form::open(['action' => ['InventoryController@destroy', $b->inventory_id], 'method' => 'POST', 'id' => 'delete-form-'.$i->inventory_id]); ?>
+
+                                                                <?php echo e(Form::hidden('_method','DELETE'), false); ?>
+
+                                                            <?php echo Form::close(); ?>
+
                                                         </a>
                                                     </div>
                                                 </div>
@@ -246,9 +275,7 @@
                             
                             <!--pagination-->
         
-                        </div>
-                    </div>
-                </div>
+                            </div>
                 </div>
                 </div>
             </div>
@@ -283,4 +310,4 @@
     </script>
 
 <?php $__env->stopPush(); ?>
-<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php echo $__env->make('layouts.inventoryApp', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>

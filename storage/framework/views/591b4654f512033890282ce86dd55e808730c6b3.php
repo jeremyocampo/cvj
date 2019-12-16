@@ -1,3 +1,4 @@
+<?php $__env->startSection('content'); ?>
     <?php echo $__env->make('layouts.headers.guest', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
     
     <div class="container mt--8 pb-5">
@@ -56,9 +57,15 @@
                             </a>
                         <?php endif; ?>
                     </div>
-                    
+                    <div class="col-6 text-right">
+                        <a href="<?php echo e(route('register'), false); ?>" class="text-light">
+                            <small><?php echo e(__('Create new account'), false); ?></small>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-<?php echo $__env->make('layouts.app', ['class' => 'bg-default'], \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.inventoryApp', ['class' => 'bg-default'], \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
