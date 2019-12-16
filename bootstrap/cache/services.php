@@ -39,11 +39,10 @@
     35 => 'Collective\\Html\\HtmlServiceProvider',
     36 => 'Milon\\Barcode\\BarcodeServiceProvider',
     37 => 'Spatie\\GoogleCalendar\\GoogleCalendarServiceProvider',
-    38 => 'SimpleSoftwareIO\\QrCode\\QrCodeServiceProvider',
-    39 => 'App\\Providers\\AppServiceProvider',
-    40 => 'App\\Providers\\AuthServiceProvider',
-    41 => 'App\\Providers\\EventServiceProvider',
-    42 => 'App\\Providers\\RouteServiceProvider',
+    38 => 'App\\Providers\\AppServiceProvider',
+    39 => 'App\\Providers\\AuthServiceProvider',
+    40 => 'App\\Providers\\EventServiceProvider',
+    41 => 'App\\Providers\\RouteServiceProvider',
   ),
   'eager' => 
   array (
@@ -183,7 +182,6 @@
     'Collective\\Html\\HtmlBuilder' => 'Collective\\Html\\HtmlServiceProvider',
     'Collective\\Html\\FormBuilder' => 'Collective\\Html\\HtmlServiceProvider',
     'NunoMaduro\\Collision\\Contracts\\Provider' => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
-    'qrcode' => 'SimpleSoftwareIO\\QrCode\\QrCodeServiceProvider',
   ),
   'when' => 
   array (
@@ -230,9 +228,6 @@
     array (
     ),
     'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider' => 
-    array (
-    ),
-    'SimpleSoftwareIO\\QrCode\\QrCodeServiceProvider' => 
     array (
     ),
   ),
