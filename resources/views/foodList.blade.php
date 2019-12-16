@@ -70,7 +70,7 @@
                     <div class="table-responsive mb-3">
                         <!-- Projects table -->
                         
-                        <table class="table table-bordered align-items-center table-flush mb-4" id="myTable">
+                        <table class="table table-bordered align-items-center table-flush mb-4 responsive" id="myTable">
                             <thead class="thead-light">
                                 <tr>
                                     <th >Dish Name</th>
@@ -85,7 +85,7 @@
                                 <tr>
                                     <td><a href="{{ url('fooditem/'.$i->item_id) }}" class="dropdown-item"> {{ $i->item_name }}</a>
                                     </td>  
-                                    <td><img class="card-img-top" src="{{asset($i->item_image)}}"  alt=""></td>  
+                                    <td><img class="card-img-top" src="{{asset($i->item_image)}}"  style="width:150px;height:100px;" alt="{{$i->item_name}}"></td>  
                                     <td>{{$i->unit_cost}}</td>
                                     <td>{{$i->unit_expense}}</td>
                                     <td class="popup">

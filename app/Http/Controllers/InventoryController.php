@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Supplier;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\inventory;
@@ -14,28 +15,49 @@ use Faker\Generator as Faker;
 class InventoryController extends Controller
 {
     /**
+     * @var ValidatorUtil
+     */
+    private $validatorUtil;
+
+
+    /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param  ValidatorUtil  $validatorUtil
      */
 
-    public function __construct()
+    public function __construct(ValidatorUtil $validatorUtil)
     {
         $this->middleware('auth');
+        $this->validatorUtil = $validatorUtil;
     }
     
     public function index()
     {
         //
-        $joinedTable = DB::table('category_ref')
-            // ->join('category_ref','inventory.category','=','category_ref.id')
-            ->join('inventory','category_ref.category_no','=','inventory.category')
+        $joinedTable = DB::table('inventory')
+            // // ->join('category_ref','inventory.category','=','category_ref.id')
+            // ->join('inventory','category_ref.category_no','=','inventory.category')
+            ->join('category_ref', 'inventory.category', '=', 'category_ref.category_no')
+            ->join('color','inventory.color','=','color.color_id')
+            ->join('size','inventory.size', '=', 'size.size_id')
+            ->whereNull('inventory.deleted_at')
             ->get();
         //dd($joinedTable);
 
-        $criticalInventory = DB::select('select * from cvjdb.inventory where quantity <= threshold;');
+        $criticalInventory = DB::select(DB::raw('select * from cvjdb.inventory where quantity <= threshold'));
+        // ->join('category_ref', 'inventory.category', '=', 'category_ref.category_no');
+        // $criticalInventory = DB::table('inventory')
+        // // ->join('category_ref', 'inventory.category', '=', 'category_ref.category_no')
+        // ->select('*')
+        // ->where('inventory.quantity', '<=', 'inventory.threshold')
+        // ->get();
 
-        return view('inventory', ['joinedInventory' => $joinedTable, 'criticalInventory' => $criticalInventory]);
+        // dd($criticalInventory);
+
+        $month = Carbon::now()->format('F');
+
+        return view('inventory', ['joinedInventory' => $joinedTable, 'criticalInventory' => $criticalInventory, 'month' => $month]);
     }
 
     /**
@@ -48,14 +70,13 @@ class InventoryController extends Controller
         //
         $category_ref = DB::table('category_ref')->get();
 
-        // $subcategory_ref = DB::table('subcategory_ref')->get();
 
         $colors = DB::table('color')->get();
+        $suppliers = Supplier::all();
+        $sizes = DB::table('size')->get();
 
-        //dd($subcategoryNames);
 
-        // return view('addInventoryForm', ['categories' => $category_ref, 'subcategoryIds' => $subcategoryIds, 'subcategoryNames' => $subcategoryNames]);
-        return view('addInventoryForm', ['categories' => $category_ref, 'colors' => $colors]);
+        return view('addInventoryForm', ['categories' => $category_ref, 'colors' => $colors, 'suppliers' => $suppliers, 'sizes' => $sizes]);
     }
 
     /**
@@ -69,29 +90,35 @@ class InventoryController extends Controller
             $quantity = $request->input('quantity');
             $threshold  = $request->input('threshold');
 
-            $minTh = $quantity/2;
+            $minTh = $quantity*.10;
             $minP = 1.00;
         
             $this->validate($request, [
-                'itemName'      => 'required',
+                'inventory_name'      => 'required',
                 'category'      => 'required|min:1',
                 'quantity'      => 'required|numeric|min:1',
-                'source'        => 'required|min:1',
                 'threshold'     => 'required|numeric|min:'.$minTh,
                 'color'         => 'required|min:1',
                 'price'         => 'required|min:'.$minP,
             ],[
-                'itemName.required'     => 'Please Input a Valid Item Name.',
+                'inventory_name.required'     => 'Please Input a Valid Inventory Name.',
                 'category.required'     => 'Please Select a Category.',
                 'quantity.required'     => 'Please input a valid Quantity',
-                'source.required'       => 'Please Select a Source',
                 'subcategory.required'  => 'Please Select a Sub-Category.',
                 'threshold,required'    => 'Please Input a valid Threshold Amount',
                 'threshold.min'         => 'Please Input a Threshold Amount at least 50% of Starting Quantity',
             ]);
 
+            $similar_inventory = $this->validatorUtil->validateInventory($request->post('inventory_name'), $request->post('category'),
+                $request->post('color'), $request->post('size'));
+
+            if ($similar_inventory){
+
+                return redirect()->back()->with('warning', 'Inventory Already Exists!');
+            }
+
             $inventory = new inventory();
-            $inventory->inventory_name = $request->input('itemName');
+            $inventory->inventory_name = $request->input('inventory_name');
             $inventory->category = $request->input('category');
             $inventory->quantity = $request->input('quantity');
 
@@ -102,15 +129,20 @@ class InventoryController extends Controller
             $inventory->color = $request->input('color');
             $inventory->threshold = $request->input('threshold');
             $inventory->price = $request->input('price');
-            //$inventory->last_modified = Carbon::now();
+            $inventory->size = $request->input('size');
+            $inventory->supplier_id = $request->post('supplier_id');
+            $inventory->shelf_life = $request->post('shelf_life');
+            $inventory->returnable_item = $request->post('returnable_item');
             $inventory->save();
             
+            // dd($inventory);
+
             return redirect('/inventory')->with('success', 'Item Added!');
         
     }
 
     /**
-     * Display the specified resource.hhthrrejajgoeaibijgntoeaofineoaniivnomrnninalnuentamaimeuguop ihean
+     * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -120,25 +152,20 @@ class InventoryController extends Controller
         //
 
         $itemInfo = DB::table('category_ref')
-            // ->join('category_ref','inventory.category','=','category_ref.id')
             ->select('*')
             ->where('inventory.inventory_id', '=', $id)
             ->join('inventory','category_ref.category_no','=','inventory.category')
-            ->get();
-        //dd($joinedTable);
+            ->first();
+
 
         $category_ref = DB::table('category_ref')->get();
-
         $color =  DB::table('color')->get();
-
         $size = DB::table('size')->get();
+
+        $suppliers = Supplier::all();
+
        
-        // $subcategory = DB::table('subcategory_ref')
-        //     ->select('subcategory')
-        //     ->where('subcategory', '>', 0);
-        //dd($itemInfo);
-        // dd($color);
-        return view('inventoryView', ['itemInfo' => $itemInfo, 'categories' => $category_ref, 'sizes' => $size, 'colors' => $color]);
+        return view('inventoryView', ['itemInfo' => $itemInfo, 'categories' => $category_ref, 'sizes' => $size, 'colors' => $color, 'suppliers' => $suppliers]);
 
     }
 
@@ -154,18 +181,17 @@ class InventoryController extends Controller
 
         $item = DB::table('inventory')
         ->where('inventory_id', '=', $id)
-        ->get();
-        
+        ->first(); //return 1
+
+
         $category = DB::table('category_ref')
         ->select('category_name')
         ->where('inventory_id', '=', $id)
         ->join('inventory','category_ref.category_no','=','inventory.category')
         ->get();
 
-       
 
-        //   dd($item);
-        //   dd($category);
+
         return view('replenishInventory', ['items' => $item, 'category' => $category]);
     }
 
@@ -181,49 +207,80 @@ class InventoryController extends Controller
     {
         //
 
+
+        if ($request->has('update_inventory')){
+
+            $quantity = $request->input('quantity');
+            $threshold  = $request->input('threshold');
+
+            $minTh = $quantity/2;
+
+            $this->validate($request, [
+                'inventory_name'      => 'required',
+                'category'      => 'required|min:1',
+                'quantity'      => 'required|numeric|min:1',
+                'threshold'     => 'required|numeric|min:'.$minTh,
+                'status'        => 'required|numeric|min:0',
+                'supplier' => 'required',
+                'shelf_life' => 'required|numeric|min:0',
+                'returnable_item' => 'required',
+                'description'    => 'required',
+            ],[
+                'inventory_name.required'     => 'Please Input a Valid Item Name.',
+                'category.required'     => 'Please Select a Category.',
+                'quantity.required'     => 'Please input a valid Quantity',
+                'threshold,required'    => 'Please Input a valid Threshold Amount',
+                'threshold.min'         => 'Please Input a Threshold Amount at least 50% of Starting Quantity',
+                'status.required'        => 'Please select the appropriate Status for this item',
+                'description.required'        => 'Please input a valid Quantity',
+            ]);
+
+            $similar_inventory = $this->validatorUtil->validateInventory($request->post('inventory_name'), $request->post('category'),
+                $request->post('color'), $request->post('size'));
+
+            if ($similar_inventory){
+
+                return redirect()->back()->with('warning', 'Inventory Already Exists!');
+            }
+
+
+
+            $item = DB::table('inventory')
+                ->where('inventory_id', '=', $id)
+                ->update([
+                    'inventory_name' => $request->input('inventory_name'),
+                    'category'      => $request->input('category'),
+                    'quantity'      => $request->input('quantity'),
+                    'last_modified' => Carbon::now(),
+                    'status'        => $request->input('status'),
+                    'threshold'     => $request->input('threshold'),
+                    'shelf_life' => $request->post('shelf_life'),
+                    'returnable_item' => $request->post('returnable_item'),
+                    'supplier_id' => $request->post('supplier'),
+                    'description' => $request->post('description'),
+                ]);
+
+
+            return redirect('/inventory')->with('success', 'Item Updated');
+        }
+
+
         $quantity = $request->input('quantity');
         $threshold  = $request->input('threshold');
 
         $minTh = $quantity/2;
     
         $this->validate($request, [
-            'itemName'      => 'required',
-            'category'      => 'required|min:1',
             'quantity'      => 'required|numeric|min:1',
-            'source'        => 'required|min:1',
-            'threshold'     => 'required|numeric|min:'.$minTh,
-            'status'        => 'required|numeric|min:0',
         ],[
-            'itemName.required'     => 'Please Input a Valid Item Name.',
-            'category.required'     => 'Please Select a Category.',
             'quantity.required'     => 'Please input a valid Quantity',
-            'source.required'       => 'Please Select a Source',
-            'threshold,required'    => 'Please Input a valid Threshold Amount',
-            'threshold.min'         => 'Please Input a Threshold Amount at least 50% of Starting Quantity',
-            'status.required'        => 'Please select the appropriate Status for this item',
         ]);
-        
-        //dd($request->input('category'));
 
-        // $newQuantity = DB::table('inventory')
-        // ->select('quantity')
-        // ->where('inventory_id', '=', $id)
-        // ->get();
 
-        //$newQuantity = $newQuantity[0]->quantity + $request->input('quantity');
 
-        
         $item = DB::table('inventory')
         ->where('inventory_id', '=', $id)
-        ->update([
-            'inventory_name'      => $request->input('itemName'),
-            'category'      => $request->input('category'),
-            'quantity'      => $request->input('quantity'),
-            'last_modified' => Carbon::now(),
-            'status'        => $request->input('status'),
-            'itemSource'        => $request->input('source'),
-            'threshold'     => $request->input('threshold'),
-        ]);
+        ->increment('quantity', $request->post('quantity'));
         
         
         return redirect('/inventory')->with('success', 'Item Updated');
@@ -246,13 +303,10 @@ class InventoryController extends Controller
     public function destroy($id)
     {
         //
-        // return alert('Are you sure you want to Continue?');
-
-        $item = DB::table('inventory')
+        DB::table('inventory')
         ->where('inventory_id', '=', $id)
         ->update([
-            'status' => '0',
-            'last_modified' => Carbon::now(),
+            'deleted_at' => Carbon::now()
         ]);
         
         return redirect('/inventory')->with('delete', 'Item Disabled');
@@ -265,5 +319,39 @@ class InventoryController extends Controller
 
     public function deploy(){
         return 1;
+    }
+
+    public function editRecord($id){
+
+         //
+    }
+
+    public function archive()
+    {
+        $inventories = DB::table('inventory')
+            ->join('category_ref', 'inventory.category', '=', 'category_ref.category_no')
+            ->join('color','inventory.color','=','color.color_id')
+            ->join('size','inventory.size', '=', 'size.size_id')
+            ->whereNotNull('inventory.deleted_at')
+            ->get();
+
+        return view('archive-inventory', compact('inventories'));
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function recover($id)
+    {
+        DB::table('inventory')
+            ->where('inventory_id', $id)
+            ->update([
+                'last_modified' => Carbon::now(),
+                'deleted_at' => null
+            ]);
+
+        return redirect('/archive')->with('success', 'Item Recovered');
+
     }
 }

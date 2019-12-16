@@ -33,14 +33,14 @@
                                 <br>
                                 <div class="alert alert-success" role="alert">
                                     <button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">x</span></button>
-                                    <?php echo e(session()->get('success')); ?><br>
+                                    <?php echo e(session()->get('success'), false); ?><br>
                                 </div>
                             <?php endif; ?>
                             <?php if(session()->has('deleted')): ?>
                                 <br>
                                 <div class="alert alert-danger" role="alert">
                                     <button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">x</span></button>
-                                    <?php echo e(session()->get('deleted')); ?><br>
+                                    <?php echo e(session()->get('deleted'), false); ?><br>
                                 </div>
                             <?php endif; ?>
                         </div>
@@ -72,19 +72,19 @@
                             <tbody>
                             <?php $__currentLoopData = $manpowers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $manpower): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <tr>
-                                    <td><?php echo e($manpower->schedule->shift_name); ?></td>
+                                    <td><?php echo e($manpower->schedule->shift_name, false); ?></td>
                                     <td>
-                                        <?php echo e($manpower->employee_ln . ", " . $manpower->employee_fn); ?>
+                                        <?php echo e($manpower->employee_ln . ", " . $manpower->employee_fn, false); ?>
 
                                     </td>
                                     <td>
-                                        <?php echo e($manpower->employee_type); ?>
+                                        <?php echo e($manpower->employee_type, false); ?>
 
                                     </td>
-                                    <td><?php echo e($manpower->email); ?></td>
-                                    <td> <?php echo e($manpower->agency->agency_name); ?></td>
-                                    <td><?php echo e($manpower->contact_no); ?></td>
-                                    <td><?php echo e($manpower->address); ?></td>
+                                    <td><?php echo e($manpower->email, false); ?></td>
+                                    <td> <?php echo e($manpower->agency->agency_name, false); ?></td>
+                                    <td><?php echo e($manpower->contact_no, false); ?></td>
+                                    <td><?php echo e($manpower->address, false); ?></td>
                                     <td class="popup">
                                         <div class="dropdown">
                                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -92,20 +92,20 @@
                                             </button>
                                             <div class="dropdown-menu dropdown-menu-arrow dropdown-menu">
                                                 <div class=" dropdown-header noti-title">
-                                                    <h6 class="text-overflow m-0"><?php echo e(__('Please Select an Action!')); ?></h6>
+                                                    <h6 class="text-overflow m-0"><?php echo e(__('Please Select an Action!'), false); ?></h6>
                                                 </div>
                                                 <div class="dropdown-divider"></div>
-                                                <a href="<?php echo e(url('manpowers/'.$manpower->id)); ?>" class="dropdown-item">
+                                                <a href="<?php echo e(url('manpowers/'.$manpower->id), false); ?>" class="dropdown-item">
                                                     <i class="ni ni-zoom-split-in"></i>
-                                                    <span><?php echo e(__('View Manpower Details')); ?></span>
+                                                    <span><?php echo e(__('View Manpower Details'), false); ?></span>
                                                 </a>
                                                 <a href="" class="dropdown-item" onclick="event.preventDefault();
-                                                    document.getElementById('delete-form-<?php echo e($manpower->id); ?>').submit();">
+                                                    document.getElementById('delete-form-<?php echo e($manpower->id, false); ?>').submit();">
                                                     <i class="ni ni-fat-remove"></i>
-                                                    <span><?php echo e(__('Disable Manpower')); ?></span>
+                                                    <span><?php echo e(__('Disable Manpower'), false); ?></span>
                                                     <?php echo Form::open(['action' => ['ManpowerController@destroy', $manpower->id], 'method' => 'POST', 'id' => 'delete-form-'.$manpower->id]); ?>
 
-                                                    <?php echo e(Form::hidden('_method','DELETE')); ?>
+                                                    <?php echo e(Form::hidden('_method','DELETE'), false); ?>
 
                                                     <?php echo Form::close(); ?>
 

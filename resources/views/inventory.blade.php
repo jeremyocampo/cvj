@@ -1,9 +1,7 @@
 @extends('layouts.app')
 
-{{-- @include('layouts.headers.pagination') --}}
-
 @section('content')
-    @include('layouts.headers.inventoryCard')
+@include('layouts.headers.inventoryCard')
 
     <div class="container-fluid mt--7">
             {{-- <div class="col-xl-8 mb-5 mb-xl-0"> --}}
@@ -171,7 +169,7 @@
                                     <div class="col">
                                         <div class="row">
                                             <div class="col-xs-5">
-                                                <h1 class="mb-0">Critical Inventory</h1>
+                                                <h1 class="mb-0">Critical Inventory</h1> &nbsp;&nbsp;
                                             </div>
                                             
                                         </div>
@@ -205,6 +203,9 @@
                                 </div>
                             </div> --}}
                             <div class="card-body">
+        
+                            
+        
                             <div class="table-responsive mb-3">
                                 <!-- Projects table -->
                                 
@@ -213,7 +214,7 @@
                                         <tr>
                                             <th >Item name</th>
                                             {{-- <th >Stock Keeping Unit(SKU)</th> --}}
-                                            <th >Category</th>
+                                            {{-- <th >Category</th> --}}
                                             <th >Quantity</th>
                                             <th >Threshold</th>
                                             <th >Last Modified (YY-MM-DD)</th>
@@ -224,7 +225,8 @@
                                         @foreach ($criticalInventory as $b)
                                         @if($b->status > 0)
                                         <tr>
-                                            <td scope="col">{{ $b->inventory_name }}</td> 
+                                            <td scope="col">{{ $b->inventory_name }}</td>
+                                            <td scope="col">{{ $b->category_name}} </td> 
                                             <td scope="col">{{ $b->threshold }}</td>
                                             <td scope="col">{{ $b->quantity }}</td>
                                             <td scope="col">{{ $b->price }}</td>
@@ -282,7 +284,7 @@
         </div>
     </div>
     </div>
-    @include('layouts.footers.auth')
+    {{-- @include('layouts.footers.auth') --}}
     </div>
 @endsection
 

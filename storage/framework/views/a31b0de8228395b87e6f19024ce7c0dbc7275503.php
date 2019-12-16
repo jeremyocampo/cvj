@@ -19,7 +19,7 @@
                         <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <div class="alert alert-danger" role="alert">
                                 <button type = button data-dismiss="alert" class="close"><span aria-hidden="true">x</span></button>
-                                <?php echo e($error); ?><br>
+                                <?php echo e($error, false); ?><br>
                             </div>
 
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -28,7 +28,7 @@
                             <br>
                             <div class="alert alert-warning" role="alert">
                                 <button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">x</span></button>
-                                <?php echo e(session()->get('warning')); ?><br>
+                                <?php echo e(session()->get('warning'), false); ?><br>
                             </div>
                         <?php endif; ?>
 
@@ -39,7 +39,7 @@
                                 <select name="agency_id" class="form-control" required>
                                     <option value = 0 selected disabled>Please Select agency</option>
                                     <?php $__currentLoopData = $agencies; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $agency): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <option value="<?php echo e($agency->agency_id); ?>"><?php echo e($agency->agency_name); ?></option>
+                                        <option value="<?php echo e($agency->agency_id, false); ?>"><?php echo e($agency->agency_name, false); ?></option>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </select>
                             </div>
@@ -69,7 +69,7 @@
                                 <label class="form-label">Schedule</label>
                                 <select name="schedule_id" class="form-control" required>
                                     <?php $__currentLoopData = $schedules; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $schedule): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <option value="<?php echo e($schedule->id); ?>"><?php echo e($schedule->shift_name); ?></option>
+                                        <option value="<?php echo e($schedule->id, false); ?>"><?php echo e($schedule->shift_name, false); ?></option>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </select>
                             </div>
@@ -77,10 +77,15 @@
                                 <label class="form-label">Contact No</label>
                                 <input type="number" class="form-control" step="any" name="contact_no" required />
                             </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Salary</label>
+                                <input type="number" min="0" value="0" step="0.01" class="form-control" name="salary" required />
+                            </div>
                             <div class="col-md-4 mb-3">
                                 <label class="form-label">Address</label>
                                 <textarea name="address" class="form-control" rows="4"></textarea>
                             </div>
+                            
                         </div>
                     </div>
                     <div class="card-footer text-muted">
@@ -88,9 +93,9 @@
 
                         <div class="text-right">
 
-                            <?php echo e(Form::submit('Save Record', ['class' => 'btn btn-success'])); ?>
+                            <?php echo e(Form::submit('Save Record', ['class' => 'btn btn-success']), false); ?>
 
-                            <a href="<?php echo e(url('manpowers')); ?>" class="btn btn-default">Back</a>
+                            <a href="<?php echo e(url('manpowers'), false); ?>" class="btn btn-default">Back</a>
                             
                         </div>
                     </div>

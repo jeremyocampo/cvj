@@ -456,7 +456,7 @@ class SelectPackageController extends Controller
         error_log("idyota: ".$fileName);
         $event->save_client_quotation('/storage/public/'.$fileName);
         // If you want to store the generated pdf to the server then you can use the store function
-        $pdf->save(storage_path().'/app/uploads/'.$fileName);
+        $pdf->save(storage_path().'\app\uploads\n'.$fileName);
 
 
         //  $request->fileToUpload_deposit->storeAs('uploads',$fileName);
@@ -662,18 +662,21 @@ class SelectPackageController extends Controller
 
             $tot += $e_inv->qty * $e_inv->rent_price;
         }
-        for($i=0; $i<count($request->input("chosen_dishes"));$i++){
-            $itn = Items::where('item_id','=',$request->get("chosen_dishes")[$i])->first();
-            $e_dsh = new EventDishes();
-
-            $e_dsh->event_id = $request->input("event_id");
-            $e_dsh->item_id = $itn->item_id;
-            $e_dsh->total_price = $itn->unit_cost * $package->suggested_pax;
-            $e_dsh->is_addition = true;
-            $e_dsh->save();
-
-            $tot += $e_dsh->total_price;
+        if($request->has('chosen_dishes')){
+            for($i=0; $i<count($request->input("chosen_dishes"));$i++){
+                $itn = Items::where('item_id','=',$request->get("chosen_dishes")[$i])->first();
+                $e_dsh = new EventDishes();
+    
+                $e_dsh->event_id = $request->input("event_id");
+                $e_dsh->item_id = $itn->item_id;
+                $e_dsh->total_price = $itn->unit_cost * $package->suggested_pax;
+                $e_dsh->is_addition = true;
+                $e_dsh->save();
+    
+                $tot += $e_dsh->total_price;
+            }
         }
+
         $tot += $package->price;
         $event->total_amount_due = $tot;
         if($event->venue == 'Off-Premise'){

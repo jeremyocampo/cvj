@@ -50,7 +50,7 @@ class DeployInventoryController extends Controller
         $eventInProgress = DB::table('event')
         ->join('event_status_ref', 'event.status', '=', 'event_status_ref.status_id')
         ->select('*')
-        ->where('event.status', '=', 3)
+        ->where('event.status', '=', 2)
         ->where('event.status', '<', 6)
         ->orderBy('event_start', 'ASC')
         ->get();

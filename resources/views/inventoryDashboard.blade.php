@@ -1,10 +1,7 @@
-
-   
 @extends('layouts.app')
 
 @section('content')
     @include('layouts.headers.cards')
-    {{-- @include('layouts.headers.eventsCard') --}}
     
     <div class="container-fluid mt--7">
         <div class="row">
@@ -36,7 +33,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- <tr>
+                                <tr>
                                     <td>Lanz's Birthday Party</td>
                                     <td>311 Beata St., Ayala Alabang Village, Muntinlupa City</td>
                                     <td>Sep. 7, 2019 1:00 PM</td>
@@ -60,8 +57,8 @@
                                             </div>
                                         </div>
                                     </td>
-                                </tr> --}}
-                                @foreach ($events as $i)
+                                </tr>
+                                {{-- @foreach ($events as $i)
                                 @if($i->status > 0)
                                 <tr>
                                     <td>{{ $i->event_name }}</td>
@@ -90,7 +87,7 @@
                                 </tr>
                                 
                                 @endif
-                                @endforeach
+                                @endforeach --}}
                             </tbody>
                         </table>
                     </div>

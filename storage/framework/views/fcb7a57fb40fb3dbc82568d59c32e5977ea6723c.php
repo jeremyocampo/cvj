@@ -25,14 +25,14 @@
                                         <br>
                                         <div class="alert alert-success" role="alert">
                                             <button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">x</span></button>
-                                            <?php echo e(session()->get('success')); ?><br>
+                                            <?php echo e(session()->get('success'), false); ?><br>
                                         </div>
                                     <?php endif; ?>
                                     <?php if(session()->has('deleted')): ?>
                                         <br>
                                         <div class="alert alert-danger" role="alert">
                                             <button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">x</span></button>
-                                            <?php echo e(session()->get('deleted')); ?><br>
+                                            <?php echo e(session()->get('deleted'), false); ?><br>
                                         </div>
                                     <?php endif; ?>
                                 </div>
@@ -53,7 +53,7 @@
                                         <p>Please check all necessary details before you continue.</p>
                                     </div>
                                     <div class="modal-footer">
-                                        <?php echo e(Form::submit('Deploy Items', ['class' => 'btn btn-success'])); ?>
+                                        <?php echo e(Form::submit('Deploy Items', ['class' => 'btn btn-success']), false); ?>
 
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                                     </div>
@@ -71,15 +71,15 @@
                                                 <div class="col-md-12 mb-7">
                                             <?php $__currentLoopData = $event; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                 <?php if($i->status > 0): ?>
-                                                    <input type="hidden" name="event_id" id="event_id" value="<?php echo e($i->event_id); ?>">
-                                                    <label> Event Name </label><input class="form-control" type="text" disabled value="<?php echo e($i->event_name); ?>">
-                                                    <input type="hidden" class="form-control" value="<?php echo e($i->event_name); ?>" name="event_name" id="event_name"></form>
-                                                    <label> Venue </label> <input class="form-control" type="text" disabled value="<?php echo e($i->venue); ?>">
-                                                    <input type="hidden" class="form-control" value="<?php echo e($i->venue); ?>" name="qty" id="qty"></form>
-                                                    <label> Date </label> <input class="form-control" type="text" disabled value="<?php echo e(Carbon\Carbon::parse($i->event_start)->format('F j, Y      g:i a')); ?>"> 
-                                                    <input type="hidden" class="form-control" value="<?php echo e($i->event_start); ?>" name="event_start" id="qty"></form>
-                                                    <label> Package </label><input class="form-control" type="text" disabled value="<?php echo e($i->package_name); ?>"> 
-                                                    <input type="hidden" class="form-control" value="<?php echo e($i->package_name); ?>" name="package_name" id="package_name"></form>
+                                                    <input type="hidden" name="event_id" id="event_id" value="<?php echo e($i->event_id, false); ?>">
+                                                    <label> Event Name </label><input class="form-control" type="text" disabled value="<?php echo e($i->event_name, false); ?>">
+                                                    <input type="hidden" class="form-control" value="<?php echo e($i->event_name, false); ?>" name="event_name" id="event_name"></form>
+                                                    <label> Venue </label> <input class="form-control" type="text" disabled value="<?php echo e($i->venue, false); ?>">
+                                                    <input type="hidden" class="form-control" value="<?php echo e($i->venue, false); ?>" name="qty" id="qty"></form>
+                                                    <label> Date </label> <input class="form-control" type="text" disabled value="<?php echo e(Carbon\Carbon::parse($i->event_start)->format('F j, Y      g:i a'), false); ?>"> 
+                                                    <input type="hidden" class="form-control" value="<?php echo e($i->event_start, false); ?>" name="event_start" id="qty"></form>
+                                                    <label> Package </label><input class="form-control" type="text" disabled value="<?php echo e($i->package_name, false); ?>"> 
+                                                    <input type="hidden" class="form-control" value="<?php echo e($i->package_name, false); ?>" name="package_name" id="package_name"></form>
                                                 <?php endif; ?>
                                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                             </div>
@@ -88,7 +88,7 @@
                                                 <select class="form-control" name="employeeAssigned" required>
                                                     <option disabled selected > -Please Assign an Employee- </option>
                                                     <?php $__currentLoopData = $employees; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $a): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                        <option value="<?php echo e($a->employee_id); ?>"> <?php echo e($a->employee_FN); ?> <?php echo e($a->employee_LN); ?></option>
+                                                        <option value="<?php echo e($a->id, false); ?>"> <?php echo e($a->employee_fn, false); ?> <?php echo e($a->employee_ln, false); ?></option>
                                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                                 </select>
                                             </div>
@@ -109,15 +109,15 @@
                                                 
                                                 <?php $__currentLoopData = $package; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                 <tr>
-                                                    <input type="hidden" name="item_id<?php echo e($i->inventory_id); ?>" id="item_id" value="<?php echo e($i->inventory_id); ?>">
-                                                    <td> <?php echo e($i->inventory_name); ?></td>
-                                                <input type="hidden" class="form-control" value="<?php echo e($i->inventory_name); ?>" name="inventory_name<?php echo e($i->inventory_id); ?>" id="inventory_name"></form>
-                                                    <td> <?php echo e($i->category_name); ?> </td>
-                                                    <td> <?php echo e($i->color_name); ?> </td>
+                                                    <input type="hidden" name="item_id<?php echo e($i->inventory_id, false); ?>" id="item_id" value="<?php echo e($i->inventory_id, false); ?>">
+                                                    <td> <?php echo e($i->inventory_name, false); ?></td>
+                                                <input type="hidden" class="form-control" value="<?php echo e($i->inventory_name, false); ?>" name="inventory_name<?php echo e($i->inventory_id, false); ?>" id="inventory_name"></form>
+                                                    <td> <?php echo e($i->category_name, false); ?> </td>
+                                                    <td> <?php echo e($i->color_name, false); ?> </td>
                                                     
-                                                    <input type="hidden" class="form-control" value=" <?php echo e($i->sku); ?>" name="barcode" id="barcode"></form>
-                                                    <td> <?php echo e($i->qty); ?></td>
-                                                    <input type="hidden" class="form-control" value="<?php echo e($i->qty); ?>" name="qty" id="qty"></form> 
+                                                    <input type="hidden" class="form-control" value=" <?php echo e($i->sku, false); ?>" name="barcode" id="barcode"></form>
+                                                    <td> <?php echo e($i->qty, false); ?></td>
+                                                    <input type="hidden" class="form-control" value="<?php echo e($i->qty, false); ?>" name="qty" id="qty"></form> 
                                                 </tr>
                                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                             </tbody>
@@ -133,7 +133,7 @@
                         <div class="card-footer text-muted">
                             <div class="text-right">
                                     <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">Deploy</button>
-                                    <a href="<?php echo e(url('deploy')); ?>" class="btn btn-default">Back</a>
+                                    <a href="<?php echo e(url('deploy'), false); ?>" class="btn btn-default">Back</a>
                             </div>
                         </div>
                         
