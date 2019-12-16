@@ -68,6 +68,49 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="empSchedModal" tabindex="-1" style="width: 100%" role="dialog" aria-labelledby="dishesModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document" >
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="dishesModalLabel">Employee Shift Schedule</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <h3 id="shift_lbl"></h3>
+                        <div class="table-responsive mb-3">
+                            <table class="table table-bordered align-items-center table-flush mb-4" id="myTable">
+                                <thead class="thead-light">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Shift Name</th>
+                                    <th>In</th>
+                                    <th>Out</th>
+                                </tr>
+                                </thead>
+                                <tbody id="shift_tbl">
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="pageNavPosition" style="padding-top: 20px; cursor: pointer;" align="center"></div>
+                        <script type="text/javascript">
+                            var pager = new Pager('myTable', 5);
+                            pager.init();
+                            pager.showPageNav('pager', 'pageNavPosition');
+                            pager.showPage(1);
+                        </script>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-small btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <div class="container-fluid mt--7">
         <div class="col-xl-12 mb-5">
@@ -109,7 +152,7 @@
                     <div class="row">
                         <div class="col-md-5 mb-3">
                             <div>
-                            <label class = "form-label" style="display: inline"> Select Client <font color="red">*</font></label>
+                                <label class = "form-label" style="display: inline"> Select Client <font color="red">*</font></label>
                                 <button type="button"style="border-radius: 50px;display: inline;padding: .75px;margin-bottom: .5rem;"  class="btn btn-primary" data-target="#newUserModal" data-tooltip="eut" data-toggle="modal"><i class="fa fa-user-alt"></i>+</button>
 
                             </div>
@@ -218,10 +261,9 @@
                         </div>
                         <div class="col-md-4 mb-3" id="emp_col" style="display: none;">
                             <label class = "form-label"> Assign Personnel to Event</label>
-                            <select class="js-example-basic-multiple" id="select_emps" onchange="dropdown_change_listener()" name="emps[]" style="width: 100%" multiple="multiple">
-
+                            <select class="js-example-basic-multiple" id="select_emps" onchange="dropdown_change_listener()" name="emps[]" style="width: 100%;" multiple="multiple">
                             </select>
-                            <small>Minimum of 5 personnel in an event.</small>
+                            <small><br><a href="#" data-target="#empSchedModal"  data-toggle="modal"><i class="fa fa-eye"></i> View Shift Schedule.</a></small>
                             <script>
                                 $(document).ready(function() {
                                     $('.js-example-basic-multiple').select2({
@@ -252,7 +294,7 @@
             </div>
         </div>
     </div>
-</div>
+    </div>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startPush('js'); ?>
@@ -261,7 +303,7 @@
 
     function dropdown_change_listener() {
         let len = $(".js-example-basic-multiple :selected").length;
-        if (len >= 5){
+        if (len >= 2){
             $("#sumbit_btn").attr("disabled",false);
         }
         else{
@@ -308,6 +350,7 @@
             $("#emp_col").css("display","block");
         }
         disp_avail_personnel(start.value);
+        disp_personnel_sched(start.value);
         //show avail employees
     }
     function disp_avail_personnel(date){
@@ -318,6 +361,22 @@
                 console.log(entry);
                 $("#select_emps").append('<option value="'+entry["emp_id"]+'">'+entry["fn"]+' '+entry["ln"]+'</option>');
 
+            });
+        });
+    }
+    function disp_personnel_sched(date){
+        $.get("/get_all_personnel_sched_on_date/"+date, function(data, status){
+            console.log("helloo: " + data + "\nStatus: " + status);
+            $("#shift_tbl").empty();
+            var datur = JSON.parse(data);
+            $("#shift_lbl").html(datur.date_name + ' Shift');
+            var scheds = datur.scheds;
+            scheds.forEach(function(entry) {
+                var str = '<tr><td>'+entry.name+'</td>';
+                str +='<td>'+entry.shift_name+'</td>';
+                str += '<td>'+entry.in+'</td><td>'+entry.out+'</td></tr>';
+                $("#shift_tbl").append(str);
+                console.log(entry);
             });
         });
     }

@@ -43,19 +43,11 @@ class BookEventController extends Controller
         // ->join('event','client_ref.client_name','=','event.client_name')
         // ->get();
         //dd($joinedTable);
-<<<<<<< HEAD
         
         // $client = DB::table('client')
         // ->select('*')
         // ->where('client.user_id', '=', auth()->user()->id)
         // ->get();
-=======
-
-        $client = DB::table('client')
-            ->select('*')
-            ->where('client.user_id', '=', auth()->user()->id)
-            ->get();
->>>>>>> bbd802713255388126e073ba0da75ea63372c948
         $clients = Client::all();
         $packages = DB::table('package')
             // ->join('package','event.package_id','=','package.package_id')
