@@ -2,12 +2,14 @@
 @extends('layouts.app')
 @section('content')
 @include('layouts.headers.inventoryCard1')
-<!--
-<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap.min.css">
--->
+
+<style>
+    .red_border{
+        border-style: solid;
+        border-width: 1px;
+        border-color: red;
+    }
+</style>
 
 <div class="modal fade" id="dishesModal" tabindex="-1" style="width: 100%" role="dialog" aria-labelledby="dishesModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document" >
@@ -73,7 +75,7 @@
                             @foreach($avail_invs as $avail_inv)
                                 <tr id="mod_inv_row_{{$avail_inv->inventory_id}}">
                                     <td><a style="display: inline;color:white"
-                                           data-inv="{{$avail_inv->inventory_id}},{{$avail_inv->inventory_name}},{{$avail_inv->rental_cost}}"
+                                           data-inv="{{$avail_inv->inventory_id}},{{$avail_inv->inventory_name}},{{$avail_inv->rental_cost}},{{$avail_inv->inv_on_date}}"
                                            class="btn btn-sm btn-primary" onclick="select_inv(this)"> + </a></td>
                                     <td>{{$avail_inv->inventory_name}}</td>
                                     <td>{{$avail_inv->cat_name}}</td>
@@ -156,13 +158,16 @@
                             <thead>
                             <th>Name</th>
                             <th>Quantity</th>
+                            <th>Qty on Date</th>
                             </thead>
                             <tbody id="pck_inv_tbl">
                             @if($package != null)
                                 @foreach($package->inventory as $inv)
                                     <tr>
+                                        <input type="hidden" id="picked_inv_{{$inv->inventory_id}}" qty="{{$inv->quantity}}">
                                         <td>{{$inv->inventory_name}}</td>
                                         <td>{{$inv->quantity}} </td>
+                                        <td>{{$inv->inv_on_date}} @if($inv->inv_on_date - $inv->quantity < 0) <span class="badge badge-danger">Insufficient Inventory</span> @endif</td>
                                     </tr>
                                 @endforeach
                             @endif
@@ -254,7 +259,7 @@
                                             <thead>
                                             <th>Item</th>
                                             <th>Quantity</th>
-                                            <th>Price/Item</th>
+                                            <th>P/PC</th>
                                             <th>Total Price</th>
                                             </thead>
                                             <tbody id="inv_tbl">
@@ -263,9 +268,9 @@
                                                     <tr id="inv_row_{{$inv->inventory_id}}">
                                                         <input type="hidden" name="chosen_invs[]" value="{{$inv->inventory_id}}">
                                                         <td><a style="display: inline;color:white" class="btn btn-sm btn-primary"
-                                                               data-inv="{{$inv->inventory_id}},{{$inv->inventory_name}},{{$inv->rent_price}}"
+                                                               data-inv="{{$inv->inventory_id}},{{$inv->inventory_name}},{{$inv->rent_price}},{{$inv->inv_on_date}}"
                                                                onclick="remove_inv(this)">-</a>   {{$inv->inventory_name}}</td>
-                                                        <td><input name="inv_qty[]" data-rent_cost="{{$inv->rent_price}}" onchange="compute_total_package_price()" data-inv_id="{{$inv->inventory_id}}" class="inv_qty form-control" style="height:3vh;" value="{{$inv->qty}}" type="number"></td>
+                                                        <td><input name="inv_qty[]" data-rent_cost="{{$inv->rent_price}}" inv_on_date="{{$inv->inv_on_date}}" onchange="check_exceed_inv(this)" data-inv_id="{{$inv->inventory_id}}" class="inv_qty form-control" style="height:3vh;" value="{{$inv->qty}}" type="number"></td>
                                                         <td>{{$inv->rent_price}}</td>
                                                         <td><b id="total_inv_{{$inv->inventory_id}}">{{$inv->quantity * $inv->rent_price}}</b></td>
                                                     </tr>
@@ -289,8 +294,15 @@
             let package_price = {{$package->price}};
             let inv_subtotal = 0;
             let food_subtotal = 0;
+
             $(document).ready(function () {
                 compute_total_package_price();
+                console.log("loopidity doopity");
+
+                $('.inv_qty').each(function(index, obj){
+                    check_exceed_inv_sweep(obj);
+                    //you can use this to access the current item
+                });
             });
             function checkSubtotals() {
                 if (parseFloat(inv_subtotal)===0 && parseFloat(food_subtotal)===0){
@@ -328,6 +340,52 @@
 
                 compute_total_package_price();
             }
+            function check_exceed_inv(obj){
+                console.log("computedz");
+                var itm = $('#picked_inv_'+$(obj).attr('data-inv_id'));
+                var existing_inv = 0;
+                if( itm.length )         // use this if you are using id to check
+                {
+                    existing_inv += parseInt($(itm).attr('qty'));
+                }
+
+                console.log("existing inv: "+existing_inv);
+                console.log("obj inv: "+$(obj).val());
+                console.log("inv date: "+$(obj).attr('inv_on_date'));
+                var difference = parseInt($(obj).attr('inv_on_date')) - (parseInt($(obj).val()) + parseInt(existing_inv));
+                if(difference < 0){
+                    console.log("difference: "+difference);
+                    $(obj).addClass('red_border');
+                    alert("insufficient inventory.")
+                }
+                else{
+                    $(obj).removeClass('red_border');
+                }
+
+                compute_total_package_price();
+            }
+            function check_exceed_inv_sweep(obj){
+                console.log("computedz");
+                var itm = $('#picked_inv_'+$(obj).attr('data-inv_id'));
+                var existing_inv = 0;
+                if( itm.length )         // use this if you are using id to check
+                {
+                    existing_inv += parseInt($(itm).attr('qty'));
+                }
+
+                console.log("existing inv: "+existing_inv);
+                console.log("obj inv: "+$(obj).val());
+                console.log("inv date: "+$(obj).attr('inv_on_date'));
+                var difference = parseInt($(obj).attr('inv_on_date')) - (parseInt($(obj).val()) + parseInt(existing_inv));
+                if(difference < 0){
+                    console.log("difference: "+difference);
+                    $(obj).addClass('red_border');
+                }
+                else{
+                    $(obj).removeClass('red_border');
+                }
+            }
+
             function remove_food(obj) {
                 let data_arr = $(obj).attr('data-food').split(',');
 

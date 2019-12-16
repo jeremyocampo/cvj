@@ -129,6 +129,7 @@ class EventsController extends Controller
             $e = events::where('event_id','=',$i->event_id)->first();
             $pack = $e->package();
             error_log("package: ".$pack);
+            $i->need_outsource = $e->is_need_outsource();
             if($pack){
                 $i->package_name = $pack->package_name;
             }else{
@@ -139,8 +140,13 @@ class EventsController extends Controller
                 array_push($upcomingPendingEvents, $i);
             }
         }
+        /*
+        $event_invs = DB::select('select inventory_id, sum(qty) as qty from event_inventory where event_id = ? group by inventory_id',[31]);
 
-
+        foreach($event_invs as $inv){
+            error_log("Amporkchop: ".$inv->inventory_id." ".$inv->qty);
+        }
+        */
 
         foreach($eventApproved as $b){
 

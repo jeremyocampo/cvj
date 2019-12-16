@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\EventInventory;
+use App\EventOutsourceInventory;
+use App\EventOutsourceItem;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\events;
@@ -64,24 +66,37 @@ class ConfirmEventsController extends Controller
     {
 
        $event = events::where('event_id','=',$event_id)->first();
-        $event->status = 2;
+       /*
+       $event->status = 2;
+       $event_inventories = DB::select('select inventory_id, sum(qty) as qty from event_inventory where event_id = ? group by inventory_id',[$event->event_id]);
+       foreach ($event_inventories as $inventory){
+            $inv = inventory::where('inventory_id','=',$inventory->inventory_id)->first();
+            $inventory->inventory_name = $inv->inventory_name;
+            $inventory->unit_expense = $inv->acquisition_cost/$inv->shelf_life;
 
+            $outsource_val = $inv->is_need_outsource_on_date($event->event_start,$inventory->qty);
+            //$inv = $inv->inv_level_on_date()
+            error_log($outsource_val);
+
+            if($outsource_val != -1 ){
+                $outsource = new EventOutsourceInventory();
+                $outsource->event_id = $event->event_id;
+                $outsource->inventory_id = $inventory->inventory_id;
+                $outsource->quantity = $outsource_val;
+                $outsource->total_price = round($inventory->unit_expense*$outsource_val,2);
+                $outsource->save();
+            }
+        }
         //sample define costs here
         //$event->set_default_cost_amount();
         //finalize the quotation here
 
         //finalize budget and costings method used here.
-         $event->event_budget_create();
-         $event->save();
+       $event->event_budget_create();
+       $event->save();
+        */
 
-        // Add items to outsource here or item outsource.
-        //1. Check Total Inv of items
-        $event_invs = DB::select('select inventory_id, sum(qty) as qty from event_inventory where event_id = ? group by inventory_id',[31]);
-
-        foreach($event_invs as $inv){
-            error_log("Amporkchop: ".$inv->inventory_id." ".$inv->qty);
-        }
-
+        /*
             $startDateTime = Carbon::parse($event->event_start);
             $endDateTime = Carbon::parse($event->event_end);
 
@@ -95,7 +110,7 @@ class ConfirmEventsController extends Controller
             $gevent->addAttendee(['email' => $event->client()->email]);
             $gevent->save();
 
-
+*/
             error_log("budget_created successfully");
             return redirect('list_events');
         }

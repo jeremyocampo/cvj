@@ -331,7 +331,7 @@ class SelectPackageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show( $package_id=null)
+    public function show($package_id=null)
     {
         $package = null;
         $client_id = Auth::id();
@@ -587,6 +587,8 @@ class SelectPackageController extends Controller
 
         $event_dishes_id = EventDishes::where('event_id','=',$event->event_id)->where('is_addition','=',true)->select('item_id')->get();
 
+
+
         $client_id = Auth::id();
         if($package_id != null){
             $food_items =EventDishes::where('event_id','=',$event_id)->where('is_addition','=',false)->select('item_id')->get();
@@ -594,7 +596,14 @@ class SelectPackageController extends Controller
             $package->foods = Items::whereIn('item_id',$food_items)->get();
             $package->inventory = PackageInventory::where('package_id','=',$package->package_id)->get();
             foreach ($package->inventory as $inventory){
+                $inv = inventory::where('inventory_id','=',$inventory->inventory_id)->first();
                 $inventory->inventory_name = inventory::where('inventory_id','=',$inventory->inventory_id)->first()->inventory_name;
+                $inventory->inv_on_date = $inv->inv_level_on_date($event->event_start);
+                if($package->is_warning == null){
+                    if($inv->is_need_outsource_on_date($event->start_date,$inventory->quantity) != -1){
+                        $package->is_warning = 1;
+                    }
+                }
             }
             $avail_foods = Items::whereNotIn('item_id',$food_items)->whereNotIn('item_id',$event_dishes_id)->get();
         }
@@ -605,10 +614,14 @@ class SelectPackageController extends Controller
 
         foreach($avail_invs as $inv){
             $inv->cat_name = $inv->category()->category_name;
+            $inv->inv_on_date = $inv->inv_level_on_date($event->event_start);
+
         }
 
         foreach($event_inventories as $inv){
-            $inv->inventory_name = $inv->inventory()->inventory_name;
+            $invt = inventory::where('inventory_id','=',$inv->inventory_id)->first();
+            $inv->inventory_name = $invt->inventory_name;
+            $inv->inv_on_date = $invt->inv_level_on_date($event->event_start);
         }
         foreach($event_dishes as $dish){
             $item = $dish->get_item();
@@ -616,7 +629,6 @@ class SelectPackageController extends Controller
             $dish->item_image = $item->item_image;
             $dish->unit_cost = $item->unit_cost;
 
-            error_log("awit??: ".$dish);
         }
 
         return view('editselectedPackage',['user_id'=>$client_id,'package'=>$package,'event'=>$event,

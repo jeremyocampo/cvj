@@ -189,8 +189,8 @@
                                 </div>
                                  --}}
                                 <br>
+                                @if(count($outsourced_items)!= 0)
                                 <u> COST FOR OUTSOURCED SERVICES </u>
-                                <small>(is just trial for now)</small>
                                 <br>
                                 <table style="border:none; width: 100%;">
                                     <tr class="th_tbl">
@@ -198,23 +198,21 @@
                                         <th class="col_2 squam_tbl">Quantity</th>
                                         <th class="col_3 squam_tbl">Total Cost</th>
                                     </tr>
+                                    @foreach($outsourced_items as $outsourced_item)
                                     <tr>
-                                        <td class="col_1 squam_tbl">Ice Scultpure</td>
-                                        <td class="col_2 squam_tbl">10</td>
-                                        <td class="col_3 squam_tbl">1500</td>
+                                        <td class="col_1 squam_tbl">{{$outsourced_item['name']}}</td>
+                                        <td class="col_2 squam_tbl">{{$outsourced_item['qty']}}</td>
+                                        <td class="col_3 squam_tbl">{{$outsourced_item['cost']}}</td>
                                     </tr>
-                                    <tr>
-                                        <td class="col_1 squam_tbl">Tender Juicy Hatdog</td>
-                                        <td class="col_2 squam_tbl">18</td>
-                                        <td class="col_3 squam_tbl">900</td>
-                                    </tr>
+                                    @endforeach
                                     <tr>
                                         <td class="col_1 squam_tbl total_row"><b>TOTAL COST</b></td>
                                         <td class="col_2 squam_tbl total_row"></td>
-                                        <td class="col_3 squam_tbl total_row"><u><b>900</b></u></td>
+                                        <td class="col_3 squam_tbl total_row"><u><b>P {{number_format($total_outsource_cost,2)}}</b></u></td>
                                     </tr>
                                 </table>
                                 <br>
+                                @endif
                                 @if($is_off_premise)
                                     <u> Extras </u>
                                     <ul>
@@ -231,9 +229,12 @@
                             <div>
                                 <h4 style="display: inline-block;margin-bottom: 0.1vh;margin-top:1vh;">Services Cost :</h4> <span style="display: inline-block">PHP</span> <b style="display: inline-block">{{number_format($total_inv_cost,2)}}</b>
                             </div>
+
+                            @if(count($outsourced_items)!= 0)
                             <div>
                                 <h4 style="display: inline-block;margin-bottom: 0.1vh;margin-top:1vh;">Outsourcing Cost :</h4> <span style="display: inline-block">PHP</span> <b style="display: inline-block">{{number_format($total_outsource_cost,2)}}</b>
                             </div>
+                            @endif
                             <div>
                                 <h4 style="display: inline-block;margin-bottom: 0.1vh;margin-top:1vh;">Staffing Cost :</h4> <span style="display: inline-block">PHP</span> <b style="display: inline-block">{{number_format($staff_cost,2)}}</b>
                             </div>

@@ -224,7 +224,7 @@
 
                                             @if($i->deposit_file_path != null && $i->reservation_file_path != null)
                                                 <small> <i style="color:#3dff18" class="fa fa-check-circle"></i> Requirements Fulfilled.</small><br>
-                                                <a href="{{ url('confirm_event/'.$i->event_id) }}" > @if($user->userType == 4) [ Click to Confirm Event ] @endif</a>
+                                                <a href="#" onclick="confirm_event({{$i->event_id}},{{$i->need_outsource}})"> @if($user->userType == 4) [ Click to Confirm Event ] @endif</a>
                                             @endif
                                             @if($i->reservation_file_path == null)
                                                 <small> <i style="color:#ff974c" class="ni ni-fat-remove"></i> No Reserve Form Uploaded</small>
@@ -312,6 +312,17 @@
         </div> --}}
 
         <script>
+            function confirm_event(event_id,need_outsource){
+                if(need_outsource == 0){
+                    window.location.href = "{{ url('confirm_event/') }}/"+event_id;
+                }
+                else{
+                    var r = confirm("This event needs inventory outsourcing. Would you like to confirm?");
+                    if (r == true) {
+                        window.location.href = "{{ url('confirm_event/') }}/"+event_id;
+                    }
+                }
+            }
             $('#res_inp').change(function() {
                 var file = $('#res_inp')[0].files[0].name;
                 $("#res_file_lb").html(file);

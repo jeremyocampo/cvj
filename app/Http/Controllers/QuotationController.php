@@ -192,12 +192,28 @@ class QuotationController extends Controller
         $is_off_premise = $event->venue == "Off-Premise";
         $outsourced_items = EventOutsourceItem::where('event_id','=',$event->event_id)->get();
 
+        if($event->status > 1){
+            foreach($outsourced_items as $outsourced_item){
+                $out_item = OutsourcedItem::where('outsourced_item_id','=',$outsourced_item->outsourced_item_id)->first();
+                $total_outsource_cost += $outsourced_item->total_price;
+                $outsourced_item->item_name = $out_item->item_name;
+                //idk with this.
+            }
+        }else{
+            $outsourced_items = array();
+        }
+
         $package = PackageModel::where('package_id','>=',$event->package_id)->first();
 
-        $event_inventories = EventInventory::where('event_id','=',$event->event_id)->get();
+
         $event_dishes = EventDishes::where('event_id','=',$event->event_id)->get();
 
-        $additional_count = $event_inventories->count() + $event_dishes->count();
+
+        //$event_inventories = EventInventory::where('event_id','=',$event->event_id)->get();
+        //$additional_count = $event_inventories->count() + $event_dishes->count();
+
+        $event_inventories = DB::select('select inventory_id, sum(qty) as qty from event_inventory where event_id = ? group by inventory_id',[$event->event_id]);
+        $additional_count = count($event_inventories) + $event_dishes->count();
 
         $employees_id = EmployeeEventSchedule::where("event_id",'=',$event_id)->select('employee_id')->get();
 
@@ -207,13 +223,28 @@ class QuotationController extends Controller
             $employee->daily_rate = round( $manpower->salary/30,2);
             $total_staff_cost += $employee->daily_rate; //dummy calculation of wages per day or gig.
         }
+
         foreach ($event_inventories as $inventory){
             $inv = inventory::where('inventory_id','=',$inventory->inventory_id)->first();
             $inventory->inventory_name = $inv->inventory_name;
             $inventory->unit_expense = $inv->acquisition_cost/$inv->shelf_life;
+            error_log("inv_qty: ".$inventory->qty);
+            if($event->status == 1){
+                $outsource_val = $inv->is_need_outsource_on_date($event->event_start,$inventory->qty);
+                //$inv = $inv->inv_level_on_date()
+                error_log($outsource_val);
 
+                if($outsource_val != -1 ){
+                    $inventory->qty = $inventory->qty - $outsource_val;
+                    error_log("inv_qty_out: ".$inventory->qty);
+                    array_push($outsourced_items, array("name"=>$inv->inventory_name,"qty"=>$outsource_val,"cost"=>round($inventory->unit_expense*$outsource_val,2)));
+
+                    $total_outsource_cost += $inventory->unit_expense * $outsource_val;
+                }
+            }
             $total_inv_cost += $inventory->unit_expense * $inventory->qty;
         }
+
         foreach ($event_dishes as $dish){
             $itm = Items::where('item_id','=',$dish->item_id)->first();
             $dish->item_name = $itm->item_name;
@@ -226,15 +257,12 @@ class QuotationController extends Controller
 
         }
         error_log("total_dish_cost: ".$total_dish_cost);
-        foreach($outsourced_items as $outsourced_item){
-            $out_item = OutsourcedItem::where('outsourced_item_id','=',$outsourced_item->outsourced_item_id)->first();
-            $total_outsource_cost += $outsourced_item->total_price;
-            $outsourced_item->item_name = $out_item->item_name;
-            //idk with this.
+
+
+        $total_cost = $total_staff_cost + $total_outsource_cost + $total_dish_cost + $total_inv_cost ;
+        if($is_off_premise){
+            $total_cost +=+ $extra_cost;
         }
-
-        $total_cost = $total_staff_cost + $total_outsource_cost + $total_dish_cost + $total_inv_cost + $extra_cost;
-
         return view('company_quotation',
             ['package'=>$package,'event'=>$event,'user_id'=>$client_id,'client'=>$client,'is_off_premise'=>$is_off_premise,
                 'additional_count'=>$additional_count,'additional_dishes'=>$event_dishes, 'staffs'=>$employees,

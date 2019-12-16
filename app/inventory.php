@@ -26,7 +26,7 @@ class inventory extends Model
         if($cur_inv >= 0){
             return -1;
         }
-        return $cur_inv;
+        return abs($cur_inv);
     }
     public function inv_level_on_date($date){
         $qty_used = 0;

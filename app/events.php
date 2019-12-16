@@ -7,6 +7,8 @@ use App\EmployeeEventSchedule;
 use App\Employee;
 use App\EventInventory;
 use App\EventDishes;
+use DB;
+
 class events extends Model
 {
     //
@@ -167,7 +169,7 @@ class events extends Model
         error_log('$package'.$package->package_name);
 
         $events_past = events::where('event_id','!=',$this->event_id)->
-        where('status','>',2)->
+        where('status','>',1)->
         where('package_id','=',$package->package_id)->
         get()->reverse();
 
@@ -235,6 +237,21 @@ class events extends Model
 
         return true;
     }
+    public function is_need_outsource(){
+        $event_inventories = DB::select('select inventory_id, sum(qty) as qty from event_inventory where event_id = ? group by inventory_id',[$this->event_id]);
+        foreach ($event_inventories as $inventory){
+            $inv = inventory::where('inventory_id','=',$inventory->inventory_id)->first();
+            $inventory->inventory_name = $inv->inventory_name;
+            $inventory->unit_expense = $inv->acquisition_cost/$inv->shelf_life;
+
+            $outsource_val = $inv->is_need_outsource_on_date($this->event_start,$inventory->qty);
+
+            if($outsource_val != -1 ){
+                return 1;
+            }
+        }
+        return 0;
+    }
     public function event_budget_create(){
         //create a budget.
         //$event_package = $this->package();
@@ -245,7 +262,7 @@ class events extends Model
         $budget->save(); //still no buffer in budget.
 
         $event_dishes = EventDishes::where('event_id','=',$this->event_id)->get();
-
+        $event_outsource_invs = EventOutsourceInventory::where('event_id','=',$this->event_id)->get();
         foreach ($event_dishes as $event_dish){
             $event_dish_item =  $event_dish->get_item();
             $budget_item = new EventBudgetItem();
@@ -264,6 +281,20 @@ class events extends Model
                 $budget_item->budget_amount = $event_dish->cost_amount;
                 //think about analingus later.
             }*/
+
+            $budget_item->save();
+            $budget->total_budget += $budget_item->budget_amount;
+        }
+        foreach ($event_outsource_invs as $outsource_inv){
+            $inv = inventory::where('inventory_id','=',$outsource_inv->inventory_id)->first();
+
+            $budget_item = new EventBudgetItem();
+            $budget_item->event_budget_id = $budget->id;
+            $budget_item->item_name = $inv->inventory_name;
+
+            $budget_item->actual_amount = 0;
+            $budget_item->item_tag = "Outsource";
+            $budget_item->budget_amount = $outsource_inv->total_price;
 
             $budget_item->save();
             $budget->total_budget += $budget_item->budget_amount;
