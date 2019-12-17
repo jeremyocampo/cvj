@@ -193,7 +193,7 @@
                                             
                                             <th >Quantity</th>
                                             <th >Threshold</th>
-                                            <th >Last Modified (YY-MM-DD)</th>
+                                            
                                             <th >Action</th>
                                         </tr>
                                     </thead>
@@ -202,10 +202,10 @@
                                         <?php if($b->status > 0): ?>
                                         <tr>
                                             <td scope="col"><?php echo e($b->inventory_name, false); ?></td>
-                                            <td scope="col"><?php echo e($b->category_name, false); ?> </td> 
+                                            
                                             <td scope="col"><?php echo e($b->threshold, false); ?></td>
                                             <td scope="col"><?php echo e($b->quantity, false); ?></td>
-                                            <td scope="col"><?php echo e($b->price, false); ?></td>
+                                            
                                             <td>
                                                 <div class="dropdown">
                                                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

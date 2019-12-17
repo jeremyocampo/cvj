@@ -37,14 +37,14 @@
 										<br>
 										<div class="alert alert-success" role="alert">
 											<button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">x</span></button>
-											<?php echo e(session()->get('success')); ?><br>
+											<?php echo e(session()->get('success'), false); ?><br>
 										</div>
 									<?php endif; ?>
 									<?php if(session()->has('deleted')): ?>
 										<br>
 										<div class="alert alert-danger" role="alert">
 											<button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">x</span></button>
-											<?php echo e(session()->get('deleted')); ?><br>
+											<?php echo e(session()->get('deleted'), false); ?><br>
 										</div>
 									<?php endif; ?>
 								</div>
@@ -72,7 +72,7 @@
 										<p>Please check all necessary details before you continue.</p>
 									</div>
 									<div class="modal-footer">
-										<?php echo e(Form::submit('Return Items to Inventory', ['class' => 'btn btn-success'])); ?>
+										<?php echo e(Form::submit('Return Items to Inventory', ['class' => 'btn btn-success']), false); ?>
 
 										<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 									</div>
@@ -84,35 +84,35 @@
 								<?php $__currentLoopData = $event; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $event): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 								<div class="col-md-4">
 										<label class="form-label">Client Name</label>
-											<h1><b><?php echo e($event->client_name); ?></b></h1>
-										<input type="hidden" class="form-control" name="event_name" value="<?php echo e($event->event_name); ?>">	
+											<h1><b><?php echo e($event->client_name, false); ?></b></h1>
+										<input type="hidden" class="form-control" name="event_name" value="<?php echo e($event->event_name, false); ?>">	
 								</div>
 								<div class="col-md-4">
-									<input type="hidden" class="form-control" name="event_id" value="<?php echo e($event->event_id); ?>">
+									<input type="hidden" class="form-control" name="event_id" value="<?php echo e($event->event_id, false); ?>">
 									<label class="form-label">Event Name</label>
-										<h1><b><?php echo e($event->event_name); ?></b></h1>
-									<input type="hidden" class="form-control" name="event_name" value="<?php echo e($event->event_name); ?>">
+										<h1><b><?php echo e($event->event_name, false); ?></b></h1>
+									<input type="hidden" class="form-control" name="event_name" value="<?php echo e($event->event_name, false); ?>">
 								</div>
 								<div class="col-md-4">
 									<label class="form-label">Date Deployed</label>
 									<?php if($dateDeployed->date_deployed <= $event->event_start): ?>
-										<h1><b><?php echo e(Carbon\Carbon::parse($dateDeployed->date_deployed)->format('F j, Y g:i a')); ?></b></h1>
+										<h1><b><?php echo e(Carbon\Carbon::parse($dateDeployed->date_deployed)->format('F j, Y g:i a'), false); ?></b></h1>
 									<?php else: ?>
-										<h1><b><?php echo e(Carbon\Carbon::parse($dateDeployed->date_deployed)->format('F j, Y g:i a')); ?> <font color="red">[LATE]</font></b></h1>
+										<h1><b><?php echo e(Carbon\Carbon::parse($dateDeployed->date_deployed)->format('F j, Y g:i a'), false); ?> <font color="red">[LATE]</font></b></h1>
 									<?php endif; ?>
-									<input type="hidden" class="form-control" name="event_start" value="<?php echo e($dateDeployed->date_deployed); ?>">
+									<input type="hidden" class="form-control" name="event_start" value="<?php echo e($dateDeployed->date_deployed, false); ?>">
 								</div>
 
 								
 								<div class="col-md-8">
 									<label class="form-label">Venue</label>
-									<h1><b><?php echo e($event->venue); ?></b></h1>
-									<input type="hidden" class="form-control" name="venue" value="<?php echo e($event->venue); ?>">
+									<h1><b><?php echo e($event->venue, false); ?></b></h1>
+									<input type="hidden" class="form-control" name="venue" value="<?php echo e($event->venue, false); ?>">
 								</div>
 								<div class="col-md-4">
 										<label class="form-label">Employee Assigned/Responsible</label>
-										<h1><b><?php echo e($employee->employee_FN. ' ' .$employee->employee_LN. ' ('. $employee->contact_no.')'); ?></b></h1>
-										<input type="hidden" class="form-control" name="venue" value="<?php echo e($employee->employee_id); ?>">
+										<h1><b><?php echo e($employee->employee_fn. ' ' .$employee->employee_ln. ' ('. $employee->contact_no.')', false); ?></b></h1>
+										<input type="hidden" class="form-control" name="venue" value="<?php echo e($employee->id, false); ?>">
 									</div>
 								
 								<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -121,7 +121,7 @@
 							<?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 							<div class="alert alert-danger" role="alert">
 								<button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">x</span></button>
-									<?php echo e($error); ?><br>
+									<?php echo e($error, false); ?><br>
 							</div>
 							<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     	</div>
@@ -146,37 +146,37 @@
 									
                                         <?php $__currentLoopData = $deployed; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         
-                                        <tr id="row<?php echo e($i->barcode); ?>" class="success">
+                                        <tr id="row<?php echo e($i->barcode, false); ?>" class="success">
                                             
-											<td><?php echo e($i->inventory_name); ?></td>
-											<td><?php echo e($i->color_name); ?></td>
+											<td><?php echo e($i->inventory_name, false); ?></td>
+											<td><?php echo e($i->color_name, false); ?></td>
 											<td>
 												<div id="barcode-<?php echo $i->inventory_id; ?>" value="<?php echo "toPrint-" . $i->inventory_id; ?>">
 													<?php echo '<img src="data:image/png;base64,' . DNS1D::getBarcodePNG("".$i->barcode, "C128A",2,44,array(1,1,1), true) . '" alt="barcode"   />'; ?>
 
-													<br><?php echo e($i->barcode); ?>
+													<br><?php echo e($i->barcode, false); ?>
 
 												</div>	
 											</td>
 											
 											<td>
-												<?php echo e($i->qty); ?>
+												<?php echo e($i->qty, false); ?>
 
-												<input hidden type="text" value="<?php echo e($i->qty); ?>" id="qty<?php echo e($i->barcode); ?>">
+												<input hidden type="text" value="<?php echo e($i->qty, false); ?>" id="qty<?php echo e($i->barcode, false); ?>">
 											</td>
 											
 											<td>
-												<div class="col-xl-4">
+												<div class="col-xl-6">
 													
-													<input type="hidden" class="invID" name="invIDs[]" value="<?php echo e($i->inventory_id); ?>" id="inventory-<?php echo e($i->inventory_id); ?>">
-													<input type="number" value=0  readonly class="form-control qtyReturn" name="qtyReturned[]" id="qtyReturn<?php echo e($i->barcode); ?>">
+													<input type="hidden" class="invID" name="invIDs[]" value="<?php echo e($i->inventory_id, false); ?>" id="inventory-<?php echo e($i->inventory_id, false); ?>">
+													<input type="number" value=0  readonly class="form-control qtyReturn" name="qtyReturned[]" id="qtyReturn<?php echo e($i->barcode, false); ?>">
 												</div>
 											</td>
 											<td>
-												<div class="col-xl-4">
+												<div class="col-xl-6">
 													
-													<input type="hidden" class="lostID" name="lostIDs[]" value="<?php echo e($i->inventory_id); ?>" id="lost-<?php echo e($i->inventory_id); ?>">
-													<input type="number" value=<?php echo e($i->qty); ?>  readonly class="form-control qtyLostDam" name="qtyLostDam[]" id="qtyLostDam<?php echo e($i->barcode); ?>">
+													<input type="hidden" class="lostID" name="lostIDs[]" value="<?php echo e($i->inventory_id, false); ?>" id="lost-<?php echo e($i->inventory_id, false); ?>">
+													<input type="number" value=<?php echo e($i->qty, false); ?>  readonly class="form-control qtyLostDam" name="qtyLostDam[]" id="qtyLostDam<?php echo e($i->barcode, false); ?>">
 												</div>
 											</td>
                                         </tr>
@@ -190,7 +190,7 @@
 						<div class="text-right">
 								<button type="button" onclick="checkLoD()" class="btn btn-success" data-toggle="modal" data-target="#myModal">Return Items To Inventory</button>
 								
-								<a href="<?php echo e(url('returnInventory')); ?>" class="btn btn-default">Back</a>
+								<a href="<?php echo e(url('returnInventory'), false); ?>" class="btn btn-default">Back</a>
 								
 								
 						</div>

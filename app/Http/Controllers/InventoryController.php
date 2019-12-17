@@ -43,7 +43,7 @@ class InventoryController extends Controller
             ->join('size','inventory.size', '=', 'size.size_id')
             ->whereNull('inventory.deleted_at')
             ->get();
-        //dd($joinedTable);
+        // dd($joinedTable);
 
         $criticalInventory = DB::select(DB::raw('select * from cvjdb.inventory where quantity <= threshold'));
         // ->join('category_ref', 'inventory.category', '=', 'category_ref.category_no');
@@ -251,7 +251,7 @@ class InventoryController extends Controller
                     'inventory_name' => $request->input('inventory_name'),
                     'category'      => $request->input('category'),
                     'quantity'      => $request->input('quantity'),
-                    'last_modified' => Carbon::now(),
+                    'last_modified' => Carbon::now('+8:00'),
                     'status'        => $request->input('status'),
                     'threshold'     => $request->input('threshold'),
                     'shelf_life' => $request->post('shelf_life'),

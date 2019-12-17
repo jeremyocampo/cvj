@@ -71,7 +71,7 @@
                                             <div class="row">
                                                 <div class="col-md-12 mb-7">
                                             @foreach ($event as $i)
-                                                @if($i->status > 0)
+                                                {{-- @if($i->status > 0) --}}
                                                     <input type="hidden" name="event_id" id="event_id" value="{{ $i->event_id }}">
                                                     <label> Event Name </label><input class="form-control" type="text" disabled value="{{ $i->event_name }}">
                                                     <input type="hidden" class="form-control" value="{{ $i->event_name }}" name="event_name" id="event_name"></form>
@@ -81,7 +81,7 @@
                                                     <input type="hidden" class="form-control" value="{{ $i->event_start }}" name="event_start" id="qty"></form>
                                                     <label> Package </label><input class="form-control" type="text" disabled value="{{ $i->package_name }}"> 
                                                     <input type="hidden" class="form-control" value="{{ $i->package_name }}" name="package_name" id="package_name"></form>
-                                                @endif
+                                                {{-- @endif --}}
                                             @endforeach
                                             </div>
                                             <div class="col-md-12 mb-3">

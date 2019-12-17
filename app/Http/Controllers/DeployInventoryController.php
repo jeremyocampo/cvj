@@ -104,28 +104,31 @@ class DeployInventoryController extends Controller
 
         $eventID = $request->input('event_id');
 
-        $event = DB::table('event')
-        ->where('event_id', '=', $eventID)
-        ->update([
-            'status'      => 4,
-        ]);
+        // $event = DB::table('event')
+        // ->where('event_id', '=', $eventID)
+        // ->update([
+        //     'status'      => 4,
+        // ]);
 
-        $packages = DB::table('event')
-        ->join('package', 'event.package_id','=','package.package_id')
-        ->join('package_inventory', 'package.package_id', '=', 'package_inventory.package_id')
-        ->join('inventory', 'package_inventory.inventory_id', '=', 'inventory.inventory_id')
+        $eventItems = DB::table('event')
+        // ->join('package', 'event.package_id','=','package.package_id')
+        ->join('event_inventory', 'event.event_id', '=', 'event_inventory.event_id')
+        ->join('package', 'event.package_id', '=', 'package.package_id')
+        ->join('inventory', 'event_inventory.inventory_id', '=', 'inventory.inventory_id')
         ->select('*')
         ->where('event.event_id', '=', $eventID)
         ->get();
 
+        // dd($eventItems);
+
         $inventory = DB::table('inventory')
         ->get();
         
-        foreach($packages as $i){
+        foreach($eventItems as $i){
             $deploy_inventory = new deployed_inventory();
             $deploy_inventory->event_deployed = $i->event_id;
             $deploy_inventory->inventory_deployed = $i->inventory_id;
-            $deploy_inventory->qty = $i->qty;
+            $deploy_inventory->qty = $i->quantity;
             $deploy_inventory->employee_assigned = $request->input('employeeAssigned');
             $deploy_inventory->barcode = $faker->unique()->isbn13;
             $deploy_inventory->save();
@@ -160,13 +163,25 @@ class DeployInventoryController extends Controller
         ->where('event.event_id', '=', (int)$id)
         ->get();
 
-        $packages = DB::table('package')
-        ->join('package_inventory', 'package.package_id', '=', 'package_inventory.package_id')
-        ->join('inventory', 'package_inventory.inventory_id', '=', 'inventory.inventory_id')
+        // dd($event);
+        // $packages = DB::table('package')
+        // ->join('event', 'package.package_id', '=', 'event.package_id')
+        // ->join('inventory', 'event_inventory.inventory_id', '=', 'inventory.inventory_id')
+        // ->join('category_ref','inventory.category','=','category_ref.category_no')
+        // ->join('color','inventory.color','=','color.color_id')
+        // ->select('*')
+        // ->get();
+
+        $eventItems = DB::table('event_inventory')
+        ->join('event', 'event_inventory.event_id', '=', 'event.event_id')
+        ->join('package', 'event.package_id', '=', 'package.package_id')
+        ->join('inventory', 'event_inventory.inventory_id', '=', 'inventory.inventory_id')
         ->join('category_ref','inventory.category','=','category_ref.category_no')
         ->join('color','inventory.color','=','color.color_id')
         ->select('*')
         ->get();
+
+        // dd($eventItems);
 
         $employees = DB::table('manpowers')
         ->select('*')
@@ -174,19 +189,22 @@ class DeployInventoryController extends Controller
         ->get();
 
         $eventPackages = array();
-        $eventItems = array();
+        // $eventItems = array();
         
-        foreach($event as $i){
-            $package = $i->package_id;
+        // foreach($event as $i){
+        //     $event = $i->event_id;
 
-            foreach($packages as $b){
-                if ($b->package_id == $package){
-                    array_push($eventPackages, $b);
-                }
-            }
-        }
+        //     foreach($eventItems as $i){
+        //         if ($i->event_id == $id){
+        //             array_push($eventPackages, $b);
+        //         }
+        //     }
+        // }
 
-        return view('viewEventDeploy',[ 'event' => $event, 'package' => $eventPackages, 'employees' => $employees]);
+        // dd($eventPackages);
+
+        // return view('viewEventDeploy',[ 'event' => $event, 'package' => $eventPackages, 'employees' => $employees]);
+        return view('viewEventDeploy',[ 'event' => $event, 'package' => $eventItems, 'employees' => $employees]);
     }
 
     public function edit($id)

@@ -70,7 +70,7 @@
                                             <div class="row">
                                                 <div class="col-md-12 mb-7">
                                             <?php $__currentLoopData = $event; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                <?php if($i->status > 0): ?>
+                                                
                                                     <input type="hidden" name="event_id" id="event_id" value="<?php echo e($i->event_id, false); ?>">
                                                     <label> Event Name </label><input class="form-control" type="text" disabled value="<?php echo e($i->event_name, false); ?>">
                                                     <input type="hidden" class="form-control" value="<?php echo e($i->event_name, false); ?>" name="event_name" id="event_name"></form>
@@ -80,7 +80,7 @@
                                                     <input type="hidden" class="form-control" value="<?php echo e($i->event_start, false); ?>" name="event_start" id="qty"></form>
                                                     <label> Package </label><input class="form-control" type="text" disabled value="<?php echo e($i->package_name, false); ?>"> 
                                                     <input type="hidden" class="form-control" value="<?php echo e($i->package_name, false); ?>" name="package_name" id="package_name"></form>
-                                                <?php endif; ?>
+                                                
                                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                             </div>
                                             <div class="col-md-12 mb-3">

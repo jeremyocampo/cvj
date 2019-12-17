@@ -217,7 +217,7 @@
                                             {{-- <th >Category</th> --}}
                                             <th >Quantity</th>
                                             <th >Threshold</th>
-                                            <th >Last Modified (YY-MM-DD)</th>
+                                            {{-- <th >Last Modified (YY-MM-DD)</th> --}}
                                             <th >Action</th>
                                         </tr>
                                     </thead>
@@ -226,10 +226,11 @@
                                         @if($b->status > 0)
                                         <tr>
                                             <td scope="col">{{ $b->inventory_name }}</td>
-                                            <td scope="col">{{ $b->category_name}} </td> 
-                                            <td scope="col">{{ $b->threshold }}</td>
+                                            {{-- <td scope="col">{{ $b->category_name}} </td>  --}}
                                             <td scope="col">{{ $b->quantity }}</td>
-                                            <td scope="col">{{ $b->price }}</td>
+                                            <td scope="col">{{ $b->threshold }}</td>
+                                            
+                                            {{-- <td scope="col">{{ $b->updated_at }}</td> --}}
                                             <td>
                                                 <div class="dropdown">
                                                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

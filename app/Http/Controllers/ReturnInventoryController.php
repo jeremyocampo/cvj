@@ -120,7 +120,7 @@ class ReturnInventoryController extends Controller
             foreach($returns as $j){
                 $returnedItem = explode(',', $j);
                 if($i->inventory_id == $returnedItem[0]){
-                    if($i->qty == $returnedItem[1]){
+                    if($i->quantity == $returnedItem[1]){
                         $sum = $returnedItem[1] + $i->quantity;
 
                         // dd($sum);
@@ -143,7 +143,7 @@ class ReturnInventoryController extends Controller
                     }
                     else{
                         $sum = $returnedItem[1] + $i->quantity;
-                        $difference = $i->qty - $returnedItem[1];
+                        $difference = $i->quantity - $returnedItem[1];
 
                         Arr::set($actuallyLost, ''.$returnedItem[0], $returnedItem[0].','.$returnedItem[1]);
 
