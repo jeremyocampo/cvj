@@ -106,8 +106,6 @@
 									@endif
 									<input type="hidden" class="form-control" name="event_start" value="{{ $dateDeployed->date_deployed}}">
 								</div>
-
-								
 								<div class="col-md-8">
 									<label class="form-label">Venue</label>
 									<h1><b>{{ $event->venue}}</b></h1>
@@ -295,7 +293,8 @@
 		});
 
 		function checkLoD(){
-
+			// alert('Hello World!');
+			
 		}
 	</script>
 @endpush

@@ -89,7 +89,7 @@
                                                 </div>
                                                 <div class="col-md-12 mb-3">
                                                         <label> Assigned Personel In-charge: </label>
-                                                        <h1><?php echo e($employee->employee_FN. ' ' .$employee->employee_LN. ' ('. $employee->contact_no.')', false); ?></h1>
+                                                        <h1><?php echo e($employee->employee_fn. ' ' .$employee->employee_ln. ' ('. $employee->contact_no.')', false); ?></h1>
                                                 </div>
                                             </div>
                                         </div>

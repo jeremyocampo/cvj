@@ -36,36 +36,58 @@ class DeployInventoryController extends Controller
             $eventsActuallyDeployed = DB::table('event')
             ->select('*')
             ->where('event.event_id', '=', $a->event_id)
-            // ->where('event.status', '=', 3)
             ->join('event_status_ref','event.status', '=', 'event_status_ref.status_id')
             ->first();
 
             array_push($actuallyDeployed, $eventsActuallyDeployed);
         }
 
+        // dd($actuallyDeployed);
+
+        
         $date = Carbon::now('+8:00');
 
         $inprogress = array();
 
         $eventInProgress = DB::table('event')
-        ->join('event_status_ref', 'event.status', '=', 'event_status_ref.status_id')
+        // ->join('event_status_ref', 'event.status', '=', 'event_status_ref.status_id')
         ->select('*')
         ->where('event.status', '=', 2)
         ->where('event.status', '<', 6)
+        ->where('event_start', '<=', $date)
         ->orderBy('event_start', 'ASC')
         ->get();
 
-        if(count($eventsDep) != 0)
+        // dd($eventInProgress);
+        
+
+        // if(count($eventsDep) != 0)
+        if(count($actuallyDeployed) != 0)
         {
             foreach($eventInProgress as $k)
             {
-                foreach($eventsDep as $g)
+                // foreach($eventsDep as $g)
+                foreach($actuallyDeployed as $g)
                 {
                     if($k->event_id != $g->event_id )
                     {
                         if($date->format('Y-m-d') == Carbon::parse($k->event_start)->format('Y-m-d'))
                         {
-                            array_push($inprogress, $k);
+                            if(count($inprogress) != 0)
+                            {
+                                foreach($inprogress as $undeployed)
+                                {
+                                    if($undeployed->event_id != $k->event_id)
+                                    {
+                                        array_push($inprogress, $k);
+                                    } 
+                                }
+                            } 
+                            else 
+                            {
+                                array_push($inprogress, $k);
+                            }
+                            
                         }
                     }
                 }
@@ -81,6 +103,8 @@ class DeployInventoryController extends Controller
                 }
             }
         }
+
+        // dd($inprogress);
 
         return view('deployInventory', ['events'  => $inprogress, 'eventsDep' => $actuallyDeployed ]);
     }
@@ -128,7 +152,7 @@ class DeployInventoryController extends Controller
             $deploy_inventory = new deployed_inventory();
             $deploy_inventory->event_deployed = $i->event_id;
             $deploy_inventory->inventory_deployed = $i->inventory_id;
-            $deploy_inventory->qty = $i->quantity;
+            $deploy_inventory->qty = $i->qty;
             $deploy_inventory->employee_assigned = $request->input('employeeAssigned');
             $deploy_inventory->barcode = $faker->unique()->isbn13;
             $deploy_inventory->save();
@@ -146,6 +170,12 @@ class DeployInventoryController extends Controller
             ->update([
                 'quantity'      => $differenceQty,
                 'shelf_life'    => $differenceLife,
+            ]);
+
+            $eventUpdate = DB::table('event')
+            ->where('event.event_id', '=', $request->input('event_id'))
+            ->update([
+                'status'    => 3,
             ]);
             
         }
@@ -179,6 +209,7 @@ class DeployInventoryController extends Controller
         ->join('category_ref','inventory.category','=','category_ref.category_no')
         ->join('color','inventory.color','=','color.color_id')
         ->select('*')
+        // ->where('event_id', '=', $event->event_id)
         ->get();
 
         // dd($eventItems);
@@ -188,23 +219,20 @@ class DeployInventoryController extends Controller
         ->where('manpowers.employee_type', '=', 'Logistics')
         ->get();
 
-        $eventPackages = array();
-        // $eventItems = array();
-        
-        // foreach($event as $i){
-        //     $event = $i->event_id;
+       $itemsToBeDeployed = array();
 
-        //     foreach($eventItems as $i){
-        //         if ($i->event_id == $id){
-        //             array_push($eventPackages, $b);
-        //         }
-        //     }
-        // }
+    
 
-        // dd($eventPackages);
-
+       foreach($eventItems as $item)
+       {
+        //    dd($item->event_id);
+           if ($item->event_id == $id){
+               array_push($itemsToBeDeployed, $item);
+           }
+       }
+        //   dd($itemsToBeDeployed);
         // return view('viewEventDeploy',[ 'event' => $event, 'package' => $eventPackages, 'employees' => $employees]);
-        return view('viewEventDeploy',[ 'event' => $event, 'package' => $eventItems, 'employees' => $employees]);
+        return view('viewEventDeploy',[ 'event' => $event, 'package' => $itemsToBeDeployed, 'employees' => $employees]);
     }
 
     public function edit($id)

@@ -102,8 +102,6 @@
 									<?php endif; ?>
 									<input type="hidden" class="form-control" name="event_start" value="<?php echo e($dateDeployed->date_deployed, false); ?>">
 								</div>
-
-								
 								<div class="col-md-8">
 									<label class="form-label">Venue</label>
 									<h1><b><?php echo e($event->venue, false); ?></b></h1>
@@ -276,7 +274,9 @@
 		});
 
 		function checkLoD(){
+			// alert('Hello World!');
 
+			
 		}
 	</script>
 <?php $__env->stopPush(); ?>

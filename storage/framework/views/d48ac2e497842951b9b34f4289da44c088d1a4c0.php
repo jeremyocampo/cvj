@@ -39,6 +39,7 @@
                             </div>
 						</div>
 						<div class="card-body">
+                            
                             <div class="table-responsive mb-3">
                                 <!-- Projects table -->
                                 <h1>Undeployed Events Happening today</h1>
@@ -69,6 +70,7 @@
                                     </tbody>
                                 </table>
                             </div>
+                            
                             <div class="table-responsive mb-3">
                                 <!-- Projects table -->
                                 <h1>Deployed Events</h1>

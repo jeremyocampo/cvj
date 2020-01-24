@@ -76,7 +76,7 @@
                                                     <input type="hidden" class="form-control" value="<?php echo e($i->event_name, false); ?>" name="event_name" id="event_name"></form>
                                                     <label> Venue </label> <input class="form-control" type="text" disabled value="<?php echo e($i->venue, false); ?>">
                                                     <input type="hidden" class="form-control" value="<?php echo e($i->venue, false); ?>" name="qty" id="qty"></form>
-                                                    <label> Date </label> <input class="form-control" type="text" disabled value="<?php echo e(Carbon\Carbon::parse($i->event_start)->format('F j, Y      g:i a'), false); ?>"> 
+                                                    <label> Date </label> <input class="form-control" type="text" disabled value="<?php echo e(Carbon\Carbon::parse($i->event_start)->format('F j, Y - g:i a'), false); ?>"> 
                                                     <input type="hidden" class="form-control" value="<?php echo e($i->event_start, false); ?>" name="event_start" id="qty"></form>
                                                     <label> Package </label><input class="form-control" type="text" disabled value="<?php echo e($i->package_name, false); ?>"> 
                                                     <input type="hidden" class="form-control" value="<?php echo e($i->package_name, false); ?>" name="package_name" id="package_name"></form>

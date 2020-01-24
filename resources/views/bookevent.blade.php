@@ -58,11 +58,11 @@
                             },
                             success: function(result){
                                 console.log(result);
-                                var str =  '<option value="'+result.client_id+'" selected>';
+                                var str =  '<option value="'+result.client_id+'">';
                                 str += $("#client_name").val();
                                 str += '</option>';
                                 $('#client_select').append(str);
-                                alert('client '+$("#client_name").val()+' added');
+                                alert('Client '+$("#client_name").val()+' Added!');
                             }});
                     }
                 </script>

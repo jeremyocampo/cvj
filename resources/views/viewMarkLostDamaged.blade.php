@@ -90,7 +90,7 @@
                                                 </div>
                                                 <div class="col-md-12 mb-3">
                                                         <label> Assigned Personel In-charge: </label>
-                                                        <h1>{{ $employee->employee_FN. ' ' .$employee->employee_LN. ' ('. $employee->contact_no.')' }}</h1>
+                                                        <h1>{{ $employee->employee_fn. ' ' .$employee->employee_ln. ' ('. $employee->contact_no.')' }}</h1>
                                                 </div>
                                             </div>
                                         </div>

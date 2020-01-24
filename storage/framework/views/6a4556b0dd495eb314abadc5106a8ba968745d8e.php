@@ -139,6 +139,10 @@
                                             <i class="ni ni-curved-next text-green"></i>Inventory Return</a>
                                     </li>
                                     <li class="nav-item">
+                                        <a href="<?php echo e(url('markLostDamage'), false); ?>" class="nav-link">
+                                            <i class="book-bookmark text-red"></i>Mark as Lost/Damaged</a>
+                                    </li>
+                                    <li class="nav-item">
                                         <a href="<?php echo e(url('outsource'), false); ?>" class="nav-link">
                                             <i class="ni ni-calendar-grid-58 text-yellow"></i>Outsource Items</a>
                                     </li>

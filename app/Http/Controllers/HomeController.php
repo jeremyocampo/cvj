@@ -62,7 +62,7 @@ class HomeController extends Controller
             ->select('*')
             ->get();
 
-            $date = Carbon::now()->format('Y-m-d');
+            $date = Carbon::now('+8:00')->format('Y-m-d');
             // dd($date);
 
             // $check = (Carbon::parse($date)->gt($event[0]->event_start));
@@ -80,27 +80,14 @@ class HomeController extends Controller
             return view('inventoryDashboard',['events' => $events, 'criticalInventory' => $criticalInventory]);
 
         } else if(auth()->user()->userType == 3){
-
-            return redirect('events');
+            //events manager
+            return redirect('bookevent');
 
         }  else if(auth()->user()->userType == 4){
-
-            
+            //operations manager
+            return redirect('list_events');
             
         }  else if(auth()->user()->userType == 5){
-
-            // $user = auth()->user()->id;
-
-            // $events = DB::table('event')
-            // ->select('*')
-            // // ->where('event.client_id', '=', $user)
-            // ->get(); 
-
-            // // $events::where('client_id', $user)->get();
-
-            // // dd($user);
-            // // dd($events);
-            // return view('clientDashboard', ['events' => $events]);
 
             return redirect('bookevent');
             

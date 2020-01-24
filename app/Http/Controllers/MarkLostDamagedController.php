@@ -20,6 +20,12 @@ class MarkLostDamagedController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
         //
@@ -114,8 +120,8 @@ class MarkLostDamagedController extends Controller
         ->where('event_deployed','=', $id)
         ->get();
 
-        $assigned = DB::table('damaged_inventory')
-        ->join('employee','damaged_inventory.employee_assigned','=','employee.employee_id')
+        $assigned = DB::table('deployed_inventory')
+        ->join('manpowers','deployed_inventory.employee_assigned','=','manpowers.id')
         ->select('*')
         ->where('event_deployed', '=', $id)
         ->first();
