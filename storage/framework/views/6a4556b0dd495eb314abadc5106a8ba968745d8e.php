@@ -139,7 +139,7 @@
                                             <i class="ni ni-curved-next text-green"></i>Inventory Return</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="<?php echo e(url('markLostDamage'), false); ?>" class="nav-link">
+                                        <a href="<?php echo e(url('markLostDamaged'), false); ?>" class="nav-link">
                                             <i class="book-bookmark text-red"></i>Mark as Lost/Damaged</a>
                                     </li>
                                     <li class="nav-item">

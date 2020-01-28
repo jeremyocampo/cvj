@@ -48,8 +48,6 @@ class MarkLostDamagedController extends Controller
             array_push($actuallyDamaged, $eventsActuallyDamaged);
         }
 
-        // dd($actuallyDamaged);
-
         $date = Carbon::now('+8:00');
 
         $assigned = DB::table('damaged_inventory')
@@ -120,6 +118,7 @@ class MarkLostDamagedController extends Controller
         ->where('event_deployed','=', $id)
         ->get();
 
+        dd($lostDamaged);
         $assigned = DB::table('deployed_inventory')
         ->join('manpowers','deployed_inventory.employee_assigned','=','manpowers.id')
         ->select('*')

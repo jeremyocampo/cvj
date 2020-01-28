@@ -76,9 +76,15 @@
                                                     <label> Event Name </label><input class="form-control" type="text" disabled value="{{ $i->event_name }}">
                                                     <input type="hidden" class="form-control" value="{{ $i->event_name }}" name="event_name" id="event_name"></form>
                                                     <label> Venue </label> <input class="form-control" type="text" disabled value="{{ $i->venue }}">
-                                                    <input type="hidden" class="form-control" value="{{ $i->venue }}" name="qty" id="qty"></form>
+                                                    <input type="hidden" class="form-control" value="{{ $i->venue }}" name="venue" id="venue"></form>
+
+                                                    @if($i->event_detailsAdded != null)
+                                                        <label> Venue </label> <input class="form-control" type="text" disabled value="{{ $i->event_detailsAdded }}">
+                                                        <input type="hidden" class="form-control" value="{{ $i->event_detailsAdded }}" name="event_detailsAdded" id="event_detailsAdded"></form>
+                                                    @endif
+
                                                     <label> Date </label> <input class="form-control" type="text" disabled value="{{ Carbon\Carbon::parse($i->event_start)->format('F j, Y - g:i a') }}"> 
-                                                    <input type="hidden" class="form-control" value="{{ $i->event_start }}" name="event_start" id="qty"></form>
+                                                    <input type="hidden" class="form-control" value="{{ $i->event_start }}" name="event_start" id="event_start"></form>
                                                     <label> Package </label><input class="form-control" type="text" disabled value="{{ $i->package_name }}"> 
                                                     <input type="hidden" class="form-control" value="{{ $i->package_name }}" name="package_name" id="package_name"></form>
                                                 {{-- @endif --}}

@@ -188,7 +188,7 @@
                                             <i class="ni ni-curved-next text-green"></i>Inventory Return</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="{{ url('markLostDamage') }}" class="nav-link">
+                                        <a href="{{ url('markLostDamaged') }}" class="nav-link">
                                             <i class="book-bookmark text-red"></i>Mark as Lost/Damaged</a>
                                     </li>
                                     <li class="nav-item">

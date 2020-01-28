@@ -119,6 +119,7 @@ class ReturnInventoryController extends Controller
         foreach($packages as $i){
             foreach($returns as $j){
                 $returnedItem = explode(',', $j);
+                dd($returnedItem);
                 if($i->inventory_id == $returnedItem[0]){
                     if($i->quantity == $returnedItem[1]){
                         $sum = $returnedItem[1] + $i->quantity;
@@ -196,6 +197,8 @@ class ReturnInventoryController extends Controller
                 }
             }
         }
+
+        
 
         $event = DB::table('event')
         ->where('event_id','=', $eventID)

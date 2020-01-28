@@ -54,7 +54,7 @@ class DeployInventoryController extends Controller
         ->select('*')
         ->where('event.status', '=', 2)
         ->where('event.status', '<', 6)
-        ->where('event_start', '<=', $date)
+        // ->where('event_start', '<=', $date)
         ->orderBy('event_start', 'ASC')
         ->get();
 
