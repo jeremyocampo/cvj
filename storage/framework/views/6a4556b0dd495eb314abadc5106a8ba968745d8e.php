@@ -140,7 +140,7 @@
                                     </li>
                                     <li class="nav-item">
                                         <a href="<?php echo e(url('markLostDamaged'), false); ?>" class="nav-link">
-                                            <i class="book-bookmark text-red"></i>Mark as Lost/Damaged</a>
+                                            <i class="ni ni-delivery-fast text-red"></i>Mark as Lost/Damaged</a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="<?php echo e(url('outsource'), false); ?>" class="nav-link">

@@ -43,7 +43,7 @@
                             <div class="table-responsive mb-3">
                                 <!-- Projects table -->
                                 <h1>Undeployed Events Happening today</h1>
-                                <table class="table ">
+                                <table class="table" id="myTable">
                                     <thead class="thead-light">
                                         <tr>
                                             <th scope="col">Event Name</th>
@@ -74,7 +74,7 @@
                             <div class="table-responsive mb-3">
                                 <!-- Projects table -->
                                 <h1>Deployed Events</h1>
-                                <table class="table mb-3">
+                                <table class="table mb-3" id="myTable1">
                                     <thead class="thead-light">
                                         <tr>
                                             <th scope="col">Event Name</th>
@@ -85,7 +85,7 @@
                                     </thead>
                                     <tbody>
                                         <?php $__currentLoopData = $eventsDep; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <?php if($i->status <= 4): ?>
+                                        <?php if($i->status <= 5): ?>
                                         <tr>
                                             <td><?php echo e($i->event_name, false); ?></td>
                                             <td><?php echo e($i->venue, false); ?></td>
@@ -113,4 +113,26 @@
 	</div>
 </div>
 <?php $__env->stopSection(); ?>
+
+<?php $__env->startPush('js'); ?>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+
+<link rel="stylesheet" type="text/css" href=". /resources/DataTables/datatables.min.css"/>
+<script type="text/javascript" src=". /resources/DataTables/datatables.min.js"></script>
+
+
+
+
+<script>
+    $(document).ready(function() {
+        $('#myTable').DataTable();
+        $('#myTable1').DataTable();
+    } );
+</script>
+<?php $__env->stopPush(); ?>
+
 <?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>

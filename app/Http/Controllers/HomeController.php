@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\SendMailable;
 use App\userModel;
 
+
 class HomeController extends Controller
 {
     /**
@@ -55,29 +56,35 @@ class HomeController extends Controller
         } else if (auth()->user()->userType == 2){
 
             $criticalInventory = DB::select('select * from cvjdb.inventory where quantity <= threshold;');
+            // $criticalInventory = DB::table('inventory')
+            // ->where('inventory.quantity', '<=' , 'inventory.threshold')
+            // ->get();
 
             $event = DB::table('event')
-            // ->join('reserve_venue','event.reservation_id','=','reserve_venue.reservation_id')
-            ->join('event_status_ref', 'event.status', '=', 'event_status_ref.status_id')
+            ->join('event_status_ref', 'event.status', '<=', 'event_status_ref.status_id')
             ->select('*')
             ->get();
 
-            $date = Carbon::now('+8:00')->format('Y-m-d');
-            // dd($date);
+            $currDate = Carbon::now('+8:00');
+            $dateToday = Carbon::now('+8:00')->format('Y-m-d');
 
-            // $check = (Carbon::parse($date)->gt($event[0]->event_start));
             $events = array();
+            $upcomingEvents = array();
 
             foreach($event as $i){
-                if(Carbon::parse($i->event_start)->format('Y-m-d') == $date){
-                    array_push($events, $i);
+                if(Carbon::parse($i->event_start)->format('Y-m-d') == $dateToday){
+                    if($i->status >= 3){
+                        array_push($events, $i);
+                    }
+                } 
+                else if (Carbon::parse($i->event_start)->format('Y-m-d') > $dateToday){
+                    if($i->status == 3){
+                        array_push($upcomingEvents, $i);
+                    }
                 }
             }
 
-            // dd($eventArr);
-            
-
-            return view('inventoryDashboard',['events' => $events, 'criticalInventory' => $criticalInventory]);
+            return view('inventoryDashboard',['eventsToday' => $events, 'criticalInventory' => $criticalInventory, 'currDate' => $currDate, 'upcomingEvents' => $upcomingEvents]);
 
         } else if(auth()->user()->userType == 3){
             //events manager

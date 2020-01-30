@@ -51,6 +51,33 @@
                                     </div>
                                     <div class="modal-body">
                                         <p>Please check all necessary details before you continue.</p>
+
+                                        <h1>Items to be Deployed</h1>
+                                        <div class="col-md-12">
+                                            <table class="table table-bordered align-items-center table-flush mb-4" id="myTable">
+                                                <thead class="thead-light">
+                                                    <tr>
+                                                        <th>Item Name</th>
+                                                        <th>Category</th>
+                                                        <th>Color</th>
+                                                        <th>Quantity</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php $__currentLoopData = $package; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                    <tr>
+                                                        <td> <?php echo e($i->inventory_name, false); ?></td>
+                                                        <td> <?php echo e($i->category_name, false); ?> </td>
+                                                        <td> <?php echo e($i->color_name, false); ?> </td>
+                                                        <td> <?php echo e($i->qty, false); ?></td>
+                                                    </tr>
+                                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label> Employee In-charge: </label> <b><h3 id="empConfirm"></h3></b> 
+                                        </div>
                                     </div>
                                     <div class="modal-footer">
                                         <?php echo e(Form::submit('Deploy Items', ['class' => 'btn btn-success']), false); ?>
@@ -75,9 +102,15 @@
                                                     <label> Event Name </label><input class="form-control" type="text" disabled value="<?php echo e($i->event_name, false); ?>">
                                                     <input type="hidden" class="form-control" value="<?php echo e($i->event_name, false); ?>" name="event_name" id="event_name"></form>
                                                     <label> Venue </label> <input class="form-control" type="text" disabled value="<?php echo e($i->venue, false); ?>">
-                                                    <input type="hidden" class="form-control" value="<?php echo e($i->venue, false); ?>" name="qty" id="qty"></form>
+                                                    <input type="hidden" class="form-control" value="<?php echo e($i->venue, false); ?>" name="venue" id="venue"></form>
+
+                                                    <?php if($i->event_detailsAdded != null): ?>
+                                                        <label> Address </label> <input class="form-control" type="text" disabled value="<?php echo e($i->event_detailsAdded, false); ?>">
+                                                        <input type="hidden" class="form-control" value="<?php echo e($i->event_detailsAdded, false); ?>" name="event_detailsAdded" id="event_detailsAdded"></form>
+                                                    <?php endif; ?>
+
                                                     <label> Date </label> <input class="form-control" type="text" disabled value="<?php echo e(Carbon\Carbon::parse($i->event_start)->format('F j, Y - g:i a'), false); ?>"> 
-                                                    <input type="hidden" class="form-control" value="<?php echo e($i->event_start, false); ?>" name="event_start" id="qty"></form>
+                                                    <input type="hidden" class="form-control" value="<?php echo e($i->event_start, false); ?>" name="event_start" id="event_start"></form>
                                                     <label> Package </label><input class="form-control" type="text" disabled value="<?php echo e($i->package_name, false); ?>"> 
                                                     <input type="hidden" class="form-control" value="<?php echo e($i->package_name, false); ?>" name="package_name" id="package_name"></form>
                                                 
@@ -85,8 +118,8 @@
                                             </div>
                                             <div class="col-md-12 mb-3">
                                                 Assigned Personel In-charge: <font color="red">*</font>
-                                                <select class="form-control" name="employeeAssigned" required>
-                                                    <option disabled selected > -Please Assign an Employee- </option>
+                                                <select class="form-control" name="employeeAssigned" id="emp" required>
+                                                    <option disabled selected value = "0" > -Please Assign an Employee- </option>
                                                     <?php $__currentLoopData = $employees; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $a): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                         <option value="<?php echo e($a->id, false); ?>"> <?php echo e($a->employee_fn, false); ?> <?php echo e($a->employee_ln, false); ?></option>
                                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -111,7 +144,7 @@
                                                 <tr>
                                                     <input type="hidden" name="item_id<?php echo e($i->inventory_id, false); ?>" id="item_id" value="<?php echo e($i->inventory_id, false); ?>">
                                                     <td> <?php echo e($i->inventory_name, false); ?></td>
-                                                <input type="hidden" class="form-control" value="<?php echo e($i->inventory_name, false); ?>" name="inventory_name<?php echo e($i->inventory_id, false); ?>" id="inventory_name"></form>
+                                                    <input type="hidden" class="form-control" value="<?php echo e($i->inventory_name, false); ?>" name="inventory_name<?php echo e($i->inventory_id, false); ?>" id="inventory_name"></form>
                                                     <td> <?php echo e($i->category_name, false); ?> </td>
                                                     <td> <?php echo e($i->color_name, false); ?> </td>
                                                     
@@ -145,4 +178,23 @@
 	</div>
 </div>
 <?php $__env->stopSection(); ?>
+
+
+<?php $__env->startPush('js'); ?>
+    <script>
+        $( document ).ready(function() 
+        {
+            document.getElementById('emp').onchange = function confirmChanges()
+            {
+                var assignedEmployee = document.getElementById('emp');
+                if (assignedEmployee.options[assignedEmployee.selectedIndex].value != "0")
+                {
+                    // alert(""+assignedEmployee.options[assignedEmployee.selectedIndex].text);
+                    document.getElementById('empConfirm').innerHTML = assignedEmployee.options[assignedEmployee.selectedIndex].text;
+                }
+            }
+        });
+    </script>
+<?php $__env->stopPush(); ?>
+
 <?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -189,7 +189,7 @@
                                     </li>
                                     <li class="nav-item">
                                         <a href="{{ url('markLostDamaged') }}" class="nav-link">
-                                            <i class="book-bookmark text-red"></i>Mark as Lost/Damaged</a>
+                                            <i class="ni ni-delivery-fast text-red"></i>Mark as Lost/Damaged</a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="{{ url('outsource') }}" class="nav-link">

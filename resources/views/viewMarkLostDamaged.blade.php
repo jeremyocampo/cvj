@@ -95,6 +95,54 @@
                                             </div>
                                         </div>
                                         <div class="col-md-9">
+                                            <table class="table table-bordered align-items-center table-flush mb-4 responsive" id="myTable">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th >Dish Name</th>
+                                    <th>Food Image</th>
+                                    <th>Unit Cost (per piece)</th>
+                                    <th >Unit Expense (per piece)</th>
+                                    <th >Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($dishes as $i)
+                                <tr>
+                                    <td><a href="{{ url('fooditem/'.$i->item_id) }}" class="dropdown-item"> {{ $i->item_name }}</a>
+                                    </td>  
+                                    <td><img class="card-img-top" src="{{asset($i->item_image)}}"  style="width:150px;height:100px;" alt="{{$i->item_name}}"></td>  
+                                    <td>{{$i->unit_cost}}</td>
+                                    <td>{{$i->unit_expense}}</td>
+                                    <td class="popup">
+                                        <div class="dropdown">
+                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Action
+                                            </button>
+                                            <div class="dropdown-menu dropdown-menu-arrow dropdown-menu">
+                                                <div class=" dropdown-header noti-title">
+                                                    <h6 class="text-overflow m-0">{{ __('Please Select an Action!') }}</h6>
+                                                </div>
+                                                <div class="dropdown-divider"></div>
+                                                <a href="{{ url('fooditem/'.$i->item_id) }}" class="dropdown-item">
+                                                    <i class="ni ni-zoom-split-in"></i>
+                                                    <span>{{ __('View Item Details') }}</span>
+                                                <a href="" class="dropdown-item" onclick="event.preventDefault();
+                                                    document.getElementById('delete-form-{{ $i->item_id }}').submit();">
+                                                    <i class="ni ni-fat-remove"></i>
+                                                    <span>{{ __('Remove from Food Records') }}</span>
+                                                    {!! Form::open(['action' => ['FoodItemController@destroy', $i->item_id], 'method' => 'POST', 'id' => 'delete-form-'.$i->item_id]) !!}
+                                                        {{ Form::hidden('_method','DELETE')}}
+                                                    {!! Form::close() !!}
+
+                                                   
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                                         <table class="table table-bordered align-items-center table-flush mb-4" id="myTable">
                                             <thead class="thead-light">
                                                 <tr>
@@ -142,7 +190,7 @@
                                                                 </select>
                                                             </div>
                                                             <div class="col-md-2">
-                                                                    <font color="red">*</font>
+                                                                <font color="red">*</font>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -162,17 +210,14 @@
                                             </tbody>
                                         </table>
                                         </div>
-                                    
                                     </div>
                                 </div>
-                                </div>
-
-                                
-                                </div>
+                            </div>
+                        </div>
                         <div class="card-footer text-muted">
                             <div class="text-right">
-                                    <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">Report</button>
-                                    <a href="{{ url('deploy')}}" class="btn btn-default">Back</a>
+                                <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">Report</button>
+                                <a href="{{ url('deploy')}}" class="btn btn-default">Back</a>
                             </div>
                         </div>
                         {{-- {{Form::hidden('_method', 'PUT')}} --}}
@@ -186,6 +231,40 @@
 
 
 @push('js')
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    {{-- DATA TABLES START --}}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+
+    <link rel="stylesheet" type="text/css" href=". /resources/DataTables/datatables.min.css"/>
+    <script type="text/javascript" src=". /resources/DataTables/datatables.min.js"></script>
+    {{-- DATA TABLES END --}}
+
+    {{-- <script>
+        $('.table-responsive tbody tr').slice(-2).find('.dropdown').addClass('dropup');
+
+        function printContent(el){
+            var restorepage = $('body').html();
+            var printcontent = $('#' + el).clone();
+            $('body').empty().html(printcontent);
+            window.print();
+            $('body').html(restorepage);
+            document.location.reload(true);
+            
+            // var restorepage = document.body.innerHTML;
+            // var printcontent = document.getElementById().innerHTML;
+            // document.body.innerHTML = printcontent;
+            // window.print();
+            // document.body.innerHTML = restorepage;
+        }
+    </script> --}}
+
+    <script>
+        $(document).ready(function() {
+            $('#myTable').DataTable();
+        } );
+    </script>
     <script>
         // $('.table-responsive tbody tr').slice(-2).find('.dropdown').addClass('dropup');
 

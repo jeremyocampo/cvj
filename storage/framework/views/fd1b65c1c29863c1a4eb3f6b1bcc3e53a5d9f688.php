@@ -42,7 +42,7 @@
 						<div class="card-body">
                             <div class="table-responsive mb-3">
                                 <!-- Projects table -->
-                                <table class="table align-items-center table-flush">
+                                <table class="table align-items-center table-flush" id="myTable">
                                     <thead class="thead-light">
                                         <tr>
                                             <th scope="col">Event Name</th>
@@ -87,4 +87,27 @@
 	</div>
 </div>
 <?php $__env->stopSection(); ?>
+
+<?php $__env->startPush('js'); ?>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+
+    <link rel="stylesheet" type="text/css" href=". /resources/DataTables/datatables.min.css"/>
+    <script type="text/javascript" src=". /resources/DataTables/datatables.min.js"></script>
+    
+
+    
+
+    <script>
+        $(document).ready(function() {
+            $('#myTable').DataTable();
+        } );
+    </script>
+
+<?php $__env->stopPush(); ?>
+
 <?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>

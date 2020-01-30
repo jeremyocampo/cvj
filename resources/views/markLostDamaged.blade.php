@@ -52,14 +52,14 @@
 						<div class="card-body">
                             <div class="table-responsive mb-3">
                                 <!-- Projects table -->
-                                <table class="table align-items-center table-flush">
+                                <table class="table align-items-center table-flush" id="myTable">
                                     <thead class="thead-light">
                                         <tr>
                                             <th scope="col">Event Name</th>
                                             <th scope="col">Venue</th>
                                             <th scope="col">Borrow Date/Time</th>
                                             {{-- <th scope="col">Return Date/Time</th> --}}
-                                            <th scope="col">Status</th>
+                                            <th scope="col">Event Status</th>
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
@@ -109,3 +109,42 @@
 	</div>
 </div>
 @endsection
+
+@push('js')
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    {{-- DATA TABLES START --}}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+
+    <link rel="stylesheet" type="text/css" href=". /resources/DataTables/datatables.min.css"/>
+    <script type="text/javascript" src=". /resources/DataTables/datatables.min.js"></script>
+    {{-- DATA TABLES END --}}
+
+    {{-- <script>
+        $('.table-responsive tbody tr').slice(-2).find('.dropdown').addClass('dropup');
+
+        function printContent(el){
+            var restorepage = $('body').html();
+            var printcontent = $('#' + el).clone();
+            $('body').empty().html(printcontent);
+            window.print();
+            $('body').html(restorepage);
+            document.location.reload(true);
+            
+            // var restorepage = document.body.innerHTML;
+            // var printcontent = document.getElementById().innerHTML;
+            // document.body.innerHTML = printcontent;
+            // window.print();
+            // document.body.innerHTML = restorepage;
+        }
+    </script> --}}
+
+    <script>
+        $(document).ready(function() {
+            $('#myTable').DataTable();
+        } );
+    </script>
+
+@endpush

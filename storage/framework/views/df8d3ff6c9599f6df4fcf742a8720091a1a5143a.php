@@ -136,7 +136,7 @@
                                                                 </select>
                                                             </div>
                                                             <div class="col-md-2">
-                                                                    <font color="red">*</font>
+                                                                <font color="red">*</font>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -156,17 +156,14 @@
                                             </tbody>
                                         </table>
                                         </div>
-                                    
                                     </div>
                                 </div>
-                                </div>
-
-                                
-                                </div>
+                            </div>
+                        </div>
                         <div class="card-footer text-muted">
                             <div class="text-right">
-                                    <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">Report</button>
-                                    <a href="<?php echo e(url('deploy'), false); ?>" class="btn btn-default">Back</a>
+                                <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">Report</button>
+                                <a href="<?php echo e(url('deploy'), false); ?>" class="btn btn-default">Back</a>
                             </div>
                         </div>
                         

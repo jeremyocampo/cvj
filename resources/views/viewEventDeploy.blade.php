@@ -53,6 +53,33 @@
                                     </div>
                                     <div class="modal-body">
                                         <p>Please check all necessary details before you continue.</p>
+
+                                        <h1>Items to be Deployed</h1>
+                                        <div class="col-md-12">
+                                            <table class="table table-bordered align-items-center table-flush mb-4" id="myTable">
+                                                <thead class="thead-light">
+                                                    <tr>
+                                                        <th>Item Name</th>
+                                                        <th>Category</th>
+                                                        <th>Color</th>
+                                                        <th>Quantity</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($package as $i)
+                                                    <tr>
+                                                        <td> {{ $i->inventory_name }}</td>
+                                                        <td> {{ $i->category_name}} </td>
+                                                        <td> {{ $i->color_name}} </td>
+                                                        <td> {{ $i->qty }}</td>
+                                                    </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label> Employee In-charge: </label> <b><h3 id="empConfirm"></h3></b> 
+                                        </div>
                                     </div>
                                     <div class="modal-footer">
                                         {{ Form::submit('Deploy Items', ['class' => 'btn btn-success']) }}
@@ -79,7 +106,7 @@
                                                     <input type="hidden" class="form-control" value="{{ $i->venue }}" name="venue" id="venue"></form>
 
                                                     @if($i->event_detailsAdded != null)
-                                                        <label> Venue </label> <input class="form-control" type="text" disabled value="{{ $i->event_detailsAdded }}">
+                                                        <label> Address </label> <input class="form-control" type="text" disabled value="{{ $i->event_detailsAdded }}">
                                                         <input type="hidden" class="form-control" value="{{ $i->event_detailsAdded }}" name="event_detailsAdded" id="event_detailsAdded"></form>
                                                     @endif
 
@@ -92,8 +119,8 @@
                                             </div>
                                             <div class="col-md-12 mb-3">
                                                 Assigned Personel In-charge: <font color="red">*</font>
-                                                <select class="form-control" name="employeeAssigned" required>
-                                                    <option disabled selected > -Please Assign an Employee- </option>
+                                                <select class="form-control" name="employeeAssigned" id="emp" required>
+                                                    <option disabled selected value = "0" > -Please Assign an Employee- </option>
                                                     @foreach($employees as $a)
                                                         <option value="{{ $a->id}}"> {{$a->employee_fn}} {{$a->employee_ln}}</option>
                                                     @endforeach
@@ -124,7 +151,7 @@
                                                 <tr>
                                                     <input type="hidden" name="item_id{{ $i->inventory_id}}" id="item_id" value="{{ $i->inventory_id}}">
                                                     <td> {{ $i->inventory_name }}</td>
-                                                <input type="hidden" class="form-control" value="{{ $i->inventory_name }}" name="inventory_name{{$i->inventory_id}}" id="inventory_name"></form>
+                                                    <input type="hidden" class="form-control" value="{{ $i->inventory_name }}" name="inventory_name{{$i->inventory_id}}" id="inventory_name"></form>
                                                     <td> {{ $i->category_name}} </td>
                                                     <td> {{ $i->color_name}} </td>
                                                     {{-- <td> {!!'<img src="data:image/png;base64,' . DNS1D::getBarcodePNG("".$i->sku, "C128A",2,44,array(1,1,1), true) . '" alt="barcode"   />' !!}</td> --}}
@@ -157,3 +184,21 @@
 	</div>
 </div>
 @endsection
+
+
+@push('js')
+    <script>
+        $( document ).ready(function() 
+        {
+            document.getElementById('emp').onchange = function confirmChanges()
+            {
+                var assignedEmployee = document.getElementById('emp');
+                if (assignedEmployee.options[assignedEmployee.selectedIndex].value != "0")
+                {
+                    // alert(""+assignedEmployee.options[assignedEmployee.selectedIndex].text);
+                    document.getElementById('empConfirm').innerHTML = assignedEmployee.options[assignedEmployee.selectedIndex].text;
+                }
+            }
+        });
+    </script>
+@endpush

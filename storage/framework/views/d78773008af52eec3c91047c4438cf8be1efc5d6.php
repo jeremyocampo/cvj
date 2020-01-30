@@ -70,6 +70,7 @@
 									</div>
 									<div class="modal-body">
 										<p>Please check all necessary details before you continue.</p>
+										
 									</div>
 									<div class="modal-footer">
 										<?php echo e(Form::submit('Return Items to Inventory', ['class' => 'btn btn-success']), false); ?>
@@ -79,6 +80,7 @@
 								</div>
 							</div>
 						</div>
+
 						<div class="card-body">
 							<div class="row">
 								<?php $__currentLoopData = $event; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $event): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -98,7 +100,7 @@
 									<?php if($dateDeployed->date_deployed <= $event->event_start): ?>
 										<h1><b><?php echo e(Carbon\Carbon::parse($dateDeployed->date_deployed)->format('F j, Y g:i a'), false); ?></b></h1>
 									<?php else: ?>
-										<h1><b><?php echo e(Carbon\Carbon::parse($dateDeployed->date_deployed)->format('F j, Y g:i a'), false); ?> <font color="red">[LATE]</font></b></h1>
+										<h1><b><?php echo e(Carbon\Carbon::parse($dateDeployed->date_deployed)->format('F j, Y g:i a'), false); ?></h1><p> <font color="red">[LATE DEPLOYMENT]</font></p></b>
 									<?php endif; ?>
 									<input type="hidden" class="form-control" name="event_start" value="<?php echo e($dateDeployed->date_deployed, false); ?>">
 								</div>
@@ -275,7 +277,6 @@
 
 		function checkLoD(){
 			// alert('Hello World!');
-
 			
 		}
 	</script>

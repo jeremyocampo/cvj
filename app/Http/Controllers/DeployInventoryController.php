@@ -60,7 +60,6 @@ class DeployInventoryController extends Controller
 
         // dd($eventInProgress);
         
-
         // if(count($eventsDep) != 0)
         if(count($actuallyDeployed) != 0)
         {

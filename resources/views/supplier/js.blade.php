@@ -241,34 +241,12 @@
                     data.items.forEach(item => {
                         items += '<tr>' +
                             '<td>'+ item.item +'</td>' +
-<<<<<<< HEAD
-<<<<<<< HEAD
-                        '</tr>';
-                    });
-
-                    $('#supplier-items').append(items);
-
-=======
-                            '<td>' +
-                                '<label class="badge ' + item.is_active ? 'badge-success' : 'badge-danger' + '">' + item.is_active ? 'Active' : 'Inactive' + '</label>' +
-                            '</td>' +
-                            '<td>' +
-                                '<button class="btn btn-sm btn-danger">' +
-                                    '<i class="fa fa-trash"></i>' +
-                                '</button>' +
-                            '</td>' +
-                        '</tr>';
-                    });
-
->>>>>>> af89cc55d0015b180d38cf76171692f982e6b22c
-=======
                             '<td>'+ item.rate +'</td>' +
                         '</tr>';
                     });
 
                     $('#supplier-items').append(items);
 
->>>>>>> 428d0760ee547bb74a82f0c13ea4492de4ead3fe
                     $('#contacts').append(contacts);
                 },
                 eeror: function(error) {
@@ -289,20 +267,14 @@
                 type: 'POST',
                 data: {
                     item: $('#supplierItem').val(),
-<<<<<<< HEAD
-=======
                     rate: $('#supplierRate').val(),
->>>>>>> 428d0760ee547bb74a82f0c13ea4492de4ead3fe
                     _token: '{!! csrf_token() !!}'
                 },
                 success: function(data) {
                     $('#supplier-items').append(
                         '<tr>' +
                             '<td>' + data.item + '</td>' +
-<<<<<<< HEAD
-=======
                             '<td>' + data.rate + '</td>' +
->>>>>>> 428d0760ee547bb74a82f0c13ea4492de4ead3fe
                         '</tr>'
                     );
 

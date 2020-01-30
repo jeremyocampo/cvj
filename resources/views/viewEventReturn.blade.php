@@ -75,6 +75,36 @@
 									</div>
 									<div class="modal-body">
 										<p>Please check all necessary details before you continue.</p>
+										{{-- <h1>Items to be Returned</h1>
+                                        <div class="col-md-12">
+											<table class="table table-bordered align-items-center table-flush mb-4" id="myTable">
+                                                <thead class="thead-light">
+                                                    <tr>
+                                                        <th>Item Name</th>
+                                                        <th>Category</th>
+                                                        <th>Color</th>
+                                                        <th>Quantity</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($package as $i)
+                                                    <tr>
+                                                        <input type="hidden" name="item_id{{ $i->inventory_id}}" id="item_id" value="{{ $i->inventory_id}}">
+                                                        <td> {{ $i->inventory_name }}</td>
+                                                        <td> {{ $i->category_name}} </td>
+                                                        <td> {{ $i->color_name}} </td>
+                                                        <td id=""> {{ $i->qty }}</td>
+                                                    </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+										</div>
+										<div class="col-md-12">
+											<h1>Items to be marked as Lost/Damaged</h1>
+										</div>
+                                        <div class="col-md-12">
+                                            
+										</div> --}}
 									</div>
 									<div class="modal-footer">
 										{{ Form::submit('Return Items to Inventory', ['class' => 'btn btn-success']) }}
@@ -83,6 +113,7 @@
 								</div>
 							</div>
 						</div>
+
 						<div class="card-body">
 							<div class="row">
 								@foreach($event as $event)
@@ -102,7 +133,7 @@
 									@if($dateDeployed->date_deployed <= $event->event_start)
 										<h1><b>{{ Carbon\Carbon::parse($dateDeployed->date_deployed)->format('F j, Y g:i a') }}</b></h1>
 									@else
-										<h1><b>{{ Carbon\Carbon::parse($dateDeployed->date_deployed)->format('F j, Y g:i a') }} <font color="red">[LATE]</font></b></h1>
+										<h1><b>{{ Carbon\Carbon::parse($dateDeployed->date_deployed)->format('F j, Y g:i a') }}</h1><p> <font color="red">[LATE DEPLOYMENT]</font></p></b>
 									@endif
 									<input type="hidden" class="form-control" name="event_start" value="{{ $dateDeployed->date_deployed}}">
 								</div>

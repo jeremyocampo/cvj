@@ -118,7 +118,7 @@ class MarkLostDamagedController extends Controller
         ->where('event_deployed','=', $id)
         ->get();
 
-        dd($lostDamaged);
+        // dd($lostDamaged);
         $assigned = DB::table('deployed_inventory')
         ->join('manpowers','deployed_inventory.employee_assigned','=','manpowers.id')
         ->select('*')
