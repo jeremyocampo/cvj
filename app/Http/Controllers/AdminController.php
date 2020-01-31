@@ -6,19 +6,58 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-    //
+
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
     public function index()
     {
-        // return view('adminhome');
+        //
+        $employees = DB::table('manpower')
+        ->get();
 
-        if(auth()->user()->userType == 1){
-            return view('adminhome');
-        } else if (auth()->user()->userType == 2){
-            return view('admin');
-        }
+        $noOfEmployees = count($noOfEmployees);
+
+        dd($noOfEmployees);
+        return view('adminDashboard');
     }
-    public function admin()
+
+
+    public function create()
     {
-        return view('admin');
+        //
+    }
+
+
+    public function store(Request $request)
+    {
+        //
+    }
+
+
+    public function show($id)
+    {
+        //
+    }
+
+    public function edit($id)
+    {
+        //
+    }
+
+
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+
+    public function destroy($id)
+    {
+        //
     }
 }

@@ -166,7 +166,7 @@
         background: #e2eaef;
         font-family: "Open Sans", sans-serif;
     }
-    h2 {
+    /* h2 {
         color: #000;
         font-size: 26px;
         font-weight: 300;
@@ -186,7 +186,7 @@
         left: 0;
         right: 0;
         bottom: -20px;
-    }
+    } */
     .carousel {
         margin: 50px auto;
         padding: 0 70px;

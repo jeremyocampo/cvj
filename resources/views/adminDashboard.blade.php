@@ -1,7 +1,7 @@
-@extends('layouts.inventoryApp')
+@extends('layouts.app')
 
 @section('content')
-    @include('layouts.headers.cards')
+    @include('layouts.headers.inventoryCard1')
     
     <div class="container-fluid mt--7">
         <div class="row">

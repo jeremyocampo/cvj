@@ -35,9 +35,9 @@
 
 // Route::get('/home', 'HomeController@index')->name('home');
 
-	// Route::put('profile', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
+// 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
 	
-	// Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
+// 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
 
 
 // Route::get('/inventory', 'InventoryController@show')->name('inventory');
@@ -107,7 +107,7 @@ Route::resource('eventreport', 'EventLogisticsReportController');
 Route::resource('returnInventory', 'ReturnInventoryController');
 Route::resource('manageuser', 'ManageUsersController');
 
-Route::get('admin/routes', 'AdminController@admin')->middleware('admin');
+// Route::get('admin/routes', 'AdminController@admin')->middleware('admin');
 
 // Route::resource('cal','gCalendarController');
 // Route::get('oauth', 'gCalendarController@oauth');
@@ -225,3 +225,5 @@ Route::get('archive', 'InventoryController@archive');
 Route::get('recover/{id}', 'InventoryController@recover');
 
 Route::get('outsource', 'PurchaseOrderController@index');
+
+Route::resource('admin', 'AdminController');
