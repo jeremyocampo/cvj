@@ -1,9 +1,12 @@
-@extends('supplier.layout.dashboard')
+{{-- @extends('supplier.layout.dashboard') --}}
+
+@extends('layouts.app')
 
 @section('content')
-    <div class="header bg-gradient-logo-color pb-8 pt-5 pt-md-8"></div>
+@include('layouts.headers.inventoryCard1')
+    {{-- <div class="header bg-gradient-logo-color pb-8 pt-5 pt-md-8"></div> --}}
     <div class="container-fluid mt--7">
-        <div class="row">
+        {{-- <div class="row"> --}}
             <div class="col-12">
                 <div class="card shadow">
                     <div class="card-header">
@@ -59,8 +62,7 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        
 
     <div class="modal fade" id="modalPO">
         <div class="modal-dialog modal-lg">

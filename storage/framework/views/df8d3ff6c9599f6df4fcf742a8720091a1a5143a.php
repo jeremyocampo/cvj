@@ -94,6 +94,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-9">
+                        
                                         <table class="table table-bordered align-items-center table-flush mb-4" id="myTable">
                                             <thead class="thead-light">
                                                 <tr>
@@ -178,6 +179,7 @@
 
 
 <?php $__env->startPush('js'); ?>
+
     <script>
         // $('.table-responsive tbody tr').slice(-2).find('.dropdown').addClass('dropup');
 

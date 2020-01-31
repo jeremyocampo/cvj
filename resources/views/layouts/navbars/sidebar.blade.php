@@ -199,6 +199,24 @@
                                         <a href="{{ url('archive') }}" class="nav-link">
                                             <i class="ni ni-archive-2 text-red"></i>Inventory Archive</a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('suppliers.index') }}" class="nav-link">
+                                            <i class="ni ni-archive-2 text-primary"></i>
+                                            Suppliers
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('purchase-orders.index') }}" class="nav-link">
+                                            <i class="fa fa-money-bill-alt text-primary"></i>
+                                            Purchase Order
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('reservations.index') }}" class="nav-link">
+                                            <i class="fa fa-phone text-primary"></i>
+                                            Reservation
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         </li>

@@ -49,7 +49,7 @@
                                             <th scope="col">Venue</th>
                                             <th scope="col">Borrow Date/Time</th>
                                             
-                                            <th scope="col">Status</th>
+                                            <th scope="col">Event Status</th>
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>

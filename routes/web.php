@@ -223,3 +223,5 @@ Route::resource('inventory','InventoryController');
 Route::get('updateInventory/{id}', 'InventoryController@editRecord');
 Route::get('archive', 'InventoryController@archive');
 Route::get('recover/{id}', 'InventoryController@recover');
+
+Route::get('outsource', 'PurchaseOrderController@index');

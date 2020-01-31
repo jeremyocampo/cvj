@@ -1,6 +1,5 @@
 <?php $__env->startSection('js'); ?>
     <script>
-<<<<<<< HEAD
         $('#addSupplier').on('click', function() {
             $('#addModalSupplier').modal('show');
 
@@ -64,10 +63,6 @@
                     });
                 }
             });
-=======
-        $('#add-supplier').on('click', function() {
-            alert('test'); 
->>>>>>> af89cc55d0015b180d38cf76171692f982e6b22c
         });
 
         $('.edit').on('click', function() {
@@ -80,6 +75,7 @@
             $('#supplierCompanyAddress').removeAttr('disabled');
             $('#supplierBillingAddress').removeAttr('disabled');
             $('#supplierType').removeAttr('disabled');
+            $('#supplierPaymentTerms').removeAttr('disabled');
             $('#supplierRemarks').removeAttr('disabled');
 
             $('.save').show();
@@ -180,11 +176,8 @@
                 url: '/suppliers/' + supplier,
                 type: 'GET',
                 success: function(data) {
-<<<<<<< HEAD
                     $('#addContact').removeAttr('disabled');
                     $('#addContact').attr('data-id', data.supplier_id);
-=======
->>>>>>> af89cc55d0015b180d38cf76171692f982e6b22c
                     $('#supplierName').val(data.name);
                     $('#supplierEmail').val(data.email);
                     $('#supplierLandline').val(data.landline);
@@ -248,25 +241,12 @@
                     data.items.forEach(item => {
                         items += '<tr>' +
                             '<td>'+ item.item +'</td>' +
-<<<<<<< HEAD
+                            '<td>'+ item.rate +'</td>' +
                         '</tr>';
                     });
 
                     $('#supplier-items').append(items);
 
-=======
-                            '<td>' +
-                                '<label class="badge ' + item.is_active ? 'badge-success' : 'badge-danger' + '">' + item.is_active ? 'Active' : 'Inactive' + '</label>' +
-                            '</td>' +
-                            '<td>' +
-                                '<button class="btn btn-sm btn-danger">' +
-                                    '<i class="fa fa-trash"></i>' +
-                                '</button>' +
-                            '</td>' +
-                        '</tr>';
-                    });
-
->>>>>>> af89cc55d0015b180d38cf76171692f982e6b22c
                     $('#contacts').append(contacts);
                 },
                 eeror: function(error) {
@@ -275,7 +255,6 @@
             });
         }
     </script>
-<<<<<<< HEAD
     
     <script>
         $('#addItem').on('click', function() {
@@ -288,12 +267,14 @@
                 type: 'POST',
                 data: {
                     item: $('#supplierItem').val(),
+                    rate: $('#supplierRate').val(),
                     _token: '<?php echo csrf_token(); ?>'
                 },
                 success: function(data) {
                     $('#supplier-items').append(
                         '<tr>' +
                             '<td>' + data.item + '</td>' +
+                            '<td>' + data.rate + '</td>' +
                         '</tr>'
                     );
 
@@ -369,6 +350,4 @@
             })
         });
     </script>
-=======
->>>>>>> af89cc55d0015b180d38cf76171692f982e6b22c
 <?php $__env->stopSection(); ?>

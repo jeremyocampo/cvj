@@ -150,6 +150,24 @@
                                         <a href="<?php echo e(url('archive'), false); ?>" class="nav-link">
                                             <i class="ni ni-archive-2 text-red"></i>Inventory Archive</a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a href="<?php echo e(route('suppliers.index'), false); ?>" class="nav-link">
+                                            <i class="ni ni-archive-2 text-primary"></i>
+                                            Suppliers
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="<?php echo e(route('purchase-orders.index'), false); ?>" class="nav-link">
+                                            <i class="fa fa-money-bill-alt text-primary"></i>
+                                            Purchase Order
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="<?php echo e(route('reservations.index'), false); ?>" class="nav-link">
+                                            <i class="fa fa-phone text-primary"></i>
+                                            Reservation
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         </li>
