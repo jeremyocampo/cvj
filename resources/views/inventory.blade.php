@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-@include('layouts.headers.inventoryCard')
+@include('layouts.headers.inventoryCard1')
 
     <div class="container-fluid mt--7">
             {{-- <div class="col-xl-8 mb-5 mb-xl-0"> --}}
@@ -25,13 +25,20 @@
                             <div class="col text-right"> </div>
                             <div class="col text-left">
                                 <div class="col-xs-5"> 
-                                    <input class="form-control" id="myInput" type="search" onkeyup="searchTable()" style="background: transparent;" placeholder="Search Item Here">
+                                    {{-- <input class="form-control" id="myInput" type="search" onkeyup="searchTable()" style="background: transparent;" placeholder="Search Item Here"> --}}
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
                                 @if(session()->has('success'))
+                                {{-- <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <span class="alert-inner--icon"><i class="ni ni-like-2"></i></span>
+                                    <span class="alert-inner--text"><strong>Success!</strong> This is a success alert—check it out!</span>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div> --}}
                                     <br>
                                     <div class="alert alert-success" role="alert">
                                         <button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">x</span></button>
@@ -130,7 +137,7 @@
                         </table>
                     </div>
                     </div>
-                    <div class="card-footer">
+                    {{-- <div class="card-footer">
                             <div id="pageNavPosition" style="padding-top: 20px; cursor: pointer;" align="center"></div>
                             <script type="text/javascript">
                                 <!--
@@ -139,7 +146,7 @@
                                 pager.showPageNav('pager', 'pageNavPosition');
                                 pager.showPage(1);
                             </script>
-                    </div>
+                    </div> --}}
                     </div>
                     <!--pagination-->
                     
@@ -178,7 +185,7 @@
                                     <div class="col text-left">
                                        
                                             <div class="col-xs-5">
-                                                <input class="form-control" id="myInput" type="search" onkeyup="searchTable()" style="background: transparent;" placeholder="Search Item Here">
+                                                {{-- <input class="form-control" id="myInput" type="search" onkeyup="searchTable()" style="background: transparent;" placeholder="Search Item Here"> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -209,7 +216,7 @@
                             <div class="table-responsive mb-3">
                                 <!-- Projects table -->
                                 
-                                <table class="table table-bordered align-items-center table-flush mb-4" id="myTable">
+                                <table class="table table-bordered align-items-center table-flush mb-4" id="myTable1">
                                     <thead class="thead-light">
                                         <tr>
                                             <th >Item name</th>
@@ -260,7 +267,7 @@
                                 </table>
                             </div>
                             </div>
-                            <div class="card-footer">
+                            {{-- <div class="card-footer">
                                     <div id="pageNavPosition" style="padding-top: 20px; cursor: pointer;" align="center"></div>
                                     <script type="text/javascript">
                                         <!--
@@ -269,7 +276,7 @@
                                         pager.showPageNav('pager', 'pageNavPosition');
                                         pager.showPage(1);
                                     </script>
-                            </div>
+                            </div> --}}
                             </div>
                             <!--pagination-->
                             
@@ -290,6 +297,21 @@
 @endsection
 
 @push('js')
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    {{-- DATA TABLES START --}}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+
+    <link rel="stylesheet" type="text/css" href=". /resources/DataTables/datatables.min.css"/>
+    <script type="text/javascript" src=". /resources/DataTables/datatables.min.js"></script>
+    {{-- DATA TABLES END --}}
+    <script>
+        $(document).ready(function() {
+            $('#myTable').DataTable();
+            $('#myTable1').DataTable();
+            // $('#myTable2').DataTable();
+        } );
+    </script>
     {{-- <script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.min.js"></script>
     <script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.extension.js"></script> --}}
     {{-- <script>
@@ -319,7 +341,7 @@
         }
 
     </script> --}}
-    <script>
+    {{-- <script>
         $('.table-responsive tbody tr').slice(-2).find('.dropdown').addClass('dropup');
 
         function printContent(el){
@@ -336,6 +358,8 @@
             // window.print();
             // document.body.innerHTML = restorepage;
         }
-    </script>
+    </script> --}}
+
+    
 
 @endpush

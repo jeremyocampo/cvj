@@ -1,5 +1,5 @@
 <?php $__env->startSection('content'); ?>
-<?php echo $__env->make('layouts.headers.inventoryCard', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php echo $__env->make('layouts.headers.inventoryCard1', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
 <div class="container-fluid mt--7">
 	<div class="card-body">

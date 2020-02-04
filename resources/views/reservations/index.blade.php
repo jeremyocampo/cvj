@@ -1,9 +1,11 @@
-@extends('reservations.layout')
+{{-- @extends('reservations.layout') --}}
+@extends('layouts.app')
 
 @include('reservations.css')
 
 @section('content')
-    <div class="header bg-gradient-logo-color pb-8 pt-5 pt-md-8"></div>
+@include('layouts.headers.inventoryCard1')
+    {{-- <div class="header bg-gradient-logo-color pb-8 pt-5 pt-md-8"></div> --}}
     <div class="container-fluid mt--7">
         <div class="row">
             <div class="col-12">

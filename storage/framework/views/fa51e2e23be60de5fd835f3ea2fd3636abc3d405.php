@@ -4,7 +4,8 @@
             <!-- Card stats -->
             <div class="col-4">
                 <div class="">
-                    <!-- <div class="card card-stats">
+                    
+                    <div class="card card-stats">
                         <a href="<?php echo e(url('inventory/create'), false); ?>">
                         <div class="card-body">
                             <div class="row">
@@ -19,7 +20,8 @@
                             </div>    
                         </div>
                         </a>
-                    </div> -->
+                    </div>
+                    
                 </div>
             </div>
         </div>
