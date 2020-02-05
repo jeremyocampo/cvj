@@ -56,7 +56,7 @@
                                     <tbody>
                                         
                                         <?php $__currentLoopData = $events; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        
+                                        <?php if($i->status >= 4): ?>
                                         <tr>
                                             <td><?php echo e($i->event_name, false); ?></td>
                                             <td><?php echo e($i->venue, false); ?></td>
@@ -65,11 +65,11 @@
                                             <td><?php echo e($i->status_name, false); ?> </td>
                                             <td>
                                                 <a class="" href="<?php echo e(url('markLostDamaged/'.$i->event_id), false); ?>" >
-                                                    <button class="btn btn-block btn-sm"><i class="ni ni-zoom-split-in"></i> &nbsp; Report Lost/Damaged</button>
+                                                    <button class="btn btn-block btn-sm"><i class="ni ni-zoom-split-in"></i> &nbsp; Report Reason</button>
                                                 </a>
                                             </td>
                                         </tr>
-                                        
+                                        <?php endif; ?>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </tbody>
                                 </table>

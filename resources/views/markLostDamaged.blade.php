@@ -78,7 +78,7 @@
                                             </td>
                                         </tr> --}}
                                         @foreach ($events as $i)
-                                        {{-- @if($i->status <= 4) --}}
+                                        @if($i->status >= 4)
                                         <tr>
                                             <td>{{ $i->event_name }}</td>
                                             <td>{{ $i->venue }}</td>
@@ -87,11 +87,11 @@
                                             <td>{{ $i->status_name}} </td>
                                             <td>
                                                 <a class="" href="{{ url('markLostDamaged/'.$i->event_id) }}" >
-                                                    <button class="btn btn-block btn-sm"><i class="ni ni-zoom-split-in"></i> &nbsp; Report Lost/Damaged</button>
+                                                    <button class="btn btn-block btn-sm"><i class="ni ni-zoom-split-in"></i> &nbsp; Report Reason</button>
                                                 </a>
                                             </td>
                                         </tr>
-                                        {{-- @endif --}}
+                                        @endif
                                         @endforeach
                                     </tbody>
                                 </table>

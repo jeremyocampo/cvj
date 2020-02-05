@@ -76,20 +76,24 @@ class MarkLostDamagedController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        // $this->validate($request, [
-        //     'status'      => 'required',
-        //     'reason'      => 'required',
-        //     // 'idReturnArray'      => 'required',
-        // ],[
-        //     'status.required'     => 'Please Select a valid Status.',
-        //     'reason.required'     => 'Please do not leave the Reason Field Empty',
-        //     // 'category.required'     => 'Please Select a Category.',
-        // ]);
+        
+        $this->validate($request, [
+            'reason'      => 'required',
+            // 'idReturnArray'      => 'required',
+        ],[
+            'reason.required'     => 'Please do not leave the Reason Field Empty',
+            // 'category.required'     => 'Please Select a Category.',
+        ]);
 
         dd($request);
 
-        return view('markLostDamage')->with('success', 'Event Items Successfully Marked as Lost/Damaged');
+        $item = DB::table('damaged_inventory')
+        ->where('inventory_id', '=', $i->inventory_deployed)
+        ->update([
+            'quantity'      => $sum,
+        ]);
+
+        return view('markLostDamage')->with('success', 'Event Items reported as Lost/Damaged');
 
 
     }
