@@ -99,7 +99,7 @@
                                         <div class="col-md-12">
                                             <div class="row">
                                                 @foreach ($lostDamaged as $i)
-                                                <input type="hidden" name="item_id{{ $i->inventory_id}}" id="item_id" value="{{ $i->inventory_id}}">
+                                                <input type="hidden" name="item_id{{ $i->inventory_id}}" id="item_id-{{ $i->barcode }}" value="{{ $i->inventory_id}}">
                                                 <input type="hidden" class="form-control" value="{{ $i->inventory_name }}" name="inventory_name{{$i->inventory_id}}" id="inventory_name">
                                                 <input type="hidden" class="form-control" value=" {{$i->barcode}}" name="barcode" id="barcode">
                                                 <input type="hidden" class="form-control" value="{{ $i->qty }}" name="qty" id="qty">
@@ -138,11 +138,10 @@
                                                                 <label> Reason </label>
                                                                 <div class="row">
                                                                     <div class="col-md-10">
-                                                                        <textarea name="reason-{{ $i->inventory_id }}" id="reason" cols="30" rows="10" placeholder="Please Input Reason for Loss/Damage" required></textarea>
+                                                                        <textarea class="form-control reason" onkeyup="checkReason(this)" name="reason-{{ $i->inventory_id }}" id="reason-{{ $i->barcode }}" cols="30" rows="10" placeholder="Please Input Reason for Loss/Damage" required></textarea>
                                                                         <font color="red">*</font>
                                                                     </div>
                                                                     <div class="col-md-2 offset-1">
-                                                                        
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -209,13 +208,29 @@
             // document.body.innerHTML = restorepage;
         }
 	</script>
-	{{-- <script>
+	<script>
 		$( document ).ready(function() {
 			// var barcode = document.getElementById('barcodeInput').value;
 			// document.getElementById('status').onchange = function checkBarcode(){
-            document.getElementsByClassName('statusLD').onchange = function checkReason(){
+            var reasonsWhy = array();
 
-				var barcode = document.getElementById('barcodeInput').value;
+           
+
+            document.getElementsByClassName('textarea').onkeyup = function checkReason(){
+
+                reasonsWhy.push( $( "textarea" ).map(function() {
+                return $( this ).val();
+                })
+                .get()
+                .join( ", " ) );
+
+                window.alert(reasonsWhy+"-hi");
+
+                alert("HELLO");
+
+				// var barcode = document.getElementById('barcodeInput').value;
+                
+
 				
 				var barcodeId = "qtyReturn"+barcode+"";
 				var lostbarcodeId = "qtyLostDam"+barcode+""; 
@@ -250,14 +265,14 @@
 
 				var qty = document.getElementById('qtyReturnArray').value;
 				var id = document.getElementById('idReturnArray').value;
-
 			}
 
 
 		});
 
-		function checkLoD(){
-
+		function checkReason(this){
+            var text = this.value;
+            alert(text+"-hi");
 		}
-	</script> --}}
+	</script>
 @endpush

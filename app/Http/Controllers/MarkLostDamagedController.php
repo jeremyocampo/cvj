@@ -76,7 +76,6 @@ class MarkLostDamagedController extends Controller
      */
     public function store(Request $request)
     {
-        
         $this->validate($request, [
             'reason'      => 'required',
             // 'idReturnArray'      => 'required',
@@ -85,13 +84,13 @@ class MarkLostDamagedController extends Controller
             // 'category.required'     => 'Please Select a Category.',
         ]);
 
-        dd($request);
+        // dd($request);
 
-        $item = DB::table('damaged_inventory')
-        ->where('inventory_id', '=', $i->inventory_deployed)
-        ->update([
-            'quantity'      => $sum,
-        ]);
+        // $updateReasons = DB::table('damaged_inventory')
+        // ->where('event_deployed', '=', $request->input('event_id')
+        // ->update([
+        //     'reason'      => ,
+        // ]);
 
         return view('markLostDamage')->with('success', 'Event Items reported as Lost/Damaged');
 
