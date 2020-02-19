@@ -14,4 +14,14 @@ class lost_inventory extends Model
     protected $fillable = [
         'event_deployed', 'inventory_deployed','qty', 'date_deployed', 'employee_assigned', 'barcode', 'reason'
     ];
+	
+	public function event()
+    {
+        return $this->belongsTo('App\Event', 'event_deployed', 'event_id');
+    }
+
+    public function inventory()
+    {
+        return $this->belongsTo('App\inventory', 'inventory_deployed', 'inventory_id');
+    }
 }

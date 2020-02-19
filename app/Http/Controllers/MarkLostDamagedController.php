@@ -86,6 +86,19 @@ class MarkLostDamagedController extends Controller
 
         // dd($request);
 
+        $reasonsArr = array();
+        $idsArr = array();
+
+        $reasonsArr = explode(',', $request->input('reasonsArray'));
+        $idsArr = explode(',', $request->input('idsArray'));
+        
+        $actualRasons = array();
+
+        for($i=0; $i< count($reasonsArr); $i++){
+            Arr::set($actualRasons, ''.$idsArr[$i], $idsArr[$i].','.$reasonsArr[$i]);
+        }
+
+        dd($actualRasons);
         // $updateReasons = DB::table('damaged_inventory')
         // ->where('event_deployed', '=', $request->input('event_id')
         // ->update([

@@ -41,7 +41,6 @@
                         
                         <?php echo Form::open(['action' => ['MarkLostDamagedController@store'], 'method' => 'POST']); ?>
 
-                        
                         <!-- Modal -->
                         <div id="myModal" class="modal fade" role="dialog">
                             <div class="modal-dialog">
@@ -60,7 +59,6 @@
                                 </div>
                             </div>
                         </div>
-
 						<div class="card-body">
                                 <div class="table-responsive mb-3">
                                     <!-- Projects table -->
@@ -100,7 +98,7 @@
                                                 <?php $__currentLoopData = $lostDamaged; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                 <input type="hidden" name="item_id<?php echo e($i->inventory_id, false); ?>" id="item_id-<?php echo e($i->barcode, false); ?>" value="<?php echo e($i->inventory_id, false); ?>">
                                                 <input type="hidden" class="form-control" value="<?php echo e($i->inventory_name, false); ?>" name="inventory_name<?php echo e($i->inventory_id, false); ?>" id="inventory_name">
-                                                <input type="hidden" class="form-control" value=" <?php echo e($i->barcode, false); ?>" name="barcode" id="barcode">
+                                                <input type="hidden" class="form-control barcode" value=" <?php echo e($i->barcode, false); ?>" name="barcode" id="barcode">
                                                 <input type="hidden" class="form-control" value="<?php echo e($i->qty, false); ?>" name="qty" id="qty">
                                                     <div class="col-md-12">
                                                         <div class="row">
@@ -130,16 +128,25 @@
                                                                 <label> Quantity Reported </label>
                                                                 <h2> <?php echo e($i->qty, false); ?> </h2>
                                                             </div>
-                                                            <div class="col-md-3">
-                                                                <label> Reason </label>
+                                                            <div class="col-md-2">
+                                                                <label> Reason <font color="red">*</font></label>
                                                                 <div class="row">
                                                                     <div class="col-md-10">
-                                                                        <textarea class="form-control reason" onkeyup="checkReason(this)" name="reason-<?php echo e($i->inventory_id, false); ?>" id="reason-<?php echo e($i->barcode, false); ?>" cols="30" rows="10" placeholder="Please Input Reason for Loss/Damage" required></textarea>
-                                                                        <font color="red">*</font>
+                                                                        
+                                                                        <textarea class="form-control reason" name="reason-<?php echo e($i->inventory_id, false); ?>" id="reason-<?php echo e($i->barcode, false); ?>" cols="30" rows="10" placeholder="Please Input Reason for Loss/Damage" required></textarea>
+                                                                        
                                                                     </div>
                                                                     <div class="col-md-2 offset-1">
                                                                     </div>
                                                                 </div>
+                                                            </div>
+                                                            <input type="hidden" name="reasonsArray" id="reasonsArray">
+                                                            <input type="hidden" name="idsArray" id="idsArray">
+                                                            <?php echo Form::close(); ?>
+
+                                                            <div class="col-md-1">
+                                                                <button type="button" class="btn btn-sm btn-success check" name="accept" id="<?php echo e($i->barcode, false); ?>" onclick="checkReason(this.id)"><i class="ni ni-check-bold"></i></button>
+                                                                <button type="button" class="btn btn-sm btn-danger cancel" name="cancel" id="<?php echo e($i->barcode, false); ?>" onclick="cancelReason(this.id)"><i class="ni ni-fat-remove"></i></button>
                                                             </div>
                                                         </div>
                                                         
@@ -155,16 +162,13 @@
                         </div>
                         <div class="card-footer text-muted">
                             <div class="text-right">
-                                <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">Report</button>
+                                <button type="button" class="button btn-success btn-lg" data-toggle="modal" onclick="checkInputClosed()" data-target="#myModal">Report</button>
                                 <a href="<?php echo e(url('markLostDamaged'), false); ?>" class="btn btn-default">Back</a>
                             </div>
                         </div>
                         
-		<?php echo Form::close(); ?>
-
-		</div>
+		    </div>
         </div>
-        
 	</div>
 </div>
 <?php $__env->stopSection(); ?>
@@ -198,64 +202,97 @@
 
            
 
-            document.getElementsByClassName('textarea').onkeyup = function checkReason(){
+        //     document.getElementsByClassName('button').onclick = function checkReason(){
+        //         alert("hi");
 
-                reasonsWhy.push( $( "textarea" ).map(function() {
-                return $( this ).val();
-                })
-                .get()
-                .join( ", " ) );
+        //         reasonsWhy.push( $( "textarea" ).map(function() {
+        //         return $( this ).val();
+        //         })
+        //         .get()
+        //         .join( ", " ) );
 
-                window.alert(reasonsWhy+"-hi");
+        //         // window.alert(reasonsWhy+"-hi");
 
-                alert("HELLO");
+        //         // alert("HELLO");
 
-				// var barcode = document.getElementById('barcodeInput').value;
+		// 		// var barcode = document.getElementById('barcodeInput').value;
                 
 
 				
-				var barcodeId = "qtyReturn"+barcode+"";
-				var lostbarcodeId = "qtyLostDam"+barcode+""; 
-				var qtyId = "qty"+barcode+"";
-				var rowId = "row"+barcode+"";
+		// 		var barcodeId = "qtyReturn"+barcode+"";
+		// 		var lostbarcodeId = "qtyLostDam"+barcode+""; 
+		// 		var qtyId = "qty"+barcode+"";
+		// 		var rowId = "row"+barcode+"";
 
-				if (document.getElementById(barcodeId).value != null){
-					if(parseInt(document.getElementById(barcodeId).value) < parseInt(document.getElementById(qtyId).value)){
-						document.getElementById(barcodeId).value = parseInt(document.getElementById(barcodeId).value) + 1;
-						document.getElementById(lostbarcodeId).value = parseInt(document.getElementById(lostbarcodeId).value) - 1;
-					} else if (parseInt(document.getElementById(barcodeId).value) == parseInt(document.getElementById(qtyId).value)){
-						document.getElementById(rowId).className = 'success';
-					}
-					barcode = document.getElementById('barcodeInput').value = "";
-				}
+		// 		if (document.getElementById(barcodeId).value != null){
+		// 			if(parseInt(document.getElementById(barcodeId).value) < parseInt(document.getElementById(qtyId).value)){
+		// 				document.getElementById(barcodeId).value = parseInt(document.getElementById(barcodeId).value) + 1;
+		// 				document.getElementById(lostbarcodeId).value = parseInt(document.getElementById(lostbarcodeId).value) - 1;
+		// 			} else if (parseInt(document.getElementById(barcodeId).value) == parseInt(document.getElementById(qtyId).value)){
+		// 				document.getElementById(rowId).className = 'success';
+		// 			}
+		// 			barcode = document.getElementById('barcodeInput').value = "";
+		// 		}
 
-				var quantities = document.getElementsByClassName( 'qtyReturn' ),
-					qtys  = [].map.call(quantities, function( input ) {
-						return input.value;
-					}).join();
+		// 		var quantities = document.getElementsByClassName( 'qtyReturn' ),
+		// 			qtys  = [].map.call(quantities, function( input ) {
+		// 				return input.value;
+		// 			}).join();
 
-				var inventoryIDs = document.getElementsByClassName( 'invID' ),
-					ids  = [].map.call(inventoryIDs, function( input ) {
-						return input.value;
-					}).join();
+		// 		var inventoryIDs = document.getElementsByClassName( 'invID' ),
+		// 			ids  = [].map.call(inventoryIDs, function( input ) {
+		// 				return input.id;
+		// 			}).join();
 
-				// var lostIDs = document.getElementsByClassName('lostID'),
-				// 	losts = [].
+		// 		// var lostIDs = document.getElementsByClassName('lostID'),
+		// 		// 	losts = [].
 
-				document.getElementById('qtyReturnArray').value = qtys;
-				document.getElementById('idReturnArray').value = ids;
+		// 		document.getElementById('qtyReturnArray').value = qtys;
+		// 		document.getElementById('idReturnArray').value = ids;
 
-				var qty = document.getElementById('qtyReturnArray').value;
-				var id = document.getElementById('idReturnArray').value;
-			}
+		// 		var qty = document.getElementById('qtyReturnArray').value;
+		// 		var id = document.getElementById('idReturnArray').value;
+		// 	}
 
 
 		});
 
-		function checkReason(this){
-            var text = this.value;
-            alert(text+"-hi");
+		function checkReason(clicked_id){
+            // var barcode = document.getElementsByClassName('reason')
+            // var text = a.value;
+            // alert(text+"-hi");
+            // alert("hello");
+
+            var reason = "reason-"+clicked_id+"";
+
+            document.getElementById(reason).readOnly = true;
+
+            var inputs = document.getElementsByClassName( 'reason' ),
+            reasons  = [].map.call(inputs, function( input ) {
+                return input.value;
+                
+            }).join( ',' );
+
+            var inputs = document.getElementById( 'barcode' ),
+            ids  = [].map.call(inputs, function( input ) {
+                return inputs.value;
+                
+            }).join( ',' );
+
+            alert(ids+"");
+
+            document.getElementById('reasonsArray').value = reasons;
+            document.getElementById('idsArray').value = ids;
+            // document.getElementById('idReturnArray').value = ids;
+            
 		}
+
+        function cancelReason(clicked_id){
+            var reason = "reason-"+clicked_id+"";
+            document.getElementById(reason+"").readOnly = false;
+            // alert(reason);
+            alert( document.getElementById('idsArray').value + "");
+        }
 	</script>
 <?php $__env->stopPush(); ?>
 <?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
