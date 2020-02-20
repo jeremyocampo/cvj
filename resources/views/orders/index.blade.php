@@ -149,7 +149,7 @@
 
 
 
-@section('js')
+@push('js')
     <script>
         let inputItem = [];
 
@@ -249,4 +249,4 @@
             });
         });
     </script>
-@stop
+@endpush

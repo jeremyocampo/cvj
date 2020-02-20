@@ -6,6 +6,9 @@
 <div class="container-fluid mt--7">
 	<div class="card-body">
 		<div class="col-xl-12 mb-5 mb-xl-0">
+            <a href="{{ url('inventory')}}" class="btn btn-secondary mb-5">Go to View Inventory</a>
+            <a href="{{ url('deploy')}}" class="btn btn-secondary mb-5">Go to Deploy Inventory</a>
+            <a href="{{ url('return')}}" class="btn btn-secondary mb-5">Go to Return Inventory</a>
 				<div class="card shadow">
 						<div class="card-header">
                             {{-- {!! Form::open(['action' => 'InventoryController@return', 'method' => 'POST']) !!} --}}
@@ -78,7 +81,7 @@
                                             </td>
                                         </tr> --}}
                                         @foreach ($events as $i)
-                                        @if($i->status >= 4)
+                                        @if($i->status == 5)
                                         <tr>
                                             <td>{{ $i->event_name }}</td>
                                             <td>{{ $i->venue }}</td>
@@ -99,7 +102,7 @@
                         </div>
                         <div class="card-footer text-muted">
                             <div class="text-right">
-                                    <a href="{{ url('inventory')}}" class="btn btn-secondary">Back to View Inventory</a>
+                                    {{-- <a href="{{ url('inventory')}}" class="btn btn-secondary">Back to View Inventory</a> --}}
                                     {{-- {{Form::hidden('_method', 'PUT')}} --}}
                             </div>
                         </div>
@@ -138,7 +141,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
-                                            @if(session()->has('success'))
+                                            {{-- @if(session()->has('success'))
                                                 <br>
                                                 <div class="alert alert-success" role="alert">
                                                     <button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">x</span></button>
@@ -151,7 +154,7 @@
                                                     <button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">x</span></button>
                                                     {{ session()->get('deleted') }}<br>
                                                 </div>
-                                            @endif
+                                            @endif --}}
                                         </div>
                                     </div>
                                 </div>
@@ -160,7 +163,7 @@
 						<div class="card-body">
                             <div class="table-responsive mb-3">
                                 <!-- Projects table -->
-                                <table class="table align-items-center table-flush" id="myTable">
+                                <table class="table align-items-center table-flush" id="myTable1">
                                     <thead class="thead-light">
                                         <tr>
                                             <th scope="col">Event Name</th>
@@ -194,9 +197,9 @@
                                             {{-- <td>{{ Carbon\Carbon::parse($i->eevent_end)->format('F j, Y g:i a') }}</td> --}}
                                             <td>{{ $i->status_name}} </td>
                                             <td>
-                                                <a class="" href="{{ url('markLostDamaged/'.$i->event_id) }}">
+                                                {{-- <a class="" href="{{ url('markLostDamaged/'.$i->event_id) }}">
                                                     <button class="btn btn-block btn-sm"><i class="ni ni-zoom-split-in"></i> &nbsp; Report Reason</button>
-                                                </a>
+                                                </a> --}}
                                             </td>
                                         </tr>
                                         @endif
@@ -207,7 +210,7 @@
                         </div>
                         <div class="card-footer text-muted">
                             <div class="text-right">
-                                    <a href="{{ url('inventory')}}" class="btn btn-secondary">Back to View Inventory</a>
+                                    {{-- <a href="{{ url('inventory')}}" class="btn btn-secondary">Back to View Inventory</a> --}}
                                     {{-- {{Form::hidden('_method', 'PUT')}} --}}
                             </div>
                         </div>
@@ -230,6 +233,17 @@
     <script type="text/javascript" src=". /resources/DataTables/datatables.min.js"></script>
     {{-- DATA TABLES END --}}
 
+    <script>
+        $(document).ready(function() {
+            $('#myTable').DataTable({
+                "order":["2"]
+            });
+            $('#myTable1').DataTable({
+                "order":["2"]
+            });
+        } );
+    </script>
+
     {{-- <script>
         $('.table-responsive tbody tr').slice(-2).find('.dropdown').addClass('dropup');
 
@@ -249,10 +263,6 @@
         }
     </script> --}}
 
-    <script>
-        $(document).ready(function() {
-            $('#myTable').DataTable();
-        } );
-    </script>
+    
 
 @endpush

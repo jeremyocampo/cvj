@@ -106,7 +106,7 @@ class InventoryController extends Controller
                 'quantity.required'     => 'Please input a valid Quantity',
                 'subcategory.required'  => 'Please Select a Sub-Category.',
                 'threshold,required'    => 'Please Input a valid Threshold Amount',
-                'threshold.min'         => 'Please Input a Threshold Amount at least 50% of Starting Quantity',
+                'threshold.min'         => 'Please Input a Threshold Amount at least 10% of Starting Quantity',
             ]);
 
             $similar_inventory = $this->validatorUtil->validateInventory($request->post('inventory_name'), $request->post('category'),

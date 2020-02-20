@@ -25,10 +25,6 @@ class UpdateRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string'],
-            'email' => ['required', 'email'],
-            'landline' => ['required'],
-            'fax' => ['required'],
-            'mobile' => ['required'],
             'payment_terms' => ['required'],
             'company_address' => ['required'],
             'billing_address' => ['required'],

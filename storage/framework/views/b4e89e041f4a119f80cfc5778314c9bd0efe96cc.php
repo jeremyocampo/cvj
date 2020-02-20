@@ -145,7 +145,7 @@
 
 
 
-<?php $__env->startSection('js'); ?>
+<?php $__env->startPush('js'); ?>
     <script>
         let inputItem = [];
 
@@ -245,5 +245,5 @@
             });
         });
     </script>
-<?php $__env->stopSection(); ?>
+<?php $__env->stopPush(); ?>
 <?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>

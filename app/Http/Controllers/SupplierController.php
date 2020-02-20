@@ -36,7 +36,14 @@ class SupplierController extends Controller
 
     public function update(Supplier $supplier, UpdateRequest $request)
     {
-        $supplier->update($request->validated());
+        $supplier->update([
+            "name" => $request->name,
+            "payment_terms" => $request->payment_terms,
+            "company_address" => $request->company_address,
+            "billing_address" => $request->billing_address,
+            "supplier_type" => $request->supplier_type,
+            "remarks" => $request->remarks,
+        ]);
 
         return response()->json($supplier);
     }
