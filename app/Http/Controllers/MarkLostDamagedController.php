@@ -96,15 +96,26 @@ class MarkLostDamagedController extends Controller
         $idsArr = array();
 
         $reasonsArr = explode(',', $request->input('reasonsArray'));
-        $idsArr = explode(',', $request->input('idsArray'));
+        // $idsArr = explode(',', $request->input('idsArray'));
+        $idsArr = array_map('intval', explode(',',  $request->input('idsArray')));
         $statusesArr = explode(',', $request->input('statusesArray'));
 
         
         $actualRasons = array();
+        $textRasons = array();
+        $statusRasons = array();
+        // $barcodeRasons = ["123","456", "789"];
+
+
+        
+        // dd($idsArr);
+
+        
 
         for($i=0; $i< count($reasonsArr); $i++){
             //trash array
-            // Arr::set($actualRasons, ''.$i, $idsArr[$i].','.$reasonsArr[$i]);
+            Arr::set($textRasons, 'reason', $reasonsArr[$i]);
+            Arr::set($statusRasons, 'status', $statusesArr[$i]);
 
             //better array
             $actualRasons[$i] = array(
@@ -115,30 +126,48 @@ class MarkLostDamagedController extends Controller
 
         }
 
-        if(count($actualRasons) > 0){
-            for($i = 0; $i < count($actualRasons); $i++){
-                $updateReasons = DB::table('damaged_inventory')
-                // ->where('event_deployed', '=', $request->input('event_id')
-                ->where('barcode', '=', $actualRasons[$i]["barcode"])
-                ->update([
-                    'reason'        =>  $actualRasons[$i]["reason"],
-                    'is_enabled'    =>  0,
-                    'status'        =>  $actualRasons[$i]["status"],
-                ]);
+        // dd($actualRasons);
 
-                $updateEventStatus = DB::table('event')
-                ->where('event_id', '=', $request->input('event_id'))
-                ->update([
-                    "status" =>  6,
-                ]);
-            }
+        if(count($actualRasons) > 0){
+            // for($i = 0; $i < count($actualRasons); $i++){
+            //     damaged_inventory::where('barcode', '=', $actualRasons[$i]["barcode"])
+            //     ->update([
+            //         'reason'        => $actualRasons[$i]["reason"],
+            //         'status'        => $actualRasons[$i]["status"],
+            //         'is_enabled'    => 0,
+            //         ]);
+            // }
+
+            // dd(count($actualRasons));
+            DB::table('damaged_inventory')->whereIn('barcode', $idsArr)->update(array($textRasons));
+            DB::table('damaged_inventory')->whereIn('barcode', $idsArr)->update(array($statusRasons));
+                
+           
         }
+
+        $updateEventStatus = DB::table('event')
+        ->where('event_id', '=', $request->input('event_id'))
+        ->update([
+            "status" =>  6,
+        ]);
+
         // dd($actualRasons);
         
 
         return redirect('/markLostDamaged')->with('success', 'Event Items reported as Lost/Damaged');
        
 
+
+    }
+
+    public function updateRows($barcode, $reason, $status){
+
+        damaged_inventory::where('barcode', '=', $barcode)
+                ->update([
+                    "reason"        => $reason,
+                    "status"        => $status,
+                    "is_enabled"    => 0,
+                ]);
 
     }
 

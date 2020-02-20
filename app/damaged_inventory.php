@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class damaged_inventory extends Model
 {
     //
-    protected $primaryKey = 'inventory_deployed';
+    protected $primaryKey = 'id';
     //public $incrementing = false;
     protected $table = 'damaged_inventory';
     public $timestamps = false;
     protected $fillable = [
-        'event_deployed', 'inventory_deployed','qty', 'date_deployed', 'employee_assigned', 'barcode', 'reason'
+        'event_deployed', 'inventory_deployed','qty', 'date_reported', 'date_returned','employee_assigned', 'barcode', 'reason', 'status', 'is_enabled'
     ];
 }
 

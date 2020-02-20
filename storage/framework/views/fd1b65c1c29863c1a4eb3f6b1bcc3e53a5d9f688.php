@@ -135,7 +135,7 @@
                                     <tbody>
                                         
                                         <?php $__currentLoopData = $events; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <?php if($i->status >= 4): ?>
+                                        <?php if($i->status >= 6): ?>
                                         <tr>
                                             <td><?php echo e($i->event_name, false); ?></td>
                                             <td><?php echo e($i->venue, false); ?></td>
