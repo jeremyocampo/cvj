@@ -66,7 +66,7 @@ class ConfirmEventsController extends Controller
     {
 
        $event = events::where('event_id','=',$event_id)->first();
-       /*
+
        $event->status = 2;
        $event_inventories = DB::select('select inventory_id, sum(qty) as qty from event_inventory where event_id = ? group by inventory_id',[$event->event_id]);
        foreach ($event_inventories as $inventory){
@@ -94,7 +94,7 @@ class ConfirmEventsController extends Controller
         //finalize budget and costings method used here.
        $event->event_budget_create();
        $event->save();
-        */
+
 
         /*
             $startDateTime = Carbon::parse($event->event_start);

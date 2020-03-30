@@ -220,6 +220,10 @@ class QuotationController extends Controller
         $employees = Employee::whereIn('employee_id',$employees_id)->get();
         foreach($employees as $employee){
             $manpower = Manpower::where('email','=',$employee->email)->first();
+            if($manpower == null){
+                $manpower = Manpower::where('employee_LN', '=', $employee->employee_ln)->where('employee_FN','=',$employee->employee_fn)->first();
+            }
+            
             $employee->daily_rate = round( $manpower->salary/30,2);
             $total_staff_cost += $employee->daily_rate; //dummy calculation of wages per day or gig.
         }

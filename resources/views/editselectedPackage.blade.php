@@ -332,7 +332,7 @@
                 str +='<td><a style="display: inline;color:white" class=" btn btn-sm btn-primary"';
                 str+= ' data-inv="'+$(obj).attr('data-inv')+'"';
                 str+= ' onclick="remove_inv(this)">-</a>   '+data_arr[1]+'</td>';
-                str+= '<td><input name="inv_qty[]"  data-rent_cost="'+data_arr[2]+'" data-inv_id="'+data_arr[0]+'" onchange="compute_total_package_price()" class="inv_qty form-control" style="height:3vh;" value="1" type="number"></td>';
+                str+= '<td><input name="inv_qty[]"  data-rent_cost="'+data_arr[2]+'" data-inv_id="'+data_arr[0]+'" inv_on_date="'+data_arr[3]+'" onchange="check_exceed_inv(this)" class="inv_qty form-control" style="height:3vh;" value="1" type="number"></td>';
                 str+= '<td>'+data_arr[2]+'</td><td><b id="total_inv_'+data_arr[0]+'">'+data_arr[2]+'</td>';
                 str +='</tr>';
                 $('#inv_tbl').append(str);
