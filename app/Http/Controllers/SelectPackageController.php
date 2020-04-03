@@ -209,7 +209,9 @@ class SelectPackageController extends Controller
         $event->package_id = $request->input('package_id');
         $package = PackageModel::where('package_id','=',$event->package_id)->first();
         $event->total_amount_due = $package->price;
-
+            
+        error_log("editing package");
+        error_log("Chose here.");
         if($event->venue == 'Off-Premise'){
             $event->off_premise_amount = $event->total_amount_due * 0.15;
             $event->total_amount_due = $event->total_amount_due * 1.15;
@@ -237,9 +239,15 @@ class SelectPackageController extends Controller
             $e_dsh->is_addition = false;
             $e_dsh->save();
         }
+        
+        error_log("editing 1");
         $event->set_default_cost_amount();
         $event->generate_avail_costing_models();
+
+        error_log("editing 2");
         $this->generate_quotation($event->event_id);
+        
+        error_log("editing ");
         return redirect('/summary/'.$event->event_id);
     }
     /**
@@ -456,7 +464,7 @@ class SelectPackageController extends Controller
         error_log("idyota: ".$fileName);
         $event->save_client_quotation('/storage/public/'.$fileName);
         // If you want to store the generated pdf to the server then you can use the store function
-        $pdf->save(storage_path().'/app/uploads/'.$fileName);
+        $pdf->save(storage_path().'\app\uploads\n'.$fileName);
 
 
         //  $request->fileToUpload_deposit->storeAs('uploads',$fileName);
@@ -662,18 +670,21 @@ class SelectPackageController extends Controller
 
             $tot += $e_inv->qty * $e_inv->rent_price;
         }
-        for($i=0; $i<count($request->input("chosen_dishes"));$i++){
-            $itn = Items::where('item_id','=',$request->get("chosen_dishes")[$i])->first();
-            $e_dsh = new EventDishes();
-
-            $e_dsh->event_id = $request->input("event_id");
-            $e_dsh->item_id = $itn->item_id;
-            $e_dsh->total_price = $itn->unit_cost * $package->suggested_pax;
-            $e_dsh->is_addition = true;
-            $e_dsh->save();
-
-            $tot += $e_dsh->total_price;
+        if($request->has('chosen_dishes')){
+            for($i=0; $i<count($request->input("chosen_dishes"));$i++){
+                $itn = Items::where('item_id','=',$request->get("chosen_dishes")[$i])->first();
+                $e_dsh = new EventDishes();
+    
+                $e_dsh->event_id = $request->input("event_id");
+                $e_dsh->item_id = $itn->item_id;
+                $e_dsh->total_price = $itn->unit_cost * $package->suggested_pax;
+                $e_dsh->is_addition = true;
+                $e_dsh->save();
+    
+                $tot += $e_dsh->total_price;
+            }
         }
+
         $tot += $package->price;
         $event->total_amount_due = $tot;
         if($event->venue == 'Off-Premise'){

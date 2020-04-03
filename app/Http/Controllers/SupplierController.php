@@ -36,7 +36,14 @@ class SupplierController extends Controller
 
     public function update(Supplier $supplier, UpdateRequest $request)
     {
-        $supplier->update($request->validated());
+        $supplier->update([
+            "name" => $request->name,
+            "payment_terms" => $request->payment_terms,
+            "company_address" => $request->company_address,
+            "billing_address" => $request->billing_address,
+            "supplier_type" => $request->supplier_type,
+            "remarks" => $request->remarks,
+        ]);
 
         return response()->json($supplier);
     }
@@ -72,12 +79,8 @@ class SupplierController extends Controller
         $supplier = Supplier::where('supplier_id', $supplier)->first();
 
         $item = new SupplierItem([
-<<<<<<< HEAD
-            'item' => $request->item
-=======
             'item' => $request->item,
             'rate' => $request->rate,
->>>>>>> 428d0760ee547bb74a82f0c13ea4492de4ead3fe
         ]);
         $item->supplier()->associate($supplier);
         $item->save();

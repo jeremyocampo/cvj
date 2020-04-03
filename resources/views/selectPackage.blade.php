@@ -79,7 +79,7 @@
                             </div>
                             <div class="row" id="package_row">
                                 @foreach($packages as $package)
-                                    <div class="col-md-4 package_card" style="margin-bottom: 4vh" value="{{$package->price}}">
+                                    <div class="col-lg-4 package_card" style="margin-bottom: 4vh" value="{{$package->price}}">
                                         <div class="card" style="width: 18rem;">
                                             {{--
                                             @if($package->package_client_id == $user_id)

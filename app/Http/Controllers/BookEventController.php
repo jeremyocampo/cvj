@@ -53,7 +53,8 @@ class BookEventController extends Controller
             // ->join('package','event.package_id','=','package.package_id')
             // ->join('event','package.package_id','=','event.package_id')
             ->get();
-        $min_val_day = Carbon::now()->addMonths(2)->format('Y-m-d');
+        // $min_val_day = Carbon::now()->addMonths(2)->format('Y-m-d');
+        $min_val_day = Carbon::now('+8:00')->format('Y-m-d');
 
         //error_log(self::send_email(auth()->user()->name,"leebet16@gmail.com", "Patorjackan.info"));
 
@@ -121,6 +122,7 @@ class BookEventController extends Controller
 
 
         $event->event_name = $request->input('eventName');
+        $event->client_id = $request->input('client_id');
         $event->event_type = $request->input('eventType');
         $event->venue = $request->input('venue');
         $event->event_start = $startDateTime;
@@ -262,7 +264,7 @@ class BookEventController extends Controller
             'theme' => $request->input('theme'),
             'totalpax' => null,
             'others' => $request->input('others'),
-            'client_id' =>$request->input('client_id'),
+            'client_id' => $request->input('client_id'),
             'status' => 1,
 
         ]);

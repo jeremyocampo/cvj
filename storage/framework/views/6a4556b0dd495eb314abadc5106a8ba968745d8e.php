@@ -53,30 +53,118 @@
 
                         </a>
                     </li>
+                    <!-- User -->
+                    
+                        
                     <li class="nav-item">
                         <a class="nav-link" href="<?php echo e(url('events'), false); ?>">
                             <i class="ni ni-calendar-grid-58 text-yellow"></i> <?php echo e(__('Events'), false); ?>
 
                         </a>
                     </li>
-                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="#navbar-dashboards1" data-toggle="collapse" role="" aria-expanded="false" aria-controls="">
+                            <i class="ni ni-collection text-red"></i>
+                            <span class="nav-link-text">Manage Users</span>
+                        </a>
+                        <div class="collapse" id="navbar-dashboards1" style>
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a href="<?php echo e(url('users'), false); ?>" class="nav-link">
+                                    <i class="ni ni-bullet-list-67 text-blue"></i>View Users</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?php echo e(url('users/create'), false); ?>" class="nav-link">
+                                    <i class="ni ni-delivery-fast text-green"></i>Create Users</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#navbar-dashboards" data-toggle="collapse" role="" aria-expanded="false" aria-controls="">
                             <i class="ni ni-collection text-red"></i>
-                            <span class="nav-link-text">Manage Users</span>
+                            <span class="nav-link-text">Manage Inventory</span>
                         </a>
                         <div class="collapse" id="navbar-dashboards" style>
                             <ul class="nav nav-sm flex-column">
                                 <li class="nav-item">
-                                    <a href="<?php echo e(url('users'), false); ?>" class="nav-link">
-                                            <i class="ni ni-bullet-list-67 text-blue"></i>View Users</a>
+                                    <a href="<?php echo e(url('inventory'), false); ?>" class="nav-link">
+                                            <i class="ni ni-bullet-list-67 text-blue"></i>View Inventory</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="<?php echo e(url('users/create'), false); ?>" class="nav-link">
-                                        <i class="ni ni-delivery-fast text-green"></i>Create Users</a>
+                                    <a class="nav-link" href="#dishes" data-toggle="collapse" role="" aria-expanded="false" aria-controls="">
+                                        <i class="ni ni-collection text-red"></i>
+                                        <span class="nav-link-text">Manage Food</span>
+                                    </a>
+                                    <div class="collapse" id="dishes" style>
+                                        <ul class="nav nav-sm flex-column">
+                                            <li class="nav-item">
+                                                <a href="<?php echo e(url('fooditem'), false); ?>" class="nav-link">
+                                                    <i class="ni ni-bullet-list-67 text-blue"></i>View Food</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="<?php echo e(url('disabled-food'), false); ?>" class="nav-link">
+                                                    <i class="ni ni-archive-2 text-red"></i>Food Archive</a>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="<?php echo e(url('deploy'), false); ?>" class="nav-link">
+                                        <i class="ni ni-delivery-fast text-green"></i> Deploy Inventory</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?php echo e(url('returnInventory'), false); ?>" class="nav-link">
+                                        <i class="ni ni-curved-next text-green"></i>Inventory Return</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?php echo e(url('markLostDamaged'), false); ?>" class="nav-link">
+                                        <i class="ni ni-delivery-fast text-red"></i>Mark as Lost/Damaged</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?php echo e(url('outsource'), false); ?>" class="nav-link">
+                                        <i class="ni ni-calendar-grid-58 text-yellow"></i>Outsource Items</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?php echo e(url('archive'), false); ?>" class="nav-link">
+                                        <i class="ni ni-archive-2 text-red"></i>Inventory Archive</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?php echo e(route('suppliers.index'), false); ?>" class="nav-link">
+                                        <i class="ni ni-archive-2 text-primary"></i>
+                                        Suppliers
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?php echo e(route('purchase-orders.index'), false); ?>" class="nav-link">
+                                        <i class="fa fa-money-bill-alt text-primary"></i>
+                                        Purchase Order
+                                    </a>
+                                </li>
+                                
                             </ul>
                         </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo e(url('bookevent'), false); ?>">
+                            <i class="ni ni-calendar-grid-58 text-yellow"></i> <?php echo e(__('Book Event'), false); ?>
+
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo e(url('list_events'), false); ?>">
+                            <i class="ni ni-calendar-grid-58 text-green"></i> List Events
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo e(url('event_budgets'), false); ?>">
+                            <i class="ni ni-bullet-list-67 text-green"></i> Budget Management
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo e(url('list_packages'), false); ?>">
+                            <i class="ni ni-collection text-green"></i>List Packages
+                        </a>
                     </li>
 
                     <li class="nav-item">
@@ -98,7 +186,6 @@
 
                             </a>
                         </li>
-                        
                         <li class="nav-item">
                             <a class="nav-link" href="#navbar-dashboards" data-toggle="collapse" role="" aria-expanded="false" aria-controls="">
                                 <i class="ni ni-collection text-red"></i>
@@ -110,8 +197,6 @@
                                         <a href="<?php echo e(url('inventory'), false); ?>" class="nav-link">
                                                 <i class="ni ni-bullet-list-67 text-blue"></i>View Inventory</a>
                                     </li>
-                                    <li class="nav-item">
-                                    
                                     <li class="nav-item">
                                         <a class="nav-link" href="#dishes" data-toggle="collapse" role="" aria-expanded="false" aria-controls="">
                                             <i class="ni ni-collection text-red"></i>
@@ -139,12 +224,34 @@
                                             <i class="ni ni-curved-next text-green"></i>Inventory Return</a>
                                     </li>
                                     <li class="nav-item">
+                                        <a href="<?php echo e(url('markLostDamaged'), false); ?>" class="nav-link">
+                                            <i class="ni ni-delivery-fast text-red"></i>Mark as Lost/Damaged</a>
+                                    </li>
+                                    <li class="nav-item">
                                         <a href="<?php echo e(url('outsource'), false); ?>" class="nav-link">
                                             <i class="ni ni-calendar-grid-58 text-yellow"></i>Outsource Items</a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="<?php echo e(url('archive'), false); ?>" class="nav-link">
                                             <i class="ni ni-archive-2 text-red"></i>Inventory Archive</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="<?php echo e(route('suppliers.index'), false); ?>" class="nav-link">
+                                            <i class="ni ni-archive-2 text-primary"></i>
+                                            Suppliers
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="<?php echo e(route('purchase-orders.index'), false); ?>" class="nav-link">
+                                            <i class="fa fa-money-bill-alt text-primary"></i>
+                                            Purchase Order
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="<?php echo e(route('reservations.index'), false); ?>" class="nav-link">
+                                            <i class="fa fa-phone text-primary"></i>
+                                            Reservation
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
@@ -153,29 +260,24 @@
                        
                         
                         <li class="nav-item">
-                                <a class="nav-link" href="#navbar-dashboards1" data-toggle="collapse" role="" aria-expanded="false" aria-controls="">
-                                    <i class="ni ni-collection text-red"></i>
-                                    <span class="nav-link-text">Manage Reports</span>
-                                </a>
-                                <div class="collapse" id="navbar-dashboards1" style>
-                                    <ul class="nav nav-sm flex-column">
-                                        <li class="nav-item">
-                                            <a href="<?php echo e(url('expenseReports'), false); ?>" class="nav-link">
-                                                    <i class="ni ni-bullet-list-67 text-blue"></i>View Event Expense Reports</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="<?php echo e(url('quotationReports'), false); ?>" class="nav-link">
-                                                <i class="ni ni-bullet-list-67 text-blue"></i>View Event Qutation Reports</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                        <!-- <li class="nav-item">
-                            <a class="nav-link" href="<?php echo e(url('inventory/create'), false); ?>">
-                                <i class="ni ni-collection text-red"></i> <?php echo e(__('Add Inventory'), false); ?>
-
+                            <a class="nav-link" href="#navbar-dashboards1" data-toggle="collapse" role="" aria-expanded="false" aria-controls="">
+                                <i class="ni ni-collection text-red"></i>
+                                <span class="nav-link-text">Manage Reports</span>
                             </a>
-                        </li> -->
+                            <div class="collapse" id="navbar-dashboards1" style>
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="<?php echo e(url('expenseReports'), false); ?>" class="nav-link">
+                                                <i class="ni ni-bullet-list-67 text-blue"></i>View Event Expense Reports</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="<?php echo e(url('quotationReports'), false); ?>" class="nav-link">
+                                            <i class="ni ni-bullet-list-67 text-blue"></i>View Event Qutation Reports</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        
 
                         <li class="nav-item">
                             <a href="http://cvj.test:3000/logout" class="nav-link" onclick="event.preventDefault();

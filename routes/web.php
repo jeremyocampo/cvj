@@ -35,9 +35,9 @@
 
 // Route::get('/home', 'HomeController@index')->name('home');
 
-	// Route::put('profile', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
+// 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
 	
-	// Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
+// 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
 
 
 // Route::get('/inventory', 'InventoryController@show')->name('inventory');
@@ -107,7 +107,7 @@ Route::resource('eventreport', 'EventLogisticsReportController');
 Route::resource('returnInventory', 'ReturnInventoryController');
 Route::resource('manageuser', 'ManageUsersController');
 
-Route::get('admin/routes', 'AdminController@admin')->middleware('admin');
+// Route::get('admin/routes', 'AdminController@admin')->middleware('admin');
 
 // Route::resource('cal','gCalendarController');
 // Route::get('oauth', 'gCalendarController@oauth');
@@ -217,3 +217,21 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('events', 'ReservationController@getEvent');
     Route::resource('reservations', 'ReservationController');
 });
+
+//Mark New Routes POs
+
+Route::get('purchase-order-list', 'PurchaseOrderControllerNew@index')->name('po_list');
+Route::get('add_purchase_order/{event_id}', 'PurchaseOrderControllerNew@index')->name('add_po.get');
+Route::post('add_purchase_order/post', 'PurchaseOrderControllerNew@store')->name('add_po.post');
+Route::get('event_po_detail/{event_id}', 'PurchaseOrderControllerNew@index')->name('get_po.get');
+
+Route::post('receive_purchase_order/{purchase_order_id}', 'PurchaseOrderControllerNew@store');
+
+Route::resource('inventory','InventoryController');
+Route::get('updateInventory/{id}', 'InventoryController@editRecord');
+Route::get('archive', 'InventoryController@archive');
+Route::get('recover/{id}', 'InventoryController@recover');
+
+Route::get('outsource', 'PurchaseOrderController@index');
+
+Route::resource('admin', 'AdminController');

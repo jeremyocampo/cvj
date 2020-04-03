@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInite12f69aa62d52718757c7c627136569b
+class ComposerStaticInitd997fbf346915b207b26becca07fd5d9
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -589,6 +589,8 @@ class ComposerStaticInite12f69aa62d52718757c7c627136569b
     public static $classMap = array (
         'App\\Admin' => __DIR__ . '/../..' . '/app/Admin.php',
         'App\\Agency' => __DIR__ . '/../..' . '/app/Agency.php',
+        'App\\Charts\\EventCharts' => __DIR__ . '/../..' . '/app/Charts/EventCharts.php',
+        'App\\Charts\\InventoryCharts' => __DIR__ . '/../..' . '/app/Charts/InventoryCharts.php',
         'App\\Client' => __DIR__ . '/../..' . '/app/Client.php',
         'App\\ClientAccountModel' => __DIR__ . '/../..' . '/app/ClientAccountModel.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
@@ -611,6 +613,7 @@ class ComposerStaticInite12f69aa62d52718757c7c627136569b
         'App\\EventDishes' => __DIR__ . '/../..' . '/app/EventDishes.php',
         'App\\EventInventory' => __DIR__ . '/../..' . '/app/EventInventory.php',
         'App\\EventModel' => __DIR__ . '/../..' . '/app/EventModel.php',
+        'App\\EventOutsourceInventory' => __DIR__ . '/../..' . '/app/EventOutsourceInventory.php',
         'App\\EventOutsourceItem' => __DIR__ . '/../..' . '/app/EventOutsourceItem.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\GrabItem' => __DIR__ . '/../..' . '/app/EventCosting.php',
@@ -641,8 +644,9 @@ class ComposerStaticInite12f69aa62d52718757c7c627136569b
         'App\\Http\\Controllers\\ExpenseReportsController' => __DIR__ . '/../..' . '/app/Http/Controllers/ExpenseReportsController.php',
         'App\\Http\\Controllers\\FileController' => __DIR__ . '/../..' . '/app/Http/Controllers/FileController.php',
         'App\\Http\\Controllers\\FoodController' => __DIR__ . '/../..' . '/app/Http/Controllers/FoodController.php',
+        'App\\Http\\Controllers\\FoodItemController' => __DIR__ . '/../..' . '/app/Http/Controllers/FoodItemController.php',
         'App\\Http\\Controllers\\GoogleCalendarController' => __DIR__ . '/../..' . '/app/Http/Controllers/GoogleCalendarController.php',
-        'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
+        'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController (BACKUP).php',
         'App\\Http\\Controllers\\IngredientController' => __DIR__ . '/../..' . '/app/Http/Controllers/IngredientController.php',
         'App\\Http\\Controllers\\InventoryController' => __DIR__ . '/../..' . '/app/Http/Controllers/InventoryController.php',
         'App\\Http\\Controllers\\InventoryHomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/InventoryHomeController.php',
@@ -1105,8 +1109,6 @@ class ComposerStaticInite12f69aa62d52718757c7c627136569b
         'Doctrine\\DBAL\\Types\\TimeImmutableType' => __DIR__ . '/..' . '/doctrine/dbal/lib/Doctrine/DBAL/Types/TimeImmutableType.php',
         'Doctrine\\DBAL\\Types\\TimeType' => __DIR__ . '/..' . '/doctrine/dbal/lib/Doctrine/DBAL/Types/TimeType.php',
         'Doctrine\\DBAL\\Types\\Type' => __DIR__ . '/..' . '/doctrine/dbal/lib/Doctrine/DBAL/Types/Type.php',
-        'Doctrine\\DBAL\\Types\\TypeRegistry' => __DIR__ . '/..' . '/doctrine/dbal/lib/Doctrine/DBAL/Types/TypeRegistry.php',
-        'Doctrine\\DBAL\\Types\\Types' => __DIR__ . '/..' . '/doctrine/dbal/lib/Doctrine/DBAL/Types/Types.php',
         'Doctrine\\DBAL\\Types\\VarDateTimeImmutableType' => __DIR__ . '/..' . '/doctrine/dbal/lib/Doctrine/DBAL/Types/VarDateTimeImmutableType.php',
         'Doctrine\\DBAL\\Types\\VarDateTimeType' => __DIR__ . '/..' . '/doctrine/dbal/lib/Doctrine/DBAL/Types/VarDateTimeType.php',
         'Doctrine\\DBAL\\Version' => __DIR__ . '/..' . '/doctrine/dbal/lib/Doctrine/DBAL/Version.php',
@@ -15531,11 +15533,11 @@ class ComposerStaticInite12f69aa62d52718757c7c627136569b
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInite12f69aa62d52718757c7c627136569b::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInite12f69aa62d52718757c7c627136569b::$prefixDirsPsr4;
-            $loader->fallbackDirsPsr4 = ComposerStaticInite12f69aa62d52718757c7c627136569b::$fallbackDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInite12f69aa62d52718757c7c627136569b::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInite12f69aa62d52718757c7c627136569b::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitd997fbf346915b207b26becca07fd5d9::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitd997fbf346915b207b26becca07fd5d9::$prefixDirsPsr4;
+            $loader->fallbackDirsPsr4 = ComposerStaticInitd997fbf346915b207b26becca07fd5d9::$fallbackDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitd997fbf346915b207b26becca07fd5d9::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitd997fbf346915b207b26becca07fd5d9::$classMap;
 
         }, null, ClassLoader::class);
     }

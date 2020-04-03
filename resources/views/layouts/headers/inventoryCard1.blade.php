@@ -1,4 +1,30 @@
 <div class="header bg-success pb-8 pt-5 pt-md-8">
+    <div class="row">
+        {{-- Header Item Start --}}
+        {{-- <div class="col-sm container-fluid">
+            <div class="header-body">
+                <div class="col-3">
+                    <div class="card card-stats">
+                        <a href="{{ url('inventory') }}">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h3>View Inventory</h3>
+                                </div>
+                                <div>
+                                    <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+                                        <i class="fas fa-chart-bar"></i>
+                                    </div>
+                                </div>
+                            </div>    
+                        </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div> --}}
+        {{-- Header Item End --}}
+    </div>
     {{-- <div class="row">
         <div class="col-sm container-fluid">
             <div class="header-body">

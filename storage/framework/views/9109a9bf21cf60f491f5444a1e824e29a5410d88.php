@@ -1,5 +1,6 @@
 <?php $__env->startSection('content'); ?>
 <?php echo $__env->make('layouts.headers.inventoryCard1', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
 <div class="container-fluid mt--7">
 	<div class="card-body">
 		<div class="col-xl-12 mb-5 mb-xl-0">
@@ -103,11 +104,7 @@
                                         <option value="<?php echo e($supplier->supplier_id, false); ?>"><?php echo e($supplier->name, false); ?></option>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
-								</div>
-								<div class="col-md-4 mb-3">
-									<label class="form-label">Description</label>
-									<input type="textarea" name="description" class="form-control" placeholder="Please Input Item Description">
-								</div>
+                                </div>
 							</div>
 						</div>
 						<div class="card-footer text-muted">
@@ -131,11 +128,9 @@
 
 <script>
 	function getSelected(){
-
 		// // get references to select list and display text box
 		// var sel = document.getElementById('category');
 		// var el = document.getElementById('display');
-
 		// function getSelectedOption(sel) {
 		// 	var opt;
 		// 	for ( var i = 0, len = sel.options.length; i < len; i++ ) {
@@ -145,7 +140,6 @@
 		// 		}
 		// 	}
 		// 	return opt;
-
 		// assign onclick handlers to the buttons
 		// document.getElementById('showVal').onclick = function () {
 		// 	el.value = sel.value;    
@@ -158,8 +152,5 @@
         $('#secondaryInput').show();
 	}
 	});
-
-
 </script>
-
 <?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>

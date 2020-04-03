@@ -49,8 +49,13 @@ class ReturnInventoryController extends Controller
         }
 
         $date = Carbon::now('+8:00');
-
-        return view('returnInventory',['events' => $actuallyDeployed]);
+        $finishedEvents = DB::table('event')
+        ->join('deployed_inventory', 'event.event_id', '=', 'deployed_inventory.event_deployed')
+        ->where('event.status', '=', 5)
+        ->where('deployed_inventory.date_returned', '!=', null)
+        ->get();
+        
+        return view('returnInventory', ['events' => $actuallyDeployed], ['finishedEvents' => $finishedEvents]);
     }
 
     /**
@@ -101,32 +106,40 @@ class ReturnInventoryController extends Controller
         ->where('event.event_id', '=', $eventID)
         ->first();
 
-        $packages = DB::table('event')
-        ->join('package', 'event.package_id','=','package.package_id')
-        ->join('package_inventory', 'package.package_id', '=', 'package_inventory.package_id')
-        ->join('inventory', 'package_inventory.inventory_id', '=', 'inventory.inventory_id')
-        ->select('*')
-        ->where('event.event_id', '=', $eventID)
+        // $packages = DB::table('event')
+        // ->join('package', 'event.package_id','=','package.package_id')
+        // ->join('package_inventory', 'package.package_id', '=', 'package_inventory.package_id')
+        // ->join('inventory', 'package_inventory.inventory_id', '=', 'inventory.inventory_id')
+        // ->select('*')
+        // ->where('event.event_id', '=', $eventID)
+        // ->get();
+
+        $deployedInventory = DB::table('deployed_inventory')
+        ->join('inventory', 'deployed_inventory.inventory_deployed', '=', 'inventory.inventory_id')
+        ->join('event', 'deployed_inventory.event_deployed', '=', 'event.event_id')
+        ->where('event.event_id' ,'=', $eventID)
         ->get();
 
-        // dd($packages);
+        // dd($deployedInventory);
 
         $inventory = DB::table('inventory')
         ->get();
 
         $actuallyLost = array();
         
-        foreach($packages as $i){
+        foreach($deployedInventory as $i){
             foreach($returns as $j){
                 $returnedItem = explode(',', $j);
-                if($i->inventory_id == $returnedItem[0]){
+                // dd($returnedItem);
+                // dd($i->qty == $returnedItem[1]);
+                if($i->inventory_deployed == $returnedItem[0]){
                     if($i->qty == $returnedItem[1]){
                         $sum = $returnedItem[1] + $i->quantity;
 
                         // dd($sum);
     
                         $item = DB::table('inventory')
-                        ->where('inventory_id', '=', $i->inventory_id)
+                        ->where('inventory_id', '=', $i->inventory_deployed)
                         ->where('returnable_item','=','Yes')
                         ->update([
                             'quantity'      => $sum,
@@ -138,7 +151,7 @@ class ReturnInventoryController extends Controller
                         ->where('event_deployed','=', $eventID)
                         ->where('inventory_deployed','=', $returnedItem[0])
                         ->update([
-                            'date_returned' => Carbon::now(),
+                            'date_returned' => Carbon::now('+8:00'),
                         ]);
                     }
                     else{
@@ -148,13 +161,13 @@ class ReturnInventoryController extends Controller
                         Arr::set($actuallyLost, ''.$returnedItem[0], $returnedItem[0].','.$returnedItem[1]);
 
                         $barcode = DB::table('deployed_inventory')
-                        ->where('inventory_deployed','=', $i->inventory_id)
+                        ->where('inventory_deployed','=', $i->inventory_deployed)
                         ->where('event_deployed', '=', $eventID)
                         ->select('barcode')
                         ->first();
 
                         $employeeAssigned = DB::table('deployed_inventory')
-                        ->where('inventory_deployed','=', $i->inventory_id)
+                        ->where('inventory_deployed','=', $i->inventory_deployed)
                         ->where('event_deployed', '=', $eventID)
                         ->select('employee_assigned')
                         ->groupBy('employee_assigned')
@@ -163,7 +176,7 @@ class ReturnInventoryController extends Controller
                         // dd($returnedItem[1]);
     
                         $item = DB::table('inventory')
-                        ->where('inventory_id', '=', $i->inventory_id)
+                        ->where('inventory_id', '=', $i->inventory_deployed)
                         ->update([
                             'quantity'      => $sum,
                         ]);
@@ -179,7 +192,7 @@ class ReturnInventoryController extends Controller
 
                         $damaged_inventory = new damaged_inventory();
                         $damaged_inventory->event_deployed = $i->event_id;
-                        $damaged_inventory->inventory_deployed = $i->inventory_id;
+                        $damaged_inventory->inventory_deployed = $i->inventory_deployed;
                         $damaged_inventory->qty = $difference;
                         $damaged_inventory->employee_assigned = $employeeAssigned->employee_assigned;
                         $damaged_inventory->barcode = $barcode->barcode;
@@ -187,7 +200,7 @@ class ReturnInventoryController extends Controller
 
                         $lost_inventory = new lost_inventory();
                         $lost_inventory->event_deployed = $i->event_id;
-                        $lost_inventory->inventory_deployed = $i->inventory_id;
+                        $lost_inventory->inventory_deployed = $i->inventory_deployed;
                         $lost_inventory->qty = $difference;
                         $lost_inventory->employee_assigned = $employeeAssigned->employee_assigned;
                         $lost_inventory->barcode = $barcode->barcode;
@@ -196,6 +209,8 @@ class ReturnInventoryController extends Controller
                 }
             }
         }
+
+        
 
         $event = DB::table('event')
         ->where('event_id','=', $eventID)

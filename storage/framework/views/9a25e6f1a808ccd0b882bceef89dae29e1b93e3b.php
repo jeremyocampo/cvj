@@ -15,34 +15,6 @@
                     </div>
                     <input type="text" class="form-control form-control-alternative" value="" id="modalAddName">
                 </div>
-
-                <div class="input-group input-group-alternative mb-4">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Email</span>
-                    </div>
-                    <input type="email" class="form-control form-control-alternative" value="" id="modalAddEmail">
-                </div>
-                
-                <div class="input-group input-group-alternative mb-4">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Landline</span>
-                    </div>
-                    <input type="text" class="form-control form-control-alternative" value="" id="modalAddLandline">
-                </div>
-                
-                <div class="input-group input-group-alternative mb-4">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Fax</span>
-                    </div>
-                    <input type="text" class="form-control form-control-alternative" value="" id="modalAddFax">
-                </div>
-                
-                <div class="input-group input-group-alternative mb-4">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Mobile</span>
-                    </div>
-                    <input type="text" class="form-control form-control-alternative" value="" id="modalAddMobile">
-                </div>
                 
                 <div class="input-group input-group-alternative mb-4">
                     <div class="input-group-prepend">
@@ -164,6 +136,13 @@
                         <span class="input-group-text">Item</span>
                     </div>
                     <input type="text" required class="form-control form-control-alternative" value="" id="supplierItem">
+                </div>
+
+                <div class="input-group input-group-alternative mb-4">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Rate</span>
+                    </div>
+                    <input type="text" id="supplierRate" class="form-control form-control-alternative">
                 </div>
             </div>
 

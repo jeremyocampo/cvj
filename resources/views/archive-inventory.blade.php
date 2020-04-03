@@ -14,7 +14,7 @@
                         <div class="col">
                             <div class="row">
                                 <div class="col-xs-5">
-                                    <h1 class="mb-0">Temporarily Disabled Inventory</h1>
+                                    <h1 class="mb-0">Archived Items</h1>
                                 </div>
                             </div>
                         </div>
@@ -67,7 +67,6 @@
                             </thead>
                             <tbody>
                             <?php
-
                             ?>
                             @foreach ($inventories as $i)
                             @if($i->status > 0)
@@ -140,11 +139,7 @@
 {{--    });--}}
 {{--</script>--}}
 <script>
-
-
-
     $('.table-responsive tbody tr').slice(-2).find('.dropdown').addClass('dropup');
-
     function printContent(el){
         var restorepage = $('body').html();
         var printcontent = $('#' + el).clone();
@@ -152,7 +147,6 @@
         window.print();
         $('body').html(restorepage);
         document.location.reload(true);
-
     }
 </script>
 

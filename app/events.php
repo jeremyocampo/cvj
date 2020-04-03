@@ -95,6 +95,34 @@ class events extends Model
 
         return true;
     }
+    public function has_outsource(){
+        if (count(EventOutsourceInventory::where('event_id','=',$this->event_id)->get()) == 0 ){
+            return false;
+        }
+        return true;
+    }
+    public function events_with_outsource(){
+        $events = events::all();
+        $returnArr = array();
+        foreach($events as $event){
+            if ($event->has_outsource() == true){
+                array_push($returnArr,$event);
+            }
+        }
+        return $returnArr;
+    }
+    public function outsource_quantity_created(){
+        $eois = EventOutsourceInventory::where('event_id','=',$this->event_id)->get();
+        $total = 0;
+        foreach($eois as $eoi){
+            $total += $eoi->get_quantity_created();
+        }
+        return $total;
+    }
+    public function outsource_quantity_required(){
+        return EventOutsourceInventory::where('event_id','=',$this->event_id)->sum('quantity');
+        //    return EventOutsourceInventory::where('event_id','=',$this->event_id)->sum('quantity');
+    }
     public function discard_package(){
         //removes event_inventory and event_dishes
         $e_inventories = EventInventory::where('event_id','=',$this->event_id)->get();

@@ -20,6 +20,12 @@ class MarkLostDamagedController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
         //
@@ -42,14 +48,14 @@ class MarkLostDamagedController extends Controller
             array_push($actuallyDamaged, $eventsActuallyDamaged);
         }
 
-        // dd($actuallyDamaged);
-
         $date = Carbon::now('+8:00');
 
         $assigned = DB::table('damaged_inventory')
         ->join('manpowers','damaged_inventory.employee_assigned','=','manpowers.id')
         ->select('*')
         ->first();
+
+        // dd($actuallyDamaged);
 
         return view('markLostDamaged',['events' => $actuallyDamaged, 'dateToday' => $date, 'employee' => $assigned]);
     }
@@ -72,21 +78,96 @@ class MarkLostDamagedController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        // $this->validate($request, [
-        //     'status'      => 'required',
-        //     'reason'      => 'required',
-        //     // 'idReturnArray'      => 'required',
-        // ],[
-        //     'status.required'     => 'Please Select a valid Status.',
-        //     'reason.required'     => 'Please do not leave the Reason Field Empty',
-        //     // 'category.required'     => 'Please Select a Category.',
-        // ]);
+        // dd($request);
+        $this->validate($request, [
+            'reason'        => 'required',
+            'status'        => 'required',
 
-        dd($request);
+            // 'idReturnArray'      => 'required',
+        ],[
+            'reason.required'     => 'Please do not leave the Reason Field Empty',
+            'status.required'     => 'Please select a valid status',
+            // 'category.required'     => 'Please Select a Category.',
+        ]);
 
-        return view('markLostDamage')->with('success', 'Event Items Successfully Marked as Lost/Damaged');
+        // dd($request);
 
+        $reasonsArr = array();
+        $idsArr = array();
+
+        $reasonsArr = explode(',', $request->input('reasonsArray'));
+        // $idsArr = explode(',', $request->input('idsArray'));
+        $idsArr = array_map('intval', explode(',',  $request->input('idsArray')));
+        $statusesArr = explode(',', $request->input('statusesArray'));
+
+        
+        $actualRasons = array();
+        $textRasons = array();
+        $statusRasons = array();
+        // $barcodeRasons = ["123","456", "789"];
+
+
+        
+        // dd($idsArr);
+
+        
+
+        for($i=0; $i< count($reasonsArr); $i++){
+            //trash array
+            Arr::set($textRasons, 'reason', $reasonsArr[$i]);
+            Arr::set($statusRasons, 'status', $statusesArr[$i]);
+
+            //better array
+            $actualRasons[$i] = array(
+                "barcode" => $idsArr[$i],
+                "reason"  => $reasonsArr[$i],
+                "status"  => $statusesArr[$i],
+            );
+
+        }
+
+        // dd($actualRasons);
+
+        if(count($actualRasons) > 0){
+            // for($i = 0; $i < count($actualRasons); $i++){
+            //     damaged_inventory::where('barcode', '=', $actualRasons[$i]["barcode"])
+            //     ->update([
+            //         'reason'        => $actualRasons[$i]["reason"],
+            //         'status'        => $actualRasons[$i]["status"],
+            //         'is_enabled'    => 0,
+            //         ]);
+            // }
+
+            // dd(count($actualRasons));
+            DB::table('damaged_inventory')->whereIn('barcode', $idsArr)->update(array($textRasons));
+            DB::table('damaged_inventory')->whereIn('barcode', $idsArr)->update(array($statusRasons));
+                
+           
+        }
+
+        $updateEventStatus = DB::table('event')
+        ->where('event_id', '=', $request->input('event_id'))
+        ->update([
+            "status" =>  6,
+        ]);
+
+        // dd($actualRasons);
+        
+
+        return redirect('/markLostDamaged')->with('success', 'Event Items reported as Lost/Damaged');
+       
+
+
+    }
+
+    public function updateRows($barcode, $reason, $status){
+
+        damaged_inventory::where('barcode', '=', $barcode)
+                ->update([
+                    "reason"        => $reason,
+                    "status"        => $status,
+                    "is_enabled"    => 0,
+                ]);
 
     }
 
@@ -114,8 +195,9 @@ class MarkLostDamagedController extends Controller
         ->where('event_deployed','=', $id)
         ->get();
 
-        $assigned = DB::table('damaged_inventory')
-        ->join('employee','damaged_inventory.employee_assigned','=','employee.employee_id')
+        // dd($lostDamaged);
+        $assigned = DB::table('deployed_inventory')
+        ->join('manpowers','deployed_inventory.employee_assigned','=','manpowers.id')
         ->select('*')
         ->where('event_deployed', '=', $id)
         ->first();
