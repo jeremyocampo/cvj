@@ -28,7 +28,10 @@ class EventOutsourceInventory extends Model
 		}
 		return $qty_total;
 		*/
-    }
+	}
+	public function inventory(){
+		return inventory::where('inventory_id','=',$this->inventory_id)->first();
+	}
 
 }
 /*

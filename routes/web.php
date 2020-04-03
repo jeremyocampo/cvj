@@ -221,7 +221,7 @@ Route::group(['middleware' => ['auth']], function () {
 //Mark New Routes POs
 
 Route::get('purchase-order-list', 'PurchaseOrderControllerNew@index')->name('po_list');
-Route::get('add_purchase_order/{event_id}', 'PurchaseOrderControllerNew@index')->name('add_po.get');
+Route::get('add_purchase_order/{event_id}', 'PurchaseOrderControllerNew@get_add_po')->name('add_po.get');
 Route::post('add_purchase_order/post', 'PurchaseOrderControllerNew@store')->name('add_po.post');
 Route::get('event_po_detail/{event_id}', 'PurchaseOrderControllerNew@index')->name('get_po.get');
 

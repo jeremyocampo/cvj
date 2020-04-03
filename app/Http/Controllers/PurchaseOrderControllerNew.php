@@ -8,6 +8,8 @@ use App\PurchaseOrderItem;
 use App\events;
 use App\PurchaseOrderNew;
 use App\PurchaseOrderItemNew;
+
+use App\EventOutsourceInventory;
 use Illuminate\Http\Request;
 use App\Mail\PurchaseOrderMail;
 use Illuminate\Support\Facades\Mail;
@@ -50,7 +52,21 @@ class PurchaseOrderControllerNew extends Controller
         //make a filtered object for tracking returns items
         return view('purchase_orders.index', ['purchaseOrders' => $purchaseOrders, 'suppliers' => $suppliers,'outsource_events'=>$event_with_outsource]);
     }
-
+    public function get_add_po($event_id)
+    {
+        $event = events::where('event_id','=',$event_id)->first();
+        $outsource_inventory = EventOutsourceInventory::where('event_id','=',$event_id)->get();
+        $existing_pos = PurchaseOrderNew::where('event_id','=',$event_id)->get();
+        foreach($outsource_inventory as $inv){
+            $inventory_obj = $inv->inventory();
+            $inv->inventory_name = $inventory_obj->inventory_name;
+            $inv->qty_created = (is_null($inv->get_quantity_created()) ?  0 : $inv->get_quantity_created());
+        }
+        $suppliers = Supplier::select(['supplier_id', 'name'])->get();
+        return view('purchase_orders.add_po', ['event' => $event,'suppliers' => $suppliers, 
+        'outsource_inventory' => $outsource_inventory,
+        'existing_pos' => $existing_pos]);
+    }
     public function store(Request $request)
     {
         
