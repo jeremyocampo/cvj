@@ -19,6 +19,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\PackageModel;
 use Session;
+//use Carbon\Carbon::now()
 
 use PDF;
 use Illuminate\Support\Facades\Auth;

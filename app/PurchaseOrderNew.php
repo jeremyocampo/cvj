@@ -29,7 +29,9 @@ class PurchaseOrderNew extends Model
     {
         return  Supplier::where('supplier_id','=',$this->supplier_id)->first();
     }
-
+    public function temp_reference_number(){
+        return PurchaseOrderNew::max('purchase_order_id')+1;
+    }
     public function items()
     {
         return $this->hasMany(PurchaseOrderItemNew::class);
