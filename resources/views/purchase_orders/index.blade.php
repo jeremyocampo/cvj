@@ -40,17 +40,22 @@
                                     <thead class="thead-light">
                                     <tr>
                                         <th> Event Name </th>
-                                        <th> Start Date</th>
+                                        <th> Event Start Date</th>
+                                        <th>Total Amount</th>
                                         <th> <center>Total Quantity Created/Required</center></th>
-                                        <th> Action </th>
                                         <th> Status </th>
+                                        <th> Action </th>
+                                        
                                     </tr>
                                     </thead>
                                     <tbody>                                    
                                     @foreach ($outsource_events as $i)
                                         <td><h3>{{$i->event_name}}<h2></td>
                                         <td>{{ Carbon\Carbon::parse($i->event_start)->format('F j, Y') }} </td>
-                                       <td><center><h2>{{$i->quantity_created}}/<b>{{$i->quantity_required}}</b></center></h2></td>
+                                       <td><h2>P 0.0(field to follow)</h2></td>
+                                        <td><center><h2>{{$i->quantity_created}}/<b>{{$i->quantity_required}}</b></center></h2></td>
+                                        
+                                    <td><h3 style="color: {{$i->status_color}}">{{$i->status}}</h2></td>
                                         <td class="popup">
                                             <div class="dropdown">
                                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
@@ -72,8 +77,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                    <td><h3 style="color: {{$i->status_color}}">{{$i->status}}</h2></td>
-                                    @endforeach
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -85,16 +89,18 @@
                                             <th>Event</th>
                                             <th>Supplier</th>
                                             <th>Expected Delivery Date</th>
-                                            <th>Action</th>
                                             <th>Status</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     @foreach ($purchaseOrders as $i)
-                                        <td>{{$i->reference_number}}</td>
+                                    <tr>
+                                        <td>PO-{{$i->reference_number}}</td>
                                         <td>{{$i->event()->event_name}}</td>
                                         <td>{{$i->supplier()->name}}</td>
                                         <td>{{ Carbon\Carbon::parse($i->expected_delivery_date)->format('F j, Y') }} </td>
+                                        <td>{{$i->status}}</td>
                                         <td class="popup">
                                             <div class="dropdown">
                                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
@@ -113,12 +119,12 @@
                                                     </a>
                                                     <a href="{{ url('event_po_detail/'.$i->event_id) }}" class="dropdown-item">
                                                         <i class="ni ni-zoom-split-in"></i>
-                                                        <span>View Event Details</span>
+                                                        <span>View Event PO Details</span>
                                                     </a>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>unf</td>
+                                    </tr>
                                     @endforeach
                                     </tbody>
                                 </table>

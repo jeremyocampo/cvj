@@ -1,14 +1,25 @@
-@extends('layouts.eventApp')
+@extends('layouts.app')
 @section('title', 'BookEvent')
 
 {{-- @include('layouts.headers.pagination') --}}
 
 @section('content') 
-    @include('layouts.headers.eventsCard')
+@include('layouts.headers.inventoryCard1')
     <style>
-        .errordar{
-            border-color: red;
-        }
+        #referenceNumber:disabled {
+        background: white;
+        color: black;
+      }
+      #eventName:disabled {
+        background: white;
+        color: black;
+      }
+      .itm_nms:read-only{
+          
+        background: white;
+        color: black;
+        border: none;
+      }
     </style>
     <div class="container-fluid mt--7">
             {{-- <div class="col-xl-8 mb-5 mb-xl-0"> --}}
@@ -49,12 +60,17 @@
                             <div class="row">
                                 <div class="col-md-5">
                                     <h2>Purchase Order Details</h2>
-                                    
+                                    <div class="input-group input-group-alternative mb-4">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Event Name</span>
+                                        </div>
+                                    <input type="text" name="referenceNumber" id="eventName" class="form-control" value="{{$event->event_name}}" disabled>
+                                    </div>
                                     <div class="input-group input-group-alternative mb-4">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">Reference Number</span>
                                         </div>
-                                        <input type="text" name="referenceNumber" id="referenceNumber" class="form-control" value="PO-{{ $temp_reference_num }}" readonly>
+                                        <input type="text" name="referenceNumber" id="referenceNumber" class="form-control" value="PO-{{ $temp_reference_num }}" disabled>
                                     </div>
                                     <div class="input-group input-group-alternative mb-4">
                                         <div class="input-group-prepend">
@@ -76,7 +92,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">Expected Delivery Date</span>
                                         </div>
-                                        <input type="date" name="expectedDelDate" id="expectedDelDate" class="form-control">
+                                    <input type="date" max="{{$max_val_date}}" value="{{$max_val_date}}" name="expectedDelDate" id="expectedDelDate" class="form-control">
                                     </div>
                                     <div class="input-group input-group-alternative mb-4">
                                         <div class="input-group-prepend">
@@ -111,7 +127,7 @@
                                             @foreach ($outsource_inventory as $inv)
                                             <tr>
                                                 <input type="hidden" name="inv_ids[]" value="{{$inv->inventory_id}}">
-                                                <td><input type="text" name="itemName" id="itemName" class="form-control" value="{{$inv->inventory_name}}" readonly></td>
+                                                <td><input type="text" name="itemName" id="itemName" class="form-control itm_nms" value="{{$inv->inventory_name}}" readonly></td>
                                                 <td><input type="number" step="any" name="itemRate[]" value="0" onchange="computed()" data-inv_id="{{$inv->inventory_id}}" id="itemRate_{{$inv->inventory_id}}" class="form-control computed"></td>
                                                 <td><input type="number" name="itemQuantity[]" value="0" onchange="validated(this)" data-max="{{$inv->quantity}}" data-inv_id="{{$inv->inventory_id}}" data-created="{{$inv->qty_created}}" id="itemQuantity_{{$inv->inventory_id}}" class="form-control inv_qty"></td>
                                                 <td><h3>{{$inv->qty_created}}<b>/{{$inv->quantity}}</b></h3></td>
@@ -123,12 +139,13 @@
                                 </div>
                             </div>
                             <hr>
-                            <center><button class="form-control btn-info" style="width:25%" type="submit"> Create</button></center>
-                            
+                            <center><button class="form-control btn-info" style="width:25%" type="button" onclick="check_valid_submit();"> Create Purchase Order</button></center>
+                                    <button type="submit" id="sumbit_btn" style="display: none">btn</button>
                             </form>
                         </div>
                 </div>
                 <script>
+                    let inv_total = 0;
                 function computed(){
                     inv_subtotal = 0;
                     $(".inv_qty").each(function () {
@@ -139,6 +156,7 @@
                         inv_subtotal = parseFloat(inv_subtotal) + tot;
                     });
                     console.log("computed")
+                    inv_total = inv_subtotal;
                     $("#inv_total_text").html(parseFloat(inv_subtotal).toFixed(2));
                 }
                 function validated(obj){
@@ -152,8 +170,13 @@
                     }
                     computed();
                 }
-                function check_if_all_zeros(){
-
+                
+                function check_valid_submit(){
+                    if(inv_total > 0){
+                        $("#sumbit_btn").click();
+                    }else{
+                        alert("Please specify a rate and quantity for at least one item.");
+                    }
                 }
                 </script>
             </div>

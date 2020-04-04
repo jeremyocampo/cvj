@@ -58,6 +58,15 @@ class PurchaseOrderControllerNew extends Controller
     {
         $po_obj = new PurchaseOrderNew();
         $event = events::where('event_id','=',$event_id)->first();
+        $date = date('2011-11-25');
+
+        $newdate = strtotime ( '-3 day' , strtotime ( $event->event_start ) ) ;
+        $newdate = date ( 'Y-m-j' , $newdate );
+
+        error_log("orig. date is: ". $event->event_start);
+        error_log("new date is: ".$newdate);
+        $max_val_date = $newdate;
+
         $outsource_inventory = EventOutsourceInventory::where('event_id','=',$event_id)->get();
         $existing_pos = PurchaseOrderNew::where('event_id','=',$event_id)->get();
         foreach($outsource_inventory as $inv){
@@ -70,6 +79,7 @@ class PurchaseOrderControllerNew extends Controller
         return view('purchase_orders.add_po', ['event' => $event,'suppliers' => $suppliers, 
         'outsource_inventory' => $outsource_inventory,
         'temp_reference_num' => ($po_obj->temp_reference_number() + 10000),
+        'max_val_date'=>$max_val_date,
         'existing_pos' => $existing_pos]);
     }
     public function store(Request $request)
