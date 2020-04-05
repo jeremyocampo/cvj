@@ -34,16 +34,16 @@ class PurchaseOrderNew extends Model
     }
     public function items()
     {
-        return $this->hasMany(PurchaseOrderItemNew::class);
+        return PurchaseOrderItemNew::where('purchase_order_id','=',$this->purchase_order_id)->get();
     }
 
     public function total()
     {
         $total = 0;
-        $items = $this->items()->get();
+        $items = $this->items();
 
         foreach($items as $item) {
-            $total += $item->total;
+            $total += $item->total();
         }
         
         return $total;

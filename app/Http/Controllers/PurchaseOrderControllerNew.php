@@ -25,6 +25,7 @@ class PurchaseOrderControllerNew extends Controller
         error_log("disp: "."69");
         $event_with_outsource = $event_obj->events_with_outsource();
         foreach($event_with_outsource as $event){
+
             $event->all_created = 0;
             $event->quantity_created = $event->outsource_quantity_created();
             $event->quantity_required = $event->outsource_quantity_required();
@@ -82,6 +83,41 @@ class PurchaseOrderControllerNew extends Controller
         'max_val_date'=>$max_val_date,
         'existing_pos' => $existing_pos]);
     }
+    public function event_po_detail($event_id)
+    {
+        $po_obj = new PurchaseOrderNew();
+        $event = events::where('event_id','=',$event_id)->first();
+       
+        $event->quantity_required = $event->outsource_quantity_required();
+        $event->total_amount = 0;
+            
+        $newdate = strtotime ('+0 day', strtotime($event->event_start)) ;
+        $newdate = date ( 'Y-m-j' , $newdate );
+
+        $outsource_inventory = EventOutsourceInventory::where('event_id','=',$event_id)->get();
+        $existing_pos = PurchaseOrderNew::where('event_id','=',$event_id)->get();
+
+        foreach($outsource_inventory as $inv){
+            $inventory_obj = $inv->inventory();
+            $inv->inventory_name = $inventory_obj->inventory_name;
+            $inv->qty_created = (is_null($inv->get_quantity_created()) ?  0 : $inv->get_quantity_created());
+        }
+        foreach($existing_pos as $po){
+            $po->supplier_name = $po->supplier()->name;
+            $po->po_items = $po->items();
+            $po->total = $po->total();
+            $po->expected_delivery_date = date ( 'Y-m-j' , strtotime('+0 day', strtotime($po->expected_delivery_date)));
+            $po->created_at = $po->created_at;
+            $event->total_amount += $po->total;
+            //error_log('edd: '.$po->expected_delivery_date);
+            //error_log('ca: '.$po->created_at);
+        }
+        return view('purchase_orders.event_po_detail', ['event' => $event,
+        'outsource_inventory' => $outsource_inventory,
+        'temp_reference_num' => ($po_obj->temp_reference_number() + 10000),
+        'event_start_date'=>$newdate,
+        'existing_pos' => $existing_pos]);
+    }
     public function store(Request $request)
     {
         $po_obj = new PurchaseOrderNew();
@@ -91,26 +127,29 @@ class PurchaseOrderControllerNew extends Controller
         $po_obj->billing_address =  $request->input("delivery_address");
         $po_obj->expected_delivery_date =  $request->input("expectedDelDate");
         $po_obj->status = 'Pending';
-        //$po_obj->created_at = Carbon::now();
+        $po_obj->created_at = Carbon::now();
         $po_obj->shipment_preferences =  $request->input("shipmentPreference");
         $po_obj->save();
         
         
         
         for($i=0; $i<count($request->input("inv_ids"));$i++){
-            $po_item = new PurchaseOrderItemNew();
-            $inv = inventory::where('inventory_id','=',$request->get("inv_ids")[$i])->first();
-            $po_item->purchase_order_id = $po_obj->purchase_order_id;
-            $po_item->inventory_id = $request->get("inv_ids")[$i];
-            
-            $po_item->name = $inv->inventory_name;
-            $po_item->inventory_name = $po_item->name;
-            
-            $po_item->rate =  $request->get("itemRate")[$i];
-            $po_item->quantity = $request->get("itemQuantity")[$i];
-            
-            $po_item->created_at = Carbon::now();
-            $po_item->save();
+            if($request->get("itemQuantity")[$i] != 0){ 
+                $po_item = new PurchaseOrderItemNew();
+
+                $inv = inventory::where('inventory_id','=',$request->get("inv_ids")[$i])->first();
+                $po_item->purchase_order_id = $po_obj->purchase_order_id;
+                $po_item->inventory_id = $request->get("inv_ids")[$i];
+                
+                $po_item->name = $inv->inventory_name;
+                $po_item->inventory_name = $po_item->name;
+                
+                $po_item->rate =  $request->get("itemRate")[$i];
+                $po_item->quantity = $request->get("itemQuantity")[$i];
+                
+                $po_item->created_at = Carbon::now();
+                $po_item->save();
+            }
         }
         
         return redirect('/purchase-order-list/');

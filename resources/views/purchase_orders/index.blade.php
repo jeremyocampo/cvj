@@ -50,10 +50,10 @@
                                     </thead>
                                     <tbody>                                    
                                     @foreach ($outsource_events as $i)
-                                        <td><h3>{{$i->event_name}}<h2></td>
-                                        <td>{{ Carbon\Carbon::parse($i->event_start)->format('F j, Y') }} </td>
-                                       <td><h2>P 0.0(field to follow)</h2></td>
-                                        <td><center><h2>{{$i->quantity_created}}/<b>{{$i->quantity_required}}</b></center></h2></td>
+                                        <td><h3>{{$i->event_name}}</h3></td>
+                                        <td><h3>{{ Carbon\Carbon::parse($i->event_start)->format('F j, Y') }} </h3></td>
+                                       <td><h3>P {{number_format($i->get_po_total_amt() , 2) }}</h3></td>
+                                        <td><center><h3>{{$i->quantity_created}}/<b>{{$i->quantity_required}}</b></center></h3></td>
                                         
                                     <td><h3 style="color: {{$i->status_color}}">{{$i->status}}</h2></td>
                                         <td class="popup">
@@ -118,7 +118,7 @@
                                                         <span>Receive Purchase Order</span>
                                                     </a>
                                                     <a href="{{ url('event_po_detail/'.$i->event_id) }}" class="dropdown-item">
-                                                        <i class="ni ni-zoom-split-in"></i>
+                                                        <i class="ni nii-zoom-split-in"></i>
                                                         <span>View Event PO Details</span>
                                                     </a>
                                                 </div>

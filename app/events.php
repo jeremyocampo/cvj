@@ -119,6 +119,15 @@ class events extends Model
         }
         return $total;
     }
+    public function get_po_total_amt(){
+        $total = 0;
+        $existing_pos = PurchaseOrderNew::where('event_id','=',$this->event_id)->get();
+        foreach($existing_pos as $po){    
+           $total += $po->total();
+        } 
+        
+        return $total;
+    }
     public function outsource_quantity_required(){
         return EventOutsourceInventory::where('event_id','=',$this->event_id)->sum('quantity');
         //    return EventOutsourceInventory::where('event_id','=',$this->event_id)->sum('quantity');

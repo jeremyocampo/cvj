@@ -26,4 +26,7 @@ class PurchaseOrderItemNew extends Model
     public function inventory(){
         return inventory::where('inventory_id','=',$this->inventory_id)->first();
     }
+    public function total(){
+        return $this->rate * $this->quantity;
+    }
 }
