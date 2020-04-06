@@ -21,6 +21,43 @@
         border: none;
       }
     </style>
+    
+    <div class="modal fade" id="OutInvModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Event Outsourced Items</h4>
+                    <button class="close" data-dismiss="modal">&times;</button>
+                </div>
+                
+                <div class="modal-body">
+                    <div class="row">
+                        <table class="table  align-items-center  mb-12" id="myTable" >
+                            <thead class="thead-light">
+                            <tr>
+                                <th> Item Name</th>
+                                <th> Quantity </th>
+                                <th> Quantity Created </th>
+                            </tr>
+                            </thead>
+                            <tbody>                                    
+                            @foreach ($outsource_inventory as $inv)
+                            <tr>
+                                <td>{{$inv->inventory()->inventory_name}}</td>
+                                <td>{{$inv->quantity}}</td>
+                                <td>{{$inv->get_quantity_created()}}</td>
+                             </tr>    
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container-fluid mt--7">
             {{-- <div class="col-xl-8 mb-5 mb-xl-0"> --}}
             <div class="col-xl-12 mb-5">
@@ -39,7 +76,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="row">
                             <div class="col-md-12">
                                 @if(session()->has('success'))
@@ -97,11 +133,10 @@
                                         </div>
                                         <input type="text" name="referenceNumber" id="eventName" class="form-control" value="{{$event->quantity_required}}" disabled>
                                     </div>
-                                    <small><a href="#">[click to view list of outsourced items]</a></small>
+                                    <small><a href="#" data-toggle="modal" data-target="#OutInvModal" >[click to view list of outsourced items]</a></small>
                                 </div>
                             </div>
                             <hr>
-                            
                             <h2>Purchase Orders Created</h2>
                             <div class="row">
                                 <div class="accordion" id="accordionExample" style="width:100%"> 
@@ -113,7 +148,7 @@
                                         <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse_{{$po->purchase_order_id}}" aria-expanded="true" aria-controls="collapseOne">
                                           Purchase Order - {{$po->reference_number}}
                                         </button>
-                                        <label  style="float: right"> P {{number_format($po->total , 2) }}</label>
+                                        <label  style="float: right"> P {{number_format($po->total , 2) }}@if($po->all_received == 0) /  <a href="{{ url('receive_purchase_order/'.$po->purchase_order_id) }}"  class="btn btn-link"><i class="ni ni-box-2"></i> Receive PO</a> @endif</label>
                                       </h4>
                                     </div>
                                     <div id="collapse_{{$po->purchase_order_id}}" class="collapse" aria-labelledby="heading_{{$po->purchase_order_id}}" data-parent="#accordionExample">
@@ -123,8 +158,7 @@
                                                 <label>Supplier Name: <b>{{$po->supplier_name}}</b></label><br>
                                                 <label>Delivery Date: <b>{{$po->expected_delivery_date}}</b></label><br>
                                                 <small><label style="color: gainsboro">Date Created:<b> {{$po->created_at}}</b></label></small>
-                                            </div>
-                                            
+                                            </div>       
                                         </div>
                                         <div class="row">
                                             <table class="table  align-items-center  mb-12" id="myTable" >
@@ -161,7 +195,6 @@
                             <hr>
                         </div>
                 </div>
-               
             </div>
         </div>
     </div>

@@ -29,4 +29,8 @@ class PurchaseOrderItemNew extends Model
     public function total(){
         return $this->rate * $this->quantity;
     }
+    
+    public function total_items_received(){
+        return PurchaseOrderItemAdd::where('po_item_id','=',$this->id)->sum('quantity');
+    }
 }

@@ -9,6 +9,7 @@ use App\events;
 use App\inventory;
 use App\PurchaseOrderNew;
 use App\PurchaseOrderItemNew;
+use App\PurchaseOrderItemAdd;
 use Carbon\Carbon;
 use App\EventOutsourceInventory;
 use Illuminate\Http\Request;
@@ -25,29 +26,33 @@ class PurchaseOrderControllerNew extends Controller
         error_log("disp: "."69");
         $event_with_outsource = $event_obj->events_with_outsource();
         foreach($event_with_outsource as $event){
-
             $event->all_created = 0;
             $event->quantity_created = $event->outsource_quantity_created();
             $event->quantity_required = $event->outsource_quantity_required();
             
-            if($event->quantity_created == 0){
-                $event->status = "No Purchase Orders Created";
-                $event->status_color = "orange";
-            }
-            elseif($event->quantity_created == $event->quantity_required){
+            if($event->all_po_created()){
                 $event->all_created = 1;
-                $event->status = "All Purchase Order Request Created";
+                $event->status = "All Purchase Order Created";
                 $event->status_color = "green";
-            }
-            else{
-                $event->status = "Purchase Orders Partially Created";
-                $event->status_color = "blue";
-            }
+            }else{
+                if($event->quantity_created == 0){
+                    $event->status = "No Purchase Orders Created";
+                    $event->status_color = "orange";
+                }else{      
+                    $event->all_created = 2;
+                    $event->status = "Purchase Orders Partially Created";
+                    $event->status_color = "blue";
+                }
+            } 
         }
         $purchaseOrders = PurchaseOrderNew::all();
         foreach($purchaseOrders as $po){
             //code for setting PO's fulfilled
-            $po->all_fulfilled = 0;
+            //0 none received, 1, partial received, 2 all received
+            $po->receive_status = $po->receive_status();
+            $po->receive_status_text = $po->receive_status_text($po->receive_status);
+            $po->quantity_required = $po->totalQuantity();
+            $po->quantity_received = $po->total_items_received();
         }
         
         $suppliers = Supplier::select(['supplier_id', 'name'])->get();
@@ -59,8 +64,7 @@ class PurchaseOrderControllerNew extends Controller
     {
         $po_obj = new PurchaseOrderNew();
         $event = events::where('event_id','=',$event_id)->first();
-        $date = date('2011-11-25');
-
+     
         $newdate = strtotime ( '-3 day' , strtotime ( $event->event_start ) ) ;
         $newdate = date ( 'Y-m-j' , $newdate );
 
@@ -106,6 +110,7 @@ class PurchaseOrderControllerNew extends Controller
             $po->supplier_name = $po->supplier()->name;
             $po->po_items = $po->items();
             $po->total = $po->total();
+            $po->all_received = 0; //towrite all function give me sight.
             $po->expected_delivery_date = date ( 'Y-m-j' , strtotime('+0 day', strtotime($po->expected_delivery_date)));
             $po->created_at = $po->created_at;
             $event->total_amount += $po->total;
@@ -154,16 +159,37 @@ class PurchaseOrderControllerNew extends Controller
         
         return redirect('/purchase-order-list/');
     }
-    public function receive($purchase_order_id)
+    public function get_receive($po_id)
     {
-        $order = PurchaseOrderNew::where("purchase_order_id",'=',$purchase_order_id)->first();
-        $order->update([
-            'status' => 'received'
-        ]);
-        $order->save();
+        $po_obj = PurchaseOrderNew::where('purchase_order_id','=',$po_id)->first();
+        $event = events::where('event_id','=',$po_obj->event_id)->first();
+     
+        $po_obj->expected_delivery_date = strtotime ( '+0 day' , strtotime ( $po_obj->expected_delivery_date ) ) ;
+        $po_obj->expected_delivery_date = date ( 'Y-m-j' , $po_obj->expected_delivery_date );
 
-        return response()->json([
-            'message' => 'Success'
-        ]);
+        
+        $po_items = PurchaseOrderItemNew::where('purchase_order_id','=',$po_id)->get();
+        foreach($po_items as $po_item){
+            $po_item->qty_received = (is_null($po_item->total_items_received()) ?  0 : $po_item->total_items_received());
+        }
+        return view('purchase_orders.receive_po', ['event' => $event,
+        'po'=>$po_obj,
+        'po_items' => $po_items]);
+    }
+    public function receive(Request $request)
+    {
+        for($i=0; $i<count($request->input("po_item_ids"));$i++){
+            if($request->get("itemQuantity")[$i] != 0){ 
+                $po_item_add = new PurchaseOrderItemAdd();
+
+                $po_item_add->po_item_id = $request->input("po_item_ids")[$i];
+                $po_item_add->quantity = $request->get("itemQuantity")[$i];
+                
+                $po_item_add->date_fulfilled = Carbon::now();
+                $po_item_add->created_at = Carbon::now();
+                $po_item_add->save();
+            }
+        }
+        return redirect('/purchase-order-list/');
     }
 }

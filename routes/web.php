@@ -225,7 +225,9 @@ Route::get('add_purchase_order/{event_id}', 'PurchaseOrderControllerNew@get_add_
 Route::post('add_purchase_order/post', 'PurchaseOrderControllerNew@store')->name('add_po.post');
 Route::get('event_po_detail/{event_id}', 'PurchaseOrderControllerNew@event_po_detail')->name('get_po.get');
 
-Route::post('receive_purchase_order/{purchase_order_id}', 'PurchaseOrderControllerNew@store');
+Route::get('receive_purchase_order/{purchase_order_id}', 'PurchaseOrderControllerNew@get_receive');
+
+Route::post('receive_purchase_order/post', 'PurchaseOrderControllerNew@receive');
 
 Route::resource('inventory','InventoryController');
 Route::get('updateInventory/{id}', 'InventoryController@editRecord');

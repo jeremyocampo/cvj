@@ -42,7 +42,7 @@
                                         <th> Event Name </th>
                                         <th> Event Start Date</th>
                                         <th>Total Amount</th>
-                                        <th> <center>Total Quantity Created/Required</center></th>
+                                        <th> <center>Total QTY Created/Required</center></th>
                                         <th> Status </th>
                                         <th> Action </th>
                                         
@@ -50,12 +50,12 @@
                                     </thead>
                                     <tbody>                                    
                                     @foreach ($outsource_events as $i)
+                                    <tr>
                                         <td><h3>{{$i->event_name}}</h3></td>
-                                        <td><h3>{{ Carbon\Carbon::parse($i->event_start)->format('F j, Y') }} </h3></td>
-                                       <td><h3>P {{number_format($i->get_po_total_amt() , 2) }}</h3></td>
-                                        <td><center><h3>{{$i->quantity_created}}/<b>{{$i->quantity_required}}</b></center></h3></td>
-                                        
-                                    <td><h3 style="color: {{$i->status_color}}">{{$i->status}}</h2></td>
+                                        <td><h4>{{ Carbon\Carbon::parse($i->event_start)->format('F j, Y') }} </h4></td>
+                                        <td><h4>P {{number_format($i->get_po_total_amt() , 2) }}</h4></td>
+                                        <td><center><h4>{{$i->quantity_created}}/<b>{{$i->quantity_required}}</b></center></h4></td>
+                                        <td>@if($i->all_created == 1) <i style="color:#3dff18" style="display:inline" class="fa fa-check-circle"></i> @endif <h4 style="display:inline;color: {{$i->status_color}}">{{$i->status}}</h4></td>
                                         <td class="popup">
                                             <div class="dropdown">
                                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
@@ -77,7 +77,8 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        @endforeach
+                                    </tr>
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -89,6 +90,7 @@
                                             <th>Event</th>
                                             <th>Supplier</th>
                                             <th>Expected Delivery Date</th>
+                                            <th></th>
                                             <th>Status</th>
                                             <th>Action</th>
                                         </tr>
@@ -100,7 +102,8 @@
                                         <td>{{$i->event()->event_name}}</td>
                                         <td>{{$i->supplier()->name}}</td>
                                         <td>{{ Carbon\Carbon::parse($i->expected_delivery_date)->format('F j, Y') }} </td>
-                                        <td>{{$i->status}}</td>
+                                        <td>{{$i->receive_status_text}}</td>
+                                        <td><h4>{{$i->quantity_received}}/<b>{{$i->quantity_required}}</b></h4></td>
                                         <td class="popup">
                                             <div class="dropdown">
                                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
@@ -111,14 +114,14 @@
                                                         <h6 class="text-overflow m-0">{{ __('Please Select an Action!') }}</h6>
                                                     </div>
                                                     <div class="dropdown-divider"></div>
-                                                    <a href="#" data-toggle="modal" data-target="#receiveModal" 
+                                                    <a  href="{{ url('receive_purchase_order/'.$i->purchase_order_id) }}"
                                                    {{-- Emmbed fields for the PO here for receipt. --}} 
                                                     class="dropdown-item @if($i->all_fulfilled  == 1) disabled @endif">
-                                                        <i class="ni ni-collection"></i>
+                                                        <i class="ni ni-box-2"></i>
                                                         <span>Receive Purchase Order</span>
                                                     </a>
                                                     <a href="{{ url('event_po_detail/'.$i->event_id) }}" class="dropdown-item">
-                                                        <i class="ni nii-zoom-split-in"></i>
+                                                        <i class="ni ni-zoom-split-in"></i>
                                                         <span>View Event PO Details</span>
                                                     </a>
                                                 </div>

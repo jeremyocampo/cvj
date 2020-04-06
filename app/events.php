@@ -50,7 +50,6 @@ class events extends Model
         return Client::where('client_id','=',$this->client_id)->first();
     }
 
-
     public function reset_event_dish_cost_amount(){
         // Code goes here
         $event_dishes = EventDishes::where('event_id','=',$this->event_id)->get();
@@ -118,6 +117,16 @@ class events extends Model
             $total += $eoi->get_quantity_created();
         }
         return $total;
+    }
+    
+    public function all_po_created(){
+        $eois = EventOutsourceInventory::where('event_id','=',$this->event_id)->get();
+        foreach($eois as $eoi){
+            if($eoi->get_quantity_created() < $eoi->quantity){
+                return false;
+            }
+        }
+        return true;
     }
     public function get_po_total_amt(){
         $total = 0;

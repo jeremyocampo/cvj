@@ -19,15 +19,14 @@ class PurchaseOrderItem extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        'item',
-        'rate',
-        'quantity',
-        'total'
-    ];
+
 
     public function purchaseOrder()
     {
         return $this->belongsTo(PurchaseOrder::class);
     }
+    public function total_items_received(){
+        return PurchaseOrderItemAdd::where('po_item_id','=',$this->id)->sum('quantity');
+    }
+
 }
