@@ -128,6 +128,9 @@ class events extends Model
         }
         return true;
     }
+    public function purchase_orders(){
+        return PurchaseOrderNew::where('event_id','=',$this->event_id)->get();
+    }
     public function get_po_total_amt(){
         $total = 0;
         $existing_pos = PurchaseOrderNew::where('event_id','=',$this->event_id)->get();
@@ -136,6 +139,29 @@ class events extends Model
         } 
         
         return $total;
+    }
+    public function number_of_pos(){
+        return count($this->purchase_orders());
+    }
+    public function number_of_returned_pos(){
+        $pos = collect($this->purchase_orders())->filter(function ($po, $key) {
+            return $po->status == 'returned';
+        });
+        return count($pos);
+    }
+    public function po_return_status(){
+        $ret_pos = $this->number_of_returned_pos();
+        $num_pos = $this->number_of_pos();
+        //0 means no returned.
+        if($ret_pos == 0){
+            return 0;
+        }
+        //2 is all returned
+        if($ret_pos == $num_pos){
+            return 2;
+        }
+        //1 is partially returned
+        return 1;
     }
     public function outsource_quantity_required(){
         return EventOutsourceInventory::where('event_id','=',$this->event_id)->sum('quantity');

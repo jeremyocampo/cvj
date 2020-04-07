@@ -36,6 +36,9 @@ class PurchaseOrderNew extends Model
     {
         return PurchaseOrderItemNew::where('purchase_order_id','=',$this->purchase_order_id)->get();
     }
+    public function is_max(){
+        return ($this->receive_status() == 2) ? true : false;
+    }
     public function receive_status(){
         $rcvd = $this->total_items_received();
         if($rcvd == $this->totalQuantity()){
@@ -45,6 +48,16 @@ class PurchaseOrderNew extends Model
             return 0;
         }
         return 1;
+    }
+    public function status_update(){
+        if($this->receive_status() == 2 && $this->status != 'returned'){
+            $this->status = 'received';
+            $this->save();
+        }
+    }
+    public function return_items(){
+        $this->status = 'returned';
+        $this->save();
     }
     public function total_items_received(){
         $po_items = $this->items();

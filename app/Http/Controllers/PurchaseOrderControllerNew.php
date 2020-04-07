@@ -23,8 +23,16 @@ class PurchaseOrderControllerNew extends Controller
     public function index()
     {
         $event_obj = new events();
-        error_log("disp: "."69");
         $event_with_outsource = $event_obj->events_with_outsource();
+        //filter only those with returns
+        $event_with_returns = collect($event_with_outsource)->filter(function ($event, $key) {
+            return $event->status == 5;
+        });
+        error_log("returns count: ".count($event_with_returns));
+        
+        //$event_with_outsource = collect($event_with_outsource)->filter(function ($event, $key) {
+        //    return $event->status != 5;
+        //});
         foreach($event_with_outsource as $event){
             $event->all_created = 0;
             $event->quantity_created = $event->outsource_quantity_created();
@@ -46,6 +54,8 @@ class PurchaseOrderControllerNew extends Controller
             } 
         }
         $purchaseOrders = PurchaseOrderNew::all();
+        $unrcvd_pos = 0;
+        
         foreach($purchaseOrders as $po){
             //code for setting PO's fulfilled
             //0 none received, 1, partial received, 2 all received
@@ -53,12 +63,17 @@ class PurchaseOrderControllerNew extends Controller
             $po->receive_status_text = $po->receive_status_text($po->receive_status);
             $po->quantity_required = $po->totalQuantity();
             $po->quantity_received = $po->total_items_received();
+            if($po->receive_status() == 2){
+                $unrcvd_pos +=1;
+            }
         }
-        
+        $unrcvd_pos = count($purchaseOrders) - $unrcvd_pos;
         $suppliers = Supplier::select(['supplier_id', 'name'])->get();
         
         //make a filtered object for tracking returns items
-        return view('purchase_orders.index', ['purchaseOrders' => $purchaseOrders, 'suppliers' => $suppliers,'outsource_events'=>$event_with_outsource]);
+        return view('purchase_orders.index', ['purchaseOrders' => $purchaseOrders, 
+        'suppliers' => $suppliers,'outsource_events'=>$event_with_outsource,
+        'events_with_returns'=>$event_with_returns,'unrcvd_pos'=>$unrcvd_pos]);
     }
     public function get_add_po($event_id)
     {
@@ -190,6 +205,22 @@ class PurchaseOrderControllerNew extends Controller
                 $po_item_add->save();
             }
         }
+        return redirect('/purchase-order-list/');
+    }
+    public function return_pos(Request $request){
+        for($i=0; $i<count($request->input("po_ids"));$i++){
+                $po_obj = PurchaseOrderNew::where('purchase_order_id','=',$request->input("po_ids")[$i])->first();
+                $po_obj->status = 'returned';
+                $po_obj->save();
+                //$po_obj->return_items(); 
+            }
+            
+        return redirect('/purchase-order-list/');
+    }
+    public function return($po_id){
+        $po_obj = PurchaseOrderNew::where('purchase_order_id','=',$po_id)->first();
+        $po_obj->return_items();
+        
         return redirect('/purchase-order-list/');
     }
 }

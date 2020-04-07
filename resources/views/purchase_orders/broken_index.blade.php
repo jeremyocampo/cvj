@@ -1,6 +1,3 @@
-{{-- @extends('supplier.layout.dashboard') --}}
-
-@extends('layouts.app')
 
 @section('content')
 @include('layouts.headers.inventoryCard1')
@@ -10,44 +7,9 @@
     cursor: default;
     }
 </style>
-    
-<div class="modal fade" id="returnModal">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <form method="POST" action="{{url('return_pos/post')}}" id="return_form">
-                
-                {{ csrf_field() }}
-                <div class="modal-header">
-                    <h4 class="modal-title">Return Purchase Order/Items</h4>
-                    <button class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <h3 id="return_txt"></h3>
-                    <hr>
-
-                    <table class="table align-items-center  mb-3" id="myTable" >
-                        <thead class="thead-light">
-                            <tr>
-                                <th>PO Reference Number</th>
-                                <th>Supplier</th>
-                                <th>Items</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody id="return_pos_tbl">
-                      
-                        </tbody>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-success" type="submit">Submit</button>
-                    <button class="btn btn-danger" data-dismiss="modal">Close</button>
-                </div>               
-            </form>
-        </div>
-    </div>
-</div>
+    {{-- <div class="header bg-gradient-logo-color pb-8 pt-5 pt-md-8"></div> --}}
     <div class="container-fluid mt--7">
+        {{-- <div class="row"> --}}
             <div class="col-12">
                 <div class="card shadow">
                     <div class="card-header">
@@ -63,10 +25,10 @@
                                 <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Events with Outsourcing</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Purchase Orders Created</a>
+                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Purchase Orders Created <span class="badge badge-warning">{{$unrcvd_pos}}</span></a></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Lease Returns</a>
+                                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Lease Returns    
                             </li>
                         </ul>
                         <div class="tab-content" id="myTabContent">
@@ -79,8 +41,7 @@
                                         <th>Total Amount</th>
                                         <th> <center>Total QTY Created/Required</center></th>
                                         <th> Status </th>
-                                        <th> Action </th>
-                                        
+                                        <th> Action </th>     
                                     </tr>
                                     </thead>
                                     <tbody>                                    
@@ -173,9 +134,8 @@
                                         <tr>
                                             <th>Event Name</th>
                                             <th>Date</th>
-                                            <th>POs Returned/Created</th>
-                                            
                                             <th>Status</th>
+                                            <th>POs Returned/Created</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -184,15 +144,8 @@
                                     <tr>
                                         <td><h3>{{$i->event_name}}</h3></td>
                                         <td><h4>{{ Carbon\Carbon::parse($i->event_start)->format('F j, Y') }} </h4></td>
-                                        <td><center><h4>{{$i->number_of_returned_pos()}}/<b>{{$i->number_of_pos()}}</b></center></h4></td>
-                                        <td>@if($i->po_return_status() == 2) <i style="color:#3dff18" style="display:inline" class="fa fa-check-circle"></i> 
-                                            All Purchase Orders Returned to Suppliers
-                                            @elseif($i->po_return_status() == 1)
-                                            Purchase Orders Partially Returned to Suppliers
-                                            @else
-                                            No Purchase Orders Returned to Suppliers
-                                            @endif 
-                                        </td>
+                                        <td><center><h4>{{$i->quantity_created}}/<b>{{$i->quantity_required}}</b></center></h4></td>
+                                        <td>@if($i->all_created == 1) <i style="color:#3dff18" style="display:inline" class="fa fa-check-circle"></i> @endif <h4 style="display:inline;color: {{$i->status_color}}">{{$i->status}}</h4></td>
                                         <td class="popup">
                                             <div class="dropdown">
                                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
@@ -204,7 +157,7 @@
                                                     </div>
                                                     <div class="dropdown-divider"></div>
                                                     <a href="#" data-target="#returnModal" onclick="modal_launch(this)" data-toggle="modal" 
-                                                    data-event_name="{{$i->event_name}}" data-pos="@foreach($i->purchase_orders() as $po)({{$po->purchase_order_id}}|{{$po->supplier()->name}}|{{$po->reference_number}}|{{$po->status}}|{{$po->totalQuantity()}}),@endforeach"
+                                                        data-pos="@foreach($i->purchase_orders() as $po)({{$po->purchase_order_id}},{{$po->supplier()->name}},{{$po->status}}),@endforeach"
                                                     class="dropdown-item">
                                                         <i class="ni ni-collection"></i>
                                                         <span>Return POs</span>
@@ -225,37 +178,50 @@
                     </div>
                 </div>
             </div>
+    <div class="modal fade" id="returnModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form method="POST" action="{{url('return_pos/post')}}" id="return_form">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Return Purchase Order/Items</h4>
+                        <button class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="return_pos_div">
+                            <div class="form-check">
+                            <label class="form-check-label">
+                              <input type="checkbox" class="form-check-input" value="">Option 1
+                            </label>
+                          </div>
+                          <div class="form-check">
+                            <label class="form-check-label">
+                              <input type="checkbox" class="form-check-input" value="">Option 2
+                            </label>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-success" type="submit" disabled>Submit</button>
+                        <button class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>               
+                </form>
+            </div>
+        </div>
+    </div>
 @stop
 
 
 
 @push('js')
     <script>
-    function arr_insert(item, index){
-        item_str = item.substring(1, item.length-1);
-        console.log("itm: "+item)
-        arr = item_str.split("|");
-        stat_msg = 'For Return';
-        app_str = '<tr><td><div class="form-check"><label class="form-check-label">';
-        if(arr[3] != 'returned'){
-            app_str += '<input type="checkbox" class="form-check-input" name="po_ids[]" value="'+arr[0]+'"><h3> PO-'+arr[2]+'</h3></td></label></div>';
+        function modal_launch(obj){
+            let str = $(obj).attr('data-pos');
+            let arr = str.split(",");
+            console.log("array splitted: "+arr);
+
         }
-        else{
-            app_str += '<h3> PO-'+arr[2]+'</h3></td></label></div>';
-            stat_msg = '<i style="color:#3dff18" style="display:inline" class="fa fa-check-circle"></i> Returned'
-        }
-        app_str += '<td>'+arr[1]+'</td><td>'+arr[4]+'</td><td>'+stat_msg+'</td>';
-        app_str += '</tr>';
-        $("#return_pos_tbl").append(app_str);
-    }
-    function modal_launch(obj){
-        let str = $(obj).attr('data-pos');
-        let arr = str.split(",");
-        $("#return_txt").html($(obj).attr('data-event_name'))
-        $("#return_pos_div").empty();
-        arr.pop();
-        arr.forEach(arr_insert);
-    }
-    
+        $('#addPO').on('click', function() {
+            $('#modalPO').modal('show');
+        });
     </script>
 @endpush

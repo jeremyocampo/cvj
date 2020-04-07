@@ -148,13 +148,18 @@
                                         <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse_{{$po->purchase_order_id}}" aria-expanded="true" aria-controls="collapseOne">
                                           Purchase Order - {{$po->reference_number}}
                                         </button>
-                                        <label  style="float: right"> P {{number_format($po->total , 2) }}@if($po->all_received == 0) /  <a href="{{ url('receive_purchase_order/'.$po->purchase_order_id) }}"  class="btn btn-link"><i class="ni ni-box-2"></i> Receive PO</a> @endif</label>
+                                        <label  style="float: right"> P {{number_format($po->total , 2) }}</label>
                                       </h4>
                                     </div>
                                     <div id="collapse_{{$po->purchase_order_id}}" class="collapse" aria-labelledby="heading_{{$po->purchase_order_id}}" data-parent="#accordionExample">
                                       <div class="card-body">
                                         <div class="row">
                                             <div>
+                                                @if($po->is_max() != true)<a href="{{ url('receive_purchase_order/'.$po->purchase_order_id) }}" style="margin-left: 0;padding-left:0;" class="btn btn-link"><i class="ni ni-box-2"></i> Receive PO</a>
+                                                @else
+                                                <small> <b><i style="color:#3dff18" style="display:inline" class="fa fa-check-circle"></i> All Purchase Order Items received.</b></small>
+                                                @endif
+                                                <br>
                                                 <label>Supplier Name: <b>{{$po->supplier_name}}</b></label><br>
                                                 <label>Delivery Date: <b>{{$po->expected_delivery_date}}</b></label><br>
                                                 <small><label style="color: gainsboro">Date Created:<b> {{$po->created_at}}</b></label></small>
@@ -167,6 +172,7 @@
                                                     <th> Item Name</th>
                                                     <th> Rate </th>
                                                     <th> Quantity </th>
+                                                    <th> Quantity Received</th>
                                                     <th> Subtotal Amount</th>
                                                 </tr>
                                                 </thead>
@@ -176,12 +182,13 @@
                                                     <td>{{$po_item->name}}</td>
                                                     <td>{{$po_item->rate}}</td>
                                                     <td>{{$po_item->quantity}}</td>
+                                                    <td>{{$po_item->total_items_received()}}</td>
                                                     <td>P {{number_format($po_item->total() , 2) }}</td>
                                                  </tr>    
                                                 @endforeach
                                                 <tr>
                                                     <td><h3>TOTAL</h3></td><td>-----</td><td>-----</td>
-                                                    <td> <h3>P {{number_format($po->total , 2) }} </h3></td>
+                                                    <td></td><td> <h3>P {{number_format($po->total , 2) }} </h3></td>
                                                 </tr>
                                                 </tbody>
                                             </table>

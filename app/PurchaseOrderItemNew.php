@@ -29,8 +29,12 @@ class PurchaseOrderItemNew extends Model
     public function total(){
         return $this->rate * $this->quantity;
     }
+    public function is_max(){
+        return ($this->quantity == $this->total_items_received()) ? true : false;
+    }
     
     public function total_items_received(){
-        return PurchaseOrderItemAdd::where('po_item_id','=',$this->id)->sum('quantity');
+        $po_item_rcvd = PurchaseOrderItemAdd::where('po_item_id','=',$this->id)->sum('quantity');
+        return (is_null($po_item_rcvd) ? 0 : $po_item_rcvd );
     }
 }

@@ -126,8 +126,8 @@
                                                 <input type="hidden" name="po_item_ids[]" value="{{$po_item->id}}">
                                                 <td><input type="text" name="itemName" id="itemName" class="form-control itm_nms" value="{{$po_item->name}}" readonly></td>
                                                 <td><input type="number" step="any" name="itemRate[]" value="{{$po_item->rate}}" onchange="computed()" data-inv_id="{{$po_item->id}}" id="itemRate_{{$po_item->id}}" class="disabld form-control computed" readonly></td>
-                                                <td><input type="number" name="itemQuantity[]" value="0" onchange="validated(this)" data-max="{{$po_item->quantity}}" data-rate="{{$po_item->rate}}" data-inv_id="{{$po_item->id}}" data-created="{{$po_item->qty_received}}" id="itemQuantity_{{$po_item->id}}" class="form-control inv_qty"></td>
-                                                <td><h3>{{$po_item->qty_received}}<b>/{{$po_item->quantity}}</b></h3></td>
+                                                <td><input type="number" name="itemQuantity[]" value="0" onchange="validated(this)" data-max="{{$po_item->quantity}}" data-rate="{{$po_item->rate}}" data-inv_id="{{$po_item->id}}" data-created="{{$po_item->qty_received}}" id="itemQuantity_{{$po_item->id}}" class="form-control inv_qty" @if($po_item->is_max()) readonly @endif></td>
+                                                <td><h3 style="margin-bottom: 0;padding-bottom:0">{{$po_item->qty_received}}<b>/{{$po_item->quantity}}</b></h3> @if($po_item->is_max())  <small><i style="color:#3dff18" style="display:inline" class="fa fa-check-circle"></i> all items received</small> @endif</td>
                                                 <td><h3>P <b id="inv_total_{{$po_item->id}}">0.0</b></h3></td>
                                             </tr>
                                             @endforeach
