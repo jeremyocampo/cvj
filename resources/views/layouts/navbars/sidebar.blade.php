@@ -184,15 +184,9 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('purchase-orders.index') }}" class="nav-link">
-                                        <i class="fa fa-money-bill-alt text-warning"></i>
-                                        Purchase Order(old)
-                                    </a>
-                                </li>
-                                <li class="nav-item">
                                     <a href="{{ url('purchase-order-list') }}" class="nav-link">
                                         <i class="fa fa-money-bill-alt text-primary"></i>
-                                        Purchase Order(NEW)
+                                        Purchase Order
                                     </a>
                                 </li>
                                 {{-- <li class="nav-item">
@@ -298,15 +292,9 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="{{ route('purchase-orders.index') }}" class="nav-link">
-                                            <i class="fa fa-money-bill-alt text-warning"></i>
-                                            Purchase Order(old)
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
                                         <a href="{{ url('purchase-order-list') }}" class="nav-link">
                                             <i class="fa fa-money-bill-alt text-primary"></i>
-                                            Purchase Order(NEW)
+                                            Purchase Order
                                         </a>
                                     </li>
                                     <li class="nav-item">
