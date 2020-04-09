@@ -167,7 +167,7 @@ class PurchaseOrderControllerNew extends Controller
                 $po_item->rate =  $request->get("itemRate")[$i];
                 $po_item->quantity = $request->get("itemQuantity")[$i];
                 
-                $po_item->created_at = Carbon::now();
+                //$po_item->created_at = Carbon::now();
                 $po_item->save();
             }
         }

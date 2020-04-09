@@ -136,7 +136,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="<?php echo e(route('purchase-orders.index'), false); ?>" class="nav-link">
+                                    <a href="<?php echo e(url('purchase-order-list'), false); ?>" class="nav-link">
                                         <i class="fa fa-money-bill-alt text-primary"></i>
                                         Purchase Order
                                     </a>
@@ -242,7 +242,7 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="<?php echo e(route('purchase-orders.index'), false); ?>" class="nav-link">
+                                        <a href="<?php echo e(url('purchase-order-list'), false); ?>" class="nav-link">
                                             <i class="fa fa-money-bill-alt text-primary"></i>
                                             Purchase Order
                                         </a>
